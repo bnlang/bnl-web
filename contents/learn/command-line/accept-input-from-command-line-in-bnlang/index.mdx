@@ -1,0 +1,175 @@
+---
+title: Accept Input from Command Line in Bnlang
+description: Learn how to accept user input from the command line in Bnlang with examples in English, Bangla, and Banglish.
+bnTitle: Bnlang এ কমান্ড লাইন থেকে ইনপুট নেওয়া
+bnDescription: Bnlang এ কমান্ড লাইন থেকে ইউজার ইনপুট নেওয়ার উদাহরণ।
+banglishTitle: Accept Input from Command Line in Bnlang
+banglishDescription: Bnlang e command line theke user input newar udahoron English, Bangla ar Banglish e.
+---
+
+# <I18nEnglish>Accept Input from Command Line in Bnlang</I18nEnglish>
+# <I18nBangla>Bnlang এ কমান্ড লাইন থেকে ইনপুট নেওয়া</I18nBangla>
+# <I18nBanglish>Accept Input from Command Line in Bnlang</I18nBanglish>
+
+<I18nEnglish>
+In **Bnlang**, you can accept input from the command line using the built‑in **`process.argv`** array.  
+It contains all arguments passed when running the program. The first two elements are the runtime and script path, and the rest are user inputs.
+</I18nEnglish>
+
+<I18nBangla>
+**Bnlang** এ **`process.argv`** অ্যারে ব্যবহার করে কমান্ড লাইন থেকে ইনপুট নেওয়া যায়।  
+এতে প্রোগ্রাম চালানোর সময় দেওয়া সব আর্গুমেন্ট থাকে। প্রথম দুটি মান হলো রানটাইম এবং স্ক্রিপ্ট পাথ, বাকি গুলো ইউজার ইনপুট।
+</I18nBangla>
+
+<I18nBanglish>
+**Bnlang** e **`process.argv`** array diye command line theke input newa jay.  
+Ete program run korar shomoy deya shob argument thake. Prothom duita holo runtime ar script path, baki gulo user input.
+</I18nBanglish>
+
+---
+
+## Example: Reading Arguments
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+// file: greet.bnl
+const args = process.argv.slice(2);
+const name = args[0] || "Guest";
+
+console.log("Hello,", name);
+```
+
+```sh
+bnl greet.bnl Alice
+# Output: Hello, Alice
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ফাইল: greet.bnl
+const আর্গুমেন্ট = process.argv.slice(2);
+const নাম = আর্গুমেন্ট[0] || "অতিথি";
+
+কনসোল.লগ("হ্যালো,", নাম);
+```
+
+```sh
+bnl greet.bnl আলিস
+# আউটপুট: হ্যালো, আলিস
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// file: greet.bnl
+const argument = process.argv.slice(2);
+const nam = argument[0] || "Guest";
+
+console.log("Hello,", nam);
+```
+
+```sh
+bnl greet.bnl Alis
+# Output: Hello, Alis
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Example: Accept Multiple Inputs
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+// file: sum.bnl
+const args = process.argv.slice(2);
+const a = Number(args[0]);
+const b = Number(args[1]);
+
+console.log("Sum:", a + b);
+```
+
+```sh
+bnl sum.bnl 5 7
+# Output: Sum: 12
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ফাইল: sum.bnl
+const আর্গ = process.argv.slice(2);
+const ক = সংখ্যা(আর্গ[0]);
+const খ = সংখ্যা(আর্গ[1]);
+
+কনসোল.লগ("যোগফল:", ক + খ);
+```
+
+```sh
+bnl sum.bnl 5 7
+# আউটপুট: যোগফল: 12
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// file: sum.bnl
+const arg = process.argv.slice(2);
+const a = Number(arg[0]);
+const b = Number(arg[1]);
+
+console.log("Jogfol:", a + b);
+```
+
+```sh
+bnl sum.bnl 5 7
+# Output: Jogfol: 12
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Always validate and sanitize input values.  
+- Provide default values to handle missing arguments.  
+- Use libraries for advanced parsing (e.g., options, flags).  
+- Print usage help when invalid inputs are given.
+</I18nEnglish>
+
+<I18nBangla>
+- ইনপুট সবসময় যাচাই এবং স্যানিটাইজ করুন।  
+- আর্গুমেন্ট না থাকলে ডিফল্ট মান দিন।  
+- উন্নত পার্সিংয়ের জন্য লাইব্রেরি ব্যবহার করুন (যেমন অপশন, ফ্ল্যাগ)।  
+- ভুল ইনপুট এলে হেল্প মেসেজ দেখান।
+</I18nBangla>
+
+<I18nBanglish>
+- Input always validate ar sanitize korun.  
+- Argument na thakle default value din.  
+- Advanced parsing er jonno library use korun (option, flag).  
+- Wrong input dile usage help print korun.
+</I18nBanglish>

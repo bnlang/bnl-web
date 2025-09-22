@@ -1,0 +1,133 @@
+---
+title: path module
+description: Path utilities for working with file and directory paths—join, resolve, normalize, parse, format, dirname, basename, extname, relative, and separators.
+bnTitle: path মডিউল
+bnDescription: ফাইল ও ডিরেক্টরির পাথ নিয়ে কাজের জন্য ইউটিলিটি—join, resolve, normalize, parse, format, dirname, basename, extname, relative ইত্যাদি।
+banglishTitle: path module
+banglishDescription: File & directory path utility—join, resolve, normalize, parse, format, dirname, basename, extname, relative, separators.
+---
+
+# <I18nEnglish>path</I18nEnglish>
+# <I18nBangla>path</I18nBangla>
+# <I18nBanglish>path</I18nBanglish>
+
+<I18nEnglish>
+The **`path`** module provides utilities to work with filesystem paths in a consistent way across platforms.
+</I18nEnglish>
+
+<I18nBangla>
+**`path`** মডিউল ফাইলসিস্টেম পাথ নিয়ে কাজ করার জন্য ইউটিলিটি দেয়, প্ল্যাটফর্মভেদে সঙ্গতিপূর্ণভাবে।
+</I18nBangla>
+
+<I18nBanglish>
+**`path`** module filesystem path niye kaj korar jonno utility dey, cross-platform consistency diye.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Core Methods
+- **`path.join(...segments)`** — concatenate path segments, normalizing separators.
+- **`path.resolve(...segments)`** — resolve into an absolute path.
+- **`path.normalize(p)`** — fix `..`, `.` and redundant separators.
+- **`path.isAbsolute(p)`** — check if absolute.
+
+### Name utilities
+- **`path.basename(p, [ext])`** — last part of path (file name).
+- **`path.dirname(p)`** — directory portion.
+- **`path.extname(p)`** — extension (with leading dot).
+
+### Object conversion
+- **`path.parse(p)`** — split into `{ root, dir, base, name, ext }`.
+- **`path.format(obj)`** — inverse of `parse`.
+
+### Other
+- **`path.relative(from, to)`** — relative path from one to another.
+- **`path.sep`** — path separator (`/` on POSIX, `\\` on Windows).
+- **`path.delimiter`** — PATH env separator (`:` on POSIX, `;` on Windows).
+
+</I18nEnglish>
+
+<I18nBangla>
+### প্রধান ফাংশন
+- **`join/resolve/normalize/isAbsolute`** — পাথ জোড়া, অ্যাবসোলিউট করা, নরমালাইজ।
+- **`basename/dirname/extname`** — নাম সম্পর্কিত ফাংশন।
+- **`parse/format`** — অবজেক্ট আকারে ভাঙা ও তৈরি।
+- **`relative/sep/delimiter`** — আপেক্ষিক পথ, সেপারেটর।
+</I18nBangla>
+
+<I18nBanglish>
+### Functions
+- **`join/resolve/normalize/isAbsolute`** — path concat, absolute, normalize.
+- **`basename/dirname/extname`** — name utilities.
+- **`parse/format`** — object convert & rebuild.
+- **`relative/sep/delimiter`** — relative path, separators.
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const path = require("path");
+
+// Join & normalize
+console.log(path.join("a", "b", "c.txt")); // a/b/c.txt
+
+// Absolute resolution
+console.log(path.resolve("a/b", "../c.txt"));
+
+// Dirname, basename, extname
+console.log(path.dirname("/tmp/file.txt")); // /tmp
+console.log(path.basename("/tmp/file.txt")); // file.txt
+console.log(path.extname("/tmp/file.txt")); // .txt
+
+// Parse & format
+const obj = path.parse("/tmp/demo.js");
+console.log(obj);
+console.log(path.format(obj));
+
+// Relative
+console.log(path.relative("/data/orig", "/data/orig/sub/file"));
+
+// Separators
+console.log("sep:", path.sep);
+console.log("delimiter:", path.delimiter);
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Use **`path.join`** when concatenating user-supplied or dynamic segments.  
+- Use **`path.resolve`** when you need an absolute path relative to CWD.  
+- Extensions include the dot (`.txt`). Use `basename(p, ".txt")` to strip it.  
+- `path.sep` and `path.delimiter` differ across operating systems; avoid hardcoding `/` or `:`.  
+</I18nEnglish>
+
+<I18nBangla>
+- ইউজার বা ডাইনামিক সেগমেন্ট যোগ করতে **`join`** ব্যবহার করুন।  
+- অ্যাবসোলিউট পাথ প্রয়োজন হলে **`resolve`**।  
+- এক্সটেনশনে ডট থাকে (`.txt`)।  
+- `sep` ও `delimiter` আলাদা হতে পারে, হার্ডকোড করবেন না।  
+</I18nBangla>
+
+<I18nBanglish>
+- User/dynamic segment jog korte **`join`** use korun.  
+- Absolute path lagle **`resolve`** use korun.  
+- Extension e dot thake (`.txt`).  
+- `sep` & `delimiter` OS onujayi change hoy, hardcode korben na.  
+</I18nBanglish>

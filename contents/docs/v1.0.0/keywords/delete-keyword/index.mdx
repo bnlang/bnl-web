@@ -1,0 +1,251 @@
+---
+title: delete Operator
+description: Remove object properties in Bnlang using the delete operator — return value semantics, arrays/holes, non‑configurable props, strict‑mode behavior, and Map/Set differences.
+bnTitle: মুছুন অপারেটর
+bnDescription: Bnlang এ মুছুন (delete) অপারেটর—অবজেক্ট প্রপার্টি মুছতে, রিটার্ন ভ্যালু, অ্যারেতে hole, non‑configurable, strict‑mode আচরণ, Map/Set পার্থক্য।
+banglishTitle: delete Operator
+banglishDescription: Bnlang e muchun (delete) — object property remove, return value, array holes, non‑configurable, strict mode, Map/Set tips.
+---
+
+# <I18nEnglish>delete Operator</I18nEnglish>
+# <I18nBangla>মুছুন অপারেটর</I18nBangla>
+# <I18nBanglish>delete Operator</I18nBanglish>
+
+<I18nEnglish>
+The **`delete`** operator removes a **property** from an object.  
+It returns **`true`** if the property was removed (or didn’t exist), and **`false`** for **non‑configurable** properties in non‑strict mode.  
+In **strict mode**, attempting to delete a non‑configurable property or an unqualified identifier throws a **`TypeError`/`SyntaxError`**.
+</I18nEnglish>
+
+<I18nBangla>
+**`মুছুন`** অপারেটর দিয়ে **অবজেক্টের প্রপার্টি** মুছে ফেলা হয়।  
+প্রপার্টি মুছতে পারলে (বা প্রপার্টি না থাকলে) **`true`** ফেরত দেয়; **non‑configurable** হলে non‑strict‑এ **`false`**।  
+**strict mode**‑এ non‑configurable বা সরাসরি আইডেন্টিফায়ার মুছতে গেলে **`TypeError`/`SyntaxError`** হয়।
+</I18nBangla>
+
+<I18nBanglish>
+**`muchun`** (delete) object er **property** tule dey.  
+Delete safol hole (ba property thakleo na) **`true`**, **non‑configurable** hole non‑strict e **`false`**.  
+**Strict mode** e non‑configurable ba direct identifier delete korle **`TypeError`/`SyntaxError`** hoy.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+delete object.property
+delete object["property"]
+delete array[index]
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+মুছুন অবজেক্ট.প্রপার্টি
+মুছুন অবজেক্ট["প্রপার্টি"]
+মুছুন অ্যারে[ইনডেক্স]
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+muchun object.property
+muchun object["property"]
+muchun array[index]
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) বেসিক: প্রপার্টি মুছুন
+const ব্যবহারকারী = { নাম: "Mamun", শহর: "Dhaka" };
+কনসোল.লগ("নাম" মধ্যে ব্যবহারকারী);   // true
+কনসোল.লগ(মুছুন ব্যবহারকারী.শহর);      // true
+কনসোল.লগ("শহর" মধ্যে ব্যবহারকারী);    // false
+
+// ২) নেই এমন প্রপার্টি মুছলে true
+কনসোল.লগ(মুছুন ব্যবহারকারী.দেশ);       // true
+
+// ৩) non‑configurable প্রপার্টি
+const obj = {};
+Object.defineProperty(obj, "x", { value: 1, configurable: false });
+কনসোল.লগ(মুছুন obj.x);                 // false (non‑strict)
+
+// ৪) strict mode‑এ ত্রুটি
+"use strict";
+চেষ্টা {
+  Object.defineProperty(obj, "y", { value: 2, configurable: false });
+  মুছুন obj.y;                           // TypeError
+} ধরুন (ত্রু) {
+  কনসোল.সতর্ক("strict:", ত্রু.message);
+}
+
+// ৫) অ্যারে—slot মুছে hole হবে (length অপরিবর্তিত)
+const A = [10, 20, 30];
+কনসোল.লগ(A.length);          // 3
+মুছুন A[1];                    // index 1 remove → hole
+কনসোল.লগ(A.length);          // 3 (অপরিবর্তিত)
+কনসোল.লগ(1 মধ্যে A);         // false (slot নেই)
+কনসোল.লগ(A[1]);              // undefined
+
+// ৬) ভেরিয়েবল/লেক্সিকাল বাইন্ডিং মুছা যায় না
+var v = 1; let l = 2; const c = 3;
+কনসোল.লগ(মুছুন v);            // false (var/ফাংশন‑স্কোপ)
+কনসোল.লগ(মুছুন l);            // false
+কনসোল.লগ(মুছুন c);            // false
+// "use strict" হলে `মুছুন l`/`মুছুন c`/`মুছুন v`—সরাসরি আইডেন্টিফায়ার মুছতে গেলে SyntaxError
+
+// ৭) Map/Set‑এ delete কাজ করে না
+const ম্যাপ = new Map([["a", 1]]);
+মুছুন ম্যাপ["a"];              // কিছু হবে না
+কনসোল.লগ(ম্যাপ.has("a"));     // true
+ম্যাপ.delete("a");             // সঠিক উপায়
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) Basic property delete
+const byaboharkari = { nam: "Mamun", shohor: "Dhaka" };
+console.log("nam" modhye byaboharkari);  // true
+console.log(muchun byaboharkari.shohor);  // true
+console.log("shohor" modhye byaboharkari); // false
+
+// 2) Deleting non‑existent returns true
+console.log(muchun byaboharkari.desh);    // true
+
+// 3) non‑configurable
+const obj = {};
+Object.defineProperty(obj, "x", { value: 1, configurable: false });
+console.log(muchun obj.x);                // false (non‑strict)
+
+// 4) strict mode error
+"use strict";
+ceshta {
+  Object.defineProperty(obj, "y", { value: 2, configurable: false });
+  muchun obj.y;                           // TypeError
+} dhorun (err) {
+  console.warn("strict:", err.message);
+}
+
+// 5) Arrays — creates a hole, length unchanged
+const A = [10, 20, 30];
+console.log(A.length);         // 3
+muchun A[1];
+console.log(A.length);         // 3
+console.log(1 modhye A);       // false
+console.log(A[1]);             // undefined
+
+// 6) Cannot delete variables/bindings
+var v = 1; let l = 2; const c = 3;
+console.log(muchun v);          // false
+console.log(muchun l);          // false
+console.log(muchun c);          // false
+// In strict mode, deleting identifiers is a SyntaxError
+
+// 7) Map/Set need .delete(...)
+const map = new Map([["a", 1]]);
+muchun map["a"];                // does nothing
+console.log(map.has("a"));     // true
+map.delete("a");               // correct
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Basic: remove a property
+const user = { name: "Mamun", city: "Dhaka" };
+console.log("name" in user);     // true
+console.log(delete user.city);   // true
+console.log("city" in user);     // false
+
+// 2) Deleting a non‑existent property → true
+console.log(delete user.country); // true
+
+// 3) Non‑configurable property
+const obj = {};
+Object.defineProperty(obj, "x", { value: 1, configurable: false });
+console.log(delete obj.x);        // false (non‑strict)
+
+// 4) Strict mode throws
+"use strict";
+try {
+  Object.defineProperty(obj, "y", { value: 2, configurable: false });
+  delete obj.y;                   // TypeError
+} catch (err) {
+  console.warn("strict:", err.message);
+}
+
+// 5) Arrays — creates a hole; length unchanged
+const A = [10, 20, 30];
+console.log(A.length);    // 3
+delete A[1];
+console.log(A.length);    // 3
+console.log(1 in A);      // false (slot removed)
+console.log(A[1]);        // undefined
+
+// 6) Variables/bindings aren’t deletable
+var v = 1; let l = 2; const c = 3;
+console.log(delete v);    // false
+console.log(delete l);    // false
+console.log(delete c);    // false
+// In strict mode, `delete identifier` is a SyntaxError
+
+// 7) Map/Set — use their own APIs
+const map = new Map([["a", 1]]);
+delete map["a"];          // no effect
+console.log(map.has("a")); // true
+map.delete("a");          // correct
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- `delete` only removes **properties**. For arrays, it removes the **slot** and leaves a **hole** (length unchanged); prefer **`.splice`** if you need to shift indices.  
+- Returns `true` if the property doesn’t exist or is successfully removed; returns `false` for **non‑configurable** properties in non‑strict code.  
+- In **strict mode**, deleting a **non‑configurable** property throws; deleting an **unqualified identifier** (e.g., `delete x`) is a **SyntaxError**.  
+- Global `var`/function bindings are non‑configurable properties of the global object — they cannot be deleted. `let/const` are **lexical bindings** and are never deletable.  
+- For **Map/Set**, use `.delete(key)` instead of `delete`.  
+- Keep one language style (English/Bangla/Banglish) per file.
+</I18nEnglish>
+
+<I18nBangla>
+- `মুছুন` কেবল **প্রপার্টি** মুছে; অ্যারেতে **slot** ফাঁকা হয়ে **hole** থাকে—ইনডেক্স সরাতে **`.splice`** ব্যবহার করুন।  
+- প্রপার্টি না থাকলেও `true`; non‑strict‑এ **non‑configurable** হলে `false`।  
+- **strict mode**‑এ non‑configurable মুছতে গেলে ত্রুটি; **সরাসরি আইডেন্টিফায়ার** (`মুছুন x`) মুছতে গেলে **SyntaxError**।  
+- গ্লোবাল `var`/function গুলি গ্লোবাল অবজেক্টের **non‑configurable** প্রপার্টি—মোছা যায় না। `let/const` **lexical binding**, কখনোই deletable নয়।  
+- **Map/Set**‑এ `delete` নয়—`.delete` ব্যবহার করুন।  
+- প্রতি ফাইলে এক ভাষা স্টাইল রাখুন।
+</I18nBangla>
+
+<I18nBanglish>
+- `muchun` sudhu **property** tule; array te **slot** faka hoye **hole** thake — index shift lagle **`.splice`** use korun.  
+- Property na thakleo `true`; non‑strict e **non‑configurable** hole `false`.  
+- **Strict mode** e non‑configurable delete → error; **identifier** delete (`muchun x`) → **SyntaxError**.  
+- Global `var`/function non‑configurable — delete na; `let/const` **lexical**, konodin deletable na.  
+- **Map/Set** er jonno `.delete(key)`.  
+- Ek file e ekta language style maintain korun.
+</I18nBanglish>

@@ -1,0 +1,185 @@
+---
+title: Discover JavaScript Timers
+description: Learn how timers like setTimeout and setInterval work in Bnlang with examples in English, Bangla, and Banglish.
+bnTitle: জাভাস্ক্রিপ্ট টাইমার আবিষ্কার
+bnDescription: Bnlang এ setTimeout এবং setInterval টাইমার এর ধারণা ও উদাহরণ।
+banglishTitle: Discover JavaScript Timers
+banglishDescription: Bnlang e setTimeout ar setInterval timer er dharona o example English, Bangla ar Banglish e.
+---
+
+# <I18nEnglish>Discover JavaScript Timers</I18nEnglish>
+# <I18nBangla>জাভাস্ক্রিপ্ট টাইমার আবিষ্কার</I18nBangla>
+# <I18nBanglish>Discover JavaScript Timers</I18nBanglish>
+
+<I18nEnglish>
+Timers in **Bnlang** allow scheduling code to run later or repeatedly.  
+The two most common functions are **`setTimeout`** (run once after a delay) and **`setInterval`** (run repeatedly with a fixed delay).  
+Timers are essential for animations, retries, scheduled updates, and asynchronous operations.
+</I18nEnglish>
+
+<I18nBangla>
+**Bnlang** এ টাইমার ব্যবহার করে নির্দিষ্ট সময় পরে বা নির্দিষ্ট বিরতিতে কোড চালানো যায়।  
+সবচেয়ে বেশি ব্যবহৃত দুটি ফাংশন হলো **`setTimeout`** (একবার চালায়) এবং **`setInterval`** (বারবার চালায়)।  
+অ্যানিমেশন, পুনরায় চেষ্টা, শিডিউল আপডেট এবং অ্যাসিঙ্ক্রোনাস কাজের জন্য টাইমার অত্যন্ত গুরুত্বপূর্ণ।
+</I18nBangla>
+
+<I18nBanglish>
+**Bnlang** e timer diye onek shomoy pore ba fixed interval e code run kora jay.  
+Duto common function holo **`setTimeout`** (ekbar run kore) ar **`setInterval`** (repeat kore).  
+Animation, retry, scheduled update ar async kaj er jonno timer onek important.
+</I18nBanglish>
+
+---
+
+## setTimeout
+
+<I18nEnglish>
+`setTimeout` runs code once after the specified delay (in milliseconds).
+</I18nEnglish>
+
+<I18nBangla>
+`setTimeout` নির্দিষ্ট সময় পরে (মিলিসেকেন্ডে) একবার কোড চালায়।
+</I18nBangla>
+
+<I18nBanglish>
+`setTimeout` ekta delay (millisecond e) pore ekbar code run kore.
+</I18nBanglish>
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+setTimeout(() => {
+  console.log("Hello after 2 seconds");
+}, 2000);
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+সময়সীমা_নির্ধারণ(() => {
+  কনসোল.লগ("২ সেকেন্ড পরে হ্যালো");
+}, 2000);
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+somoysimaNirdharon(() => {
+  console.log("2 second pore hello");
+}, 2000);
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## setInterval
+
+<I18nEnglish>
+`setInterval` runs code repeatedly at the specified interval (in milliseconds). Use `clearInterval` to stop it.
+</I18nEnglish>
+
+<I18nBangla>
+`setInterval` নির্দিষ্ট বিরতিতে (মিলিসেকেন্ডে) কোড বারবার চালায়। এটি থামাতে `clearInterval` ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+`setInterval` diye ekta fixed interval e bar bar code run hoy. Stop korte `clearInterval` use koro.
+</I18nBanglish>
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+let count = 0;
+const timer = setInterval(() => {
+  count++;
+  console.log("Tick", count);
+  if (count === 5) clearInterval(timer);
+}, 1000);
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+let গণনা = 0;
+const টাইমার = ইন্টারভ্যাল(() => {
+  গণনা++;
+  কনসোল.লগ("টিক", গণনা);
+  যদি (গণনা === 5) ক্লিয়ার_ইন্টারভ্যাল(টাইমার);
+}, 1000);
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+let gonona = 0;
+const timer = interval(() => {
+  gonona++;
+  console.log("Tick", gonona);
+  jodi (gonona === 5) clearInterval(timer);
+}, 1000);
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Clearing Timers
+
+<I18nEnglish>
+- Use `clearTimeout(timerId)` to cancel a timeout.  
+- Use `clearInterval(intervalId)` to cancel an interval.  
+Always clear timers when they are no longer needed to avoid memory leaks.
+</I18nEnglish>
+
+<I18nBangla>
+- `clearTimeout(timerId)` দিয়ে সময়সীমা_নির্ধারণ বন্ধ করুন।  
+- `clearInterval(intervalId)` দিয়ে ইন্টারভ্যাল বন্ধ করুন।  
+প্রয়োজন শেষ হলে টাইমার ক্লিয়ার করুন যাতে মেমোরি লিক না হয়।
+</I18nBangla>
+
+<I18nBanglish>
+- `clearTimeout(timerId)` diye timeout stop koro.  
+- `clearInterval(intervalId)` diye interval stop koro.  
+Proyojon sesh hole timer clear koro memory leak avoid korte.
+</I18nBanglish>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Avoid unnecessary timers; prefer event-driven code when possible.  
+- Always clear intervals and timeouts that you set.  
+- Be mindful of long-running timers in background tasks.
+</I18nEnglish>
+
+<I18nBangla>
+- অযথা টাইমার ব্যবহার করবেন না; সম্ভব হলে ইভেন্ট-ড্রিভেন কোড ব্যবহার করুন।  
+- সেট করা সময়সীমা_নির্ধারণ বা ইন্টারভ্যাল অবশ্যই ক্লিয়ার করুন।  
+- ব্যাকগ্রাউন্ড টাস্কে দীর্ঘ টাইমার ব্যবহার করার সময় সতর্ক থাকুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Jothesta timer use koro na; possible hole event-driven code use koro.  
+- Set kora timeout/interval obosshoi clear koro.  
+- Background task e long timer use korar shomoy careful thako.
+</I18nBanglish>

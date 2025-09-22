@@ -1,0 +1,128 @@
+---
+title: fetch module
+description: Fetch API for making HTTP/HTTPS requests — supports promises, streaming responses, headers, request/response objects, and body handling.
+bnTitle: fetch মডিউল
+bnDescription: Fetch API — HTTP/HTTPS রিকোয়েস্ট, প্রমিস, স্ট্রিমিং রেসপন্স, হেডার, রিকোয়েস্ট/রেসপন্স অবজেক্ট ও বডি হ্যান্ডলিং।
+banglishTitle: fetch module
+banglishDescription: Fetch API — HTTP/HTTPS request, promises, streaming response, headers, request/response objects, body handling.
+---
+
+# <I18nEnglish>fetch</I18nEnglish>
+# <I18nBangla>fetch</I18nBangla>
+# <I18nBanglish>fetch</I18nBanglish>
+
+<I18nEnglish>
+The **`fetch`** API provides a modern interface for making HTTP/HTTPS requests. It returns a **Promise** resolving to a **Response** object.
+</I18nEnglish>
+
+<I18nBangla>
+**`fetch`** API দিয়ে আধুনিকভাবে HTTP/HTTPS রিকোয়েস্ট করা যায়। এটি একটি **Promise** ফেরত দেয় যা **Response** অবজেক্টে রিসলভ হয়।
+</I18nBangla>
+
+<I18nBanglish>
+**`fetch`** API diye modern vabe HTTP/HTTPS request kora jay. Eta ekta **Promise** dey jeta **Response** object e resolve hoy.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### fetch(url, [options])
+- **`url`** — resource URL.  
+- **`options`**:  
+  - `method`: GET, POST, etc.  
+  - `headers`: request headers.  
+  - `body`: request body (string, Buffer, stream, FormData).  
+  - `signal`: AbortController signal.  
+
+### Response object
+- **Properties**:  
+  - `status`, `ok`, `headers`.  
+- **Methods**:  
+  - `.text()`, `.json()`, `.arrayBuffer()`, `.blob()` (in browsers), `.formData()`.  
+  - `.body` — readable stream.  
+
+### Request object
+- Can construct with `new Request(url, options)`.  
+
+### Headers
+- **`Headers`** class with `.get()`, `.set()`, `.append()`, `.delete()`.  
+
+</I18nEnglish>
+
+<I18nBangla>
+### ব্যবহার
+- **`fetch(url, options)`** — ইউআরএল এ রিকোয়েস্ট।  
+- অপশন: মেথড, হেডার, বডি, সিগন্যাল।  
+- **Response**: `status`, `ok`, `.json()`, `.text()`, `.arrayBuffer()`।  
+- **Headers**: `.get()`, `.set()`, `.append()`, `.delete()`।  
+</I18nBangla>
+
+<I18nBanglish>
+### Usage
+- **`fetch(url, options)`** — request to URL.  
+- Options: method, headers, body, signal.  
+- **Response**: `status`, `ok`, `.json()`, `.text()`, `.arrayBuffer()`.  
+- **Headers**: `.get()`, `.set()`, `.append()`, `.delete()`.  
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+// Simple GET
+const res = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+const data = await res.json();
+console.log(data);
+
+// POST with JSON
+const postRes = await fetch("https://jsonplaceholder.typicode.com/posts", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ title: "Bnlang", body: "Hello", userId: 1 })
+});
+console.log("status:", postRes.status);
+
+// Streaming response body
+const streamRes = await fetch("https://example.com/large-file");
+for await (const chunk of streamRes.body) {
+  console.log("chunk size:", chunk.length);
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- **fetch** is Promise-based; use with `await` or `.then()`.  
+- Always check **`res.ok`** or **`res.status`** before using body.  
+- Aborting: use **AbortController** with `signal`.  
+- In Bnlang runtime, `fetch` is built-in (no import needed).  
+</I18nEnglish>
+
+<I18nBangla>
+- **fetch** প্রমিস-ভিত্তিক; `await` বা `.then()` ব্যবহার করুন।  
+- **`res.ok`** বা **`res.status`** দেখে নিন।  
+- বাতিল করতে **AbortController** ব্যবহার করুন।  
+- Bnlang এ `fetch` বিল্ট-ইন।  
+</I18nBangla>
+
+<I18nBanglish>
+- **fetch** promise-based; use with `await` or `.then()`.  
+- Always check **`res.ok`** or **`res.status`**.  
+- Cancel korte **AbortController** use korun.  
+- Bnlang e `fetch` built-in.  
+</I18nBanglish>

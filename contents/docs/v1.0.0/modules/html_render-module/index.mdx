@@ -1,0 +1,248 @@
+---
+title: html_render module
+description: Minimal template renderer — compile templates with EJS-like tags, includes, layouts, helpers, and safe HTML escaping. Provides compile(), render(), renderFile(), and Express-style adapter.
+bnTitle: html_render মডিউল
+bnDescription: মিনিমাল টেমপ্লেট রেন্ডার — EJS-স্টাইল ট্যাগ, include, layout, helper, নিরাপদ HTML escaping সহ। compile(), render(), renderFile() ও এক্সপ্রেস-শৈলী অ্যাডাপ্টার দেয়।
+banglishTitle: html_render module
+banglishDescription: Minimal template renderer — EJS-like tags, include, layout, helpers, safe HTML escape; compile(), render(), renderFile(), Express-style adapter.
+---
+
+# <I18nEnglish>html_render</I18nEnglish>
+# <I18nBangla>html_render</I18nBangla>
+# <I18nBanglish>html_render</I18nBanglish>
+
+<I18nEnglish>
+The **`html_render`** module is a lightweight server-side template engine. It compiles templates with EJS‑style tags, supports **includes**, **layouts**, **helpers**, and safe **HTML escaping**.
+</I18nEnglish>
+
+<I18nBangla>
+**`html_render`** একটি হালকা সার্ভার‑সাইড টেমপ্লেট ইঞ্জিন। এটি EJS‑স্টাইল ট্যাগ, **include**, **layout**, **helper** এবং নিরাপদ **HTML escaping** সমর্থন করে।
+</I18nBangla>
+
+<I18nBanglish>
+**`html_render`** ekta lightweight server‑side template engine. EJS‑style tag, **include**, **layout**, **helper**, safe **HTML escaping** support kore.
+</I18nBanglish>
+
+---
+
+## Template Syntax
+
+<I18nEnglish>
+
+- **Code**: `<% code %>` — runs JS/Bnlang code; no output.  
+- **Escaped output**: `<%= expr %>` — evaluates and escapes HTML (`& < > " '`).  
+- **Raw output**: `<%- expr %>` — evaluates without escaping (use with care).  
+- **Comment**: `<%# comment %>` — ignored.  
+- **Trim next newline**: close as `-%>` to remove one following newline.  
+
+**Helpers & built‑ins inside templates**
+- `include(name, locals)` — render another template and insert its HTML.  
+- `layout(name)` — request a layout; the current template’s HTML is available as `body`.  
+- `print(...args)` — append to output.  
+- All keys from `helpers` and `data` are available directly (via a scoped `with`).
+
+</I18nEnglish>
+
+<I18nBangla>
+- **কোড**: `<% code %>` — শুধু রান, আউটপুট নেই।  
+- **এস্কেপড আউটপুট**: `<%= expr %>` — মান প্রিন্ট ও HTML‑escape।  
+- **র’ আউটপুট**: `<%- expr %>` — এস্কেপ ছাড়া প্রিন্ট (সতর্কতা)।  
+- **কমেন্ট**: `<%# ... %>` — উপেক্ষা।  
+- **ট্রিম**: `-%>` দিলে পরের একটি নতুন লাইন কেটে যায়।  
+- টেমপ্লেটে `include`, `layout`, `print`, সহায়তাকারী `helpers` ও `data` সরাসরি পাওয়া যায়।
+</I18nBangla>
+
+<I18nBanglish>
+- **Code**: `<% code %>` — run only.  
+- **Escaped**: `<%= expr %>` — HTML‑escape kore output.  
+- **Raw**: `<%- expr %>` — no escape (careful).  
+- **Comment**: `<%# ... %>`.  
+- **Trim**: `-%>` next newline remove.  
+- Template e `include`, `layout`, `print`, `helpers` & `data` directly pawa jay.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### `compile(template: string, options?): (data, runtime?) => string`
+Compiles a template string into a render function.  
+**Options**:
+- `openTag`/`closeTag` (default `'<%'` / `'%>'`)
+- `helpers` (object merged into scope)
+- `escape` (custom HTML escape function)
+- `filename` (absolute path; enables relative `include()`)
+- `views` (string|string[]; lookup roots for `include()`)
+- `ext` (default `.html` for include/layout resolution)
+- `cache` (boolean; enable on `renderFile` / adapter)
+
+### `render(template: string, data?, options?): string`
+One‑shot render from a template string. Applies **layout** if invoked inside the template.
+
+### `renderFile(filename: string, data?, options?, cb?)`
+Render a file. If `cb` provided, uses callback style; otherwise returns string or throws. Respects **cache** and **views**.
+
+### `__bnl_html_render(filename, data, cb)`
+Express‑style adapter suitable for `app.engine('html', __bnl_html_render)`. It reads `data.settings.views`, `view options`, and `view cache` to configure resolution and caching automatically.
+
+</I18nEnglish>
+
+<I18nBangla>
+### `compile`, `render`, `renderFile`, `__bnl_html_render`
+কম্পাইল/রেন্ডার ফাংশনগুলি ওপরে বর্ণিত অপশন সমর্থন করে। `renderFile` কেশিং ও ভিউস ডিরেক্টরি মানে চলতে পারে। এক্সপ্রেস‑শৈলী অ্যাডাপ্টার `settings.views` ইত্যাদি পড়ে।
+</I18nBangla>
+
+<I18nBanglish>
+### `compile`, `render`, `renderFile`, `__bnl_html_render`
+Option gulo support kore; `renderFile` cache & views mene chole. Express‑style adapter `settings.views` etc read kore.
+</I18nBanglish>
+
+---
+
+## File Resolution Rules
+
+<I18nEnglish>
+When `include("name")` or `layout("name")` is called, the engine resolves a file in this order:
+
+1. **Absolute path** (with `ext` appended if missing).  
+2. **Relative to current `filename`** (the template being rendered).  
+3. **Inside `views` directories** (first match wins).  
+4. **Relative to `process.cwd()`**.  
+
+If not found, it throws `VIEW_NOT_FOUND` with a list of tried paths.
+</I18nEnglish>
+
+<I18nBangla>
+রেজলভ অর্ডার: অ্যাবসোলিউট → বর্তমান ফাইলের ডিরেক্টরি → `views` ডিরেক্টরি → `cwd`। না পেলে `VIEW_NOT_FOUND` ছোড়ে।
+</I18nBangla>
+
+<I18nBanglish>
+Resolve order: absolute → current file dir → `views` dirs → `cwd`. Na pele `VIEW_NOT_FOUND` throw kore.
+</I18nBanglish>
+
+---
+
+## Escaping
+
+<I18nEnglish>
+By default, `<%= %>` uses a tiny HTML escaper to encode **`& < > " '`**. Use `<%- %>` for raw HTML when you are sure the content is safe.
+</I18nEnglish>
+
+<I18nBangla>
+ডিফল্টে `<%= %>` HTML‑escape করে। কেবল নিরাপদ কনটেন্ট হলে `<%- %>` ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+Default e `<%= %>` HTML‑escape kore. Safe content holei `<%- %>` use korun.
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const { compile, render, renderFile } = require("html_render");
+
+// 1) Render from string
+const tpl = `
+<h1>Hello, <%= user %></h1>
+<% if (items && items.length) { %>
+  <ul>
+    <% for (const x of items) { %>
+      <li><%= x %></li>
+    <% } %>
+  </ul>
+<% } else { %>
+  <p>No items</p>
+<% } %>
+`;
+
+console.log(render(tpl, { user: "Mamun", items: ["a","b"] }));
+
+// 2) Include & Layout (files)
+/*
+views/
+  layouts/main.html
+  partials/item.html
+  home.html
+*/
+
+// home.html
+/*
+<% layout('layouts/main') %>
+<h2>Welcome <%= user %></h2>
+<ul>
+  <% for (const x of items) { %>
+    <%- include('partials/item', { x }) %>
+  <% } %>
+</ul>
+*/
+
+// layouts/main.html
+/*
+<!doctype html>
+<html>
+  <body>
+    <header><h1>Site</h1></header>
+    <main><%- body %></main>
+  </body>
+</html>
+*/
+
+// partials/item.html
+/*
+<li><%= x %></li>
+*/
+
+const html = renderFile("views/home.html", { user: "Mamun", items: ["a","b","c"] }, {
+  views: "views",
+  cache: true
+});
+console.log(html);
+
+// 3) Custom helpers
+const page = render("<p><%= upper('bnlang') %></p>", {}, {
+  helpers: { upper: (s) => String(s).toUpperCase() }
+});
+console.log(page);
+```
+
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- **Caching**: `renderFile` caches compiled functions when `options.cache = true`.  
+- **Layouts**: only the **last** `layout()` call wins; the page HTML is passed as `body`.  
+- **Security**: prefer `<%= %>`; use `<%- %>` only for trusted content.  
+- **Whitespace**: use `-%>` to trim a single *following* newline.  
+- **Scope**: template code runs inside a `with` block that merges `helpers` and `data`.  
+</I18nEnglish>
+
+<I18nBangla>
+- **ক্যাশিং**: `renderFile` এ `cache: true` দিলে কম্পাইল‑ফাংশন ক্যাশ হয়।  
+- **লেআউট**: শেষের `layout()` প্রযোজ্য; কন্টেন্ট `body` নামে যায়।  
+- **সিকিউরিটি**: `<%= %>` অগ্রাধিকার; `<%- %>` কেবল ট্রাস্টেড কনটেন্টে।  
+- **হোয়াইটস্পেস**: `-%>` দিলে পরের এক লাইন কাটা যায়।  
+- **স্কোপ**: `helpers` ও `data` একত্রে `with` ব্লকে রান হয়।  
+</I18nBangla>
+
+<I18nBanglish>
+- **Caching**: `cache: true` hole compiled function cache hoy.  
+- **Layout**: shesher `layout()` apply hoy; content `body` name pass hoy.  
+- **Security**: `<%= %>` prefer korun; `<%- %>` trusted content e.  
+- **Whitespace**: `-%>` next newline trim kore.  
+- **Scope**: template `helpers` + `data` merge kore `with` block e run hoy.  
+</I18nBanglish>

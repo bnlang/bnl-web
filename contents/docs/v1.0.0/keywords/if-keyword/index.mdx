@@ -1,0 +1,308 @@
+---
+title: if Keyword
+description: The if keyword in Bnlang with examples in English, Bangla, and Banglish.
+bnTitle: যদি কীওয়ার্ড
+bnDescription: Bnlang এ যদি কীওয়ার্ড এবং এর বাংলা উদাহরণ।
+banglishTitle: if Keyword
+banglishDescription: Bnlang e if keyword er example English, Bangla ar Banglish e.
+---
+
+# <I18nEnglish>if Keyword</I18nEnglish>
+# <I18nBangla>যদি কীওয়ার্ড</I18nBangla>
+# <I18nBanglish>if Keyword</I18nBanglish>
+
+<I18nEnglish>
+The **`if`** keyword performs conditional branching in Bnlang.  
+A block runs only when its condition evaluates to **true**.  
+Chain with **`else if`** and **`else`** to handle multiple paths.
+</I18nEnglish>
+
+<I18nBangla>
+**`যদি`** ব্যবহার হয় শর্তভিত্তিক ব্রাঞ্চিংয়ের জন্য।  
+শর্ত **সত্য** হলে ব্লকের কোড রান হয়।  
+একাধিক শর্তের জন্য **`নাহলে যদি`** এবং শেষ বিকল্প হিসেবে **`নাহলে`** ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+**`jodi`** diye conditional branching kora hoy.  
+Condition **true** hole block er code run hoy.  
+Multiple condition er jonno **`nahole jodi`** ebong fallback hisebe **`nahole`** use korun.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+if (<condition>) {
+  // then-block
+} else if (<another condition>) {
+  // else-if block
+} else {
+  // else block
+}
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+যদি (<শর্ত>) {
+  // সত্য হলে চালাও
+} নাহলে যদি (<আরেক শর্ত>) {
+  // বিকল্প শর্ত
+} নাহলে {
+  // বাকি সব ক্ষেত্রে
+}
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+jodi (<condition>) {
+  // true hole
+} nahole jodi (<onno condition>) {
+  // alternative
+} nahole {
+  // otherwise
+}
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+// Grade checker
+let score = 85;
+
+if (score >= 80) {
+  print("Grade: A+");
+} else if (score >= 70) {
+  console.info("Grade: A");
+} else {
+  console.warn("Grade: Below A");
+}
+
+// String match
+const user = "admin";
+if (user === "admin") {
+  console.log("Welcome, admin!");
+} else {
+  console.error("Access denied");
+}
+
+// Function guard (early return)
+function pay(amount) {
+  if (amount <= 0) {
+    console.error("Amount must be positive");
+    return;
+  }
+  console.log("Processing payment:", amount);
+}
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// গ্রেড চেকার
+ধরি নম্বর = 85;
+
+যদি (নম্বর >= 80) {
+  ছাপাও("গ্রেড: A+");
+} নাহলে যদি (নম্বর >= 70) {
+  দেখাও("গ্রেড: A");
+} নাহলে {
+  লিখো("গ্রেড: A-এর নিচে");
+}
+
+// স্ট্রিং মিলানো
+ধ্রুবক ব্যবহারকারী = "admin";
+যদি (ব্যবহারকারী === "admin") {
+  প্রিন্ট("স্বাগতম, অ্যাডমিন!");
+} নাহলে {
+  কনসোল.ত্রুটি("প্রবেশাধিকার বাতিল");
+}
+
+// ফাংশনে গার্ড (আগে বেরিয়ে যাওয়া)
+ফাংশন বিল_পরিশোধ(পরিমাণ) {
+  যদি (পরিমাণ <= 0) {
+    কনসোল.ত্রুটি("পরিমাণ অবশ্যই ধনাত্মক হতে হবে");
+    ফেরত;
+  }
+  কনসোল.লগ("পেমেন্ট প্রসেস হচ্ছে:", পরিমাণ);
+}
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// Grade checker
+dhori number = 85;
+
+jodi (number >= 80) {
+  chapao("Grade: A+");
+} nahole jodi (number >= 70) {
+  dekhao("Grade: A");
+} nahole {
+  likho("Grade: Below A");
+}
+
+// String match
+dhrubok byaboharkari = "admin";
+jodi (byaboharkari === "admin") {
+  print("Welcome, admin!");
+} nahole {
+  console.error("Access denied");
+}
+
+// Function guard
+function porishodh(amount) {
+  jodi (amount <= 0) {
+    console.error("Amount must be positive");
+    return;
+  }
+  console.log("Processing payment:", amount);
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Truthy & Falsy
+
+<I18nEnglish>
+Bnlang follows JavaScript-style truthiness. The following are **falsy**:
+`false`, `0`, `-0`, `0n`, `""` (empty string), `null`, `undefined`, and `NaN`.  
+Everything else is **truthy**.
+</I18nEnglish>
+
+<I18nBangla>
+Bnlang এ JavaScript-এর মত truthiness কাজ করে। **Falsy** মানগুলি হলো:
+`false`, `0`, `-0`, `0n`, `""` (ফাঁকা স্ট্রিং), `null`, `undefined`, `NaN`।  
+এর বাইরে বাকি সব **truthy**।
+</I18nBangla>
+
+<I18nBanglish>
+Bnlang e JS moto truthiness kaj kore. **Falsy** man gulo hoilo:
+`false`, `0`, `-0`, `0n`, `""`, `null`, `undefined`, `NaN`.  
+Onno sob **truthy** dhora hoy.
+</I18nBanglish>
+
+---
+
+## Nested conditions
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const role = "editor";
+const active = true;
+
+if (active) {
+  if (role === "admin") {
+    console.log("Full access");
+  } else if (role === "editor") {
+    console.log("Edit access");
+  } else {
+    console.log("Read only");
+  }
+} else {
+  console.warn("Account inactive");
+}
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const ভূমিকা = "editor";
+const সক্রিয় = true;
+
+যদি (সক্রিয়) {
+  যদি (ভূমিকা === "admin") {
+    কনসোল.লগ("পূর্ণ অ্যাক্সেস");
+  } নাহলে যদি (ভূমিকা === "editor") {
+    কনসোল.লগ("এডিট করার অনুমতি");
+  } নাহলে {
+    কনসোল.লগ("শুধু পড়ার অনুমতি");
+  }
+} নাহলে {
+  কনসোল.সতর্ক("অ্যাকাউন্ট নিষ্ক্রিয়");
+}
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const bhumika = "editor";
+const sokriyo = true;
+
+jodi (sokriyo) {
+  jodi (bhumika === "admin") {
+    console.log("Full access");
+  } nahole jodi (bhumika === "editor") {
+    console.log("Edit access");
+  } nahole {
+    console.log("Read only");
+  }
+} nahole {
+  console.warn("Account inactive");
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Best practices
+
+<I18nEnglish>
+
+- Keep one language style (English/Bangla/Banglish) per file for readability.
+- Prefer strict comparison `===`/`!==` for predictable checks.
+- Extract complex conditions into named variables or functions.
+- Use early returns inside functions to avoid deep nesting.
+</I18nEnglish>
+
+<I18nBangla>
+
+- পড়ার সহজতার জন্য প্রতি ফাইলে একটিই ভাষা স্টাইল অনুসরণ করুন।
+- নির্ভরযোগ্য তুলনার জন্য `===`/`!==` ব্যবহার করুন।
+- জটিল শর্ত আলাদা ভেরিয়েবল বা ফাংশনে বের করে নিন।
+- গভীর নেস্টিং এড়াতে ফাংশনে আগেভাগে `return/ফেরত` দিন।
+</I18nBangla>
+
+<I18nBanglish>
+
+- Readability er jonno protiti file e ekta style e thakun.
+- Strict comparison `===`/`!==` prefer korun.
+- Complex condition gula variable/function e ber kore nin.
+- Deep nesting komate early `return` use korun.
+</I18nBanglish>
+
+---

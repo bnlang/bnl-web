@@ -1,0 +1,254 @@
+---
+title: static Keyword
+description: Define class-level properties and methods in Bnlang using `static` — fields, methods, inheritance, private statics, and static initialization blocks.
+bnTitle: স্থির কীওয়ার্ড
+bnDescription: Bnlang এ স্থির (static) — ক্লাস‑লেভেল ফিল্ড/মেথড, ইনহেরিটেন্সে শেয়ার, প্রাইভেট স্থির, এবং static initialization ব্লক।
+banglishTitle: static Keyword
+banglishDescription: Bnlang e sthir (static) — class-level fields/methods, inheritance, private statics, static init blocks.
+---
+
+# <I18nEnglish>static Keyword</I18nEnglish>
+# <I18nBangla>স্থির কীওয়ার্ড</I18nBangla>
+# <I18nBanglish>static Keyword</I18nBanglish>
+
+<I18nEnglish>
+The **`static`** keyword defines **class-level** fields and methods.  
+Static members belong to the **class**, not to its instances, and are accessed via the class name (or `this` inside static methods).
+</I18nEnglish>
+
+<I18nBangla>
+**`স্থির`** কীওয়ার্ড দিয়ে **ক্লাস‑লেভেল** ফিল্ড ও মেথড সংজ্ঞায়িত করা হয়।  
+স্থির সদস্যরা **ক্লাসের** সাথে যুক্ত থাকে—ইনস্ট্যান্সের সাথে নয়; এগুলো **ক্লাস‑নেম** দিয়ে অ্যাক্সেস করতে হয় (অথবা স্থির মেথডের ভেতরে `এটি` দ্বারা ক্লাসকে নির্দেশ করে)।
+</I18nBangla>
+
+<I18nBanglish>
+**`sthir`** diye **class‑level** field/method define kora hoy.  
+Static member **class** er sathe thake, instance er sathe na; access korte hoy **class name** diye (ba static method er vitor `eti`/`this`).
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+class C {
+  static x = 1;            // static field
+  static method() { /* ... */ }  // static method
+  static #p = 0;           // private static field
+  static {                 // static initialization block
+    this.x += 1;
+  }
+}
+C.x; C.method();
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+শ্রেণী সি {
+  স্থির এক্স = 1;                 // স্থির ফিল্ড
+  স্থির পদ্ধতি() { /* ... */ }     // স্থির মেথড
+  স্থির #গু = 0;                  // প্রাইভেট স্থির ফিল্ড
+  স্থির {                         // static initialization ব্লক
+    এটি.এক্স += 1;
+  }
+}
+সি.এক্স; সি.পদ্ধতি();
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+shreni C {
+  sthir x = 1;                   // static field
+  sthir method() { /* ... */ }   // static method
+  sthir #gopon = 0;              // private static field
+  sthir {                        // static initialization block
+    eti.x += 1;
+  }
+}
+C.x; C.method();
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) বেসিক: স্থির কাউন্টার
+শ্রেণী কাউন্টার {
+  স্থির গণনা = 0;
+  constructor() {
+    কাউন্টার.গণনা++;
+  }
+  স্থির রিসেট() {
+    কাউন্টার.গণনা = 0;
+  }
+}
+const a = নতুন কাউন্টার();
+const b = নতুন কাউন্টার();
+কনসোল.লগ(কাউন্টার.গণনা); // 2
+কাউন্টার.রিসেট();
+কনসোল.লগ(কাউন্টার.গণনা); // 0
+
+// ২) ইনহেরিটেন্স: স্থির সদস্য সাবক্লাসেও পাওয়া যায়
+শ্রেণী বেস {
+  স্থির কে = "Base";
+  স্থির বলো() { কনসোল.লগ("who:", এটি.কে); } // static e 'এটি' ক্লাসকে বোঝায়
+}
+শ্রেণী সাব প্রসারিত বেস {
+  স্থির কে = "Sub";
+}
+বেস.বলো(); // who: Base
+সাব.বলো(); // who: Sub
+
+// ৩) প্রাইভেট স্থির + static ব্লক
+শ্রেণী কনফিগ {
+  স্থির #গোপন = "key";
+  স্থির মান = 0;
+  স্থির {               // ক্লাস লোডের সময় একবারই চলে
+    এটি.মান = এটি.#গোপন.length;
+  }
+  স্থির নাও() { ফেরত এটি.#গোপন; }
+}
+কনসোল.লগ(কনফিগ.মান);    // 3
+কনসোল.লগ(কনফিগ.নাও());  // "key"
+
+// ৪) ইনস্ট্যান্সে নেই
+const x = নতুন কনফিগ();
+কনসোল.লগ(x.মান);        // undefined
+// x.নাও();              // TypeError: function নয়
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) Basic: static counter
+shreni Counter {
+  sthir gonona = 0;
+  constructor() { Counter.gonona++; }
+  sthir reset() { Counter.gonona = 0; }
+}
+const a = notun Counter();
+const b = notun Counter();
+console.log(Counter.gonona); // 2
+Counter.reset();
+console.log(Counter.gonona); // 0
+
+// 2) Inheritance
+shreni Base {
+  sthir ke = "Base";
+  sthir bolo() { console.log("who:", eti.ke); } // 'eti' points to class
+}
+shreni Sub prosarito Base {
+  sthir ke = "Sub";
+}
+Base.bolo(); // who: Base
+Sub.bolo();  // who: Sub
+
+// 3) Private static + static block
+shreni Config {
+  sthir #gopon = "key";
+  sthir man = 0;
+  sthir { eti.man = eti.#gopon.length; } // run once
+  sthir nao() { ferot eti.#gopon; }
+}
+console.log(Config.man); // 3
+console.log(Config.nao()); // "key"
+
+// 4) Not on instances
+const x = notun Config();
+console.log(x.man);   // undefined
+// x.nao();          // TypeError
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Basic: static counter
+class Counter {
+  static count = 0;
+  constructor() { Counter.count++; }
+  static reset() { Counter.count = 0; }
+}
+const a = new Counter();
+const b = new Counter();
+console.log(Counter.count); // 2
+Counter.reset();
+console.log(Counter.count); // 0
+
+// 2) Inheritance: static members are inherited
+class Base {
+  static who = "Base";
+  static say() { console.log("who:", this.who); } // 'this' is the class
+}
+class Sub extends Base {
+  static who = "Sub";
+}
+Base.say(); // who: Base
+Sub.say();  // who: Sub
+
+// 3) Private static + static block
+class Config {
+  static #secret = "key";
+  static size = 0;
+  static { this.size = this.#secret.length; } // runs once at class eval
+  static getSecret() { return this.#secret; }
+}
+console.log(Config.size);      // 3
+console.log(Config.getSecret()); // "key"
+
+// 4) Not on instances
+const x = new Config();
+console.log(x.size);   // undefined
+// x.getSecret();     // TypeError
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Static members are accessed via the **class**, not via instances.  
+- Inside a static method, **`this`** refers to the **constructor** (class), so statics naturally work with inheritance (`Sub.say()` uses `Sub` as `this`).  
+- **Private static** fields/methods (`static #x`) are scoped to the declaring class and **not inherited**.  
+- **Static initialization blocks** run **once** when the class is evaluated; useful for complex setup that needs access to private statics.  
+- Prefer static **factory methods** (`from(...)`, `of(...)`) for alternative construction paths.  
+- Keep one language style (English/Bangla/Banglish) per file.
+</I18nEnglish>
+
+<I18nBangla>
+- স্থির সদস্য **ক্লাস** দিয়ে অ্যাক্সেস করতে হয়—ইনস্ট্যান্স দিয়ে নয়।  
+- স্থির মেথডের ভেতরে **`এটি`** ক্লাসকেই বোঝায়, তাই ইনহেরিটেন্সে সাবক্লাসে ঠিকঠাক কাজ করে (`সাব.বলো()`‑তে `এটি` = সাব)।  
+- **প্রাইভেট স্থির** (`স্থির #x`) শুধুমাত্র ঘোষণাকারী শ্রেণীর জন্য—**ইনহেরিটেড হয় না**।  
+- **static initialization** ব্লক ক্লাস ইভ্যালুয়েটের সময় **একবারই** চলে—প্রাইভেট স্থিরে অ্যাক্সেস দরকার এমন সেট‑আপে উপযোগী।  
+- বিকল্প নির্মাণপথের জন্য স্থির **ফ্যাক্টরি** (`from(...)`, `of(...)`) ব্যবহার করুন।  
+- পড়ার সুবিধায় প্রতি ফাইলে একটি ভাষা স্টাইল বজায় রাখুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Static member **class** diye access korte hoy — instance diye na.  
+- Static method er vitor **`eti`** class ke refer kore, tai inheritance e naturally kaj kore (`Sub.bolo()` te `eti` = `Sub`).  
+- **Private static** (`sthir #x`) sudhu oi shreni r jonno — **inherit** hoy na.  
+- **Static init block** class evaluate howar somoy **ekbar** run hoy — private static use kore setup korar jonno upokari.  
+- Alternative construction e static **factory** (`from(...)`, `of(...)`) shohoj.  
+- Ek file e ekta language style rakhun.
+</I18nBanglish>

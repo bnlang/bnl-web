@@ -1,0 +1,135 @@
+{
+    "meta": {
+        "title": "Privacy Policy",
+        "description": "This Privacy Policy explains how Bnlang and BPM handle data across our websites, documentation, registries, APIs, developer tools, and community channels."
+    },
+    "hero": {
+        "badge": "Bnlang · Privacy Policy",
+        "title": "Privacy Policy",
+        "intro": "This Privacy Policy describes what information we collect, how we use it, and the choices you have. By accessing or using Bnlang, BPM, or any official websites, registries, or tools, you consent to the practices described in this Policy.",
+        "lastUpdatedLabel": "Last updated",
+        "lastUpdated": "September 11, 2025"
+    },
+    "sections": [
+        {
+            "id": "scope",
+            "title": "1. Scope",
+            "body": [
+                "This Policy applies to our official websites, documentation, package registries, developer tools (including CLI and BPM), APIs, and community platforms that we operate for the Bnlang project.",
+                "It does not apply to third-party services or libraries referenced from our ecosystem. Those services have their own privacy policies, which you should review before use."
+            ]
+        },
+        {
+            "id": "collection",
+            "title": "2. Information We Collect",
+            "body": [
+                "• **Usage data**: such as page views, referring pages, device/browser metadata, approximate geolocation derived from IP address, and timestamps. This helps us maintain reliability, detect abuse, and improve performance.",
+                "• **Telemetry (optional)**: anonymous, aggregated metrics from CLI or tools (e.g., feature usage, error rates). Telemetry is never required and can be disabled (see Section 7).",
+                "• **Account or community data**: if you create an account or interact with community channels, we may collect your display name, email, profile details, and any content you submit (e.g., issues, discussions, packages, contributions).",
+                "• **Cookies**: functional cookies to enable sessions and preferences; analytics cookies only where legally permitted and with your settings respected."
+            ]
+        },
+        {
+            "id": "use",
+            "title": "3. How We Use Information",
+            "body": [
+                "• To operate, maintain, and improve Bnlang, BPM, docs, and registries.",
+                "• To secure our infrastructure, detect and prevent abuse, and debug issues.",
+                "• To understand usage patterns in aggregate, prioritize features, and improve developer experience.",
+                "• To communicate critical updates, security notices, new releases, or policy changes through appropriate channels."
+            ]
+        },
+        {
+            "id": "legal-bases",
+            "title": "4. Legal Bases",
+            "body": [
+                "Where required by law (e.g., GDPR), we rely on the following bases for processing:",
+                "• **Legitimate interests**: site security, spam prevention, service improvement.",
+                "• **Consent**: for optional telemetry, analytics cookies, or marketing communications.",
+                "• **Contract**: providing you the Services you request (e.g., BPM accounts, registry publishing).",
+                "• **Legal obligations**: complying with court orders, law enforcement, or regulatory requirements."
+            ]
+        },
+        {
+            "id": "sharing",
+            "title": "5. Sharing & Disclosure",
+            "body": [
+                "We do not sell your personal information.",
+                "We may share limited data with trusted service providers (e.g., hosting, CDN, analytics, CI/CD, error reporting) under contracts that require them to protect your information.",
+                "We may disclose information if required by law, legal process, or to protect the safety, rights, or integrity of users and infrastructure."
+            ]
+        },
+        {
+            "id": "retention",
+            "title": "6. Data Retention",
+            "body": [
+                "We keep information only as long as needed for the purposes in this Policy.",
+                "Usage logs and telemetry are typically retained for a limited period (e.g., 30–180 days) for diagnostics and then aggregated or deleted.",
+                "Account-related data is retained while your account is active. If you delete your account, associated personal data will be removed or anonymized unless retention is required by law."
+            ]
+        },
+        {
+            "id": "choices",
+            "title": "7. Your Choices",
+            "body": [
+                "• **Telemetry**: opt out anytime via CLI flags or environment variables (e.g., `BNL_TELEMETRY=0`).",
+                "• **Cookies**: adjust settings through your browser or our consent banner (where applicable).",
+                "• **Account data**: request updates or deletion via official channels or by contacting maintainers through GitHub/community.",
+                "• **Communications**: you may opt out of non-essential email updates through unsubscribe links or preferences."
+            ]
+        },
+        {
+            "id": "security",
+            "title": "8. Security",
+            "body": [
+                "We use reasonable technical, organizational, and administrative safeguards to protect information (e.g., HTTPS, access controls, limited retention).",
+                "No system is perfectly secure. If you discover a vulnerability, report it responsibly via our published security disclosure process."
+            ]
+        },
+        {
+            "id": "transfers",
+            "title": "9. International Transfers",
+            "body": [
+                "Our infrastructure and service providers may be located in multiple countries. If data is transferred across borders, we take steps to ensure appropriate safeguards in line with applicable laws (e.g., standard contractual clauses where required)."
+            ]
+        },
+        {
+            "id": "children",
+            "title": "10. Children’s Privacy",
+            "body": [
+                "Bnlang and its Services are not directed to children under 13, or under the age requiring parental consent in your jurisdiction.",
+                "We do not knowingly collect personal information from children. If we become aware of such collection, we will delete the data promptly."
+            ]
+        },
+        {
+            "id": "third-party",
+            "title": "11. Third-Party Links",
+            "body": [
+                "Our documentation, registry, or websites may link to third-party sites or services. We are not responsible for their content or privacy practices. Please review third-party policies before sharing personal data."
+            ]
+        },
+        {
+            "id": "changes",
+            "title": "12. Changes to This Policy",
+            "body": [
+                "We may update this Privacy Policy periodically. The date at the top shows the latest revision.",
+                "For material changes, we will provide additional notice (e.g., on the website, in release notes, or via announcements).",
+                "Your continued use of the Services after changes take effect indicates your acceptance of the revised Policy."
+            ]
+        },
+        {
+            "id": "contact",
+            "title": "13. Contact",
+            "body": [
+                "Questions or requests about this Policy? You can:",
+                "• Open an issue in our official GitHub repository.",
+                "• Reach out via official community channels listed on our website.",
+                "• For legal/privacy-specific inquiries, contact the maintainers via the designated email provided in the repository or documentation."
+            ]
+        }
+    ],
+    "cta": {
+        "terms": "Terms of Service",
+        "home": "Docs Home"
+    }
+}

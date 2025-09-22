@@ -1,0 +1,118 @@
+---
+title: Atomics
+description: Atomics namespace and methods in Bnlang with English, Bangla, and Banglish names and examples.
+bnTitle: অ্যাটোমিকস
+bnDescription: Bnlang এ Atomics (অ্যাটোমিকস) নেমস্পেস এবং মেথড এর উদাহরণ।
+banglishTitle: Atomics
+banglishDescription: Bnlang e Atomics namespace o method er example.
+---
+
+# <I18nEnglish>Atomics</I18nEnglish>
+# <I18nBangla>অ্যাটোমিকস</I18nBangla>
+# <I18nBanglish>Atomics</I18nBanglish>
+
+<I18nEnglish>
+`Atomics` in Bnlang works like in JavaScript.  
+It provides low-level atomic operations on shared memory (`SharedArrayBuffer`).  
+You can call it with **`Atomics`**, **`অ্যাটোমিকস`**, or even Banglish names inside the namespace.
+</I18nEnglish>
+
+<I18nBangla>
+Bnlang এ `অ্যাটোমিকস` JavaScript এর মত কাজ করে।  
+এটি `SharedArrayBuffer` এ লো-লেভেল অ্যাটমিক অপারেশন দেয়।  
+**`Atomics`**, **`অ্যাটোমিকস`** অথবা Banglish নাম দিয়েও ব্যবহার করা যায়।
+</I18nBangla>
+
+<I18nBanglish>
+Bnlang e `Atomics` JavaScript er moto kaj kore.  
+Eta `SharedArrayBuffer` er upor low-level atomic operation kore.  
+Use korte parben **`Atomics`**, **`অ্যাটোমিকস`**, ba Banglish method nam diye.
+</I18nBanglish>
+
+---
+
+## Methods
+
+<I18nEnglish>
+- Add/Subtract → `Atomics.add()`, `Atomics.sub()` (Bangla: `যোগ()`, `উপ()`, Banglish: `jog()`, `up()`)
+- Bitwise → `Atomics.and()`, `Atomics.or()`, `Atomics.xor()` (Bangla: `এবং`, `অথবা`, `এক্সঅর`)
+- Exchange → `Atomics.exchange()` (Bangla: `বিনিময়`, Banglish: `binimoy`)
+- Compare & Swap → `Atomics.compareExchange()` (Bangla: `তুলনা_বিনিময়`, Banglish: `tulonaBinimoy`)
+- Load/Store → `Atomics.load()`, `Atomics.store()` (Bangla: `লোড`, `স্টোর`)
+- Wait/Notify → `Atomics.wait()`, `Atomics.waitAsync()`, `Atomics.notify()` (Bangla: `অপেক্ষা`, `অসমলয়_অপেক্ষা`, `অবহিত`)
+- Lock free check → `Atomics.isLockFree()` (Bangla: `লক_ফ্রি_কি`, Banglish: `lockFreeKi`)
+</I18nEnglish>
+
+<I18nBangla>
+- যোগ/বিয়োগ → `অ্যাটোমিকস.যোগ()`, `অ্যাটোমিকস.উপ()`  
+- বিটওয়াইজ → `অ্যাটোমিকস.এবং()`, `অ্যাটোমিকস.অথবা()`, `অ্যাটোমিকস.এক্সঅর()`  
+- বিনিময় → `অ্যাটোমিকস.বিনিময়()`  
+- তুলনা ও বিনিময় → `অ্যাটোমিকস.তুলনা_বিনিময়()`  
+- লোড/স্টোর → `অ্যাটোমিকস.লোড()`, `অ্যাটোমিকস.স্টোর()`  
+- অপেক্ষা/অবহিত → `অ্যাটোমিকস.অপেক্ষা()`, `অ্যাটোমিকস.অসমলয়_অপেক্ষা()`, `অ্যাটোমিকস.অবহিত()`  
+- লক ফ্রি পরীক্ষা → `অ্যাটোমিকস.লক_ফ্রি_কি()`
+</I18nBangla>
+
+<I18nBanglish>
+- Jog/Biyog → `Atomics.jog()`, `Atomics.up()`  
+- Bitwise → `Atomics.and()`, `Atomics.or()`, `Atomics.xor()`  
+- Binimoy → `Atomics.binimoy()`  
+- Tulona binimoy → `Atomics.tulonaBinimoy()`  
+- Load/Store → `Atomics.load()`, `Atomics.store()`  
+- Opekkha/Obohito → `Atomics.opekkha()`, `Atomics.asomloyOpekkha()`, `Atomics.obohito()`  
+- Lock free check → `Atomics.lockFreeKi()`
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const sab = new SharedArrayBuffer(4);
+const view = new Int32Array(sab);
+
+Atomics.store(view, 0, 10);
+console.log(Atomics.load(view, 0)); // 10
+
+Atomics.add(view, 0, 5);
+console.log(Atomics.load(view, 0)); // 15
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const sab = new SharedArrayBuffer(4);
+const view = new Int32Array(sab);
+
+অ্যাটোমিকস.স্টোর(view, 0, 10);
+কনসোল.লগ(অ্যাটোমিকস.লোড(view, 0)); // 10
+
+অ্যাটোমিকস.যোগ(view, 0, 5);
+কনসোল.লগ(অ্যাটোমিকস.লোড(view, 0)); // 15
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const sab = new SharedArrayBuffer(4);
+const view = new Int32Array(sab);
+
+Atomics.store(view, 0, 10);
+console.log(Atomics.load(view, 0)); // 10
+
+Atomics.jog(view, 0, 5);
+console.log(Atomics.load(view, 0)); // 15
+```
+  </TabsContent>
+</Tabs>

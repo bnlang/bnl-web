@@ -1,0 +1,116 @@
+---
+title: blob module
+description: Blob API for immutable binary data — create, slice, stream, and convert to ArrayBuffer or text. Useful for files and uploads.
+bnTitle: blob মডিউল
+bnDescription: Blob API — ইমিউটেবল বাইনারি ডেটা, তৈরি, স্লাইস, স্ট্রিম, ArrayBuffer বা টেক্সটে কনভার্ট; ফাইল ও আপলোডে উপযোগী।
+banglishTitle: blob module
+banglishDescription: Blob API — immutable binary data, create, slice, stream, convert to ArrayBuffer or text; useful for files & uploads.
+---
+
+# <I18nEnglish>blob</I18nEnglish>
+# <I18nBangla>blob</I18nBangla>
+# <I18nBanglish>blob</I18nBanglish>
+
+<I18nEnglish>
+The **`Blob`** class represents immutable raw binary data. Blobs are commonly used for file-like objects, uploads, and binary manipulation.
+</I18nEnglish>
+
+<I18nBangla>
+**`Blob`** ক্লাস ইমিউটেবল কাঁচা বাইনারি ডেটা বোঝায়। এটি ফাইল-জাতীয় অবজেক্ট, আপলোড ও বাইনারি ম্যানিপুলেশনে ব্যবহৃত হয়।
+</I18nBangla>
+
+<I18nBanglish>
+**`Blob`** class immutable raw binary data represent kore. File-like object, upload & binary manipulation e use hoy.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Class: Blob
+- **`new Blob(sources[, options])`** — create blob from array of parts.  
+  - Parts: strings, BufferSource, Blob.  
+  - Options: `{ type: "mime/type" }`.  
+
+### Properties
+- **`blob.size`** — size in bytes.  
+- **`blob.type`** — MIME type string.  
+
+### Methods
+- **`blob.slice([start], [end], [type])`** — return a new Blob view.  
+- **`blob.arrayBuffer()`** — resolve to ArrayBuffer.  
+- **`blob.text()`** — resolve to string.  
+- **`blob.stream()`** — readable stream of blob data.  
+
+</I18nEnglish>
+
+<I18nBangla>
+### প্রপার্টি ও মেথড
+- **`size`**, **`type`** — ব্লবের আকার ও টাইপ।  
+- **`slice`**, **`arrayBuffer`**, **`text`**, **`stream`** — ডেটা অ্যাক্সেস।  
+</I18nBangla>
+
+<I18nBanglish>
+### Property & Method
+- **`size`**, **`type`** — blob size & type.  
+- **`slice`**, **`arrayBuffer`**, **`text`**, **`stream`** — data access.  
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+// Create a blob from text
+const b = new Blob(["Hello Bnlang"], { type: "text/plain" });
+console.log("size:", b.size, "type:", b.type);
+
+// Convert to text
+const txt = await b.text();
+console.log("text:", txt);
+
+// Slice & arrayBuffer
+const part = b.slice(0, 5, "text/plain");
+console.log("part text:", await part.text());
+
+// Stream blob
+for await (const chunk of b.stream()) {
+  console.log("chunk:", chunk);
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Blobs are **immutable**; operations return new Blobs.  
+- MIME type is advisory; consumers may ignore it.  
+- Use **`Blob`** with **FormData** for file uploads.  
+- For random access binary edits, use **Buffer** instead.  
+</I18nEnglish>
+
+<I18nBangla>
+- Blob ইমিউটেবল; অপারেশনে নতুন Blob ফেরত দেয়।  
+- MIME টাইপ শুধু তথ্য দেয়, ক্লায়েন্ট উপেক্ষা করতে পারে।  
+- আপলোডের জন্য FormData এর সাথে Blob ব্যবহার করুন।  
+- র‍্যান্ডম অ্যাক্সেস এডিটের জন্য Buffer ব্যবহার করুন।  
+</I18nBangla>
+
+<I18nBanglish>
+- Blob immutable; operation e always new Blob return kore.  
+- MIME type advisory; client ignore korte pare.  
+- Upload er jonno FormData sathe Blob use korun.  
+- Random access edit er jonno Buffer use kora uchit.  
+</I18nBanglish>

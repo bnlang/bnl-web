@@ -1,0 +1,161 @@
+---
+title: else Keyword
+description: The else keyword in Bnlang with examples in English, Bangla, and Banglish.
+bnTitle: নাহলে কীওয়ার্ড
+bnDescription: Bnlang এ নাহলে কীওয়ার্ড এবং এর বাংলা উদাহরণ।
+banglishTitle: else Keyword
+banglishDescription: Bnlang e else keyword er example English, Bangla ar Banglish e.
+---
+
+# <I18nEnglish>else Keyword</I18nEnglish>
+# <I18nBangla>নাহলে কীওয়ার্ড</I18nBangla>
+# <I18nBanglish>else Keyword</I18nBanglish>
+
+<I18nEnglish>
+The **`else`** keyword provides an alternative path when an `if` condition is **false**.  
+It is always attached after an `if` or `else if` block.  
+</I18nEnglish>
+
+<I18nBangla>
+**`নাহলে`** কীওয়ার্ড ব্যবহার হয় যখন **`যদি`** এর শর্ত মিথ্যা হয়।  
+এটি সর্বদা **যদি** বা **নাহলে যদি**-এর পরে বসানো হয়।
+</I18nBangla>
+
+<I18nBanglish>
+**`nahole`** keyword use hoy jokhon **`jodi`** condition false hoy.  
+Eta always thake **jodi** ba **nahole jodi** er porer block e.  
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+if (condition) {
+  // executes if condition true
+} else {
+  // executes if condition false
+}
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+যদি (শর্ত) {
+  // শর্ত সত্য হলে চালাও
+} নাহলে {
+  // শর্ত মিথ্যা হলে চালাও
+}
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+jodi (condition) {
+  // true hole
+} nahole {
+  // false hole
+}
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+let loggedIn = false;
+
+if (loggedIn) {
+  console.log("Welcome back!");
+} else {
+  console.warn("Please log in first.");
+}
+
+// Simple even check
+let number = 7;
+if (number % 2 === 0) {
+  print("Even number");
+} else {
+  print("Odd number");
+}
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+let লগইন = false;
+
+যদি (লগইন) {
+  কনসোল.লগ("আবার স্বাগতম!");
+} নাহলে {
+  কনসোল.সতর্ক("প্রথমে লগইন করুন।");
+}
+
+// জোড়-বিজোড় চেক
+let সংখ্যা = 7;
+যদি (সংখ্যা % 2 === 0) {
+  ছাপাও("জোড় সংখ্যা");
+} নাহলে {
+  লিখো("বিজোড় সংখ্যা");
+}
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+let loggedIn = false;
+
+jodi (loggedIn) {
+  console.log("Welcome back!");
+} nahole {
+  console.warn("Please log in first.");
+}
+
+// Even-Odd check
+let shonkha = 7;
+jodi (shonkha % 2 === 0) {
+  chapao("Even number");
+} nahole {
+  likho("Odd number");
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- An `else` block has no condition; it runs only if all previous checks fail.  
+- Use `else if` when you need more than two branches.  
+- You can nest `if` + `else` blocks for complex logic.
+</I18nEnglish>
+
+<I18nBangla>
+- **`নাহলে`**-এর কোনো শর্ত থাকে না; সব শর্ত ব্যর্থ হলে এটি চালানো হয়।  
+- একাধিক শর্তের জন্য **`নাহলে যদি`** ব্যবহার করুন।  
+- জটিল লজিকের জন্য **যদি + নাহলে** ব্লক নেস্ট করতে পারেন।
+</I18nBangla>
+
+<I18nBanglish>
+- **`nahole`** block e kono condition thake na; sob ager condition fail hole run hoy.  
+- Dui er beshi branch hole **`nahole jodi`** use korun.  
+- Complex logic e **jodi + nahole** nested korte paren.
+</I18nBanglish>

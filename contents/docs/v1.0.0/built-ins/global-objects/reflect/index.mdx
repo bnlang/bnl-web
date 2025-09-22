@@ -1,0 +1,115 @@
+---
+title: Reflect
+description: Working with object meta-operations using Reflect in Bnlang with English, Bangla, and Banglish names.
+bnTitle: প্রতিফলন
+bnDescription: Bnlang এ Reflect—প্রতিফলন, Protifolon—ব্যবহার করে অবজেক্ট মেটা-অপারেশন এর উদাহরণ।
+banglishTitle: Reflect
+banglishDescription: Bnlang e Reflect (Protifolon, প্রতিফলন) diye object meta-operation er udahoron.
+---
+
+# <I18nEnglish>Reflect</I18nEnglish>
+# <I18nBangla>প্রতিফলন</I18nBangla>
+# <I18nBanglish>Reflect</I18nBanglish>
+
+<I18nEnglish>
+**`Reflect`** provides functions for object meta-operations.  
+Available namespaces: **`Reflect`**, **`প্রতিফলন`**, **`Protifolon`**.
+</I18nEnglish>
+
+<I18nBangla>
+**`প্রতিফলন`** অবজেক্ট মেটা-অপারেশন করার জন্য ব্যবহার হয়।  
+নেমস্পেস: **`Reflect`**, **`প্রতিফলন`**, **`Protifolon`**।
+</I18nBangla>
+
+<I18nBanglish>
+**`Protifolon`** object meta-operation er jonne use hoy.  
+Namespaces: **`Reflect`**, **`প্রতিফলন`**, **`Protifolon`**.
+</I18nBanglish>
+
+---
+
+## Common Methods
+
+<I18nEnglish>
+- `Reflect.get(obj, key)` → Bangla: `প্রতিফলন.গ্রহন(obj, key)` → Banglish: `Protifolon.grohon(obj, key)`  
+- `Reflect.set(obj, key, value)` → Bangla: `প্রতিফলন.স্থাপন(obj, key, value)` → Banglish: `Protifolon.sthapan(obj, key, value)`  
+- `Reflect.apply(fn, thisArg, args)` → Bangla: `প্রতিফলন.প্রয়োগ(fn, thisArg, args)` → Banglish: `Protifolon.proyog(fn, thisArg, args)`  
+- `Reflect.construct(Ctor, args)` → Bangla: `প্রতিফলন.নির্মাণ(Ctor, args)` → Banglish: `Protifolon.nirman(Ctor, args)`  
+</I18nEnglish>
+
+<I18nBangla>
+- `প্রতিফলন.গ্রহন(obj, key)` → অবজেক্ট থেকে মান নেওয়া  
+- `প্রতিফলন.স্থাপন(obj, key, value)` → অবজেক্টে মান বসানো  
+- `প্রতিফলন.প্রয়োগ(fn, thisArg, args)` → ফাংশন কল  
+- `প্রতিফলন.নির্মাণ(Ctor, args)` → নতুন অবজেক্ট তৈরি  
+</I18nBangla>
+
+<I18nBanglish>
+- `Protifolon.grohon(obj, key)` → object theke man newa  
+- `Protifolon.sthapan(obj, key, value)` → object e man boshano  
+- `Protifolon.proyog(fn, thisArg, args)` → function call kora  
+- `Protifolon.nirman(Ctor, args)` → notun object toiri  
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const obj = { x: 10 };
+
+// get & set
+console.log(Reflect.get(obj, "x")); // 10
+Reflect.set(obj, "y", 20);
+console.log(obj.y); // 20
+
+// construct
+function Point(x, y) { this.x = x; this.y = y; }
+const p = Reflect.construct(Point, [1, 2]);
+console.log(p); // Point { x: 1, y: 2 }
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const obj = { এক্স: 10 };
+
+// গ্রহন & স্থাপন
+কনসোল.লগ(প্রতিফলন.গ্রহন(obj, "এক্স")); // 10
+প্রতিফলন.স্থাপন(obj, "ওয়াই", 20);
+কনসোল.লগ(obj.ওয়াই); // 20
+
+// নির্মাণ
+function বিন্দু(x, y) { this.x = x; this.y = y; }
+const p = প্রতিফলন.নির্মাণ(বিন্দু, [1, 2]);
+কনসোল.লগ(p); // { x: 1, y: 2 }
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const obj = { x: 10 };
+
+// grohon & sthapan
+console.log(Protifolon.grohon(obj, "x")); // 10
+Protifolon.sthapan(obj, "y", 20);
+console.log(obj.y); // 20
+
+// nirman
+function Bindu(x, y) { this.x = x; this.y = y; }
+const p = Protifolon.nirman(Bindu, [1, 2]);
+console.log(p); // { x: 1, y: 2 }
+```
+  </TabsContent>
+</Tabs>

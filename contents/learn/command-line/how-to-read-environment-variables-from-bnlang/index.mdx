@@ -1,0 +1,169 @@
+---
+title: How to Read Environment Variables from Bnlang
+description: Learn how to read environment variables in Bnlang with English, Bangla, and Banglish examples.
+bnTitle: Bnlang এ পরিবেশ ভেরিয়েবল পড়া
+bnDescription: Bnlang এ environment variables পড়ার উদাহরণ।
+banglishTitle: How to Read Environment Variables from Bnlang
+banglishDescription: Bnlang e environment variable porar udahoron English, Bangla ar Banglish e.
+---
+
+# <I18nEnglish>How to Read Environment Variables from Bnlang</I18nEnglish>
+# <I18nBangla>Bnlang এ পরিবেশ ভেরিয়েবল পড়া</I18nBangla>
+# <I18nBanglish>How to Read Environment Variables from Bnlang</I18nBanglish>
+
+<I18nEnglish>
+In **Bnlang**, you can read environment variables using the built‑in **`process.env`** object.  
+It stores key–value pairs provided by the operating system or set manually before running the program.
+</I18nEnglish>
+
+<I18nBangla>
+**Bnlang** এ **`process.env`** অবজেক্ট ব্যবহার করে environment variables পড়া যায়।  
+এতে অপারেটিং সিস্টেম দ্বারা দেওয়া বা প্রোগ্রাম চালানোর আগে সেট করা key–value জোড়া থাকে।
+</I18nBangla>
+
+<I18nBanglish>
+**Bnlang** e **`process.env`** object diye environment variable pora jay.  
+Ete operating system theke deya ba program run korar age set kora key–value pair thake.
+</I18nBanglish>
+
+---
+
+## Example: Reading a Variable
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+// file: env.bnl
+const user = process.env.USER || "Guest";
+
+console.log("Current user:", user);
+```
+
+```sh
+USER=Alice bnl env.bnl
+# Output: Current user: Alice
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ফাইল: env.bnl
+const ব্যবহারকারী = process.env.USER || "অতিথি";
+
+কনসোল.লগ("বর্তমান ব্যবহারকারী:", ব্যবহারকারী);
+```
+
+```sh
+USER=আলিস bnl env.bnl
+# আউটপুট: বর্তমান ব্যবহারকারী: আলিস
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// file: env.bnl
+const byaboharkari = process.env.USER || "Guest";
+
+console.log("Bartoman byaboharkari:", byaboharkari);
+```
+
+```sh
+USER=Alis bnl env.bnl
+# Output: Bartoman byaboharkari: Alis
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Example: Using Multiple Variables
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+// file: config.bnl
+const host = process.env.HOST || "localhost";
+const port = process.env.PORT || 3000;
+
+console.log(`Server running at http://${host}:${port}`);
+```
+
+```sh
+HOST=127.0.0.1 PORT=8080 bnl config.bnl
+# Output: Server running at http://127.0.0.1:8080
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ফাইল: config.bnl
+const হোস্ট = process.env.HOST || "localhost";
+const পোর্ট = process.env.PORT || 3000;
+
+কনসোল.লগ(`সার্ভার চলছে http://${হোস্ট}:${পোর্ট}`);
+```
+
+```sh
+HOST=127.0.0.1 PORT=8080 bnl config.bnl
+# আউটপুট: সার্ভার চলছে http://127.0.0.1:8080
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// file: config.bnl
+const host = process.env.HOST || "localhost";
+const port = process.env.PORT || 3000;
+
+console.log(`Server cholche http://${host}:${port}`);
+```
+
+```sh
+HOST=127.0.0.1 PORT=8080 bnl config.bnl
+# Output: Server cholche http://127.0.0.1:8080
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Always provide default values for environment variables.  
+- Use `.env` files with a loader for local development.  
+- Keep sensitive values like API keys secret.  
+- Document required variables for each project.
+</I18nEnglish>
+
+<I18nBangla>
+- environment variables এর জন্য সবসময় ডিফল্ট মান দিন।  
+- লোকাল ডেভেলপমেন্টে `.env` ফাইল ব্যবহার করুন।  
+- সংবেদনশীল মান (যেমন API key) গোপন রাখুন।  
+- প্রতিটি প্রজেক্টের জন্য প্রয়োজনীয় ভেরিয়েবল ডকুমেন্ট করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Environment variable er jonno sobshomoy default value din.  
+- Local development e `.env` file use korun.  
+- Sensitive man (jemon API key) secret rakhen.  
+- Protiti project er jonno required variable document korun.
+</I18nBanglish>

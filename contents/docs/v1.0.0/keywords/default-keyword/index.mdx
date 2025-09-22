@@ -1,0 +1,197 @@
+---
+title: default Keyword
+description: The default branch in Bnlang switch statements with examples in English, Bangla, and Banglish.
+bnTitle: অন্যথায় কীওয়ার্ড
+bnDescription: Bnlang এ switch (বিকল্প)-এ অন্যথায় ব্যবহারের নিয়ম ও বাংলা উদাহরণ।
+banglishTitle: default Keyword
+banglishDescription: Bnlang e switch e default (onnothay) beboharer udahoron English, Bangla ar Banglish e.
+---
+
+# <I18nEnglish>default Keyword</I18nEnglish>
+# <I18nBangla>অন্যথায় কীওয়ার্ড</I18nBangla>
+# <I18nBanglish>default Keyword</I18nBanglish>
+
+<I18nEnglish>
+The **`default`** branch in a `switch` runs when none of the `case` labels match.  
+It is optional but recommended to handle unexpected values.
+</I18nEnglish>
+
+<I18nBangla>
+`বিকল্প` (switch) স্টেটমেন্টে **`অন্যথায়`** ব্লক চালানো হয় যখন কোনো **`অবস্থা`** (case) মেলে না।  
+এটি ঐচ্ছিক, তবে অপ্রত্যাশিত মান হ্যান্ডল করতে ব্যবহার করা ভালো।
+</I18nBangla>
+
+<I18nBanglish>
+`bikolpo` (switch) e **`onnothay`** cholbe jokhon kono **`obostha`** (case) match kore na.  
+Eta optional, kintu unexpected value handle korte dewa ucit.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+switch (expr) {
+  case v1:
+    // ...
+    break;
+  // ...
+  default:
+    // fallback logic
+}
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+বিকল্প (অভিব্যক্তি) {
+  অবস্থা মান১:
+    // ...
+    থামুন;
+  // ...
+  অন্যথায়:
+    // বিকল্প/ফলব্যাক লজিক
+}
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+bikolpo (expression) {
+  obostha man1:
+    // ...
+    thamun;
+  // ...
+  onnothay:
+    // fallback logic
+}
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+// Temperature band
+const t = 37;
+
+switch (true) {
+  case t < 0:
+    console.warn("Freezing");
+    break;
+  case t >= 0 && t < 30:
+    console.log("Cool/Normal");
+    break;
+  default:
+    console.log("Hot or unhandled");
+}
+
+// Default anywhere (falls through if no break)
+const code = "X";
+switch (code) {
+  default:
+    console.log("Unknown code"); // runs first
+    // no break -> falls into next case
+  case "A":
+    console.log("Handled A");
+    break;
+}
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// তাপমাত্রা ব্যান্ড
+const তাপ = 37;
+
+বিকল্প (true) {
+  অবস্থা তাপ < 0:
+    কনসোল.সতর্ক("বরফ জমার মতো ঠাণ্ডা");
+    থামুন;
+  অবস্থা তাপ >= 0 && তাপ < 30:
+    কনসোল.লগ("স্বাভাবিক/সহনীয়");
+    থামুন;
+  অন্যথায়:
+    কনসোল.লগ("গরম বা হ্যান্ডল করা হয়নি");
+}
+
+// ডিফল্ট যেকোনো জায়গায় থাকতে পারে (break না দিলে fall-through হবে)
+const কোড = "X";
+বিকল্প (কোড) {
+  অন্যথায়:
+    কনসোল.লগ("অজানা কোড");
+    // এখানে থামুন নেই, তাই পরের ব্লকে পড়বে
+  অবস্থা "A":
+    কনসোল.লগ("A হ্যান্ডলড");
+    থামুন;
+}
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// Temperature band
+const tap = 37;
+
+bikolpo (true) {
+  obostha tap < 0:
+    console.warn("Freezing");
+    thamun;
+  obostha tap >= 0 && tap < 30:
+    console.log("Cool/Normal");
+    thamun;
+  onnothay:
+    console.log("Hot or unhandled");
+}
+
+// Default can be placed earlier (falls through without break)
+const kod = "X";
+bikolpo (kod) {
+  onnothay:
+    console.log("Unknown code");
+    // no 'thamun' -> falls into next case
+  obostha "A":
+    console.log("Handled A");
+    thamun;
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Only one **`default`** is allowed per switch.  
+- `default` can appear anywhere; execution jumps there only when no `case` matches.  
+- If you place `default` before other cases and omit `break`, execution will **fall through** to the next case.
+</I18nEnglish>
+
+<I18nBangla>
+- একটি `বিকল্প` ব্লকে মাত্র একটি **`অন্যথায়`** থাকতে পারে।  
+- **`অন্যথায়`** যেকোনো স্থানে রাখা যায়; কোনো `অবস্থা` না মিললে তবেই চালু হবে।  
+- **`অন্যথায়`** এর পরে `থামুন` না দিলে পরের `অবস্থা`তে **fall-through** ঘটবে।
+</I18nBangla>
+
+<I18nBanglish>
+- Protiti `bikolpo` te sudhu ekta **`onnothay`** thake.  
+- **`onnothay`** je kono jaygay thakte pare; kono `obostha` match na korle tokhon cholbe.  
+- `onnothay` er pore `thamun` na dile porer `obostha` te **fall-through** hobe.
+</I18nBanglish>

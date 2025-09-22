@@ -1,0 +1,217 @@
+{
+    "meta": {
+        "title": "Terms of Service",
+        "description": "Bnlang language, BPM package manager, tooling, documentation, website, API/registry, ar community channel use korar shomporkito terms."
+    },
+    "hero": {
+        "title": "Terms of Service",
+        "intro": "Bnlang, BPM, ba related kono resource use korar agei doya kore ei Terms of Service valo kore porun. Amader language, tool, registry, website, ba documentation use korar madhyome apni ei Terms e bound hoben.",
+        "lastUpdatedLabel": "Last updated",
+        "lastUpdated": "September 11, 2025"
+    },
+    "sections": [
+        {
+            "id": "acceptance",
+            "title": "1. Terms Acceptance",
+            "body": [
+                "Bnlang ba tar package manager (BPM) use kore apni ei Terms of Service ar referenced documents (jemon Privacy Policy ar kono posted guideline) e agree korchen. Jodi apni agree na koren, tahole software, website, registry, ba related service use korte parben na.",
+                "Official repository, documentation site, registry/mirror, API, ar community channel use o ei Terms er under e porbe."
+            ]
+        },
+        {
+            "id": "definitions",
+            "title": "2. Definitions",
+            "body": [
+                "“Bnlang” mane programming language, runtime, standard library, language server, developer tooling, official website, ar documentation.",
+                "“BPM” mane package manager ar related service (jemon public API, package registry, mirror, security scanning, distribution endpoint).",
+                "“Services” mane kono website, API, registry, mirror, download, documentation, ba community channel jeta amra operate kori.",
+                "“We/Us” mane Bnlang maintainer ar contributor ra jara open governance er under e kaj kore.",
+                "“You” mane kono individual ba entity jara Bnlang ba Services use kore."
+            ]
+        },
+        {
+            "id": "eligibility",
+            "title": "3. Eligibility & Account",
+            "body": [
+                "Apnar legal capacity thakte hobe ei Terms e enter korar jonne. Jodi apni ekta account create koren (jemon BPM package publish ba organization namespace manage korar jonne), apnake accurate info dite hobe ar credential secure rakhte hobe.",
+                "Account er under e sob activity er jonne apni responsible. Unauthorized use ba security incident hole shighroi amader notify korte hobe."
+            ]
+        },
+        {
+            "id": "use-of-content",
+            "title": "4. Content Use",
+            "body": [
+                "Documentation, tutorial, code sample, ar reference implementation educational ar development purpose e deya hoyeche. Bnlang ar kono dependency use korar shomoy law, license, export control, ar third-party terms follow kora apnar responsibility.",
+                "Example e third-party library ba service reference thakte pare; egulo tar nijer license ar terms e governed."
+            ]
+        },
+        {
+            "id": "oss-license",
+            "title": "5. Open-Source Licensing",
+            "body": [
+                "Jodi otherwise note na thake, official Bnlang repository te publish kora source code MIT License e available thakbe ba oi repository te je license declare kora hobe tar under e. Kichu component onno license e thakte pare; segulo tar license follow kore use korte hobe.",
+                "Copy, modify, distribute, statically/dynamically link, ba host korar shomoy apnake open-source license er sathe comply korte hobe.",
+                "Current core runtime source private thakte pare; jokhon open-source hobe, tokhon license follow korbe. Ei Terms apnake private source code er kono right dey na."
+            ]
+        },
+        {
+            "id": "ip",
+            "title": "6. Intellectual Property & Trademark",
+            "body": [
+                "Bnlang nam, logo, ar branding community asset jeita open governance er under e. Apni factual ar descriptive vabe 'Bnlang' reference korte paren.",
+                "Branding emon vabe use kora jabe na jate endorsement, partnership, ba official status bujhai. Published brand guideline follow korte hobe.",
+                "Open-source license e je right explicitly deya ache tar baire, Services ar branding er sob right reserve thakbe."
+            ]
+        },
+        {
+            "id": "contributions",
+            "title": "7. Contributions",
+            "body": [
+                "Official repository ba channel e contribution (code, doc, design, RFC, translation) submit korle apni project ke ekta perpetual, worldwide, non-exclusive, royalty-free, irrevocable license dicchen jeta diye contribution use, reproduce, modify, adapt, publish, distribute, display, derivative work create, ar sublicense korte parbe project er open-source license onujayi.",
+                "Apni represent korchen je contribution apnar nijer ba properly licensed ar kono third-party right infringe kore na. Apni malicious ba harmful content submit korben na."
+            ]
+        },
+        {
+            "id": "acceptable-use",
+            "title": "8. Acceptable Use",
+            "body": [
+                "Apni Bnlang ba Services misuse korben na. Prohibited conduct er moddhe ache (kintu limited na):",
+                "• malware distribute kora; • intellectual property ba privacy right infringe kora; • security breach er try kora, vulnerability exploit kora, ba rate limit bypass kora; • illegal content publish ba unlawful activity te use kora; • project ba onno der sathe misrepresent kora; • registry abuse (name squat, typo squat, spam, deceptive metadata, harmful package); • excessive automation jeta Services er stability noshto kore."
+            ]
+        },
+        {
+            "id": "apis-telemetry",
+            "title": "9. API, Registry & Telemetry",
+            "body": [
+                "Jodi apni amader public API ba BPM registry service use koren, tahole published guideline, rate limit, security best practice, ar authentication follow korte hobe. Amra ecosystem protect korar jonne usage monitor korte pari ar limit enforce korte pari.",
+                "Package publish automatic ba manual review, malware scanning, ar takedown procedure er moddhe porbe. Ei Terms, law violation, ba security risk thakle amra package remove korte pari.",
+                "Optional telemetry thakle, seta privacy-friendly hobe ar documentation e described thakbe. Disable korte parben documentation er moto kore."
+            ]
+        },
+        {
+            "id": "changes",
+            "title": "10. Service Changes",
+            "body": [
+                "Amra jekono shomoy feature add, change, ba remove korte pari. Jekhane possible, amra breaking change communicate korte try korbo release note, migration guide, ar RFC er madhyome. Kichu feature alpha, beta, ba experimental hote pare ar kono notice chara change ba end hote pare."
+            ]
+        },
+        {
+            "id": "warranty",
+            "title": "11. No Warranties",
+            "body": [
+                "Bnlang ar Services “as is” ar “as available” base e provide kora hoy, kono type er warranty chara—express, implied, ba statutory—including merchantability, fitness, title, non-infringement, ar error-free/continuous operation."
+            ]
+        },
+        {
+            "id": "liability",
+            "title": "12. Liability Limitation",
+            "body": [
+                "Law joto tuku allow kore, project ar contributor ra kono indirect, incidental, special, consequential, exemplary, ba punitive damage er jonno liable hobe na; data, profit, revenue, goodwill, ba business opportunity loss er jonno o liable hobe na—even jodi age theke possibility bola hoy.",
+                "Sob case e, Services related claim er jonno project ar contributor der total liability USD 100 er beshi hobe na."
+            ]
+        },
+        {
+            "id": "indemnity",
+            "title": "13. Indemnification",
+            "body": [
+                "Apni agree korchen project ar contributor der defend, indemnify, ar harmless rakhte kono claim, liability, damage, loss, ar expense (reasonable attorney fee soho) theke jeta apnar service use, apnar content/package, ba Terms/law violation er sathe related."
+            ]
+        },
+        {
+            "id": "termination",
+            "title": "14. Suspension & Termination",
+            "body": [
+                "Apni Terms violate korle, security/operational risk create korle, ba law er dorkar hole amra Services (registry, API, community channel) suspend/terminate korte pari.",
+                "Termination er por apnar service access end hobe. Already paoa open-source code tar license onujayi cholbe. Security, audit, ba legal compliance er jonne amra minimal log/record rakhte pari."
+            ]
+        },
+        {
+            "id": "third-party",
+            "title": "15. Third-Party Link & Content",
+            "body": [
+                "Amader doc, example, ba registry te third-party site, package, content er mention thakte pare. Amra egulo control kori na ar tar terms, policy, security practice, ba availability er jonne responsible na. Apnar risk e use korte hobe."
+            ]
+        },
+        {
+            "id": "export",
+            "title": "16. Export & Compliance",
+            "body": [
+                "Apnake export control, sanction, ar compliance law follow korte hobe. Law e prohibited thakle software/service use/distribute korte parben na. Apni confirm korchen je apni kono sanction jurisdiction e nai."
+            ]
+        },
+        {
+            "id": "children",
+            "title": "17. Children",
+            "body": [
+                "Service child der jonno na jara parental consent chara use korte pare na. Jodi apni under-age hon, tahole parent/legal guardian involvement ar local law follow korei use korte parben."
+            ]
+        },
+        {
+            "id": "law",
+            "title": "18. Governing Law & Venue",
+            "body": [
+                "Ei Terms Bangladesh law er under e, conflict-of-law principle ignore kore. Apni agree korchen Dhaka court e ei Terms/service related dispute er jonno exclusive jurisdiction hobe."
+            ]
+        },
+        {
+            "id": "changes-to-terms",
+            "title": "19. Terms Change",
+            "body": [
+                "Amra somoy e somoy e Terms update korte pari. Important change notice diba official channel (release note, website). Change post howar por effect hobe jodi otherwise bola na thake. Change er por continue use korle mane hobe apni accept korchen."
+            ]
+        },
+        {
+            "id": "contact",
+            "title": "20. Contact & Notice",
+            "body": [
+                "Ei Terms niye question? Official GitHub e issue open korun ba community channel e reach out korun.",
+                "Legal notice ar service communication website, registry banner, ba account-linked email diye pathano hote pare."
+            ]
+        },
+        {
+            "id": "dmca-policy",
+            "title": "21. Copyright/DMCA Policy",
+            "body": [
+                "Apni jodi mone koren kono content/package apnar copyright violate korche, official channel diye detail notice din. Egulo te infringing material identify, contact info, ar good-faith statement dite hobe. Amra content remove/ restrict korte pari ar affected account ke notify korte pari."
+            ]
+        },
+        {
+            "id": "package-policy",
+            "title": "22. Package Publishing & Namespace",
+            "body": [
+                "BPM package name ar organization namespace first-come basis e allocate hoy, kintu trademark conflict, impersonation, abuse, ba inactive thakle reclaim kora hote pare.",
+                "Prohibited behavior holo malware, hidden telemetry, license deception, typo squat, spam, misleading metadata. Security reason e removal quarantine notice chara korte pari."
+            ]
+        },
+        {
+            "id": "security",
+            "title": "23. Security & Vulnerability Report",
+            "body": [
+                "Documentation e described process diye vulnerability privately report korun. Investigation er age disclose korben na. Good-faith research welcome, but exploitation, data theft, ar harm prohibited."
+            ]
+        },
+        {
+            "id": "data",
+            "title": "24. Data, Privacy & Log",
+            "body": [
+                "Privacy Policy te bola ache ki limited info (jemon minimal log security, abuse prevention er jonne) process kora hoy ar ki option apni disable korte parben (optional telemetry).",
+                "Apni agree korchen je amra limited operational data process korte pari Service provide, secure, ar improve korar jonne."
+            ]
+        },
+        {
+            "id": "general",
+            "title": "25. General Terms",
+            "body": [
+                "Severability: Kono provision unenforceable hole, baki part effect thakbe.",
+                "No Waiver: Kono provision enforce na korle ta waiver hobe na.",
+                "Assignment: Apni Terms assign korte parben na amader consent chara; amra stewardship/reorg er part hisebe assign korte pari.",
+                "Force Majeure: Amader control er baire kono event e delay/failure hole amra liable na.",
+                "Entire Agreement: Ei Terms (ar referenced policy) Service er upor complete agreement."
+            ]
+        }
+    ],
+    "cta": {
+        "docsHome": "Docs Home",
+        "privacy": "Privacy Policy"
+    }
+}

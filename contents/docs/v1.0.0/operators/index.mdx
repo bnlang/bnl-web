@@ -1,0 +1,324 @@
+---
+title: Operators
+description: A comprehensive reference to JavaScript operators in Bnlang — overview, categories, and concise examples. (Operator tokens are the same across English, Bangla, and Banglish.)
+bnTitle: অপারেটরসমূহ
+bnDescription: JavaScript/Bnlang এর সব অপারেটর — সারাংশ, বিভাগভিত্তিক টেবিল, উদাহরণ। (সব ভাষায় অপারেটর টোকেন এক।)
+banglishTitle: Operators
+banglishDescription: JavaScript/Bnlang er shob operator — overview, category tables, examples. (Shob language e same tokens.)
+---
+
+# <I18nEnglish>Operators</I18nEnglish>
+# <I18nBangla>অপারেটরসমূহ</I18nBangla>
+# <I18nBanglish>Operators</I18nBanglish>
+
+<I18nEnglish>
+JavaScript operators are the **symbols/keywords** that perform actions on values: arithmetic, comparisons, logical flow, assignment, bitwise ops, and more.  
+In Bnlang, the **operator tokens are identical** across English, Bangla, and Banglish (e.g., `+`, `===`, `&&`, `??`, `instanceof`, `in`, `typeof`, `delete`, `new`, `await`, `yield`, `void`).
+</I18nEnglish>
+
+<I18nBangla>
+JavaScript অপারেটর হলো এমন **চিহ্ন/কীওয়ার্ড** যা মানের উপর অপারেশন চালায়—যেমন গাণিতিক, তুলনা, লজিক্যাল, অ্যাসাইনমেন্ট, বিটওয়াইজ ইত্যাদি।  
+Bnlang‑এ **সব ভাষায় অপারেটর টোকেন একই** থাকে (যেমন `+`, `===`, `&&`, `??`, `instanceof`, `in`, `typeof`, `delete`, `new`, `await`, `yield`, `void`)।
+</I18nBangla>
+
+<I18nBanglish>
+JavaScript operator hocche **symbol/keyword** ja value‑te action chalaye — arithmetic, comparison, logical, assignment, bitwise etc.  
+Bnlang e **operator token shob language e same** (e.g., `+`, `===`, `&&`, `??`, `instanceof`, `in`, `typeof`, `delete`, `new`, `await`, `yield`, `void`).
+</I18nBanglish>
+
+---
+
+## Quick Notes
+
+<I18nEnglish>
+- `+` is **addition** and also **string concatenation**; unary `+x` **coerces to number**.  
+- `==` does **coercive** equality; **prefer `===`** for strict equality.  
+- `??` returns right side only if left is **`null` or `undefined`** (unlike `||` which treats many falsy values).  
+- `&&=`, `||=`, `??=` are **logical assignment** operators.  
+- `yield` (generator) and `await` (async) are **contextual**.  
+- Optional chaining `?.` and spread/rest `...` are **punctuators** often called “operators.” Included here for completeness.
+</I18nEnglish>
+
+<I18nBangla>
+- `+` গাণিতিক **যোগ** এবং **স্ট্রিং জোড়া** দুই কাজই করে; unary `+x` মানকে **number** বানায়।  
+- `==` **coercion** করে; **`===`** ব্যবহার করাই শ্রেয়।  
+- `??` কেবল বাম পাশ **`null`/`undefined`** হলে ডান পাশ নেয়; `||` অনেক falsy মানে নেয়।  
+- `&&=`, `||=`, `??=` হলো **logical assignment**।  
+- `yield` (generator) ও `await` (async) **প্রাসঙ্গিক** জায়গায় কাজ করে।  
+- Optional chaining `?.` ও spread/rest `...` প্রায়শই “operator” বলা হয়—এখানে সুবিধার্থে যুক্ত করা হয়েছে।
+</I18nBangla>
+
+<I18nBanglish>
+- `+` holo **addition** + **string concat**; unary `+x` number‑e cast kore.  
+- `==` **coercive**; **`===`** prefer korun.  
+- `??` sudhu left **null/undefined** hole right ney; `||` onek falsy e right ney.  
+- `&&=`, `||=`, `??=` = **logical assignment**.  
+- `yield`/`await` **context‑specific**.  
+- `?.` and `...` keo besh shomoy “operator” bola hoy — ekhane include kora holo.
+</I18nBanglish>
+
+---
+
+## Operator Tables by Category
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+### গাণিতিক (Arithmetic)
+| অপারেটর | নাম | উদাহরণ | নোট |
+|---|---|---|---|
+| `+` | যোগ / স্ট্রিং জোড়া | `1 + 2`, `"a" + "b"` | সংখ্যা যোগ বা স্ট্রিং concat |
+| `-` | বিয়োগ | `7 - 3` |  |
+| `*` | গুণ | `4 * 2` |  |
+| `/` | ভাগ | `7 / 2` | ফ্লোট ফল; `Math.floor` ব্যবহার করে নামানো যায় |
+| `%` | ভাগশেষ | `7 % 3` | remainder |
+| `**` | ঘাত | `2 ** 3` | exponentiation |
+| `+x` | ইউনারি প্লাস | `+"42"` | number‑e coercion |
+| `-x` | ইউনারি মাইনাস | `-"5"` | negation/coercion |
+
+### ইনক্রিমেন্ট/ডিক্রিমেন্ট
+| অপারেটর | নাম | উদাহরণ | নোট |
+|---|---|---|---|
+| `++x` | প্রিফিক্স ইনক্রিমেন্ট | `++i` | বাড়িয়ে **নতুন মান** ফেরত |
+| `x++` | পোস্টফিক্স ইনক্রিমেন্ট | `i++` | **পুরনো মান** ফেরত, পরে বাড়ে |
+| `--x` | প্রিফিক্স ডিক্রিমেন্ট | `--i` |  |
+| `x--` | পোস্টফিক্স ডিক্রিমেন্ট | `i--` |  |
+
+### তুলনা (Comparison)
+| অপারেটর | নাম | উদাহরণ | নোট |
+|---|---|---|---|
+| `===` / `!==` | কঠোর সমতা/অসমতা | `a === b` | coercion নেই |
+| `==` / `!=` | শিথিল সমতা/অসমতা | `"5" == 5` | coercion হয়—এড়ানো ভালো |
+| `<`, `<=`, `>`, `>=` | সম্পর্ক অপারেটর | `a < b` | স্ট্রিং তুলনায় lexicographic |
+
+### লজিক্যাল ও নালিশ (Logical & Nullish)
+| অপারেটর | নাম | উদাহরণ | নোট |
+|---|---|---|---|
+| `&&` | AND | `a && b` | short‑circuit |
+| `||` | OR | `a || b` | falsy তে ডান পাশ |
+| `!` | NOT | `!x` | booleanize |
+| `??` | Nullish coalescing | `x ?? y` | কেবল `null`/`undefined` হলে `y` |
+| `&&=`, `||=`, `??=` | Logical assignment | `x ||= 1` | শর্ট‑সার্কিট নিয়মে অ্যাসাইন |
+
+### অ্যাসাইনমেন্ট (Assignment)
+| অপারেটর | নাম | উদাহরণ |
+|---|---|---|
+| `=` | অ্যাসাইন | `x = 5` |
+| `+=`, `-=`, `*=`, `/=`, `%=` | গাণিতিক অ্যাসাইন | `x += 2` |
+| `**=` | ঘাত অ্যাসাইন | `x **= 2` |
+| `<<=`, `>>=`, `>>>=` | শিফট অ্যাসাইন | `x <<= 1` |
+| `&=`, `^=`, `|=` | বিটওয়াইজ অ্যাসাইন | `x &= 0xff` |
+
+### বিটওয়াইজ (Bitwise)
+| অপারেটর | নাম | উদাহরণ |
+|---|---|---|
+| `&` | AND | `a & b` |
+| `|` | OR | `a | b` |
+| `^` | XOR | `a ^ b` |
+| `~` | NOT | `~x` |
+| `<<` | বাম শিফট | `x << 2` |
+| `>>` | ডান শিফট (sign‑prop) | `x >> 1` |
+| `>>>` | জিরো‑ফিল ডান শিফট | `x >>> 1` |
+
+### রিলেশনাল/টাইপ (Relational/Type/Other)
+| অপারেটর | নাম | উদাহরণ | নোট |
+|---|---|---|---|
+| `typeof` | টাইপ নির্ণয় | `typeof x` | ফল স্ট্রিং |
+| `instanceof` | কন্সট্রাক্টর সম্পর্ক | `x instanceof C` | প্রোটোটাইপ‑চেইন |
+| `in` | প্রপার্টি আছে? | `"name" in obj` | প্রোটোটাইপসহ |
+| `delete` | প্রপার্টি মুছুন | `delete obj.x` |  |
+| `void` | undefined করুন | `void expr` | মান ফেলে দেয় |
+| `new` | কন্সট্রাক্ট ইনস্ট্যান্স | `new C()` |  |
+| `await` | প্রমিস অপেক্ষা | `await p` | async‑এ |
+| `yield`, `yield*` | জেনারেটর ফলানো | `yield x` | gen‑এ |
+
+### কন্ডিশনাল, কমা, অপশনাল/স্প্রেড
+| অপারেটর | নাম | উদাহরণ | নোট |
+|---|---|---|---|
+| `?:` | টার্নারি | `cond ? a : b` | এক্সপ্রেশন‑লেভেল `if` |
+| `,` | কমা | `(a = 1, b = 2)` | বাম চালিয়ে **ডান ফল** |
+| `?.` | অপশনাল চেইন | `obj?.prop()` | **পাংচুয়েটর** |
+| `...` | স্প্রেড/রেস্ট | `[...xs]`, `function f(...a){}` | **পাংচুয়েটর** |
+
+**উদাহরণ:**
+
+```bnl
+const user = { name: "Mamun" };
+const label = user?.name ?? "Guest";
+let x = 2; x **= 3;           // 8
+const list = [1, 2]; const more = [...list, 3]; // [1,2,3]
+if (a > 0 && b > 0) print("both positive");
+```
+
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+### Arithmetic
+| Operator | Name | Example | Notes |
+|---|---|---|---|
+| `+` | addition / string concat | `1 + 2`, `"a" + "b"` | also concatenates strings |
+| `-`, `*`, `/`, `%`, `**` | subtract, multiply, divide, remainder, power | `7 / 2`, `2 ** 3` |  |
+| `+x`, `-x` | unary plus/minus | `+"42"`, `-"5"` | number coercion / negation |
+
+### Inc/Dec
+| Operator | Name | Example | Notes |
+|---|---|---|---|
+| `++x`, `x++` | increment | `++i`, `i++` | prefix returns new; postfix returns old |
+| `--x`, `x--` | decrement | `--i`, `i--` |  |
+
+### Comparison
+| Operator | Name | Example | Notes |
+|---|---|---|---|
+| `===`, `!==` | strict eq/neq | `a === b` | no coercion |
+| `==`, `!=` | loose eq/neq | `"5" == 5` | coerces — avoid |
+| `<`, `<=`, `>`, `>=` | relational | `a < b` | string compare is lexicographic |
+
+### Logical & Nullish
+| Operator | Name | Example | Notes |
+|---|---|---|---|
+| `&&`, `||`, `!` | and, or, not | `a && b` | short‑circuit |
+| `??` | nullish coalescing | `x ?? y` | only null/undefined |
+| `&&=`, `||=`, `??=` | logical assignment | `x ||= 1` | short‑circuit assign |
+
+### Assignment
+| Operator | Name | Example |
+|---|---|---|
+| `=`, `+=`, `-=`, `*=`, `/=`, `%=` | assign & arithmetic assign | `x += 2` |
+| `**=` | exponent assign | `x **= 2` |
+| `<<=`, `>>=`, `>>>=` | shift assign | `x <<= 1` |
+| `&=`, `^=`, `|=` | bitwise assign | `x &= 0xff` |
+
+### Bitwise
+| Operator | Name | Example |
+|---|---|---|
+| `&`, `|`, `^`, `~` | and, or, xor, not | `a & b`, `~x` |
+| `<<`, `>>`, `>>>` | shifts | `x << 2` |
+
+### Relational/Type/Other
+| Operator | Name | Example | Notes |
+|---|---|---|---|
+| `typeof` | type | `typeof x` | returns string |
+| `instanceof` | prototype test | `x instanceof C` | walks chain |
+| `in` | property exists | `"name" in obj` | includes prototype |
+| `delete` | remove prop | `delete obj.x` |  |
+| `void` | discard value | `void expr` | yields undefined |
+| `new` | construct | `new C()` |  |
+| `await` | await promise | `await p` | async only |
+| `yield`, `yield*` | generator | `yield x` | gen only |
+
+### Conditional, Comma, Optional/Spread
+| Operator | Name | Example | Notes |
+|---|---|---|---|
+| `?:` | ternary | `cond ? a : b` | inline if |
+| `,` | comma | `(a=1, b=2)` | returns last |
+| `?.` | optional chaining | `obj?.prop()` | punctuator |
+| `...` | spread/rest | `[...xs]`, `(...a)` | punctuator |
+
+**Example:**
+
+```bnl
+const user = { name: "Mamun" };
+const label = user?.name ?? "Guest";
+let x = 2; x **= 3;
+const more = [...[1,2], 3];
+if (a > 0 && b > 0) console.log("both positive");
+```
+
+  </TabsContent>
+
+  <TabsContent value="english">
+
+### Arithmetic
+| Operator | Name | Example | Notes |
+|---|---|---|---|
+| `+` | addition / string concat | `1 + 2`, `"a" + "b"` | concatenates strings |
+| `-`, `*`, `/`, `%`, `**` | subtract, multiply, divide, remainder, power | `7 / 2`, `2 ** 3` |  |
+| `+x`, `-x` | unary plus/minus | `+"42"`, `-"5"` | numeric coercion / negation |
+
+### Inc/Dec
+| Operator | Name | Example | Notes |
+|---|---|---|---|
+| `++x`, `x++` | increment | `++i`, `i++` | prefix returns new; postfix returns old |
+| `--x`, `x--` | decrement | `--i`, `i--` |  |
+
+### Comparison
+| Operator | Name | Example | Notes |
+|---|---|---|---|
+| `===`, `!==` | strict equality/inequality | `a === b` | no coercion |
+| `==`, `!=` | loose equality/inequality | `"5" == 5` | coerces — avoid |
+| `<`, `<=`, `>`, `>=` | relational | `a < b` | string compare is lexicographic |
+
+### Logical & Nullish
+| Operator | Name | Example | Notes |
+|---|---|---|---|
+| `&&`, `||`, `!` | logical and/or/not | `a && b` | short‑circuit |
+| `??` | nullish coalescing | `x ?? y` | only null/undefined |
+| `&&=`, `||=`, `??=` | logical assignment | `x ||= 1` | short‑circuit assign |
+
+### Assignment
+| Operator | Name | Example |
+|---|---|---|
+| `=`, `+=`, `-=`, `*=`, `/=`, `%=` | assignment & compound | `x += 2` |
+| `**=` | exponentiation assignment | `x **= 2` |
+| `<<=`, `>>=`, `>>>=` | shift assignment | `x <<= 1` |
+| `&=`, `^=`, `|=` | bitwise assignment | `x &= 0xff` |
+
+### Bitwise
+| Operator | Name | Example |
+|---|---|---|
+| `&`, `|`, `^`, `~` | and, or, xor, not | `a & b`, `~x` |
+| `<<`, `>>`, `>>>` | shifts | `x << 2` |
+
+### Relational/Type/Other
+| Operator | Name | Example | Notes |
+|---|---|---|---|
+| `typeof` | typeof | `typeof x` | returns a string |
+| `instanceof` | instanceof | `x instanceof C` | prototype chain |
+| `in` | property test | `"name" in obj` | includes prototype |
+| `delete` | delete property | `delete obj.x` |  |
+| `void` | void | `void expr` | returns undefined |
+| `new` | object construction | `new C()` |  |
+| `await` | await | `await p` | async only |
+| `yield`, `yield*` | yield | `yield x` | generator only |
+
+### Conditional, Comma, Optional/Spread
+| Operator | Name | Example | Notes |
+|---|---|---|---|
+| `?:` | conditional (ternary) | `cond ? a : b` | expression‑level if |
+| `,` | comma | `(a=1, b=2)` | evaluates L→R, returns last |
+| `?.` | optional chaining | `obj?.prop()` | punctuator |
+| `...` | spread/rest | `[...xs]`, `(...args)` | punctuator |
+
+**Example:**
+
+```bnl
+const user = { name: "Mamun" };
+const label = user?.name ?? "Guest";
+let x = 2; x **= 3;
+const more = [...[1,2], 3];
+if (a > 0 && b > 0) console.log("both positive");
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Precedence (Common Highlights)
+
+- Highest → lowest (selected): `()` call/member → `new` → `**` → unary (`! ~ + - typeof void delete await`) → `* / %` → `+ -` → shifts (`<< >> >>>`) → comparisons (`< <= > >= in instanceof`) → equality (`== != === !==`) → logical AND `&&` → logical OR `||` → nullish `??` → conditional `?:` → assignment (`=`, `+=`, … `&&= ||= ??=`) → comma `,`.
+- `**` is **right‑associative**; most arithmetic is left‑associative. Ternary `?:` is right‑associative.
+- Mixing `??` with `||`/`&&` needs parentheses.
+
+## Notes
+
+- BigInt works with most arithmetic/bitwise ops but **cannot mix** with Number (e.g., `1n + 1` → TypeError).  
+- `typeof null === "object"` (historical quirk). Arrays/dates/regex show `"object"`.  
+- `in` checks across the **prototype chain**; for own‑props use `Object.hasOwn(obj, key)`.  
+- Spread `...` and optional chaining `?.` are punctuators commonly treated as operators.

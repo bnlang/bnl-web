@@ -1,0 +1,185 @@
+---
+title: void Operator
+description: The void operator in Bnlang evaluates an expression and returns undefined — useful for ignoring results, fire‑and‑forget calls, and IIFE patterns.
+bnTitle: ফাঁকা অপারেটর
+bnDescription: Bnlang এ ফাঁকা (void) অপারেটর—অভিব্যক্তি চালিয়ে ফলাফল ফেলে দেয়; fire‑and‑forget, IIFE, এবং লিঙ্ক প্রসঙ্গে ব্যবহার।
+banglishTitle: void Operator
+banglishDescription: Bnlang e faka (void) — expression execute kore, kintu undefined ferot dey. Fire‑and‑forget, IIFE, link tips.
+---
+
+# <I18nEnglish>void Operator</I18nEnglish>
+# <I18nBangla>ফাঁকা অপারেটর</I18nBangla>
+# <I18nBanglish>void Operator</I18nBanglish>
+
+<I18nEnglish>
+The **`void`** operator **evaluates** an expression and **always returns `undefined`**.  
+Use it when you need side‑effects but want to **discard** the value (`void expr`).
+</I18nEnglish>
+
+<I18nBangla>
+**`ফাঁকা`** অপারেটর কোনো অভিব্যক্তি **চালিয়ে** তার মান **ফেলে দেয়**—সব সময় **`undefined`** ফেরত দেয়।  
+সাইড‑ইফেক্ট দরকার কিন্তু মান দরকার নেই—এমন ক্ষেত্রে ব্যবহার করুন (`ফাঁকা অভিব্যক্তি`).
+</I18nBangla>
+
+<I18nBanglish>
+**`faka`** operator expression **execute** kore kintu **protibar `undefined`** ferot dey.  
+Side‑effect thakle result **ignore** korte `faka expr` use korun.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+void expression
+void (expression)   // parentheses optional
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+ফাঁকা অভিব্যক্তি
+ফাঁকা (অভিব্যক্তি)   // বন্ধনী ঐচ্ছিক
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+faka expression
+faka (expression)   // parenthesis optional
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) ফলাফল ফেলে দিয়ে কেবল সাইড‑ইফেক্ট নিন
+let r = ফাঁকা (কনসোল.লগ("চলছে..."), 99);
+কনসোল.লগ(r);              // undefined
+
+// ২) fire‑and‑forget — রিটার্ন মান ব্যবহার হচ্ছে না
+ফাঁকা কিছু_করো();          // কিছু_করো() চলবে, কিন্তু undefined ধরা হবে
+
+// ৩) IIFE‑স্টাইল শুরু করা
+ফাঁকা ফাংশন () {
+  দেখাও("ইমিডিয়েট চালু");
+}();
+
+// ৪) অসামঞ্জস্যপূর্ণ/অ্যাসিঙ্ক কাজ fire‑and‑forget
+ফাঁকা (অসমলয় () => {
+  চেষ্টা {
+    const r = অপেক্ষা fetch("/data");
+    কনসোল.লগ("ডাউনলোড:", r.status);
+  } অবশেষে {
+    কনসোল.তথ্য("শেষ");
+  }
+})();
+
+// ৫) ঐতিহাসিক: `ফাঁকা 0` (void 0) সবসময় undefined
+কনসোল.লগ(ফাঁকা 0);        // undefined
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) Discard the value, keep side‑effects
+let r = faka (console.log("running..."), 99);
+console.log(r);              // undefined
+
+// 2) Fire‑and‑forget call
+faka kichu_korun();           // runs, result ignored (undefined)
+
+// 3) IIFE style
+faka function () {
+  dekhao("immediate start");
+}();
+
+// 4) Async fire‑and‑forget
+faka (osomoloy () => {
+  ceshta {
+    const res = opekkha fetch("/data");
+    console.log("download:", res.status);
+  } obosheshe {
+    console.info("done");
+  }
+})();
+
+// 5) Historical: `faka 0` always undefined
+console.log(faka 0);         // undefined
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Discard result, keep side‑effects
+let r = void (console.log("running..."), 99);
+console.log(r);              // undefined
+
+// 2) Fire‑and‑forget
+void doSomething();          // executes, ignore return value
+
+// 3) IIFE form
+void function () {
+  print("immediate start");
+}();
+
+// 4) Async fire‑and‑forget
+void (async () => {
+  try {
+    const res = await fetch("/data");
+    console.log("download:", res.status);
+  } finally {
+    console.info("done");
+  }
+})();
+
+// 5) Historical: `void 0` is always undefined
+console.log(void 0);         // undefined
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- `void` **does not stop** execution (unlike `return`); it just yields `undefined`.  
+- Historically `void 0` guaranteed `undefined` even if `undefined` was overridden; today `undefined` is read‑only in strict mode, but `void 0` remains a common idiom.  
+- `href="javascript:void 0"` prevents navigation but is discouraged; prefer a **button** or `event.preventDefault()`.  
+- Use `void` to clearly signal **“ignore the result”** (e.g., starting async tasks), but avoid overuse—plain calls are often clearer.  
+- Keep one language style per file for readability.
+</I18nEnglish>
+
+<I18nBangla>
+- `ফাঁকা` কোড **বন্ধ করে না**—শুধু `undefined` দেয়; `ফেরত` (return) থেকে আলাদা।  
+- ঐতিহাসিকভাবে `ফাঁকা 0` সবসময় `undefined`; আজকে `undefined` read‑only হলেও `ফাঁকা 0` প্রচলিত।  
+- `href="javascript:void 0"` দিয়ে ন্যাভিগেশন আটকানো যায়—তবে পরিহার্য; **button** বা `event.preventDefault()` ব্যবহার করুন।  
+- ফলাফল **উপেক্ষা** বোঝাতে `ফাঁকা` ভালো (বিশেষত async শুরু করতে), তবে অযথা ব্যবহার করবেন না।  
+- পড়ার সুবিধায় প্রতিটি ফাইলে এক ভাষা স্টাইল বজায় রাখুন।
+</I18nBangla>
+
+<I18nBanglish>
+- `faka` execution **bondho kore na**; sudhu `undefined` dey — `ferot` er cheye onno.  
+- Itihasik vabe `faka 0` mane shobshomoy `undefined`; ajkal `undefined` read‑only, tobuo eta procholito.  
+- `href="javascript:void 0"` diye navigation thama jaye — kintu **na korai bhalo**; **button**/`event.preventDefault()` use korun.  
+- Result **ignore** korar signal dite `faka` upokari (especially async start), kintu beshi use korben na.  
+- Ek file e ekta language style rakhun.
+</I18nBanglish>

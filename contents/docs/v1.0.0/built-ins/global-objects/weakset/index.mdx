@@ -1,0 +1,107 @@
+---
+title: WeakSet
+description: WeakSet in Bnlang with English, Bangla, and Banglish names—object-only, weakly held values; add/has/delete only.
+bnTitle: দুর্বল_সমষ্টি
+bnDescription: Bnlang এ দুর্বল_সমষ্টি—শুধু অবজেক্ট রাখা যায়, গারবেজ কালেকশনে মুছে যেতে পারে; শুধু যোগ/আছে_কি/মুছুন—এর উদাহরণ।
+banglishTitle: WeakSet
+banglishDescription: Bnlang e DurbolSomoshti—object-only, weak reference; jog/hasVal/deleteVal—er choto udahoron.
+---
+
+# <I18nEnglish>WeakSet</I18nEnglish>
+# <I18nBangla>দুর্বল_সমষ্টি</I18nBangla>
+# <I18nBanglish>WeakSet</I18nBanglish>
+
+<I18nEnglish>
+Use **`WeakSet`**, **`দুর্বল_সমষ্টি`**, or **`DurbolSomoshti`** to keep a set of **objects only** held weakly (eligible for GC). It supports just **`add`**, **`has`**, and **`delete`**. It is **not iterable** and has **no `size`**.
+</I18nEnglish>
+
+<I18nBangla>
+**`দুর্বল_সমষ্টি`** অবজেক্ট-শুধু সংগ্রহ; মানগুলো দুর্বলভাবে ধরা থাকে, তাই অন্য রেফারেন্স না থাকলে GC হতে পারে। এখানে কেবল **`যোগ`**, **`আছে_কি`**, **`মুছুন`** আছে; এটি **ইটারেবল নয়** এবং **`size` নেই**।
+</I18nBangla>
+
+<I18nBanglish>
+**`DurbolSomoshti`** holo object-only collection; values weak vabe dhora thake (GC hote pare). Shudhu **`jog`**, **`hasVal`**, **`deleteVal`** ache; **iterable na** ebong **`size` nai**.
+</I18nBanglish>
+
+---
+
+## Methods
+
+<I18nEnglish>
+- `add(obj)` &nbsp;·&nbsp; `has(obj)` &nbsp;·&nbsp; `delete(obj)`
+</I18nEnglish>
+
+<I18nBangla>
+- `যোগ(obj)` &nbsp;·&nbsp; `আছে_কি(obj)` &nbsp;·&nbsp; `মুছুন(obj)`
+</I18nBangla>
+
+<I18nBanglish>
+- `jog(obj)` &nbsp;·&nbsp; `hasVal(obj)` &nbsp;·&nbsp; `deleteVal(obj)`
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const ws = new WeakSet();
+const obj = {};
+ws.add(obj);
+console.log(ws.has(obj));    // true
+ws.delete(obj);
+console.log(ws.has(obj));    // false
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const ws = new দুর্বল_সমষ্টি();
+const obj = {};
+ws.যোগ(obj);
+কনসোল.লগ(ws.আছে_কি(obj)); // true
+ws.মুছুন(obj);
+কনসোল.লগ(ws.আছে_কি(obj)); // false
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const ws = new DurbolSomoshti();
+const obj = {};
+ws.jog(obj);
+console.log(ws.has(obj));   // true
+ws.delete(obj);
+console.log(ws.has(obj));   // false
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Only **objects** can be stored; primitives (numbers, strings, etc.) are not allowed.
+- Not enumerable: no `size`, `keys()`, `values()`, `entries()`, or `forEach()`.
+</I18nEnglish>
+
+<I18nBangla>
+- কেবল **অবজেক্ট** রাখা যায়; প্রিমিটিভ (সংখ্যা, স্ট্রিং ইত্যাদি) রাখা যায় না।
+- **ইটারেবল নয়**: `size`, `keys()`, `values()`, `entries()`, `forEach()` নেই।
+</I18nBangla>
+
+<I18nBanglish>
+- Shudhu **object** rakhte paren; primitive (number, string, etc.) allowed na.
+- **Enumerable na**: `size`, `keys()`, `values()`, `entries()`, `forEach()` nei.
+</I18nBanglish>

@@ -1,0 +1,99 @@
+{
+    "meta": {
+        "title": "Download",
+        "description": "Download Bnlang CLI and runtime for Windows, Linux, and macOS."
+    },
+    "hero": {
+        "badge": "Bnlang · Download",
+        "title": "Download Bnlang",
+        "lead": "Get the latest Bnlang CLI and runtime. Select your platform, architecture, and version, then verify the checksum and follow the quick install steps."
+    },
+    "os": {
+        "windows": "Windows",
+        "linux": "Linux",
+        "macos": "macOS"
+    },
+    "artifact": {
+        "installer": "Installer",
+        "binary": "Binary Archive",
+        "source": "Source Archive"
+    },
+    "selectors": {
+        "title": "Choose your build",
+        "os": "Operating System",
+        "arch": "Architecture",
+        "version": "Version",
+        "downloadCta": "Download {filename}",
+        "allReleases": "All Releases",
+        "downloadUnavailable": "Download unavailable",
+        "artifact": "Artifact Type"
+    },
+    "terminal": {
+        "title": "Install via Terminal",
+        "copyTooltip": "Copy command",
+        "tip": "Tip: Ensure {bin} is in your {path} after extraction."
+    },
+    "details": {
+        "title": "Artifact Details",
+        "file": "File name",
+        "size": "Size",
+        "url": "Download URL",
+        "sha": "SHA-256 checksum",
+        "copySha": "Copy checksum",
+        "includedTitle": "Included",
+        "included": [
+            "{bin} (CLI & runtime)",
+            "Standard library (subset)",
+            "Man pages / help"
+        ],
+        "reqTitle": "Requirements",
+        "requirements": [
+            "Windows 10+, Linux (glibc 2.28+), macOS 12+",
+            "64-bit preferred for performance",
+            "Internet for BPM installs"
+        ],
+        "nextTitle": "Next Steps",
+        "next": [
+            {
+                "href": "/{locale}/docs/v1.0.0/get-started",
+                "label": "Get Started"
+            },
+            {
+                "href": "/{locale}/examples",
+                "label": "Examples"
+            },
+            {
+                "href": "/releases",
+                "label": "Release Notes",
+                "external": true
+            }
+        ]
+    },
+    "faq": {
+        "title": "FAQ & Troubleshooting",
+        "items": [
+            {
+                "q": "“Command not found” after install",
+                "a": "Ensure {bin} is in your PATH. On Linux/macOS, symlink from ./bnlang/bin/bnl to /usr/local/bin/bnl. On Windows, add the folder to your Environment Variables."
+            },
+            {
+                "q": "Checksum mismatch",
+                "a": "Re-download and verify with sha256sum / PowerShell’s Get-FileHash. If it persists, check your network or open an issue."
+            },
+            {
+                "q": "Unsupported architecture",
+                "a": "Currently supported: Windows (x64/x86), Linux (x64/x86), macOS (arm64/x64). More targets may be added later."
+            },
+            {
+                "q": "Where is BPM?",
+                "a": "BPM is included with Bnlang. After install, run `bpm --help`."
+            }
+        ],
+        "guideLinkLabel": "guide"
+    },
+    "footerCta": {
+        "download": "Download {filename}",
+        "guide": "Installation Guide",
+        "github": "GitHub"
+    }
+}

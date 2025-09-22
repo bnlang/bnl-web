@@ -1,0 +1,137 @@
+---
+title: The V8 JavaScript Engine
+description: Learn about the V8 JavaScript engine, how it works, and its role in Bnlang.
+bnTitle: V8 জাভাস্ক্রিপ্ট ইঞ্জিন
+bnDescription: V8 জাভাস্ক্রিপ্ট ইঞ্জিন, এর কাজ এবং Bnlang এ এর ভূমিকা সম্পর্কে জানুন।
+banglishTitle: The V8 JavaScript Engine
+banglishDescription: V8 JavaScript engine, eta kivabe kaj kore ar Bnlang e tar vumiকা.
+---
+
+# <I18nEnglish>The V8 JavaScript Engine</I18nEnglish>
+# <I18nBangla>V8 জাভাস্ক্রিপ্ট ইঞ্জিন</I18nBangla>
+# <I18nBanglish>The V8 JavaScript Engine</I18nBanglish>
+
+<I18nEnglish>
+The **V8 JavaScript Engine** is an open-source engine developed by Google, originally created for the Chrome browser.  
+It is designed to execute JavaScript code at high performance by compiling it directly into machine code instead of interpreting it line by line.  
+This makes applications run faster and more efficiently.
+
+Bnlang uses V8 as its underlying execution engine. When you write code in Bangla, Banglish, or English using Bnlang, it is translated into JavaScript, and then executed by V8.  
+This ensures both compatibility with modern standards and high performance.
+</I18nEnglish>
+
+<I18nBangla>
+**V8 জাভাস্ক্রিপ্ট ইঞ্জিন** হলো গুগল দ্বারা তৈরি একটি ওপেন-সোর্স ইঞ্জিন, যা মূলত ক্রোম ব্রাউজারের জন্য তৈরি হয়েছিল।  
+এটি জাভাস্ক্রিপ্ট কোডকে লাইন বাই লাইন ইন্টারপ্রেট করার পরিবর্তে সরাসরি মেশিন কোডে কম্পাইল করে উচ্চ কর্মক্ষমতায় চালায়।  
+ফলে অ্যাপ্লিকেশন দ্রুত এবং দক্ষভাবে চলে।
+
+Bnlang এর আন্ডারলাইং এক্সিকিউশন ইঞ্জিন হিসেবে V8 ব্যবহার করে। আপনি যখন বাংলায়, বাংলিশে বা ইংরেজিতে Bnlang এ কোড লেখেন, তখন সেটি জাভাস্ক্রিপ্টে রূপান্তরিত হয় এবং V8 দ্বারা চালানো হয়।  
+এর ফলে আধুনিক মান বজায় থাকে এবং উচ্চ কর্মক্ষমতাও নিশ্চিত হয়।
+</I18nBangla>
+
+<I18nBanglish>
+**V8 JavaScript Engine** holo ekta open-source engine ja Google toiri korechilo, shuru te Chrome browser er jonno.  
+Eta JavaScript code ke line by line interpret na kore direct machine code e compile kore high performance e run kore.  
+Tai application fast ar efficient vabe run hoy.
+
+Bnlang execution engine hisebe V8 use kore. Jodi apni Bangla, Banglish, ba English e Bnlang diye code likhen, sheta JavaScript e translate hoye V8 diye run hoy.  
+Ete modern standard maintain hoy ar high performance ensure hoy.
+</I18nBanglish>
+
+---
+
+## Key Features of V8
+
+<I18nEnglish>
+- **Just-in-Time Compilation (JIT)** → Converts JavaScript into fast machine code at runtime.  
+- **Garbage Collection** → Automatically manages memory by removing unused objects.  
+- **Standards Compliance** → Implements ECMAScript standards quickly.  
+- **Cross-Platform** → Works across Windows, Linux, macOS, and embedded devices.  
+- **Optimized for Speed** → Continuously updated with performance improvements.
+</I18nEnglish>
+
+<I18nBangla>
+- **জাস্ট-ইন-টাইম কম্পাইলেশন (JIT)** → রানটাইমে জাভাস্ক্রিপ্টকে দ্রুত মেশিন কোডে রূপান্তর করে।  
+- **গারবেজ কালেকশন** → অব্যবহৃত অবজেক্ট সরিয়ে স্বয়ংক্রিয়ভাবে মেমরি ম্যানেজ করে।  
+- **স্ট্যান্ডার্ডস কমপ্লায়েন্স** → দ্রুত ECMAScript স্ট্যান্ডার্ড ইমপ্লিমেন্ট করে।  
+- **ক্রস-প্ল্যাটফর্ম** → উইন্ডোজ, লিনাক্স, ম্যাকওএস এবং এমবেডেড ডিভাইসে কাজ করে।  
+- **স্পিডের জন্য অপ্টিমাইজড** → নিয়মিত পারফরম্যান্স উন্নতির সাথে আপডেট হয়।
+</I18nBangla>
+
+<I18nBanglish>
+- **Just-in-Time Compilation (JIT)** → Runtime e JavaScript ke fast machine code e convert kore.  
+- **Garbage Collection** → Unused object remove kore memory auto manage kore.  
+- **Standards Compliance** → ECMAScript standard quick implement kore.  
+- **Cross-Platform** → Windows, Linux, macOS ar embedded device e kaj kore.  
+- **Optimized for Speed** → Regular performance improvement er sathe update hoy.
+</I18nBanglish>
+
+---
+
+## Example: From Bnlang to V8 Execution
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+// Bnlang translated JavaScript
+function greet(name) {
+  console.log("Hello, " + name);
+}
+
+greet("Alice");
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// Bnlang কোড
+function শুভেচ্ছা(নাম) {
+  কনসোল.লগ("হ্যালো, " + নাম);
+}
+
+শুভেচ্ছা("আলিস");
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// Bnlang code
+function shubhechchha(nam) {
+  console.log("Hello, " + nam);
+}
+
+shubhechchha("Alis");
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Summary
+
+<I18nEnglish>
+The V8 engine powers the execution of JavaScript and, by extension, Bnlang.  
+It ensures high performance, memory management, and cross-platform support.  
+By leveraging V8, Bnlang can provide a modern, efficient programming experience while introducing multilingual inclusivity.
+</I18nEnglish>
+
+<I18nBangla>
+V8 ইঞ্জিন জাভাস্ক্রিপ্ট এবং সেইসাথে Bnlang এর এক্সিকিউশন চালায়।  
+এটি উচ্চ কর্মক্ষমতা, মেমরি ম্যানেজমেন্ট এবং ক্রস-প্ল্যাটফর্ম সাপোর্ট নিশ্চিত করে।  
+V8 ব্যবহার করে Bnlang আধুনিক ও কার্যকরী প্রোগ্রামিং অভিজ্ঞতা প্রদান করে এবং বহুভাষিক অন্তর্ভুক্তি যোগ করে।
+</I18nBangla>
+
+<I18nBanglish>
+V8 engine JavaScript ar tar shathe Bnlang er execution chalai.  
+Eta high performance, memory management, ar cross-platform support ensure kore.  
+V8 use kore Bnlang ekta modern ar efficient programming experience dey, ar sathe multilingual inclusivity add kore.
+</I18nBanglish>

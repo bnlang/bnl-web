@@ -1,0 +1,215 @@
+---
+title: break Keyword
+description: The break statement in Bnlang exits the nearest loop or switch. Examples in English, Bangla, and Banglish.
+bnTitle: থামুন কীওয়ার্ড
+bnDescription: Bnlang এ থামুন স্টেটমেন্ট নিকটতম লুপ বা বিকল্প (switch) থেকে বের হতে ব্যবহৃত হয়। উদাহরণসহ।
+banglishTitle: break Keyword
+banglishDescription: Bnlang e break (thamun) diye nearest loop ba switch theke ber howa — English, Bangla, Banglish example.
+---
+
+# <I18nEnglish>break Keyword</I18nEnglish>
+# <I18nBangla>থামুন কীওয়ার্ড</I18nBangla>
+# <I18nBanglish>break Keyword</I18nBanglish>
+
+<I18nEnglish>
+The **`break`** statement immediately exits the **nearest** enclosing loop (`for`, `while`, `do`) or a `switch`.  
+Control continues with the first statement after that construct.
+</I18nEnglish>
+
+<I18nBangla>
+**`থামুন`** স্টেটমেন্ট নিকটতম **লুপ** (`for`, `while`, `do`) বা **বিকল্প** (`switch`) ব্লক থেকে সাথে সাথে বের হয়ে আসে।  
+এরপরের লাইন থেকে কোড চলতে থাকে।
+</I18nBangla>
+
+<I18nBanglish>
+**`thamun`** diye nearest **loop** (`for`, `while`, `do`) ba **bikolpo** (`switch`) theke sathe sathe ber hoy.  
+Tar porer statement theke execution cholbe.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+break;
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+থামুন;
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+thamun;
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+// Stop a for loop early
+for (let i = 1; i <= 10; i++) {
+  if (i === 5) {
+    console.warn("Stopping at 5");
+    break;
+  }
+  console.log("i =", i);
+}
+
+// Find first match and break
+const nums = [3, 9, 12, 7];
+for (const n of nums) {
+  if (n % 3 === 0 && n > 10) {
+    console.log("Found:", n);
+    break;
+  }
+}
+
+// Break in a while loop
+let count = 0;
+while (true) {
+  if (++count === 3) break;
+  console.log("looping", count);
+}
+
+// Break in switch
+const grade = "B";
+switch (grade) {
+  case "A":
+    console.log("Excellent");
+    break;
+  case "B":
+    console.log("Good");
+    break;
+  default:
+    console.log("Unknown");
+}
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// for লুপ আগে থামানো
+for (let i = 1; i <= 10; i++) {
+  যদি (i === 5) {
+    কনসোল.সতর্ক("৫ এ থামছে");
+    থামুন;
+  }
+  কনসোল.লগ("i =", i);
+}
+
+// প্রথম মেলামেশা পেলে থামাও
+const সংখ্যা = [3, 9, 12, 7];
+for (const n of সংখ্যা) {
+  যদি (n % 3 === 0 && n > 10) {
+    কনসোল.লগ("পাওয়া গেছে:", n);
+    থামুন;
+  }
+}
+
+// while লুপে থামুন
+let গণনা = 0;
+while (true) {
+  যদি (++গণনা === 3) থামুন;
+  কনসোল.লগ("লুপিং", গণনা);
+}
+
+// switch ব্লকে থামুন
+const গ্রেড = "B";
+বিকল্প (গ্রেড) {
+  অবস্থা "A":
+    কনসোল.লগ("দারুণ");
+    থামুন;
+  অবস্থা "B":
+    কনসোল.লগ("ভালো");
+    থামুন;
+  অন্যথায়:
+    কনসোল.লগ("অজানা");
+}
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// for loop early stop
+for (let i = 1; i <= 10; i++) {
+  jodi (i === 5) {
+    console.warn("Stopping at 5");
+    thamun;
+  }
+  console.log("i =", i);
+}
+
+// find first match and break
+const shonkha = [3, 9, 12, 7];
+for (const n of shonkha) {
+  jodi (n % 3 === 0 && n > 10) {
+    console.log("Found:", n);
+    thamun;
+  }
+}
+
+// while loop e break
+let gonona = 0;
+while (true) {
+  jodi (++gonona === 3) thamun;
+  console.log("looping", gonona);
+}
+
+// switch e break
+const grade = "B";
+bikolpo (grade) {
+  obostha "A":
+    console.log("Excellent");
+    thamun;
+  obostha "B":
+    console.log("Good");
+    thamun;
+  onnothay:
+    console.log("Unknown");
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- `break` affects only the **innermost** loop or switch.  
+- Use clear conditions to avoid accidental infinite loops that rely on `break`.  
+- Prefer early `return` inside functions when you need to exit multiple levels of logic.
+</I18nEnglish>
+
+<I18nBangla>
+- **`থামুন`** কেবলমাত্র **সবচেয়ে ভেতরের** লুপ/বিকল্পকে প্রভাবিত করে।  
+- `থামুন`-র ওপর নির্ভরশীল অসাবধানী অনন্ত লুপ এড়াতে শর্ত পরিষ্কার রাখুন।  
+- বহু স্তরের লজিক থেকে বের হতে হলে ফাংশনের ভেতরে আগে **`ফেরত/return`** দেওয়া উত্তম।
+</I18nBangla>
+
+<I18nBanglish>
+- **`thamun`** sudhu **innermost** loop/switch ke stop kore.  
+- `thamun`-depend infinite loop theke bachte condition clean rakhun.  
+- Multiple level theke ber hote function er vitore early **return** bhalo.
+</I18nBanglish>

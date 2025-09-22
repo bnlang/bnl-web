@@ -1,0 +1,207 @@
+{
+  "scopeName": "source.bnl",
+  "name": "BNL",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#regex-literal" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#function-definition" },
+    { "include": "#function-call" },
+    { "include": "#class-definition" },
+    { "include": "#class-instantiation" },
+    { "include": "#keywords" },
+    { "include": "#constants" },
+    { "include": "#identifiers" },
+    { "include": "#operators" },
+    { "include": "#punctuation" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.bnl",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.bnl",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "captures": {
+            "0": { "name": "punctuation.definition.comment.bnl" }
+          }
+        }
+      ]
+    },
+    "regex-literal": {
+      "patterns": [
+        {
+          "name": "string.regexp.bnl",
+          "begin": "(?x)\n  (?:\n    (?<=^)\n  | (?<=\\()    \\s*\n  | (?<=,)      \\s*\n  | (?<==)      \\s*\n  | (?<=:)      \\s*\n  | (?<=\\{)     \\s*\n  | (?<=\\[)     \\s*\n  | (?<=!)      \\s*\n  | (?<=\\?)     \\s*\n  | (?<=;)      \\s*\n  | (?<=\\|\\|)   \\s*\n  | (?<=&&)     \\s*\n  | (?<=\\+)     \\s*\n  | (?<=-)      \\s*\n  | (?<=\\*)     \\s*\n  | (?<=%)      \\s*\n  | (?<=~)      \\s*\n  | (?<=\\^)     \\s*\n  | (?<=<<)     \\s*\n  | (?<=>>)     \\s*\n  | (?<=>>>)    \\s*\n  | (?<=<)      \\s*\n  | (?<==)      \\s*\n  | (?<===)     \\s*\n  | (?<===)     \\s*\n  | (?<=return )\n  | (?<=throw  )\n  | (?<=case   )\n  | (?<=yield  )\n  | (?<=of     )\n  | (?<=in     )\n  | (?<=instanceof )\n  | (?<=typeof )\n  | (?<=delete )\n  | (?<=void   )\n  )\n  /(?![/*])",
+          "beginCaptures": { "0": { "name": "punctuation.definition.regexp.begin.bnl" } },
+          "end": "/[dgimsuvy]*",
+          "endCaptures":   { "0": { "name": "punctuation.definition.regexp.end.bnl" } },
+          "patterns": [
+            { "name": "constant.character.escape.bnl", "match": "\\\\." },
+            {
+              "name": "constant.other.character-class.set.bnl",
+              "begin": "\\[",
+              "end": "\\]",
+              "patterns": [
+                { "name": "constant.character.escape.bnl", "match": "\\\\." }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.bnl",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            { "match": "\\\\.", "name": "constant.character.escape.bnl" }
+          ]
+        },
+        {
+          "name": "string.quoted.single.bnl",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            { "match": "\\\\.", "name": "constant.character.escape.bnl" }
+          ]
+        },
+        {
+          "name": "string.template.bnl",
+          "begin": "`",
+          "end": "`",
+          "patterns": [
+            {
+              "begin": "\\$\\{",
+              "end": "\\}",
+              "name": "meta.embedded.line.bnl",
+              "patterns": [ { "include": "$self" } ]
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.bnl",
+          "match": "\\b(0x[0-9a-fA-F]+|\\d+(?:\\.\\d+)?(?:e[+-]?\\d+)?)\\b"
+        }
+      ]
+    },
+    "function-definition": {
+      "patterns": [
+        {
+          "name": "meta.function.bnl",
+          "begin": "(?<![\\p{L}\\p{N}_])(function|ফাংশন)\\s+",
+          "beginCaptures": {
+            "1": { "name": "keyword.declaration.function.bnl" }
+          },
+          "end": "(?=\\()",
+          "patterns": [
+            {
+              "name": "entity.name.function.bnl",
+              "match": "(?:[A-Za-z_\\$][A-Za-z0-9_\\$]*|[\\u0980-\\u09FF_][\\u0980-\\u09FF0-9_\\$]*)"
+            }
+          ]
+        }
+      ]
+    },
+    "function-call": {
+      "patterns": [
+        {
+          "name": "meta.function-call.bnl",
+          "match": "(?<![\\p{L}\\p{N}_])(?!(?:if|যদি|jodi|else|নাহলে|nahole|switch|বিকল্প|bikolpo|case|অবস্থা|obostha|default|অন্যথায়|onnothay|for|প্রতি|proti|while|যতক্ষণ|jotokkhon|do|করুন|korun|break|থামুন|thamun|continue|চলুন|colun|return|ফেরত|ferot|throw|নিক্ষেপ|nikkhep|try|চেষ্টা|ceshta|catch|ধরুন|dhorun|finally|অবশেষে|obosheshe|var|চলক|cholok|let|ধরি|dhori|const|ধ্রুবক|dhrubok|function|ফাংশন|class|শ্রেণী|shreni|extends|প্রসারিত|prosarito|super|অভিভাবক|obhibhabok|typeof|ধরন|dhoron|instanceof|উদাহরণ_হিসেবে|udahoron_hisebe|in|মধ্যে|modhye|of|এর|er|void|ফাঁকা|faka|delete|মুছুন|muchun|await|অপেক্ষা|opekkha|async|অসমলয়|osomoloy|yield|উৎপন্ন_করুন|utponno_korun|this|এটি|eti|new|নতুন|notun|with|সাথে|sathe|debugger|ডিবাগার|dibagar|static|স্থির|sthir|true|সত্য|shotto|false|মিথ্যা|mithya|null|শূন্য|shunno|undefined)\\b)(?:[A-Za-z_\\$][A-Za-z0-9_\\$]*|[\\u0980-\\u09FF_][\\u0980-\\u09FF0-9_\\$]*)\\s*(?=\\()",
+          "captures": {
+            "0": { "name": "entity.name.function.bnl" }
+          }
+        }
+      ]
+    },
+    "class-definition": {
+      "patterns": [
+        {
+          "name": "meta.class.bnl",
+          "begin": "(?<![\\p{L}\\p{N}_])(class|শ্রেণী|shreni)\\s+",
+          "beginCaptures": {
+            "1": { "name": "keyword.declaration.class.bnl" }
+          },
+          "end": "(?=\\{)",
+          "patterns": [
+            {
+              "name": "entity.name.class.bnl",
+              "match": "(?:[A-Za-z_\\$][A-Za-z0-9_\\$]*|[\\u0980-\\u09FF_][\\u0980-\\u09FF0-9_\\$]*)"
+            },
+            {
+              "name": "keyword.other.extends.bnl",
+              "match": "\\b(extends|প্রসারিত|prosarito|implements)\\b"
+            },
+            {
+              "name": "entity.other.inherited-class.bnl",
+              "match": "(?<=\\b(extends|প্রসারিত|prosarito|implements)\\s+)(?:[A-Za-z_\\$][A-Za-z0-9_\\$]*|[\\u0980-\\u09FF_][\\u0980-\\u09FF0-9_\\$]*)"
+            }
+          ]
+        }
+      ]
+    },
+    "class-instantiation": {
+      "patterns": [
+        {
+          "name": "meta.class-instantiation.bnl",
+          "match": "(?<![\\p{L}\\p{N}_])(new|নতুন|notun)\\s+((?:[A-Za-z_\\$][A-Za-z0-9_\\$]*|[\\u0980-\\u09FF_][\\u0980-\\u09FF0-9_\\$]*))",
+          "captures": {
+            "1": { "name": "keyword.operator.new.bnl" },
+            "2": { "name": "entity.name.class.bnl" }
+          }
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        { "name": "keyword.control.conditional.bnl", "match": "(?<![\\p{L}\\p{N}_])(if|যদি|jodi|else|নাহলে|nahole)(?![\\p{L}\\p{N}_])" },
+        { "name": "keyword.control.loop.bnl", "match": "(?<![\\p{L}\\p{N}_])(for|প্রতি|proti|while|যতক্ষণ|jotokkhon|do|করুন|korun)(?![\\p{L}\\p{N}_])" },
+        { "name": "keyword.control.switch.bnl", "match": "(?<![\\p{L}\\p{N}_])(switch|বিকল্প|bikolpo|case|অবস্থা|obostha|default|অন্যথায়|onnothay)(?![\\p{L}\\p{N}_])" },
+        { "name": "keyword.declaration.bnl", "match": "(?<![\\p{L}\\p{N}_])(let|ধরি|dhori|const|ধ্রুবক|dhrubok|var|চলক|cholok|class|শ্রেণী|shreni|extends|প্রসারিত|prosarito|super|অভিভাবক|obhibhabok|static|স্থির|sthir)(?![\\p{L}\\p{N}_])" },
+        { "name": "keyword.control.trycatch.bnl", "match": "(?<![\\p{L}\\p{N}_])(try|চেষ্টা|ceshta|catch|ধরুন|dhorun|finally|অবশেষে|obosheshe|throw|নিক্ষেপ|nikkhep)(?![\\p{L}\\p{N}_])" },
+        { "name": "keyword.control.flow.bnl", "match": "(?<![\\p{L}\\p{N}_])(break|থামুন|thamun|continue|চলুন|colun|return|ফেরত|ferot)(?![\\p{L}\\p{N}_])" },
+        { "name": "keyword.operator.new.bnl", "match": "(?<![\\p{L}\\p{N}_])(new|নতুন|notun)(?![\\p{L}\\p{N}_])" },
+        { "name": "storage.modifier.async.bnl", "match": "(?<![\\p{L}\\p{N}_])(async|অসমলয়|osomoloy|await|অপেক্ষা|opekkha|yield|উৎপন্ন_করুন|utponno_korun)(?![\\p{L}\\p{N}_])" },
+        { "name": "keyword.operator.wordlike.bnl", "match": "(?<![\\p{L}\\p{N}_])(typeof|ধরন|dhoron|instanceof|উদাহরণ_হিসেবে|udahoron_hisebe|in|মধ্যে|modhye|of|এর|er|void|ফাঁকা|faka|delete|মুছুন|muchun|this|এটি|eti|with|সাথে|sathe|debugger|ডিবাগার|dibagar)(?![\\p{L}\\p{N}_])" }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        { "name": "constant.language.boolean.bnl", "match": "(?<![\\p{L}\\p{N}_])(true|সত্য|shotto|false|মিথ্যা|mithya)(?![\\p{L}\\p{N}_])" },
+        { "name": "constant.language.null.bnl", "match": "(?<![\\p{L}\\p{N}_])(null|শূন্য|shunno|undefined)(?![\\p{L}\\p{N}_])" }
+      ]
+    },
+    "identifiers": {
+      "patterns": [
+        { "name": "variable.other.readwrite.bnl", "match": "(?:[A-Za-z_\\$][A-Za-z0-9_\\$]*|[\\u0980-\\u09FF_][\\u0980-\\u09FF0-9_\\$]*)" }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        { "name": "keyword.operator.bnl", "match": "(===|!==|==|!=|<=|>=|=>|\\+\\+|--|&&|\\|\\||\\+|-|\\*|/|%|\\?|:|=|<|>)" }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        { "name": "punctuation.brackets.curly.bnl", "match": "[\\{\\}]" },
+        { "name": "punctuation.brackets.round.bnl", "match": "[\\(\\)]" },
+        { "name": "punctuation.brackets.square.bnl", "match": "[\\[\\]]" },
+        { "name": "punctuation.comma.bnl", "match": "," },
+        { "name": "punctuation.semicolon.bnl", "match": ";" },
+        { "name": "punctuation.dot.bnl", "match": "\\." }
+      ]
+    }
+  },
+  "uuid": "3a6b7e7e-9f3a-45a0-92c0-bnl-grammar"
+}

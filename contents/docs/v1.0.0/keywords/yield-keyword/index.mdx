@@ -1,0 +1,322 @@
+---
+title: yield Operator
+description: The yield operator in Bnlang for generators — pause/resume, send values, delegate with yield*, error handling, and async generators.
+bnTitle: উৎপন্ন_করুন অপারেটর
+bnDescription: Bnlang এ উৎপন্ন_করুন (yield) — জেনারেটর থামানো/চালু, মান পাঠানো/গ্রহণ, yield*, ত্রুটি হ্যান্ডলিং, অ্যাসিঙ্ক জেনারেটর।
+banglishTitle: yield Operator
+banglishDescription: Bnlang e utponno_korun (yield) — generators, send/receive, yield*, errors, async generators.
+---
+
+# <I18nEnglish>yield Operator</I18nEnglish>
+# <I18nBangla>উৎপন্ন_করুন অপারেটর</I18nBangla>
+# <I18nBanglish>yield Operator</I18nBanglish>
+
+<I18nEnglish>
+Use **`yield`** inside a **generator function** (`function*`) to **produce a value** and **pause** execution.  
+Resuming with `iterator.next(value)` continues from the pause point; the `yield` expression evaluates to the **value passed** to `next(...)`.  
+Use **`yield*`** to **delegate** to another iterable or generator.
+</I18nEnglish>
+
+<I18nBangla>
+**`উৎপন্ন_করুন`** কেবল **জেনারেটর ফাংশন** (`ফাংশন*`)‑এর ভেতরে ব্যবহার করা যায়। এটি একটি **মান উৎপন্ন করে** এবং এক্সিকিউশন **থামিয়ে** রাখে।  
+`iterator.next(মান)` কল করলে আবার চালু হয়; তখন ওই `উৎপন্ন_করুন` অভিব্যক্তির মান হবে `next(...)`‑এ দেয়া মান।  
+অন্য কোনো ইটারেবল/জেনারেটরে **ডেলিগেট** করতে **`উৎপন্ন_করুন*`** ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+**`utponno_korun`** sudhu **generator function** (`function*`) er vitore use kora jay. Eta **man produce** kore ebong execution **pause** kore.  
+`iterator.next(value)` dile abar resume hoy; oi `utponno_korun` expression er result hobe `next(...)`‑e deya value.  
+Onno iterable/generator e **delegate** korte **`utponno_korun*`** use korun.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+function* gen() {
+  yield value;        // produce & pause
+  const x = yield ask; // 'next(val)' resumes; x = val
+  yield* iterable;     // delegate to iterable/generator
+  return doneValue;    // finish
+}
+
+// Async generator
+async function* stream() {
+  yield 1;
+  await delay(10);
+  yield 2;
+}
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+ফাংশন* উৎপাদক() {
+  উৎপন্ন_করুন মান;              // মান দাও ও থামুন
+  const x = উৎপন্ন_করুন জিজ্ঞাসা; // next(মান) দিলে x = মান
+  উৎপন্ন_করুন* ইটারেবল;          // ডেলিগেট
+  ফেরত সমাপ্তি;                 // শেষ
+}
+
+// অসমলয় জেনারেটর
+অসমলয় ফাংশন* ধারা() {
+  উৎপন্ন_করুন 1;
+  অপেক্ষা বিলম্ব(10);
+  উৎপন্ন_করুন 2;
+}
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+function* utpadok() {
+  utponno_korun man;
+  const x = utponno_korun proshno; // next(value) → x = value
+  utponno_korun* iterable;
+  ferot shesh;
+}
+
+// Async generator
+osomoloy function* dhara() {
+  utponno_korun 1;
+  opekkha delay(10);
+  utponno_korun 2;
+}
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) মৌলিক জেনারেটর
+ফাংশন* গণনা() {
+  উৎপন্ন_করুন 1;
+  উৎপন্ন_করুন 2;
+  উৎপন্ন_করুন 3;
+}
+প্রতি (const x এর গণনা()) {
+  কনসোল.লগ(x); // 1, 2, 3
+}
+
+// ২) next(...) দিয়ে মান পাঠানো
+ফাংশন* প্রশ্ন() {
+  const নাম = উৎপন্ন_করুন "আপনার নাম?";
+  কনসোল.লগ("স্বাগতম", নাম);
+}
+const g1 = প্রশ্ন();
+g1.next();           // "আপনার নাম?" উৎপন্ন
+g1.next("Mamun");    // নাম = "Mamun", তারপর এগোয়
+
+// ৩) উৎপন্ন_করুন* — ডেলিগেশন
+ফাংশন* সমন্বয়() {
+  উৎপন্ন_করুন* [1, 2];
+  উৎপন্ন_করুন* (ফাংশন* () { উৎপন্ন_করুন 7; উৎপন্ন_করুন 8; })();
+  উৎপন্ন_করুন 99;
+}
+প্রতি (const v এর সমন্বয়()) কনসোল.লগ(v); // 1,2,7,8,99
+
+// ৪) জেনারেটরে ত্রুটি ঢোকানো
+ফাংশন* কাজ() {
+  চেষ্টা {
+    উৎপন্ন_করুন "ready";
+    কনসোল.লগ("চলবে না যদি throw হয়");
+  } ধরুন (ত্রু) {
+    কনসোল.সতর্ক("ধরা পড়ল:", ত্রু.message);
+  } অবশেষে {
+    কনসোল.তথ্য("শেষ");
+  }
+}
+const g2 = কাজ();
+g2.next();                  // "ready"
+g2.throw(new Error("fail"));// catch এ যাবে
+
+// ৫) অসমলয় জেনারেটর + for‑await‑of
+const বিলম্ব = (ms) => new Promise(r => setTimeout(r, ms));
+অসমলয় ফাংশন* ধারা() {
+  উৎপন্ন_করুন 1;
+  অপেক্ষা বিলম্ব(10);
+  উৎপন্ন_করুন 2;
+}
+অসমলয় ফাংশন চালাও() {
+  জন্য অপেক্ষা (const v এর ধারা()) {
+    কনসোল.লগ(v);
+  }
+}
+চালাও();
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) Basic generator
+function* gonona() {
+  utponno_korun 1;
+  utponno_korun 2;
+  utponno_korun 3;
+}
+proti (const x er gonona()) {
+  console.log(x);
+}
+
+// 2) Sending values via next(...)
+function* proshno() {
+  const nam = utponno_korun "Your name?";
+  console.log("Welcome", nam);
+}
+const g1 = proshno();
+g1.next();
+g1.next("Mamun");
+
+// 3) Delegation with utponno_korun*
+function* mix() {
+  utponno_korun* [1, 2];
+  utponno_korun* (function* () { utponno_korun 7; utponno_korun 8; })();
+  utponno_korun 99;
+}
+proti (const v er mix()) console.log(v);
+
+// 4) Injecting errors
+function* kaj() {
+  ceshta {
+    utponno_korun "ready";
+    console.log("won't run if thrown");
+  } dhorun (err) {
+    console.warn("caught:", err.message);
+  } obosheshe {
+    console.info("done");
+  }
+}
+const g2 = kaj();
+g2.next();
+g2.throw(new Error("fail"));
+
+// 5) Async generator + for‑await‑of
+const delay = (ms) => new Promise(r => setTimeout(r, ms));
+osomoloy function* dhara() {
+  utponno_korun 1;
+  opekkha delay(10);
+  utponno_korun 2;
+}
+osomoloy function chalaw() {
+  jonno opekkha (const v er dhara()) {
+    console.log(v);
+  }
+}
+chalaw();
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Basic generator
+function* count() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+for (const x of count()) {
+  console.log(x);
+}
+
+// 2) Sending values into a generator
+function* ask() {
+  const name = yield "Your name?";
+  console.log("Welcome", name);
+}
+const g1 = ask();
+g1.next();
+g1.next("Mamun");
+
+// 3) Delegation with yield*
+function* combo() {
+  yield* [1, 2];
+  yield* (function* () { yield 7; yield 8; })();
+  yield 99;
+}
+for (const v of combo()) console.log(v);
+
+// 4) Throwing into a generator
+function* job() {
+  try {
+    yield "ready";
+    console.log("won't run if thrown");
+  } catch (err) {
+    console.warn("caught:", err.message);
+  } finally {
+    console.info("done");
+  }
+}
+const g2 = job();
+g2.next();
+g2.throw(new Error("fail"));
+
+// 5) Async generator + for‑await‑of
+const delay = (ms) => new Promise(r => setTimeout(r, ms));
+async function* stream() {
+  yield 1;
+  await delay(10);
+  yield 2;
+}
+(async () => {
+  for await (const v of stream()) {
+    console.log(v);
+  }
+})();
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- `yield` is valid **only inside** generator functions (`function*`).  
+- `const x = yield expr;` — the result of `yield` is the value passed to `next(value)`.  
+- `yield* iterable` delegates to another iterable/generator. If delegating to a generator, its **`return` value** becomes the value of the `yield*` expression.  
+- `iterator.return(value)` finishes the generator early; the value is available as `{ value, done: true }` but **ignored by `for...of`**.  
+- `iterator.throw(err)` raises inside the generator; wrap `yield` in `try/catch` to handle.  
+- **Async generators** (`async function*`) produce async iterables; consume with **`for await...of`**.  
+- `yield` has **low precedence** — use parentheses when mixing with other operators.  
+- Language aliases: `উৎপন্ন_করুন` / `utponno_korun`.
+</I18nEnglish>
+
+<I18nBangla>
+- `উৎপন্ন_করুন` কেবল **`ফাংশন*`**‑এর ভেতরে বৈধ।  
+- `const x = উৎপন্ন_করুন expr;` — `next(value)`‑এ দেয়া মানই `x` হবে।  
+- `উৎপন্ন_করুন* ইটারেবল` অন্য ইটারেবল/জেনারেটরে ডেলিগেট করে; জেনারেটর হলে তার **`ফেরত` মান** হবে `উৎপন্ন_করুন*`‑এর ফল।  
+- `iter.return(value)` দিলে জেনারেটর আগেই শেষ; `{ value, done: true }` পাওয়া যায়, তবে **`প্রতি...এর` তা উপেক্ষা করে।**  
+- `iter.throw(err)` জেনারেটরের ভেতরে এক্সসেপশন তোলে—`চেষ্টা/ধরুন` দিয়ে `উৎপন্ন_করুন` ঘিরে নিন।  
+- **অ্যাসিঙ্ক জেনারেটর** (`অসমলয় ফাংশন*`) **`প্রতি অপেক্ষা...এর`** দিয়ে পড়ুন।  
+- `উৎপন্ন_করুন`‑র **precedence কম**—অন্য অপারেটরের সাথে হলে বন্ধনী ব্যবহার করুন।  
+- ভাষা উপনাম: `উৎপন্ন_করুন` / `utponno_korun`.
+</I18nBangla>
+
+<I18nBanglish>
+- `utponno_korun` sudhu **`function*`** er vitore valid.  
+- `const x = utponno_korun expr;` — `next(value)` er value‑tai `x`.  
+- `utponno_korun* iterable` onno iterable/generator e delegate kore; generator hole tar **`return` value**i `utponno_korun*` er result.  
+- `iter.return(value)` diye early finish; `{ value, done: true }` pawa jaye, kintu **`for...of` ignore kore**.  
+- `iter.throw(err)` generator er vitore exception tule — `ceshta/dhorun` diye `utponno_korun` wrap korun.  
+- **Async generator** (`osomoloy function*`) **`for await...of`** diye consume korun.  
+- `utponno_korun`‑r **precedence kom** — mix korle parenthesis din.  
+- Alias: `উৎপন্ন_করুন` / `utponno_korun`.
+</I18nBanglish>

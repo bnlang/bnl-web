@@ -1,0 +1,157 @@
+---
+title: Writing Files in Bnlang
+description: Learn how to write files in Bnlang using synchronous and asynchronous methods with examples.
+bnTitle: Bnlang এ ফাইল লেখা
+bnDescription: Bnlang এ সিঙ্ক্রোনাস এবং অ্যাসিঙ্ক্রোনাস পদ্ধতিতে ফাইল লেখা শিখুন উদাহরণসহ।
+banglishTitle: Writing Files in Bnlang
+banglishDescription: Bnlang e file likha shikha, synchronous ar asynchronous method er example shoho.
+---
+
+# <I18nEnglish>Writing Files in Bnlang</I18nEnglish>
+# <I18nBangla>Bnlang এ ফাইল লেখা</I18nBangla>
+# <I18nBanglish>Writing Files in Bnlang</I18nBanglish>
+
+<I18nEnglish>
+Writing files is a common task when working with file systems.  
+Bnlang provides both **synchronous** and **asynchronous** methods to write data into files.  
+Synchronous methods block program execution until the operation is finished, while asynchronous methods allow the program to continue running in the background.
+</I18nEnglish>
+
+<I18nBangla>
+ফাইল লেখা ফাইল সিস্টেম নিয়ে কাজ করার সময় একটি সাধারণ কাজ।  
+Bnlang ফাইল লেখার জন্য **সিঙ্ক্রোনাস** এবং **অ্যাসিঙ্ক্রোনাস** উভয় পদ্ধতি প্রদান করে।  
+সিঙ্ক্রোনাস মেথডে অপারেশন শেষ না হওয়া পর্যন্ত প্রোগ্রাম ব্লক থাকে, আর অ্যাসিঙ্ক্রোনাস মেথডে প্রোগ্রাম ব্যাকগ্রাউন্ডে চালু থাকে।
+</I18nBangla>
+
+<I18nBanglish>
+File likha file system e kaj korar somoy ekta common task.  
+Bnlang file likhar jonno **synchronous** ar **asynchronous** method duita provide kore.  
+Synchronous method e operation sesh na howa porjonto program block thake, kintu asynchronous method e program background e run korte thake.
+</I18nBanglish>
+
+---
+
+## Example: Synchronous Write
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+const fs = require("fs");
+
+fs.writeFileSync("example.txt", "Hello from Bnlang!");
+console.log("File written successfully!");
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const fs = require("fs");
+
+fs.writeFileSync("example.txt", "Bnlang থেকে হ্যালো!");
+কনসোল.লগ("ফাইল সফলভাবে লেখা হয়েছে!");
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const fs = require("fs");
+
+fs.writeFileSync("example.txt", "Bnlang theke Hello!");
+console.log("File successfully likha hoyeche!");
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Example: Asynchronous Write
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+const fs = require("fs");
+
+fs.writeFile("example.txt", "Hello World!", (err) => {
+  if (err) {
+    console.error("Error writing file:", err);
+    return;
+  }
+  console.log("File written asynchronously!");
+});
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const fs = require("fs");
+
+fs.writeFile("example.txt", "হ্যালো বিশ্ব!", (ত্রুটি) => {
+  যদি (ত্রুটি) {
+    কনসোল.ত্রুটি("ফাইল লেখার সমস্যা:", ত্রুটি);
+    ফেরত;
+  }
+  কনসোল.লগ("অ্যাসিঙ্ক্রোনাসভাবে ফাইল লেখা হয়েছে!");
+});
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const fs = require("fs");
+
+fs.writeFile("example.txt", "Hello Bishsho!", (truti) => {
+  jodi (truti) {
+    console.error("File likhar somossa:", truti);
+    return;
+  }
+  console.log("File asynchronously likha hoyeche!");
+});
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Use asynchronous writes in production for better performance.  
+- Synchronous writes are suitable for small scripts or setup tasks.  
+- Always handle errors when writing files.  
+- Use proper encoding like `utf-8` for text files.  
+- Be careful when overwriting files; check before writing if necessary.
+</I18nEnglish>
+
+<I18nBangla>
+- প্রোডাকশনে ভালো পারফরম্যান্সের জন্য অ্যাসিঙ্ক্রোনাস মেথড ব্যবহার করুন।  
+- ছোট স্ক্রিপ্ট বা সেটআপ টাস্কের জন্য সিঙ্ক্রোনাস মেথড উপযুক্ত।  
+- ফাইল লেখার সময় সর্বদা ত্রুটি হ্যান্ডল করুন।  
+- টেক্সট ফাইলের জন্য সঠিক এনকোডিং (যেমন `utf-8`) ব্যবহার করুন।  
+- ফাইল ওভাররাইট করার সময় সতর্ক থাকুন; প্রয়োজন হলে আগে যাচাই করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Production e better performance jonno asynchronous method use korun.  
+- Choto script ba setup task er jonno synchronous method use kora valo.  
+- File likhar shomoy always error handle korun.  
+- Text file er jonno proper encoding (jemon `utf-8`) use korun.  
+- File overwrite korar age careful thakun; proyojon hole check korun.
+</I18nBanglish>

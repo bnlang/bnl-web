@@ -1,0 +1,123 @@
+---
+title: events module
+description: EventEmitter API for publish/subscribe pattern — register listeners, emit events, handle once-only listeners, errors, and listener management.
+bnTitle: events মডিউল
+bnDescription: EventEmitter API — পাবলিশ/সাবস্ক্রাইব প্যাটার্ন, লিসেনার রেজিস্টার, ইমিট, একবারের লিসেনার, ত্রুটি ও ম্যানেজমেন্ট।
+banglishTitle: events module
+banglishDescription: EventEmitter API — publish/subscribe pattern, register listeners, emit events, once-only, errors, and listener management.
+---
+
+# <I18nEnglish>events</I18nEnglish>
+# <I18nBangla>events</I18nBangla>
+# <I18nBanglish>events</I18nBanglish>
+
+<I18nEnglish>
+The **`events`** module provides the **EventEmitter** class for implementing the publish/subscribe pattern. Many core APIs (like streams, sockets) use it.
+</I18nEnglish>
+
+<I18nBangla>
+**`events`** মডিউল **EventEmitter** ক্লাস দেয়, পাবলিশ/সাবস্ক্রাইব প্যাটার্নের জন্য। অনেক কোর API (যেমন স্ট্রিম, সকেট) এটি ব্যবহার করে।
+</I18nBangla>
+
+<I18nBanglish>
+**`events`** module **EventEmitter** class dey publish/subscribe pattern er jonno. Onk core API (stream, socket) eta use kore.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Core Methods (EventEmitter)
+- **`emitter.on(event, listener)`** — register listener.
+- **`emitter.addListener(event, listener)`** — alias of `on`.
+- **`emitter.once(event, listener)`** — one-time listener.
+- **`emitter.off(event, listener)`** — remove listener.
+- **`emitter.removeListener(event, listener)`** — alias of `off`.
+- **`emitter.removeAllListeners([event])`** — clear listeners.
+- **`emitter.emit(event, [...args])`** — trigger event.
+
+### Utilities
+- **`emitter.listenerCount(event)`** — number of listeners for an event.
+- **`emitter.listeners(event)`** — array of listeners.
+- **`emitter.eventNames()`** — registered event names.
+
+### Special
+- **`'error'` event**: if emitted with no handler, process throws.  
+</I18nEnglish>
+
+<I18nBangla>
+### প্রধান ফাংশন
+- **`on/once/off/emit`** — লিসেনার রেজিস্টার, একবার চালানো, রিমুভ, ইমিট।
+- **`removeAllListeners`**, **`listenerCount`**, **`eventNames`**।
+- **`error` ইভেন্ট** হ্যান্ডলার না থাকলে প্রসেস ক্র্যাশ করে।
+</I18nBangla>
+
+<I18nBanglish>
+### Functions
+- **`on/once/off/emit`** — listener register, one-time, remove, emit.
+- **`removeAllListeners`**, **`listenerCount`**, **`eventNames`**.
+- **`error` event** handle na korle process crash hoy.
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const EventEmitter = require("events");
+
+const emitter = new EventEmitter();
+
+// Listener
+emitter.on("greet", (name) => {
+  console.log("Hello", name);
+});
+
+// Once-only
+emitter.once("bye", () => console.log("Goodbye"));
+
+// Emit events
+emitter.emit("greet", "Bnlang");
+emitter.emit("bye");
+emitter.emit("bye"); // ignored
+
+// Error event
+emitter.on("error", (err) => console.error("Error:", err.message));
+emitter.emit("error", new Error("Something went wrong"));
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Always handle **`error`** events to prevent process crash.  
+- Use **`once`** for lifecycle or cleanup events.  
+- Avoid unbounded listeners — remove when not needed.  
+- EventEmitter underlies many core APIs; understanding it helps with streams, sockets, and more.  
+</I18nEnglish>
+
+<I18nBangla>
+- সবসময় **`error`** ইভেন্ট হ্যান্ডল করুন, নাহলে প্রসেস ক্র্যাশ করবে।  
+- লাইফসাইকেল/ক্লিনআপ ইভেন্টে **`once`** ব্যবহার করুন।  
+- অপ্রয়োজনীয় লিসেনার সরিয়ে ফেলুন।  
+- EventEmitter বোঝা জরুরি, কারণ অনেক কোর API তে ব্যবহৃত।  
+</I18nBangla>
+
+<I18nBanglish>
+- Sobshomoy **`error`** event handle korun, na hole process crash hobe.  
+- Lifecycle/cleanup event e **`once`** use korun.  
+- Extra listener remove korte hobe.  
+- EventEmitter onek core API er base, bujhle stream/socket easy hobe.  
+</I18nBanglish>

@@ -1,0 +1,209 @@
+---
+title: debugger Statement
+description: Pause execution for debugging in Bnlang using the `debugger` statement — behavior in browsers/Node.js, conditional breaks, and best practices.
+bnTitle: ডিবাগার বিবৃতি
+bnDescription: Bnlang এ `ডিবাগার` দিয়ে কোড থামিয়ে ডিবাগ করা—ব্রাউজার/Node.js আচরণ, শর্তসাপেক্ষ ব্রেক, ও সেরা চর্চা।
+banglishTitle: debugger Statement
+banglishDescription: Bnlang e `dibagar` diye execution pause — browser/Node, conditional break, best practices.
+---
+
+# <I18nEnglish>debugger Statement</I18nEnglish>
+# <I18nBangla>ডিবাগার বিবৃতি</I18nBangla>
+# <I18nBanglish>debugger Statement</I18nBanglish>
+
+<I18nEnglish>
+The **`debugger;`** statement programmatically triggers a **breakpoint**.  
+In browsers, it pauses execution **when DevTools are open**; otherwise it’s ignored.  
+In Node.js, it pauses **when an inspector is active** (e.g., running with `--inspect` or an attached debugger).
+</I18nEnglish>
+
+<I18nBangla>
+**`ডিবাগার;`** দিলে প্রোগ্রাম **ব্রেকপয়েন্টে থামে**।  
+ব্রাউজারে **DevTools খোলা থাকলে** থামে; নাহলে উপেক্ষিত হয়।  
+Node.js‑এ **ইনস্পেক্টর চালু থাকলে** থামে (যেমন `--inspect` দিয়ে বা ডিবাগার অ্যাটাচ করা হলে)。
+</I18nBangla>
+
+<I18nBanglish>
+**`dibagar;`** dile program **pause** hoy (breakpoint).  
+Browser e **DevTools open** thakle thame; na thakle ignore.  
+Node.js e **inspector on** hole thame (e.g., `--inspect`/attached debugger).
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+debugger;
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+ডিবাগার;
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+dibagar;
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) বেসিক ব্যবহার — DevTools খোলা থাকলে ব্রেক করবে
+ফাংশন গুন(ক, খ) {
+  const ফল = ক * খ;
+  ডিবাগার;                 // এখানে থামবে
+  ফেরত ফল;
+}
+গুন(6, 7);
+
+// ২) শর্তসাপেক্ষ ব্রেক
+ফাংশন মূল্যায়ন(xs) {
+  জন্য (const x এর xs) {
+    যদি (x < 0) ডিবাগার;   // নেগেটিভ দেখলেই থামাও
+    কনসোল.লগ("x:", x);
+  }
+}
+মূল্যায়ন([2, -1, 3]);
+
+// ৩) async/await এর মাঝে
+অসমলয় ফাংশন লোড() {
+  const r = অপেক্ষা fetch("/data");
+  ডিবাগার;
+  ফেরত অপেক্ষা r.json();
+}
+লোড();
+
+// ৪) প্রোডাকশনে না পাঠাতে গার্ড
+const DEBUG = true;
+ফাংশন টেস্ট() {
+  যদি (DEBUG) ডিবাগার;
+  কনসোল.লগ("run");
+}
+টেস্ট();
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) Basic — breaks if DevTools open
+function gun(a, b) {
+  const fol = a * b;
+  dibagar;                // pause here
+  ferot fol;
+}
+gun(6, 7);
+
+// 2) Conditional break
+function mulloyon(xs) {
+  proti (const x er xs) {
+    jodi (x < 0) dibagar;
+    console.log("x:", x);
+  }
+}
+mulloyon([2, -1, 3]);
+
+// 3) Inside async/await
+osomoloy function load() {
+  const res = opekkha fetch("/data");
+  dibagar;
+  ferot opekkha res.json();
+}
+load();
+
+// 4) Guard for non‑prod
+const DEBUG = true;
+function test() {
+  jodi (DEBUG) dibagar;
+  console.log("run");
+}
+test();
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Basic — pauses when DevTools/inspector is active
+function mul(a, b) {
+  const out = a * b;
+  debugger;               // pause here
+  return out;
+}
+mul(6, 7);
+
+// 2) Conditional breakpoint
+function evaluate(xs) {
+  for (const x of xs) {
+    if (x < 0) debugger;
+    console.log("x:", x);
+  }
+}
+evaluate([2, -1, 3]);
+
+// 3) Inside async/await
+async function load() {
+  const res = await fetch("/data");
+  debugger;
+  return await res.json();
+}
+load();
+
+// 4) Guarding to avoid shipping accidental pauses
+const DEBUG = true;
+function test() {
+  if (DEBUG) debugger;
+  console.log("run");
+}
+test();
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- `debugger` works in both **sloppy** and **strict** mode; it’s **ignored** when no debugger is attached/open.  
+- Prefer **DevTools breakpoints** (including **conditional breakpoints**) for ad‑hoc debugging; keep `debugger` for spots you want checked‑in during development.  
+- **Do not ship** `debugger` to production builds — wrap with a flag or strip during bundling.  
+- When paused, you can inspect scopes, step through, evaluate expressions, and set **watch**/breakpoints.  
+- Language aliases: `ডিবাগার` / `dibagar`.
+</I18nEnglish>
+
+<I18nBangla>
+- `ডিবাগার` **sloppy/strict** উভয় মোডে কাজ করে; ডিবাগার না থাকলে **উপেক্ষা** হয়।  
+- হাতেকলমে ডিবাগে DevTools‑এর **ব্রেকপয়েন্ট/কন্ডিশনাল ব্রেকপয়েন্ট** ব্যবহার করুন; সোর্সে নির্দিষ্ট জায়গায় দরকার হলে `ডিবাগার` রাখুন।  
+- **প্রোডাকশনে পাঠাবেন না**—ফ্ল্যাগ দিয়ে গার্ড করুন বা bundling‑এ strip করুন।  
+- pause‑এ থাকলে scope দেখে, স্টেপ করতে, এক্সপ্রেশন রান করতে, **watch**/breakpoint সেট করতে পারবেন।  
+- ভাষা উপনাম: `ডিবাগার` / `dibagar`.
+</I18nBangla>
+
+<I18nBanglish>
+- `dibagar` **sloppy/strict** duitoy mode e kaj kore; debugger na thakle **ignore** hoy.  
+- Quick debug er jonno DevTools‑er **breakpoint/conditional** bhalo; source e specific jaygay development‑e `dibagar` thakte pare.  
+- **Production e pathhiyen na** — flag diye guard korun ba bundler e strip korun.  
+- Pause obosthay scope inspect, step, expression eval, **watch**/breakpoint kora jay.  
+- Alias: `ডিবাগার` / `dibagar`.
+</I18nBanglish>

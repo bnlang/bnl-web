@@ -1,0 +1,270 @@
+{
+    "meta": {
+        "title": "About Bnlang — Mother-tongue programming for Bangladesh",
+        "description": "Bnlang is a multilingual programming language and runtime built for Bangladesh. Write in Bangla, Banglish, or English with a modern toolchain, accessible learning path, and production-grade interop."
+    },
+    "hero": {
+        "badge": "Bnlang · Programming Language",
+        "title": "About Bnlang",
+        "lead": "Bnlang is a multilingual programming language and runtime created primarily for Bangladesh. It lets developers think and learn in their mother tongue—বাংলা—collaborate in Banglish, and ship in English without changing semantics, tooling, or production readiness.",
+        "cta": {
+            "docs": "Read Documentation",
+            "github": "GitHub"
+        }
+    },
+    "productStatus": {
+        "title": "Project status",
+        "bullets": [
+            {
+                "strong": "Free to use:",
+                "text": "all tooling and distributions are free."
+            },
+            {
+                "strong": "Open source (surrounding projects):",
+                "text": "bnl-vscode, bnl-web (website), and bpm are open source."
+            },
+            {
+                "strong": "Core runtime source:",
+                "text": "main Bnlang runtime source is private today; planned to be open sourced later."
+            }
+        ]
+    },
+    "why": {
+        "title": "Why Bnlang (for Bangladesh)",
+        "description": "People think and work across languages—learn in Bangla, discuss in Banglish, search and ship in English. Traditional languages force one surface form; Bnlang adapts to you. Teach, learn, prototype, and run in production using the script you’re most comfortable with—without forking the ecosystem or sacrificing engineering rigor.",
+        "bullets": [
+            {
+                "strong": "Onboarding speed:",
+                "text": "the same example exists in three surface forms with identical behavior—English, বাংলা, and Banglish."
+            },
+            {
+                "strong": "Review clarity:",
+                "text": "diagnostics and formatting keep mixed-language code legible and consistent."
+            },
+            {
+                "strong": "No translation tax:",
+                "text": "learn core ideas in Bangla, ship to production in English if required."
+            }
+        ],
+        "contextCard": {
+            "title": "What this page covers (and why)",
+            "body": "Each section explains the rationale behind language design, runtime, interop, and community. It’s written for teachers, adopters, and contributors who need to assess Bnlang for real projects."
+        }
+    },
+    "missionVision": {
+        "mission": {
+            "title": "Mission (why this matters)",
+            "body": "Make professional software development approachable in Bangladesh—without dumbing anything down. Learn and think in Bangla/Banglish while producing software that meets global engineering standards."
+        },
+        "vision": {
+            "title": "Vision (what success looks like)",
+            "body": "Language should not decide who gets to build. Success is a healthy ecosystem where schools, startups, and public institutions in Bangladesh use Bnlang confidently—backed by stable releases and open governance."
+        }
+    },
+    "how": {
+        "title": "How it works (why these choices)",
+        "lead": "We choose a pragmatic stack for Bangladesh today: fast iteration on a modern V8 runtime, clean interop with C++ for performance-critical paths, and robust libraries like libuv, OpenSSL, llhttp, and zlib—so schools and companies can adopt incrementally.",
+        "frontend": {
+            "title": "Frontend: Lexer, Parser, Checker",
+            "points": [
+                "Trilingual tokens normalized (Bangla/Banglish/English) → language-agnostic IR.",
+                "Static checks for scope, arity, and optional type hints.",
+                "Formatter ensures deterministic layout across scripts."
+            ]
+        },
+        "backend": {
+            "title": "Backend: V8 Runtime",
+            "points": [
+                "IR → JavaScript transpilation; JavaScript executes on the Google V8 Engine.",
+                "Module resolution via BPM + lockfiles for reproducible builds.",
+                "Source maps and readable diagnostics for first-class debugging."
+            ]
+        },
+        "native": {
+            "title": "Native Path: C++",
+            "points": [
+                "Performance-critical functions (crypto, parsing, image ops) in C++.",
+                "Stable ABI boundary with prebuilt binaries per platform.",
+                "FFI helpers to call system libraries safely."
+            ]
+        },
+        "runtimeStack": {
+            "title": "Runtime stack (under the hood)",
+            "items": [
+                {
+                    "name": "V8",
+                    "desc": "high-performance JavaScript engine for executing transpiled code"
+                },
+                {
+                    "name": "C++",
+                    "desc": "core runtime and native extensions"
+                },
+                {
+                    "name": "libuv",
+                    "desc": "event loop, async I/O, cross-platform primitives"
+                },
+                {
+                    "name": "OpenSSL",
+                    "desc": "TLS and cryptography"
+                },
+                {
+                    "name": "llhttp",
+                    "desc": "fast, secure HTTP parsing"
+                },
+                {
+                    "name": "zlib",
+                    "desc": "compression and decompression"
+                }
+            ]
+        },
+        "pillars": [
+            {
+                "title": "Packages & Stdlib (why)",
+                "body": "BPM provides integrity checks and semantic versions. The standard library covers I/O, HTTP, crypto, and text utilities with identical APIs across three surface forms—so lessons don’t fragment."
+            },
+            {
+                "title": "Tooling (why)",
+                "body": "Formatter, test runner, docs generator, and scaffolding ship with the language. Upgrades stay predictable in classrooms and CI because tools evolve together."
+            },
+            {
+                "title": "Interop (why not a walled garden)",
+                "body": "Leverage existing C/C++ libraries; export clean interfaces. Transpile to JavaScript and run on V8 for broad deployment."
+            }
+        ]
+    },
+    "languageDesign": {
+        "title": "Language design (why it feels right)",
+        "lead": "The parser accepts three surface forms; the compiler treats them equally. You teach and work in the language you think in—without a 'special mode' of code.",
+        "cards": [
+            {
+                "title": "Trilingual Keywords & APIs",
+                "body": "Control flow and declarations exist in Bangla/Banglish/English; tooling normalizes for analysis and output."
+            },
+            {
+                "title": "Safety & Clarity",
+                "body": "Explicit imports, predictable scoping, strict formatter, and readable errors keep reviews focused on logic."
+            },
+            {
+                "title": "Accessibility-first",
+                "body": "Unicode-safe punctuation, examples aligned with common Bangla keyboard habits, and bilingual diagnostics."
+            }
+        ]
+    },
+    "accessibility": {
+        "title": "Accessibility for Bangladesh (why it’s a priority)",
+        "cards": [
+            {
+                "title": "Language Reality",
+                "body": "Learn in Bangla, discuss in Banglish, search in English. Bnlang meets all three without 'mode switching'."
+            },
+            {
+                "title": "Fonts & Unicode",
+                "body": "Compiler and formatter handle Bangla punctuation/numerals; docs recommend widely available fonts."
+            },
+            {
+                "title": "Low Bandwidth & Power",
+                "body": "Small downloads, deterministic installs, and offline docs reduce friction in real classrooms."
+            }
+        ]
+    },
+    "adoption": {
+        "title": "Interop & adoption (why not reinvent the world)",
+        "cards": [
+            {
+                "title": "Import / Export",
+                "body": "Leverage existing C/C++ libraries; export clean interfaces. Deploy on any platform supported by the runtime."
+            },
+            {
+                "title": "Incremental Migration",
+                "body": "Start with scripts or one service; keep the rest in existing languages. Move hot paths to C++ only when needed."
+            },
+            {
+                "title": "Deterministic Builds",
+                "body": "Lockfiles and checksums make CI and lab machines behave the same—even with flaky connectivity."
+            }
+        ]
+    },
+    "trust": {
+        "title": "Governance, license & security (why you can trust it)",
+        "cards": [
+            {
+                "title": "Open Governance",
+                "body": "Community RFCs shape changes. Breaking changes ship with migration guides and tool support."
+            },
+            {
+                "title": "Licensing",
+                "body": "bnl-vscode, bnl-web, and bpm are open source; the main runtime source is private for now (planned open source). All are free to use."
+            },
+            {
+                "title": "Security & Telemetry",
+                "body": "Responsible disclosure, signed artifacts, and optional, privacy-respecting telemetry (opt-out anytime)."
+            }
+        ]
+    },
+    "roadmap": {
+        "title": "Roadmap (near-term priorities)",
+        "cards": [
+            {
+                "title": "v1.x Stability",
+                "body": "Lock core syntax, finalize stdlib modules, and announce LTS windows for educators and companies."
+            },
+            {
+                "title": "Tooling Depth",
+                "body": "Language server polish, better editor integration, and improved debug/trace ergonomics."
+            },
+            {
+                "title": "Native Performance",
+                "body": "Expand C++ modules, profile hot paths, and provide prebuilt binaries for all supported OS/arch pairs."
+            }
+        ],
+        "cta": {
+            "getStarted": "Get Started",
+            "examples": "See Examples",
+            "github": "Contribute on GitHub"
+        }
+    },
+    "community": {
+        "title": "Community & Governance",
+        "lead": "Join discussions, propose RFCs, and help shape the roadmap. From documentation to core packages—every contribution matters.",
+        "cta": {
+            "repo": "Open the Repo",
+            "guide": "Community Guide"
+        }
+    },
+    "projectStatus": {
+        "status": {
+            "title": "Project status",
+            "body": "bnl-vscode, bnl-web (website), and bpm are open source and free. The main Bnlang runtime source is private today (planned to open source later)."
+        },
+        "cost": {
+            "title": "Cost",
+            "body": "Bnlang distributions and tooling are completely free to use—no license fees, no hidden charges. Individuals, schools, and companies can adopt it without cost barriers, making it accessible for learning, collaboration, and production deployment."
+        }
+    },
+    "runtimeStack": [
+      {
+        "name": "C++",
+        "desc": "Core of the Bnlang runtime, written in modern C++ for speed and portability. It powers native extensions, FFI bridges, and low-level system integration."
+      },
+      {
+        "name": "V8",
+        "desc": "Google’s high-performance JavaScript engine. Bnlang transpiles to JavaScript and runs on V8, gaining JIT compilation, fast GC, and proven production stability."
+      },
+      {
+        "name": "libuv",
+        "desc": "Cross-platform async I/O library used heavily in Bnlang for networking, filesystem access, timers, event loops, and process management."
+      },
+      {
+        "name": "OpenSSL",
+        "desc": "Provides TLS, SSL, and cryptography. Bnlang relies on it for secure communications, encryption, hashing, and certificate handling."
+      },
+      {
+        "name": "llhttp",
+        "desc": "Fast, lightweight HTTP parser in C. Integrated into Bnlang to handle HTTP traffic efficiently and securely for servers and clients."
+      },
+      {
+        "name": "zlib",
+        "desc": "Battle-tested compression library. Used for gzip/deflate support, package compression in BPM, and general data processing."
+      }
+    ]
+}

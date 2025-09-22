@@ -1,0 +1,135 @@
+---
+title: stream module
+description: Stream APIs for working with data that is read/written incrementally — readable, writable, duplex, transform, piping, and backpressure handling.
+bnTitle: stream মডিউল
+bnDescription: স্ট্রিম API — ডেটা আংশিক পড়া/লেখা, readable, writable, duplex, transform, পাইপিং ও ব্যাকপ্রেশার হ্যান্ডলিং।
+banglishTitle: stream module
+banglishDescription: Stream API — read/write incrementally, readable, writable, duplex, transform, piping, backpressure handling.
+---
+
+# <I18nEnglish>stream</I18nEnglish>
+# <I18nBangla>stream</I18nBangla>
+# <I18nBanglish>stream</I18nBanglish>
+
+<I18nEnglish>
+The **`stream`** module provides APIs for handling streaming data. Streams allow processing data piece by piece instead of loading it all at once.
+</I18nEnglish>
+
+<I18nBangla>
+**`stream`** মডিউল স্ট্রিম ডেটা হ্যান্ডল করতে দেয়। এতে ডেটা একসাথে না নিয়ে অংশে অংশে প্রসেস করা যায়।
+</I18nBangla>
+
+<I18nBanglish>
+**`stream`** module streaming data handle korte dey. Eta diye data part by part process kora jay instead of all at once.
+</I18nBanglish>
+
+---
+
+## Types of Streams
+
+<I18nEnglish>
+- **Readable**: can be read from (`fs.createReadStream`).  
+- **Writable**: can be written to (`fs.createWriteStream`).  
+- **Duplex**: both readable and writable (`net.Socket`).  
+- **Transform**: duplex streams that modify data (`zlib.createGzip`).  
+</I18nEnglish>
+
+<I18nBangla>
+- **Readable** — যেটা থেকে পড়া যায়।  
+- **Writable** — যেটাতে লেখা যায়।  
+- **Duplex** — দুই দিকেই পড়া/লেখা যায়।  
+- **Transform** — ডেটা বদলে দেয়।  
+</I18nBangla>
+
+<I18nBanglish>
+- **Readable** — data read kora jay.  
+- **Writable** — data write kora jay.  
+- **Duplex** — read/write duita.  
+- **Transform** — data modify kore.  
+</I18nBanglish>
+
+---
+
+## Core API
+
+<I18nEnglish>
+- **`stream.Readable`**: implement custom readable streams.  
+- **`stream.Writable`**: implement custom writable streams.  
+- **`stream.Duplex`**: implement both.  
+- **`stream.Transform`**: implement transform.  
+- **`stream.pipeline(src, ...transforms, dest, cb)`** — pipe with error handling.  
+- **`stream.finished(stream, cb)`** — notify when done or errored.  
+</I18nEnglish>
+
+<I18nBangla>
+- **`Readable/Writable/Duplex/Transform`** ক্লাস কাস্টম স্ট্রিম বানাতে।  
+- **`pipeline`** — সেফ পাইপিং।  
+- **`finished`** — স্ট্রিম শেষ হলে কলব্যাক।  
+</I18nBangla>
+
+<I18nBanglish>
+- **`Readable/Writable/Duplex/Transform`** class diye custom stream.  
+- **`pipeline`** — safe piping.  
+- **`finished`** — stream end hole callback.  
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const fs = require("fs");
+const { Transform, pipeline } = require("stream");
+
+// Transform to uppercase
+const upper = new Transform({
+  transform(chunk, enc, cb) {
+    cb(null, chunk.toString().toUpperCase());
+  }
+});
+
+// Pipe file through transform and out
+pipeline(
+  fs.createReadStream("input.txt"),
+  upper,
+  fs.createWriteStream("output.txt"),
+  (err) => {
+    if (err) console.error("Pipeline failed:", err);
+    else console.log("Pipeline succeeded");
+  }
+);
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Streams handle **backpressure**, preventing memory overload.  
+- Always use **pipeline** instead of chaining `.pipe()` for better error handling.  
+- Use **finished** to know when a stream is fully consumed.  
+- Core modules like `fs`, `net`, `http` use streams extensively.  
+</I18nEnglish>
+
+<I18nBangla>
+- স্ট্রিম ব্যাকপ্রেশার হ্যান্ডল করে, মেমরি ওভারলোড রোধ করে।  
+- শুধু `.pipe()` না, নিরাপত্তার জন্য **pipeline** ব্যবহার করুন।  
+- **finished** দিয়ে স্ট্রিম পুরো খরচ হলে জানবেন।  
+- `fs`, `net`, `http` ইত্যাদি স্ট্রিম ব্যবহার করে।  
+</I18nBangla>
+
+<I18nBanglish>
+- Stream backpressure handle kore, memory overload theke bachay.  
+- `.pipe()` er bodole **pipeline** use korun for better error handling.  
+- **finished** diye janben stream shesh.  
+- Core module gulo (`fs`, `net`, `http`) onek stream use kore.  
+</I18nBanglish>

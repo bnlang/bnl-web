@@ -1,0 +1,140 @@
+---
+title: buffer module
+description: Binary data handling with Buffer—creation, encoding/decoding, reading/writing, slicing, concatenation, and utilities for binary streams.
+bnTitle: buffer মডিউল
+bnDescription: বাইনারি ডেটা ব্যবহারের জন্য Buffer — তৈরি, এনকোড/ডিকোড, পড়া/লেখা, স্লাইস, কনক্যাট, এবং ইউটিলিটি।
+banglishTitle: buffer module
+banglishDescription: Binary data API with Buffer — create, encode/decode, read/write, slice, concat, and utilities.
+---
+
+# <I18nEnglish>buffer</I18nEnglish>
+# <I18nBangla>buffer</I18nBangla>
+# <I18nBanglish>buffer</I18nBanglish>
+
+<I18nEnglish>
+The **`Buffer`** class provides a way to work with raw binary data directly. Buffers are used when dealing with files, sockets, or binary protocols.
+</I18nEnglish>
+
+<I18nBangla>
+**`Buffer`** ক্লাস কাঁচা বাইনারি ডেটা নিয়ে কাজ করার সুবিধা দেয়। ফাইল, সকেট বা বাইনারি প্রোটোকল হ্যান্ডল করতে এটি দরকার হয়।
+</I18nBangla>
+
+<I18nBanglish>
+**`Buffer`** class diye raw binary data niye direct kaj kora jay. File, socket, binary protocol handle korte use hoy.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Creation
+- **`Buffer.alloc(size)`** — allocate a zero‑filled buffer.
+- **`Buffer.allocUnsafe(size)`** — allocate without fill (faster, but old data may remain).
+- **`Buffer.from(array)`** — from byte array.
+- **`Buffer.from(string, [encoding])`** — from string with encoding (`utf8`, `base64`, `hex`, etc.).
+
+### Conversion
+- **`buf.toString([encoding])`** — decode to string.
+- **`buf.toJSON()`** — JSON representation.
+
+### Indexing
+- **`buf[i]`** — get/set byte at index.
+
+### Copy & Slice
+- **`Buffer.concat(list[, totalLength])`** — join multiple buffers.
+- **`buf.slice(start, end)`** — view into part of the buffer.
+
+### Read & Write
+- **`buf.write(string, [offset], [length], [encoding])`**
+- **`buf.readInt8(offset)`**, **`buf.readUInt16LE(offset)`**, etc.
+- **`buf.writeInt32BE(value, offset)`**, etc.
+
+### Properties
+- **`buf.length`** — size in bytes.
+- **`Buffer.isBuffer(obj)`** — check type.
+- **`Buffer.byteLength(string, [encoding])`** — size in bytes when encoded.
+
+</I18nEnglish>
+
+<I18nBangla>
+### প্রধান ফাংশন
+- **`alloc/allocUnsafe/from`** — বাফার তৈরি।
+- **`toString/toJSON`** — ডেটা রূপান্তর।
+- **`concat/slice`** — একত্র করা ও ভাগ।
+- **`read*/write*`** — বিভিন্ন টাইপের ডেটা পড়া/লেখা।
+- **`length/isBuffer/byteLength`** — প্রপার্টি।
+</I18nBangla>
+
+<I18nBanglish>
+### Functions
+- **`alloc/allocUnsafe/from`** — buffer create.
+- **`toString/toJSON`** — convert data.
+- **`concat/slice`** — join & slice.
+- **`read*/write*`** — read/write typed data.
+- **`length/isBuffer/byteLength`** — properties.
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+// Create buffers
+const b1 = Buffer.alloc(5);
+const b2 = Buffer.from("Hello");
+const b3 = Buffer.from("SGVsbG8=", "base64");
+
+console.log(b1, b2.toString(), b3.toString());
+
+// Index access
+b2[0] = 0x68; // overwrite 'H' with 'h'
+console.log(b2.toString());
+
+// Slice & concat
+const part = b2.slice(0, 2);
+console.log(part.toString());
+
+const joined = Buffer.concat([b2, Buffer.from(" world")]);
+console.log(joined.toString());
+
+// Read & write numbers
+const buf = Buffer.alloc(4);
+buf.writeInt32BE(12345, 0);
+console.log(buf.readInt32BE(0));
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Prefer **`Buffer.alloc`** over `allocUnsafe` for security and correctness.  
+- Buffers are fixed-size; slicing does not copy but creates a view.  
+- Always specify **encoding** (`utf8`, `base64`, `hex`) when converting strings.  
+- Use typed read/write methods for structured binary protocols.  
+</I18nEnglish>
+
+<I18nBangla>
+- নিরাপত্তার জন্য **`alloc`** ব্যবহার করুন, `allocUnsafe` এ পুরোনো ডেটা থেকে যেতে পারে।  
+- বাফার স্থির আকারের; `slice` নতুন কপি নয়, ভিউ দেয়।  
+- স্ট্রিং কনভার্ট করার সময় এনকোডিং দিন।  
+- বাইনারি প্রোটোকলে টাইপড read/write ব্যবহার করুন।  
+</I18nBangla>
+
+<I18nBanglish>
+- Secure & safe er jonno **`alloc`** use korun, `allocUnsafe` e junk data thakte pare.  
+- Buffer fixed-size, `slice` copy kore na, view dey.  
+- String convert e always encoding specify korun.  
+- Binary protocol e typed read/write method use korun.  
+</I18nBanglish>

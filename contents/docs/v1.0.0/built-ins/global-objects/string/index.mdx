@@ -1,0 +1,164 @@
+---
+title: String Object
+description: The String object in Bnlang with Bangla, Banglish, and English usage.
+bnTitle: অক্ষরমালা অবজেক্ট
+bnDescription: Bnlang এ অক্ষরমালা অবজেক্ট এবং এর ব্যবহার।
+banglishTitle: Okkhoromala Object
+banglishDescription: Bnlang e Okkhoromala object er bebohar Bangla, Banglish ar English e.
+---
+
+# <I18nEnglish>String Object</I18nEnglish>
+# <I18nBangla>অক্ষরমালা অবজেক্ট</I18nBangla>
+# <I18nBanglish>Okkhoromala Object</I18nBanglish>
+
+<I18nEnglish>
+The **String** object is used to represent and manipulate text in Bnlang.  
+It supports creation with the `String` constructor and provides many methods for searching, modifying, and formatting text.
+</I18nEnglish>
+
+<I18nBangla>
+**অক্ষরমালা** অবজেক্ট ব্যবহার হয় টেক্সট প্রকাশ এবং প্রক্রিয়াজাত করার জন্য।  
+এটি `অক্ষরমালা` কন্সট্রাক্টর দিয়ে তৈরি করা যায় এবং অনেক পদ্ধতি রয়েছে টেক্সট খোঁজা, পরিবর্তন ও ফরম্যাট করার জন্য।
+</I18nBangla>
+
+<I18nBanglish>
+**Okkhoromala** object diye text represent and manipulate kora hoy.  
+Eta `Okkhoromala` constructor diye toiri kora jay, ar text search, modify and format korar onek method ache.
+</I18nBanglish>
+
+---
+
+## Create String
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const s1 = new String("hello");
+console.log(s1.toUpperCase()); // "HELLO"
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const s1 = new অক্ষরমালা("হ্যালো");
+ছাপাও(s1.বড়_অক্ষরে_রূপান্তর()); // "হ্যালো" বড় হরফে
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const s1 = new Okkhoromala("hello");
+chapao(s1.boroOkkhoreRupontor()); // "HELLO"
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Common Methods
+
+<I18nEnglish>
+
+- `charAt(index)` → Character at index  
+- `indexOf(substr)` → Find position  
+- `slice(start, end)` → Extract substring  
+- `toUpperCase()` / `toLowerCase()` → Case conversion  
+- `trim()` → Remove spaces  
+- `replace(find, value)` → Replace content  
+- `split(sep)` → Split string into array  
+
+</I18nEnglish>
+
+<I18nBangla>
+
+- `অক্ষরের_অবস্থান(সূচক)` → নির্দিষ্ট অবস্থার অক্ষর  
+- `এর_সুচক(অক্ষরমালা)` → অবস্থান খুঁজে আনে  
+- `খণ্ড(শুরু, শেষ)` → সাবস্ট্রিং বের করে  
+- `বড়_অক্ষরে_রূপান্তর()` / `ছোট_অক্ষরে_রূপান্তর()` → অক্ষর রূপান্তর  
+- `ছাঁটাই()` → স্পেস মুছে ফেলা  
+- `প্রতিস্থাপন(পুরাতন, নতুন)` → কনটেন্ট পরিবর্তন  
+- `ভাগ(বিভাজক)` → অক্ষরমালা ভাগ করে তালিকায় আনে  
+
+</I18nBangla>
+
+<I18nBanglish>
+
+- `okkhorerObosthan(index)` → character paoa  
+- `erSuchok(substr)` → position ber kora  
+- `khondo(start, end)` → substring ber kora  
+- `boroOkkhoreRupontor()` / `chhotoOkkhoreRupontor()` → case convert  
+- `chatay()` → spaces remove  
+- `protisthapon(puraton, notun)` → content replace  
+- `vag(sep)` → string vag kora array te  
+
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const name = "Bnlang";
+console.log(name.includes("lang")); // true
+console.log(name.toLowerCase());    // "bnlang"
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const নাম = "বিএনল্যাং";
+ছাপাও(নাম.অন্তর্ভুক্ত_আছে("ল্যাং")); // true
+ছাপাও(নাম.ছোট_অক্ষরে_রূপান্তর());   // "bnlang"
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const nam = "Bnlang";
+chapao(nam.ontorbhuktoAche("lang")); // true
+chapao(nam.chhotoOkkhoreRupontor()); // "bnlang"
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Prefer using `String` methods instead of manual loops.  
+- Use `trim()` before comparisons to avoid whitespace issues.  
+- Use `includes()` over `indexOf()` for readability.  
+</I18nEnglish>
+
+<I18nBangla>
+- লুপের পরিবর্তে `অক্ষরমালা` অবজেক্টের মেথড ব্যবহার করুন।  
+- তুলনার আগে `ছাঁটাই()` ব্যবহার করুন যাতে স্পেস সমস্যা না হয়।  
+- পাঠযোগ্যতার জন্য `অন্তর্ভুক্ত_আছে()` ব্যবহার করুন।  
+</I18nBangla>
+
+<I18nBanglish>
+- Loop er poriborte `Okkhoromala` method use korun.  
+- Comparison er age `chatay()` use korun whitespace handle korte.  
+- Readability jonno `ontorbhuktoAche()` use korun.  
+</I18nBanglish>

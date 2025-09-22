@@ -1,0 +1,139 @@
+---
+title: fs module
+description: File system APIs for reading, writing, opening, closing, directories, metadata, removal, copying, and streaming in Bnlang runtime.
+bnTitle: fs মডিউল
+bnDescription: ফাইল সিস্টেম API — ফাইল পড়া/লেখা, খোলা/বন্ধ, ডিরেক্টরি, মেটাডেটা, মুছে ফেলা, কপি এবং স্ট্রিম অপারেশন।
+banglishTitle: fs module
+banglishDescription: File system API — read/write, open/close, directory, metadata, remove, copy, and stream operations in runtime.
+---
+
+# <I18nEnglish>fs</I18nEnglish>
+# <I18nBangla>fs</I18nBangla>
+# <I18nBanglish>fs</I18nBanglish>
+
+<I18nEnglish>
+The **`fs`** module provides file system operations. Both synchronous and asynchronous versions are available for most functions.
+</I18nEnglish>
+
+<I18nBangla>
+**`fs`** মডিউল ফাইল সিস্টেমের কাজ করে। অধিকাংশ ফাংশনের সিঙ্ক্রোনাস ও অ্যাসিঙ্ক্রোনাস সংস্করণ রয়েছে।
+</I18nBangla>
+
+<I18nBanglish>
+**`fs`** module file system operation kore. Onk function er synchronous & asynchronous version ache.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Low-level
+- **`open, openSync`** — open a file descriptor.
+- **`read, readSync`** — read bytes from a descriptor.
+- **`write, writeSync`** — write bytes.
+- **`close, closeSync`** — close a file descriptor.
+
+### High-level
+- **`readFile, readFileSync`** — read file fully into memory.
+- **`writeFile, writeFileSync`** — write data to file, replacing contents.
+- **`appendFile, appendFileSync`** — append to file.
+- **`exists, existsSync`** — check existence.
+- **`stat, statSync`** — metadata (size, mode, timestamps).
+- **`unlink, unlinkSync`** — delete file.
+- **`copyFile, copyFileSync`** — copy a file.
+- **`mkdir, mkdirSync`** — create directory.
+- **`readdir, readdirSync`** — list directory.
+- **`rm, rmSync`**, **`rmdir, rmdirSync`** — remove files/directories.
+- **`cp`** — recursive copy.
+
+### Streams
+- **`createReadStream`** — stream file read.
+- **`createWriteStream`** — stream file write.
+
+### Misc
+- **`mkdtemp, mkdtempSync`** — create unique temporary directory.
+- **`constants`** — file system flags and modes.
+
+</I18nEnglish>
+
+<I18nBangla>
+### প্রধান ফাংশন
+- **`open/read/write/close`** — লো‑লেভেল ফাইল ডিসক্রিপ্টর কাজ।
+- **`readFile/writeFile/appendFile`** — ফাইল পড়া, লেখা, অ্যাপেন্ড।
+- **`exists/stat/unlink/copyFile/mkdir/readdir/rm/rmdir/cp`** — ফাইল ও ডিরেক্টরি ম্যানেজমেন্ট।
+- **`createReadStream/createWriteStream`** — স্ট্রিম‑ভিত্তিক I/O।
+- **`mkdtemp/constants`** — টেম্প ডিরেক্টরি ও কনস্ট্যান্ট।
+</I18nBangla>
+
+<I18nBanglish>
+### Main functions
+- **`open/read/write/close`** — low-level file descriptor kaj.
+- **`readFile/writeFile/appendFile`** — file read, write, append.
+- **`exists/stat/unlink/copyFile/mkdir/readdir/rm/rmdir/cp`** — file & directory management.
+- **`createReadStream/createWriteStream`** — stream-based I/O.
+- **`mkdtemp/constants`** — temp dir & constants.
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const fs = require("fs");
+
+// Write & read a file
+fs.writeFileSync("hello.txt", "Hi Bnlang!");
+console.log(fs.readFileSync("hello.txt", "utf8"));
+
+// Append
+fs.appendFileSync("hello.txt", "\nAppended");
+
+// Metadata
+const stats = fs.statSync("hello.txt");
+console.log("Size:", stats.size);
+
+// Directory
+fs.mkdirSync("demo");
+fs.writeFileSync("demo/a.txt", "x");
+console.log(fs.readdirSync("demo"));
+
+// Streams
+const r = fs.createReadStream("hello.txt");
+r.on("data", chunk => console.log("chunk:", chunk.toString()));
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Use asynchronous methods (`readFile`, `writeFile`) in production to avoid blocking the event loop.
+- Synchronous versions are simpler but block until complete — better for scripts or initialization.
+- Always handle errors in callbacks or `try/catch` around sync calls.
+- Streams are memory-efficient for large files.
+</I18nEnglish>
+
+<I18nBangla>
+- প্রোডাকশনে অ্যাসিঙ্ক ফাংশন ব্যবহার করুন—সিঙ্ক ফাংশন ইভেন্ট লুপ ব্লক করে।
+- সিঙ্ক্রোনাস ফাংশন কেবল স্ক্রিপ্ট বা ইনিশিয়ালাইজেশনের জন্য ভালো।
+- ত্রুটি সবসময় ধরুন।
+- বড় ফাইলের জন্য স্ট্রিম বেশি কার্যকর।
+</I18nBangla>
+
+<I18nBanglish>
+- Production e async function use korun, sync gulo loop block kore.
+- Sync shudhu script/initialization e valo.
+- Error sobsomoy catch korun.
+- Large file er jonno stream use kora better.
+</I18nBanglish>

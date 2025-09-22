@@ -1,0 +1,22 @@
+{
+    "description": "Bnlang holo ekti programming vasha, jekhane apni Bangla, English ebong Banglish-e shohojei code likhte ebong run korte parben.",
+    "useful_links": {
+        "title": "Useful Links",
+        "links": {
+            "about": "About",
+            "learn": "Shikhun",
+            "contribute": "Obodan Rakhun"
+        }
+    },
+    "policies": {
+        "title": "nitimala",
+        "links": {
+            "privacy": "Goponiyota Niti",
+            "terms": "Shortaboli"
+        }
+    },
+    "download_bnlang": {
+        "title": "Download Bnlang",
+        "description": "Get Bnlang for your computer. Start coding in Bangla today!"
+    }
+}

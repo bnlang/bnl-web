@@ -1,0 +1,131 @@
+---
+title: dns module
+description: DNS lookup and resolution APIs — resolve hostnames, lookup addresses, reverse IPs, with async and sync methods.
+bnTitle: dns মডিউল
+bnDescription: DNS লুকআপ ও রিসলিউশন API — হোস্টনেম রিসলভ, অ্যাড্রেস লুকআপ, IP রিভার্স, অ্যাসিঙ্ক ও সিঙ্ক মেথড।
+banglishTitle: dns module
+banglishDescription: DNS API — hostname resolve, address lookup, reverse IP, async & sync methods.
+---
+
+# <I18nEnglish>dns</I18nEnglish>
+# <I18nBangla>dns</I18nBangla>
+# <I18nBanglish>dns</I18nBanglish>
+
+<I18nEnglish>
+The **`dns`** module provides functions for name resolution. It can resolve hostnames into IP addresses, perform reverse lookups, and query specific DNS records.
+</I18nEnglish>
+
+<I18nBangla>
+**`dns`** মডিউল নাম রিসলিউশনের জন্য ফাংশন দেয়। এটি হোস্টনেম থেকে IP অ্যাড্রেস বের করে, রিভার্স লুকআপ করে, এবং নির্দিষ্ট DNS রেকর্ড কুয়েরি করতে পারে।
+</I18nBangla>
+
+<I18nBanglish>
+**`dns`** module name resolution er jonno function dey. Eta hostname theke IP address dey, reverse lookup kore, specific DNS record query korte pare.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Lookup
+- **`dns.lookup(hostname[, options], callback)`** — resolve hostname to address. Options may include `family` (4 or 6).  
+- **`dns.lookupService(address, port, callback)`** — resolve address + port to hostname/service.
+
+### Resolve
+- **`dns.resolve(hostname[, rrtype], callback)`** — resolve DNS records. `rrtype`: `A`, `AAAA`, `MX`, `TXT`, `SRV`, etc.  
+- **`dns.resolve4/resolve6`**, **`dns.resolveMx`**, **`dns.resolveTxt`**, etc.  
+- **`dns.reverse(ip, callback)`** — reverse IP to hostname.
+
+### Promises API
+- **`dns.promises.lookup()`**, **`dns.promises.resolve()`**, etc. — return promises.
+
+### Sync
+- No synchronous DNS methods except via `net` or `url` parsing.  
+</I18nEnglish>
+
+<I18nBangla>
+### প্রধান ফাংশন
+- **`lookup`** — হোস্টনেম থেকে IP।  
+- **`lookupService`** — IP থেকে হোস্টনেম।  
+- **`resolve`** — DNS রেকর্ড (A, AAAA, MX, TXT, SRV)।  
+- **`reverse`** — IP থেকে হোস্টনেম।  
+- **`promises`** — প্রমিস-ভিত্তিক API।  
+</I18nBangla>
+
+<I18nBanglish>
+### Functions
+- **`lookup`** — hostname to IP.  
+- **`lookupService`** — IP to hostname.  
+- **`resolve`** — DNS record (A, AAAA, MX, TXT, SRV).  
+- **`reverse`** — IP to hostname.  
+- **`promises`** — promise-based API.  
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const dns = require("dns");
+
+// Simple lookup
+dns.lookup("example.com", (err, address, family) => {
+  if (err) throw err;
+  console.log("address:", address, "family: IPv" + family);
+});
+
+// Resolve A records
+dns.resolve4("example.com", (err, addresses) => {
+  if (err) throw err;
+  console.log("IPv4:", addresses);
+});
+
+// Reverse lookup
+dns.reverse("93.184.216.34", (err, hostnames) => {
+  if (err) throw err;
+  console.log("reverse:", hostnames);
+});
+
+// Promises API
+(async () => {
+  const { promises: dnsPromises } = require("dns");
+  const res = await dnsPromises.lookup("example.com");
+  console.log("promises.lookup:", res.address);
+})();
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Use **`dns.lookup`** for general hostname resolution (uses OS facilities).  
+- Use **`dns.resolve`** for actual DNS queries (bypasses OS cache).  
+- Prefer **Promises API** with async/await for clarity.  
+- Always handle errors (network issues, NXDOMAIN).  
+</I18nEnglish>
+
+<I18nBangla>
+- সাধারণ হোস্টনেম রিসলিউশনের জন্য **`lookup`**।  
+- আসল DNS কুয়েরির জন্য **`resolve`**।  
+- অ্যাসিঙ্ক/অ্যাওয়েটের জন্য **Promises API** ব্যবহার করুন।  
+- ত্রুটি অবশ্যই ধরতে হবে।  
+</I18nBangla>
+
+<I18nBanglish>
+- General hostname resolution er jonno **`lookup`**.  
+- Actual DNS query er jonno **`resolve`**.  
+- Async/await er sathe **Promises API** valo.  
+- Error always handle korte hobe.  
+</I18nBanglish>

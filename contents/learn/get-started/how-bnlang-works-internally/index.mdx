@@ -1,0 +1,155 @@
+---
+title: How Bnlang Works Internally
+description: A detailed explanation of the internal architecture of Bnlang, including parsing, translation, execution, and native bindings.
+bnTitle: ভেতরে Bnlang কিভাবে কাজ করে
+bnDescription: Bnlang এর অভ্যন্তরীণ আর্কিটেকচার, পার্সিং, ট্রান্সলেশন, এক্সিকিউশন ও নেটিভ বাইন্ডিং।
+banglishTitle: How Bnlang Works Internally
+banglishDescription: Bnlang vitor theke kivabe kaj kore — parsing, translation, execution ar native binding.
+---
+
+# <I18nEnglish>How Bnlang Works Internally</I18nEnglish>
+# <I18nBangla>ভেতরে Bnlang কিভাবে কাজ করে</I18nBangla>
+# <I18nBanglish>How Bnlang Works Internally</I18nBanglish>
+
+<I18nEnglish>
+**Bnlang** is built on top of a modern JavaScript runtime, but extends it with multilingual syntax and system bindings.  
+Its goal is to allow developers to write programs in Bangla, Banglish, or English while still running efficiently on the underlying JavaScript engine.  
+
+The process of execution goes through several stages: parsing, translation, execution, and system-level bindings.  
+This layered design makes Bnlang flexible, accessible, and still compatible with JavaScript projects.
+</I18nEnglish>
+
+<I18nBangla>
+**Bnlang** একটি আধুনিক জাভাস্ক্রিপ্ট রানটাইমের উপর ভিত্তি করে তৈরি, তবে এটিকে সম্প্রসারিত করেছে বহুভাষিক সিনট্যাক্স এবং সিস্টেম বাইন্ডিং দিয়ে।  
+এটি এমনভাবে ডিজাইন করা হয়েছে যাতে ডেভেলপাররা বাংলা, বাংলিশ বা ইংরেজিতে কোড লিখতে পারে, এবং তা কার্যকরভাবে জাভাস্ক্রিপ্ট ইঞ্জিনে চালাতে পারে।  
+
+এক্সিকিউশন প্রক্রিয়া কয়েকটি ধাপে ভাগ করা: পার্সিং, ট্রান্সলেশন, এক্সিকিউশন এবং সিস্টেম-লেভেল বাইন্ডিং।  
+এই লেয়ার্ড ডিজাইন Bnlang কে করে তুলেছে নমনীয়, সহজলভ্য এবং জাভাস্ক্রিপ্ট প্রজেক্টের সাথে সামঞ্জস্যপূর্ণ।
+</I18nBangla>
+
+<I18nBanglish>
+**Bnlang** ekta modern JavaScript runtime er upor toiri, kintu eta extend kora hoyeche multilingual syntax ar system binding diye.  
+Eta design kora hoyeche jate developer ra Bangla, Banglish, ba English e code likhte pare, ar shei code efficiently JavaScript engine e run korte pare.  
+
+Execution process ke kichu stage e vag kora: parsing, translation, execution, ar system-level binding.  
+Ei layered design Bnlang ke kore flexible, accessible, ar JavaScript project er shathe fully compatible.
+</I18nBanglish>
+
+---
+
+## Internal Workflow
+
+<I18nEnglish>
+1. **Parsing** → The Bnlang parser reads the source code written in Bangla, Banglish, or English.  
+2. **Translation** → Bangla and Banglish keywords are mapped and converted into equivalent JavaScript syntax.  
+3. **Execution** → The translated code is executed by the underlying engine, ensuring high performance.  
+4. **Native Bindings** → Bnlang provides extra bindings for tasks like file handling, networking, and OS operations through C++ integrations.
+</I18nEnglish>
+
+<I18nBangla>
+১. **পার্সিং** → Bnlang পার্সার বাংলা, বাংলিশ বা ইংরেজিতে লেখা সোর্স কোড পড়ে।  
+২. **ট্রান্সলেশন** → বাংলা ও বাংলিশ কীওয়ার্ড সমতুল্য জাভাস্ক্রিপ্ট সিনট্যাক্সে রূপান্তরিত হয়।  
+৩. **এক্সিকিউশন** → রূপান্তরিত কোড আন্ডারলাইং ইঞ্জিন দ্বারা এক্সিকিউট হয়, যা উচ্চ কর্মক্ষমতা নিশ্চিত করে।  
+৪. **নেটিভ বাইন্ডিং** → ফাইল হ্যান্ডলিং, নেটওয়ার্কিং এবং অপারেটিং সিস্টেম সম্পর্কিত কাজের জন্য C++ দিয়ে অতিরিক্ত বাইন্ডিং সরবরাহ করে।
+</I18nBangla>
+
+<I18nBanglish>
+1. **Parsing** → Bnlang parser Bangla, Banglish, ba English e lekha source code pore.  
+2. **Translation** → Bangla ar Banglish keyword ke equivalent JavaScript syntax e convert kora hoy.  
+3. **Execution** → Translated code underlying engine diye execute hoy, ja high performance ensure kore.  
+4. **Native Binding** → File handling, networking, ar OS operation er jonno Bnlang C++ diye extra binding provide kore.
+</I18nBanglish>
+
+---
+
+## Example: Translation Flow
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+// Bnlang source code
+if (x > 10) {
+  print("Large");
+} else {
+  print("Small");
+}
+```
+<br/>
+```bnl
+// Translated JavaScript
+if (x > 10) {
+  console.log("Large");
+} else {
+  console.log("Small");
+}
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// Bnlang সোর্স কোড
+যদি (x > 10) {
+  ছাপাও("বড়");
+} নাহলে {
+  ছাপাও("ছোট");
+}
+```
+<br/>
+```bnl
+// রূপান্তরিত JavaScript
+if (x > 10) {
+  console.log("বড়");
+} else {
+  console.log("ছোট");
+}
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// Bnlang source code
+jodi (x > 10) {
+  chapao("Boro");
+} noile {
+  chapao("Chhoto");
+}
+```
+<br/>
+```bnl
+// Translated JavaScript
+if (x > 10) {
+  console.log("Boro");
+} else {
+  console.log("Chhoto");
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Why This Matters
+
+<I18nEnglish>
+Bnlang’s architecture shows how a programming language can remain compatible with modern runtimes while enabling inclusivity through multilingual syntax.  
+This makes it suitable not just for developers who are comfortable with English, but also for those who prefer coding in Bangla or Banglish.
+</I18nEnglish>
+
+<I18nBangla>
+Bnlang এর আর্কিটেকচার প্রমাণ করে যে একটি প্রোগ্রামিং ভাষা আধুনিক রানটাইমের সাথে সামঞ্জস্যপূর্ণ থেকেও বহুভাষিক সিনট্যাক্স দিয়ে অন্তর্ভুক্তি বাড়াতে পারে।  
+এটি শুধুমাত্র ইংরেজি জানা ডেভেলপারদের জন্য নয়, বরং যারা বাংলায় বা বাংলিশে কোড করতে স্বাচ্ছন্দ্যবোধ করে তাদের জন্যও উপযুক্ত।
+</I18nBangla>
+
+<I18nBanglish>
+Bnlang er architecture dekhay je ekta programming language modern runtime er shathe compatible thakte pare, abar multilingual syntax diye inclusivity barate pare.  
+Eta sudhu English jana developer der jonno na, jara Bangla ba Banglish e code korte comfortable oder jonnoo perfect.
+</I18nBanglish>

@@ -1,0 +1,260 @@
+---
+title: in · of
+description: The `in` operator (property existence) and the `for...of` iteration syntax in Bnlang — with differences from `for...in`, array/Map handling, and best practices.
+bnTitle: মধ্যে · এর
+bnDescription: Bnlang এ `মধ্যে` (in) অপারেটর ও `প্রতি...এর` (for...of) ইটারেশন — `for...in` থেকে পার্থক্য, অ্যারে/ম্যাপ হ্যান্ডলিং, সেরা চর্চা।
+banglishTitle: in · of
+banglishDescription: Bnlang e `modhye` (in) operator ebong `proti...er` (for...of) iteration — `for...in` theke parthokko, array/Map tips.
+---
+
+# <I18nEnglish>in · of</I18nEnglish>
+# <I18nBangla>মধ্যে · এর</I18nBangla>
+# <I18nBanglish>in · of</I18nBanglish>
+
+<I18nEnglish>
+- **`in`** checks whether a **property key/index exists** on an object (including its prototype chain).  
+- **`of`** appears in **`for...of`** and **`for await...of`** to iterate **values** from an iterable (arrays, strings, Maps, Sets, etc.).
+</I18nEnglish>
+
+<I18nBangla>
+- **`মধ্যে (in)`** কোনো অবজেক্টে (প্রোটোটাইপ‑চেইনসহ) একটি **প্রপার্টি/ইনডেক্স আছে কি না** তা পরীক্ষা করে।  
+- **`এর (of)`** ব্যবহৃত হয় **`প্রতি...এর (for...of)`** বা **`প্রতি অপেক্ষা...এর (for await...of)`**‑এ—যা ইটারেবল থেকে **ভ্যালু** দেয়।
+</I18nBangla>
+
+<I18nBanglish>
+- **`modhye (in)`** diye object e (prototype chain soho) **property/index ache kina** check kora hoy.  
+- **`er (of)`** use hoy **`proti...er (for...of)`**/`for await...of` e — iterable theke **value** iterate korte.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+// in operator
+key in object
+
+// for...of (values)
+for (const value of iterable) { /* ... */ }
+
+// for await...of (async values)
+for await (const value of asyncIterable) { /* ... */ }
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+// মধ্যে অপারেটর
+কী মধ্যে অবজেক্ট
+
+// প্রতি...এর (ভ্যালু ইটারেশন)
+প্রতি (const মান এর ইটারেবল) { /* ... */ }
+
+// প্রতি অপেক্ষা...এর (অ্যাসিঙ্ক ইটারেশন)
+প্রতি অপেক্ষা (const মান এর অ্যাসিঙ্কইটারেবল) { /* ... */ }
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+// modhye operator
+key modhye object
+
+// proti...er (values)
+proti (const man er iterable) { /* ... */ }
+
+// for await...of
+proti opekkha (const man er asyncIterable) { /* ... */ }
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) 'মধ্যে' দিয়ে প্রপার্টি চেক
+const ব্যবহারকারী = { নাম: "Mamun", শহর: "Dhaka" };
+
+কনসোল.লগ("নাম" মধ্যে ব্যবহারকারী);   // true
+কনসোল.লগ("দেশ" মধ্যে ব্যবহারকারী);    // false
+
+// প্রোটোটাইপ‑চেইনসহ চেক করে
+কনসোল.লগ("toString" মধ্যে ব্যবহারকারী); // true (Object প্রোটোটাইপ)
+
+// নিজের প্রপার্টি যাচাই করতে
+কনসোল.লগ(Object.hasOwn(ব্যবহারকারী, "নাম")); // true
+
+// অ্যারের ইনডেক্স অস্তিত্ব (hole গোনে)
+const A = [10, , 30];              // A[1] missing hole
+কনসোল.লগ(1 মধ্যে A);               // true  ← hole ও গণ্য
+কনসোল.লগ(A[1] === undefined);     // true  ← মান undefined
+
+// ২) 'প্রতি...এর' — ভ্যালু ইটারেশন
+const সংখ্যা = [2, 4, 6];
+প্রতি (const n এর সংখ্যা) {
+  ছাপাও(n * n);
+}
+
+// স্ট্রিং
+প্রতি (const ch এর "Bn") {
+  কনসোল.লগ(ch);
+}
+
+// Map/Set
+const ম্যাপ = new Map([["a", 1], ["b", 2]]);
+প্রতি (const [কী, মান] এর ম্যাপ) {
+  দেখাও(কী, মান);
+}
+const সেট = new Set([1, 2, 2, 3]);
+প্রতি (const v এর সেট) কনসোল.লগ(v);
+
+// ৩) 'প্রতি...মধ্যে' (for...in) — কী ইটারেশন (সতর্কতা)
+const অবজ = { a: 1, b: 2 };
+প্রতি (const কী মধ্যে অবজ) {
+  কনসোল.লগ(কী, "=>", অবজ[কী]); // কী‑গুলো দেয়
+}
+// অ্যারেতে for...in এড়িয়ে চলুন—অর্ডার/হোল ইস্যু হতে পারে
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) 'modhye' to check property
+const byaboharkari = { nam: "Mamun", shohor: "Dhaka" };
+
+console.log("nam" modhye byaboharkari);   // true
+console.log("desh" modhye byaboharkari);  // false
+
+// includes prototype chain
+console.log("toString" modhye byaboharkari); // true
+
+// own‑only
+console.log(Object.hasOwn(byaboharkari, "nam")); // true
+
+// Array index existence (holes count)
+const A = [10, , 30];
+console.log(1 modhye A);              // true (hole)
+console.log(A[1] === undefined);      // true (no value)
+
+// 2) 'proti...er' — iterate values
+const shonkha = [2, 4, 6];
+proti (const n er shonkha) {
+  print(n * n);
+}
+
+// String
+proti (const ch er "Bn") {
+  console.log(ch);
+}
+
+// Map/Set
+const map = new Map([["a", 1], ["b", 2]]);
+proti (const [k, v] er map) {
+  dekhao(k, v);
+}
+const set = new Set([1, 2, 2, 3]);
+proti (const v er set) console.log(v);
+
+// 3) 'proti...modhye' (for...in) — keys
+const obj = { a: 1, b: 2 };
+proti (const key modhye obj) {
+  console.log(key, "=>", obj[key]);
+}
+// Avoid for...in on arrays (order/holes).
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Property checks with 'in'
+const user = { name: "Mamun", city: "Dhaka" };
+
+console.log("name" in user);    // true
+console.log("country" in user); // false
+
+// includes prototype chain
+console.log("toString" in user); // true
+
+// own‑property only
+console.log(Object.hasOwn(user, "name")); // true
+
+// Array index existence (holes count)
+const A = [10, , 30];
+console.log(1 in A);             // true (hole exists)
+console.log(A[1] === undefined); // true (no value stored)
+
+// 2) 'for...of' — iterate values
+const nums = [2, 4, 6];
+for (const n of nums) {
+  print(n * n);
+}
+
+// String
+for (const ch of "Bn") {
+  console.log(ch);
+}
+
+// Map/Set
+const map = new Map([["a", 1], ["b", 2]]);
+for (const [k, v] of map) {
+  console.info(k, v);
+}
+const set = new Set([1, 2, 2, 3]);
+for (const v of set) console.log(v);
+
+// 3) 'for...in' — iterate keys (use with caution)
+const obj = { a: 1, b: 2 };
+for (const key in obj) {
+  console.log(key, "=>", obj[key]);
+}
+// Avoid for...in on arrays (ordering/holes).
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- **`in`** returns `true` for properties found **anywhere in the prototype chain**. For own‑properties only, use **`Object.hasOwn(obj, key)`**.  
+- On arrays, **`index in arr`** checks for **presence of a slot** (including holes), not the value; the value could still be `undefined`.  
+- **`for...of`** iterates **values** from iterables (Array, String, Map, Set, generators). **`for...in`** iterates **keys** (enumerable property names) and should be avoided on arrays.  
+- `of` is **not** a standalone operator; it’s part of the loop syntax `for (... of ...)` and `for await (... of ...)`.  
+- Prefer `for...of` or array helpers (`map`, `filter`, `forEach`) for arrays; use `for...in` for objects only when you specifically need enumerable keys (consider `Object.keys/entries`).  
+- Keep one language style (English/Bangla/Banglish) per file.
+</I18nEnglish>
+
+<I18nBangla>
+- **`মধ্যে`** প্রোটোটাইপ‑চেইনসহ খোঁজে; কেবল নিজের প্রপার্টি চেক করতে **`Object.hasOwn(অবজেক্ট, কী)`** ব্যবহার করুন।  
+- অ্যারেতে **`ইনডেক্স মধ্যে অ্যারে`** মানে **স্লট আছে কি না**—হোল থাকলেও `true` হতে পারে; মান `undefined` হতে পারে।  
+- **`প্রতি...এর`** ইটারেবল থেকে **ভ্যালু** দেয়; **`প্রতি...মধ্যে`** **কী** দেয় এবং অ্যারেতে এড়িয়ে চলা ভালো।  
+- `এর` আলাদা অপারেটর নয়; কেবল লুপ সিনট্যাক্সের অংশ।  
+- অ্যারেতে `প্রতি...এর` বা `map/filter/forEach`; অবজেক্টে কী লাগলে `Object.keys/entries` বিবেচনা করুন।  
+- পড়ার সুবিধায় প্রতিটি ফাইলে এক ভাষা স্টাইল বজায় রাখুন।
+</I18nBangla>
+
+<I18nBanglish>
+- **`modhye`** prototype chain o check kore; own‑only check er jonno **`Object.hasOwn(obj, key)`** bhalo.  
+- Array te **`index modhye arr`** mane **slot ache kina** — hole thakleo `true` dite pare; value `undefined` hote pare.  
+- **`proti...er`** iterable theke **value** iterate kore; **`proti...modhye`** **key** iterate kore — array te poriharonjoggo.  
+- `er` kono standalone operator na; sudhu loop syntax er ongsho.  
+- Array te `proti...er` ba `map/filter/forEach` ; object e key lagle `Object.keys/entries` bhabun.  
+- Ek file e ekta language style rakhun.
+</I18nBanglish>

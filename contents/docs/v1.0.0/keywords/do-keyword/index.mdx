@@ -1,0 +1,182 @@
+---
+title: do...while Loop
+description: The do...while loop in Bnlang executes the body at least once, then repeats while the condition is true. Includes break/continue usage with examples in English, Bangla, and Banglish.
+bnTitle: করুন...যতক্ষণ লুপ
+bnDescription: Bnlang এ করুন...যতক্ষণ (do...while) লুপ—বডি অন্তত একবার চালায়, এরপর শর্ত সত্য থাকলে পুনরাবৃত্তি। break/continue উদাহরণসহ।
+banglishTitle: do...while Loop
+banglishDescription: Bnlang e korun...jotokkhon (do...while) loop — body minimum ekbar run kore, tarpor condition true thakle cholte thake.
+---
+
+# <I18nEnglish>do...while Loop</I18nEnglish>
+# <I18nBangla>করুন...যতক্ষণ লুপ</I18nBangla>
+# <I18nBanglish>do...while Loop</I18nBanglish>
+
+<I18nEnglish>
+The **`do...while`** loop runs the block **at least once**, then repeats while the condition remains **true**.  
+The condition is checked **after** each iteration. Use **`break`** to exit early and **`continue`** to skip to the next check.
+</I18nEnglish>
+
+<I18nBangla>
+**`করুন...যতক্ষণ`** লুপে ব্লকটি **অন্তত একবার** চালানো হয়, তারপর শর্ত **সত্য** থাকা পর্যন্ত পুনরাবৃত্তি হয়।  
+প্রতিটি ইটারেশনের **পরে** শর্ত পরীক্ষা করা হয়। আগেভাগে বের হতে **`থামুন`** এবং চলতি ধাপ স্কিপ করতে **`চলুন`** ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+**`korun...jotokkhon`** loop body **ekom bar** chalaye, tarpor condition **true** thakle abar cholay.  
+Protiti iteration er **por** condition check hoy. Early exit er jonno **`thamun`**, skip er jonno **`colun`** use korun.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+do {
+  // body
+} while (condition);
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+করুন {
+  // কাজ
+} যতক্ষণ (শর্ত);
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+korun {
+  // body
+} jotokkhon (condition);
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) অন্তত একবার চলবে
+let i = 10;
+করুন {
+  কনসোল.লগ("i =", i); // i < 5 না হলেও একবার চলবে
+  i++;
+} যতক্ষণ (i < 5);
+
+// ২) অ্যারে ইটারেশন (সূচক দিয়ে)
+const সংখ্যা = [2, 4, 6];
+let idx = 0;
+করুন {
+  ছাপাও(সংখ্যা[idx]);
+  idx++;
+} যতক্ষণ (idx < সংখ্যা.length);
+
+// ৩) continue / break সহ
+let n = 0;
+করুন {
+  n++;
+  যদি (n % 2 === 0) চলুন; // জোড় স্কিপ
+  দেখাও("odd:", n);
+  যদি (n >= 7) থামুন;     // আগে বের হও
+} যতক্ষণ (n < 10);
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) At least once
+let i = 10;
+korun {
+  console.log("i =", i); // jodi i < 5 na hoy, tobuo prothom bar cholbe
+  i++;
+} jotokkhon (i < 5);
+
+// 2) Iterate array with index
+const shonkha = [2, 4, 6];
+let idx = 0;
+korun {
+  chapao(shonkha[idx]);
+  idx++;
+} jotokkhon (idx < shonkha.length);
+
+// 3) continue / break
+let n = 0;
+korun {
+  n++;
+  jodi (n % 2 === 0) colun; // even skip
+  dekhao("odd:", n);
+  jodi (n >= 7) thamun;      // exit early
+} jotokkhon (n < 10);
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Runs at least once
+let i = 10;
+do {
+  console.log("i =", i); // will run once even if condition is false
+  i++;
+} while (i < 5);
+
+// 2) Iterate an array with an index
+const nums = [2, 4, 6];
+let idx = 0;
+do {
+  print(nums[idx]);
+  idx++;
+} while (idx < nums.length);
+
+// 3) continue / break behavior
+let n = 0;
+do {
+  n++;
+  if (n % 2 === 0) continue; // skip evens
+  console.info("odd:", n);
+  if (n >= 7) break;         // exit early
+} while (n < 10);
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- The body executes **before** the condition check, so it always runs at least once.  
+- Don’t forget the **semicolon** (`;`) after the closing `while (condition)`.  
+- `continue` jumps to the **condition check**; `break` exits the loop.  
+- Prefer `while`/`for` unless you specifically need “run once, then check” semantics.
+</I18nEnglish>
+
+<I18nBangla>
+- বডি **শর্তের আগে** চালানো হয়—তাই অন্তত একবার চলবেই।  
+- `while (শর্ত)`-এর পরে **সেমিকোলন** (`;`) দিতে ভুলবেন না।  
+- **`চলুন`** দিলে পরের **শর্ত যাচাই** তে লাফ দেবে; **`থামুন`** দিলে লুপ থেকে বের হবে।  
+- “একবার চালাও, তারপর চেক করুন”—এই প্রয়োজন না হলে `যতক্ষণ`/`প্রতি` (while/for) যথেষ্ট।
+</I18nBangla>
+
+<I18nBanglish>
+- Body **condition check er age** run hoy — tai ekbar na holeo cholbei.  
+- Closing **`jotokkhon (condition)`** er por **semicolon** (`;`) dite hobe.  
+- **`colun`** condition check e jump kore; **`thamun`** loop theke bere ashe.  
+- Ekti bar age run korte holei `korun...jotokkhon`; onnothay `jotokkhon`/`proti` e thakun.
+</I18nBanglish>

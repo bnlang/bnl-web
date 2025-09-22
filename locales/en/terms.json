@@ -1,0 +1,217 @@
+{
+    "meta": {
+        "title": "Terms of Service",
+        "description": "The terms that govern your use of the Bnlang language, BPM package manager, tooling, documentation, websites, APIs/registry, and community channels."
+    },
+    "hero": {
+        "title": "Terms of Service",
+        "intro": "Please read these Terms of Service carefully before using Bnlang, BPM, or any related resources. By accessing or using our language, tools, registry, websites, or documentation, you agree to be bound by these Terms.",
+        "lastUpdatedLabel": "Last updated",
+        "lastUpdated": "September 11, 2025"
+    },
+    "sections": [
+        {
+            "id": "acceptance",
+            "title": "1. Acceptance of Terms",
+            "body": [
+                "By accessing or using Bnlang or its package manager (BPM), you agree to these Terms of Service and the documents they reference (including the Privacy Policy and any posted guidelines). If you do not agree, you may not use our software, websites, registry, or related services.",
+                "Use of any official repositories, documentation sites, registries/mirrors, APIs, and community channels is also subject to these Terms."
+            ]
+        },
+        {
+            "id": "definitions",
+            "title": "2. Definitions",
+            "body": [
+                "“Bnlang” means the programming language, runtime, standard library, language server, developer tooling, official websites, and documentation maintained under the project.",
+                "“BPM” means the package manager and any associated services (including public APIs, package registry, mirrors, security scanning, and distribution endpoints).",
+                "“Services” means any websites, APIs, registries, mirrors, downloads, documentation, or community channels we operate for the project.",
+                "“We/Us” means the Bnlang maintainers and contributors operating under open governance.",
+                "“You” means any individual or entity using Bnlang or the Services."
+            ]
+        },
+        {
+            "id": "eligibility",
+            "title": "3. Eligibility & Accounts",
+            "body": [
+                "You must have the legal capacity to enter into these Terms. If you create an account (for example, to publish BPM packages or manage organization namespaces), you must provide accurate information and keep your credentials secure.",
+                "You are responsible for all activity under your account. Notify us promptly of any unauthorized use or security incident affecting your account."
+            ]
+        },
+        {
+            "id": "use-of-content",
+            "title": "4. Use of Content",
+            "body": [
+                "Documentation, tutorials, code samples, and reference implementations are provided for educational and development purposes. You are solely responsible for compliance with applicable laws, licenses, export controls, and third-party terms when using Bnlang and any dependencies.",
+                "Examples may reference third-party libraries or services; those components are governed by their own licenses and terms."
+            ]
+        },
+        {
+            "id": "oss-license",
+            "title": "5. Open-Source Licensing",
+            "body": [
+                "Unless otherwise noted, source code published in official Bnlang repositories is made available under the MIT License or another license stated in the repository. Some components may be under different open-source licenses; those licenses govern their use.",
+                "You must comply with applicable open-source licenses when copying, modifying, distributing, statically or dynamically linking to, or hosting the software.",
+                "The current core runtime source may be private; when released as open source, it will be governed by the license declared at that time. These Terms do not grant you any rights to private source code."
+            ]
+        },
+        {
+            "id": "ip",
+            "title": "6. Intellectual Property & Trademarks",
+            "body": [
+                "The Bnlang name, logo, and branding are community assets under open governance. You may make factual, descriptive references to “Bnlang.”",
+                "Do not use branding in a way that implies endorsement, partnership, or official status without written permission. Follow any published brand guidelines.",
+                "Except where open-source licenses expressly grant rights, all rights, title, and interest in the Services and project branding are reserved."
+            ]
+        },
+        {
+            "id": "contributions",
+            "title": "7. Contributions",
+            "body": [
+                "By submitting contributions (including code, documentation, designs, RFCs, or translations) to any official repository or channel, you grant the project a perpetual, worldwide, non-exclusive, royalty-free, irrevocable license to use, reproduce, modify, adapt, publish, distribute, perform, display, create derivative works of, and sublicense your contribution under the project’s open-source license for that repository.",
+                "You represent that your contributions are original to you or properly licensed, and do not infringe or misappropriate third-party rights. You agree not to submit malicious or intentionally harmful content."
+            ]
+        },
+        {
+            "id": "acceptable-use",
+            "title": "8. Acceptable Use",
+            "body": [
+                "You agree not to misuse Bnlang or the Services. Prohibited conduct includes, without limitation:",
+                "• distributing malware or harmful code; • infringing intellectual property, privacy, or publicity rights; • attempting to breach security, exploit vulnerabilities, or bypass rate limits; • publishing illegal content or using the Services for unlawful activity; • misrepresenting your affiliation with the project or others; • abusing the registry (for example: name squatting, typosquatting, spam, deceptive metadata, or harmful packages); • excessive automated usage that degrades stability of the Services."
+            ]
+        },
+        {
+            "id": "apis-telemetry",
+            "title": "9. APIs, Registry & Telemetry",
+            "body": [
+                "If you use our public APIs or BPM registry services, you must follow published guidelines, rate limits, security best practices, and applicable authentication requirements. We may monitor usage and enforce limits to protect the ecosystem.",
+                "Package publishing may be subject to automated or manual review, malware scanning, and takedown procedures. We may remove or restrict packages that violate these Terms, applicable law, or pose security/operational risk.",
+                "If optional telemetry is offered, it will be privacy-respecting and documented, and may be disabled as described in documentation."
+            ]
+        },
+        {
+            "id": "changes",
+            "title": "10. Changes to the Services",
+            "body": [
+                "We may add, change, or remove features at any time. Where practicable, we aim to communicate breaking changes via release notes, migration guides, and RFCs. Certain features may be labeled alpha, beta, or experimental and may change or end without notice."
+            ]
+        },
+        {
+            "id": "warranty",
+            "title": "11. No Warranties",
+            "body": [
+                "Bnlang and the Services are provided “as is” and “as available,” without warranties of any kind, whether express, implied, or statutory, including without limitation implied warranties of merchantability, fitness for a particular purpose, title, non-infringement, and error-free or uninterrupted operation."
+            ]
+        },
+        {
+            "id": "liability",
+            "title": "12. Limitation of Liability",
+            "body": [
+                "To the maximum extent permitted by law, the project and its contributors are not liable for any indirect, incidental, special, consequential, exemplary, or punitive damages; or for loss of data, profits, revenue, goodwill, or business opportunities, arising from or related to your use of the software or Services, even if advised of the possibility of such damages.",
+                "In all cases, the total aggregate liability of the project and contributors for any claim relating to the Services will not exceed USD 100."
+            ]
+        },
+        {
+            "id": "indemnity",
+            "title": "13. Indemnification",
+            "body": [
+                "You agree to defend, indemnify, and hold harmless the project and its contributors from any claims, liabilities, damages, losses, and expenses (including reasonable attorneys’ fees) arising out of or related to your use of the software/Services, your content or packages, or your violation of these Terms or applicable law."
+            ]
+        },
+        {
+            "id": "termination",
+            "title": "14. Suspension & Termination",
+            "body": [
+                "We may suspend or terminate access to the Services (for example, registry, APIs, or community channels) if you violate these Terms, create security or operational risk, or if we are required to do so by law.",
+                "Upon termination, your right to access certain Services ends. Open-source licenses to code you already received continue according to their terms. We may retain minimal operational logs and records as required for security, audit, or legal compliance."
+            ]
+        },
+        {
+            "id": "third-party",
+            "title": "15. Third-Party Links & Content",
+            "body": [
+                "Our documentation, examples, or registry may reference third-party sites, packages, or content. We do not control and are not responsible for third-party sites, terms, policies, security practices, or availability. Your use of third-party resources is at your own risk."
+            ]
+        },
+        {
+            "id": "export",
+            "title": "16. Export & Compliance",
+            "body": [
+                "You must comply with applicable export control, sanctions, and compliance laws. Do not use or distribute the software or Services where prohibited by law. You represent that you are not located in, under control of, or a national/resident of any jurisdiction subject to comprehensive sanctions."
+            ]
+        },
+        {
+            "id": "children",
+            "title": "17. Children",
+            "body": [
+                "The Services are not directed to children under the age where parental consent is legally required. If you are under the applicable age, you may only use the Services with the involvement of a parent or legal guardian and subject to local laws."
+            ]
+        },
+        {
+            "id": "law",
+            "title": "18. Governing Law & Venue",
+            "body": [
+                "These Terms are governed by the laws of Bangladesh, without regard to conflict-of-law principles. You agree to the exclusive jurisdiction and venue of the courts located in Dhaka, Bangladesh, for all disputes arising from or relating to these Terms, the software, or the Services."
+            ]
+        },
+        {
+            "id": "changes-to-terms",
+            "title": "19. Changes to These Terms",
+            "body": [
+                "We may update these Terms from time to time. Notice of material changes will be provided through official channels (for example, release notes or the website). Changes take effect upon posting unless stated otherwise. Your continued use after changes become effective constitutes acceptance of the revised Terms."
+            ]
+        },
+        {
+            "id": "contact",
+            "title": "20. Contact & Notices",
+            "body": [
+                "Questions about these Terms? Please open an issue on our official GitHub repository or reach out via our published community channels.",
+                "Legal notices and service communications may be delivered via the website, registry banner, or email associated with your account (if applicable)."
+            ]
+        },
+        {
+            "id": "dmca-policy",
+            "title": "21. Copyright/DMCA Policy",
+            "body": [
+                "If you believe content or a package infringes your copyright, submit a detailed notice through our official channels identifying the allegedly infringing material, your contact information, and a statement of good-faith belief and authority to act. We may remove or restrict content pending review and notify affected account holders where practicable."
+            ]
+        },
+        {
+            "id": "package-policy",
+            "title": "22. Package Publishing & Namespaces",
+            "body": [
+                "BPM package names and organization namespaces are allocated on a first-come basis but may be reclaimed for trademark conflicts, impersonation, clear abuse, or long-term inactivity that materially impacts the ecosystem.",
+                "Prohibited behaviors include malware, concealed telemetry, license deception, typosquatting, spam, or misleading metadata. Security-related removals or quarantines may occur without prior notice."
+            ]
+        },
+        {
+            "id": "security",
+            "title": "23. Security & Vulnerability Reporting",
+            "body": [
+                "Report security vulnerabilities privately via the process described in our documentation. Do not publicly disclose issues until we have had reasonable time to investigate and remediate. Good-faith research consistent with our guidelines is welcome; exploitation, data exfiltration, and user harm are prohibited."
+            ]
+        },
+        {
+            "id": "data",
+            "title": "24. Data, Privacy & Logs",
+            "body": [
+                "Our Privacy Policy explains what limited information we process (for example, minimal logs for operational security, rate limiting, and abuse prevention) and how you can exercise choices such as disabling optional telemetry.",
+                "You agree that we may process such limited operational data to provide, secure, and improve the Services, consistent with the Privacy Policy."
+            ]
+        },
+        {
+            "id": "general",
+            "title": "25. General Terms",
+            "body": [
+                "Severability: If any provision is unenforceable, the remainder remains in effect.",
+                "No Waiver: Failure to enforce a provision is not a waiver.",
+                "Assignment: You may not assign these Terms without our consent; we may assign as part of project stewardship or reorganization.",
+                "Force Majeure: We are not liable for delays or failures due to events beyond reasonable control.",
+                "Entire Agreement: These Terms (and referenced policies) constitute the entire agreement regarding the Services."
+            ]
+        }
+    ],
+    "cta": {
+        "docsHome": "Docs Home",
+        "privacy": "Privacy Policy"
+    }
+}

@@ -1,0 +1,170 @@
+---
+title: continue Keyword
+description: The continue statement in Bnlang skips the rest of the current loop iteration and proceeds to the next one. Examples in English, Bangla, and Banglish.
+bnTitle: চলুন কীওয়ার্ড
+bnDescription: Bnlang এ চলুন (continue) স্টেটমেন্ট বর্তমান ইটারেশন স্কিপ করে পরের ইটারেশনে যায়—উদাহরণসহ।
+banglishTitle: continue Keyword
+banglishDescription: Bnlang e colun (continue) diye current iteration skip kore next e jay.
+---
+
+# <I18nEnglish>continue Keyword</I18nEnglish>
+# <I18nBangla>চলুন কীওয়ার্ড</I18nBangla>
+# <I18nBanglish>continue Keyword</I18nBanglish>
+
+<I18nEnglish>
+The **`continue`** statement skips the rest of the **current** iteration of a loop and moves to the next check/iteration.  
+Use it in `for`, `while`, and `do...while` loops to ignore certain cases without exiting the loop.
+</I18nEnglish>
+
+<I18nBangla>
+**`চলুন`** স্টেটমেন্ট বর্তমান ইটারেশনের বাকি অংশ **স্কিপ** করে পরবর্তী ইটারেশনে চলে যায়।  
+`প্রতি` (for), `যতক্ষণ` (while), এবং `করো...যতক্ষণ` (do...while) লুপে কিছু কেস বাদ দিতে এটি ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+**`colun`** current iteration er baki code **skip** kore, next iteration e chole jay.  
+`proti` (for), `jotokkhon` (while), ebong `korun...jotokkhon` (do...while) loop e nirbachito case gulo ignore korte paren.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+continue;
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+চলুন;
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+colun;
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) জোড় সংখ্যা স্কিপ
+let যোগফল = 0;
+প্রতি (let i = 1; i <= 10; i++) {
+  যদি (i % 2 === 0) চলুন;  // জোড় বাদ
+  যোগফল += i;
+}
+কনসোল.লগ("Odd sum =", যোগফল);
+
+// ২) while এ ইনপুট ভ্যালিডেশন
+let n = 0;
+যতক্ষণ (n < 8) {
+  n++;
+  যদি (n < 3) চলুন;       // 1,2 স্কিপ
+  ছাপাও("processing:", n);
+}
+
+// ৩) for...of — ফাঁকা স্ট্রিং স্কিপ
+const শব্দসমূহ = ["Hi", "", "Bnlang", " ", "OK"];
+প্রতি (const শব্দ এর শব্দসমূহ) {
+  যদি (শব্দ.trim().length === 0) চলুন;
+  দেখাও("=>", শব্দ);
+}
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) Skip even numbers
+let sum = 0;
+proti (let i = 1; i <= 10; i++) {
+  jodi (i % 2 === 0) colun; // even skip
+  sum += i;
+}
+console.log("Odd sum =", sum);
+
+// 2) while input validation
+let n = 0;
+jotokkhon (n < 8) {
+  n++;
+  jodi (n < 3) colun;       // skip 1,2
+  chapao("processing:", n);
+}
+
+// 3) for...of — skip empty strings
+const shobdo = ["Hi", "", "Bnlang", " ", "OK"];
+proti (const w er shobdo) {
+  jodi (w.trim().length === 0) colun;
+  dekhao("=>", w);
+}
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Skip even numbers
+let sum = 0;
+for (let i = 1; i <= 10; i++) {
+  if (i % 2 === 0) continue;
+  sum += i;
+}
+console.log("Odd sum =", sum);
+
+// 2) while input validation
+let n = 0;
+while (n < 8) {
+  n++;
+  if (n < 3) continue;       // skip 1,2
+  console.info("processing:", n);
+}
+
+// 3) for...of — skip empty strings
+const words = ["Hi", "", "Bnlang", " ", "OK"];
+for (const w of words) {
+  if (w.trim().length === 0) continue;
+  print("=>", w);
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- `continue` does **not** exit the loop; it only skips to the next iteration.  
+- In `while`/`do...while`, ensure state updates happen **before** `continue` to avoid infinite loops.  
+- Prefer clear conditions; overusing `continue` can hurt readability. Use filtering (`.filter`) when appropriate.
+</I18nEnglish>
+
+<I18nBangla>
+- **`চলুন`** লুপ থেকে বের করে না; কেবল পরের ইটারেশনে লাফ দেয়।  
+- `যতক্ষণ`/`করো...যতক্ষণ` লুপে **স্টেট আপডেট** `চলুন`-র আগেই করুন, নাহলে অনন্ত লুপ হতে পারে।  
+- পড়তে সহজ রাখতে অযথা `চলুন` ব্যবহার করবেন না; প্রয়োজনে ফিল্টারিং (`.filter`) ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- **`colun`** loop theke ber kore na; sudhu next iteration e niye jay.  
+- `jotokkhon`/`korun...jotokkhon` e state update **age** korte hobe, na hole infinite loop hote pare.  
+- Readability er jonno excessive `colun` poriharon korun; proyojone filtering (`.filter`) use korun.
+</I18nBanglish>

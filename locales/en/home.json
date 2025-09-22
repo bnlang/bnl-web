@@ -1,0 +1,221 @@
+{
+    "meta": {
+        "title": "Bnlang — Code in Bangla, English, or Banglish",
+        "description": "Bnlang is a practical, expressive programming language and runtime built for Bangladesh. Write in Bangla, English, or Banglish and ship fast with a modern toolchain and a welcoming community."
+    },
+    "hero": {
+        "badge": "Bnlang · Programming Language",
+        "title": "Write code in",
+        "subtitle": "Bnlang is a practical, expressive language and runtime made with Bangladesh in mind. Learn and build in your mother language without losing engineering rigor—clear syntax, predictable semantics, and production-ready tooling.",
+        "cta": {
+            "docs": "Documentation",
+            "getStarted": "Get Started",
+            "github": "GitHub"
+        },
+        "signals": {
+            "stableCore": "Stable core",
+            "versionedReleases": "Versioned releases",
+            "trilingual": "Trilingual by design"
+        }
+    },
+    "stats": {
+        "items": [
+            {
+                "value": "5+",
+                "label": "GitHub Stars"
+            },
+            {
+                "value": "1+",
+                "label": "Packages in BPM"
+            },
+            {
+                "value": "1",
+                "label": "Contributors"
+            },
+            {
+                "value": "v1.0.0",
+                "label": "Latest Release"
+            }
+        ],
+        "platforms": {
+            "title": "Supported on",
+            "windows": "Windows",
+            "macos": "macOS",
+            "linux": "Linux"
+        }
+    },
+    "why": {
+        "title": "Why Bnlang?",
+        "subtitle": "A language that embraces your natural expression while keeping engineering rigor: predictable semantics, readable syntax, and production-ready tooling.",
+        "badges": [
+            "Bangla-first",
+            "Predictable semantics",
+            "Async I/O",
+            "Cross-platform CLI",
+            "BPM ecosystem"
+        ],
+        "kickers": {
+            "languageFirst": "Language-first",
+            "trilingual": "Trilingual Syntax",
+            "tooling": "Modern Toolchain",
+            "runtime": "Familiar Async Model",
+            "prod": "Production Ready",
+            "access": "Accessible by Design"
+        },
+        "cta_primary": "Get started",
+        "cta_secondary": "Learn more",
+        "cards": [
+            {
+                "icon": "Code2",
+                "kicker": "Language-first",
+                "title": "Think in Bangla. Ship in Bnlang.",
+                "body": "Write code that matches how you actually think—the grammar, the words, the flow—without giving up static structure and clarity.",
+                "points": [
+                    "Readable, beginner-friendly constructs",
+                    "No surprises in control flow",
+                    "Consistent formatting for teams"
+                ]
+            },
+            {
+                "icon": "Languages",
+                "kicker": "Trilingual Syntax",
+                "title": "Trilingual Syntax",
+                "body": "Switch between English, বাংলা, and Banglish without losing clarity or tooling support. Teach beginners or work with pros in the language that feels natural.",
+                "points": [
+                    "Mixed-language identifiers & keywords",
+                    "Same AST → same tooling",
+                    "Great for classrooms & collaborations"
+                ]
+            },
+            {
+                "icon": "Rocket",
+                "kicker": "Modern Toolchain",
+                "title": "Modern Toolchain",
+                "body": "BPM for packages, a formatter for consistent code, a test runner for confidence, and docs tooling—built and maintained alongside the language.",
+                "points": [
+                    "BPM packages, lockfiles, integrity",
+                    "First-party formatter & linter",
+                    "Built-in test runner"
+                ]
+            },
+            {
+                "icon": "Activity",
+                "kicker": "Familiar Async Model",
+                "title": "Familiar Async Model",
+                "body": "Event-driven, non-blocking I/O with Promises and async/await—great for servers, CLIs, and networked apps.",
+                "points": [
+                    "Streams, timers, and workers",
+                    "Stable standard library APIs",
+                    "Zero-copy buffers for I/O"
+                ]
+            },
+            {
+                "icon": "Server",
+                "kicker": "Production Ready",
+                "title": "Production Ready",
+                "body": "Deterministic builds, clear error messages, and predictable performance for real systems—local or cloud.",
+                "points": [
+                    "Cross-platform binaries",
+                    "Observability hooks (logs/metrics)",
+                    "Safe concurrency primitives"
+                ]
+            },
+            {
+                "icon": "Globe2",
+                "kicker": "Accessible by Design",
+                "title": "Accessible by Design",
+                "body": "Lower the barrier to entry for Bangladeshi students, developers, and teams—while preserving reliability and performance.",
+                "points": [
+                    "Docs in বাংলা & English",
+                    "Community-maintained examples",
+                    "Works well on modest hardware"
+                ]
+            }
+        ]
+    },
+    "ecosystem": {
+        "title": "Ecosystem",
+        "subtitle": "Bnlang comes with strong foundations and an open package ecosystem—ready for classrooms, startups, and production systems alike.",
+        "cards": [
+            {
+                "icon": "Boxes",
+                "title": "Rich Standard Library",
+                "body": "Work with files, HTTP, crypto, streams, text, and more. Everyday essentials are included, so you can focus on solving real problems."
+            },
+            {
+                "icon": "Package",
+                "title": "BPM Packages",
+                "body": "Install, publish, and share code through the official registry. Integrity checks and signatures keep the supply chain secure."
+            },
+            {
+                "icon": "TerminalSquare",
+                "title": "CLI & REPL",
+                "body": "Experiment instantly with a responsive REPL or scaffold new projects with the CLI. Testing, formatting, and package commands are all built in."
+            },
+            {
+                "icon": "Code2",
+                "title": "JavaScript Interop",
+                "body": "Leverage existing JavaScript libraries when needed, while enjoying Bnlang’s readable syntax and predictable semantics."
+            }
+        ]
+    },
+    "community": {
+        "title": "Join the Community",
+        "subtitle": "Contribute, ask questions, or showcase what you're building. Bnlang grows with your ideas.",
+        "cta": {
+            "github": "Contribute on GitHub",
+            "guide": "Community Guide"
+        }
+    },
+    "features": {
+        "title": "Key Features",
+        "subtitle": "Explore Bnlang’s core capabilities—clear syntax, a familiar async model, a real package manager, built-in testing, and practical streaming APIs.",
+        "cta_primary": "Get started",
+        "cta_secondary": "See details",
+        "blocks": {
+            "trilingual": {
+                "title": "Trilingual Syntax",
+                "body": "Write in বাংলা, Banglish, or English—whichever feels most natural—while the compiler and tooling treat it as one predictable language.",
+                "labels": {
+                    "bn": "বাংলা",
+                    "banglish": "Banglish",
+                    "en": "English"
+                },
+                "points": [
+                    "Mixed-language identifiers and keywords",
+                    "Same AST → same tooling and semantics",
+                    "Great for classrooms, teams, and public docs"
+                ],
+                "caption": "Use the language of your audience without sacrificing readability, structure, or tooling."
+            },
+            "async": {
+                "title": "Familiar Async Model",
+                "body": "Event-driven, non-blocking I/O with async/await keeps apps responsive and tools snappy.",
+                "points": [
+                    "Promises and async functions for clarity",
+                    "Predictable error handling with try/catch",
+                    "Easy composition of network and file workloads"
+                ]
+            },
+            "packages": {
+                "title": "Packages with BPM",
+                "body": "First-party package manager with lockfiles, integrity verification, and streamlined scripts.",
+                "caption": "Install, share, and ship—no glue code. BPM aligns with the language’s module system."
+            },
+            "testing": {
+                "title": "Testing Built-in",
+                "body": "A lightweight test runner ships with the toolchain so teams can enforce correctness from day one.",
+                "caption": "Zero config for unit tests, human-readable output, and fast feedback in CI."
+            },
+            "io": {
+                "title": "Streams & Buffers for Practical I/O",
+                "body": "Process large files without blowing memory and build efficient pipelines with streaming APIs.",
+                "points": [
+                    "Backpressure-aware primitives",
+                    "Binary-safe buffers for performant parsing",
+                    "Composable utilities for real-world data tasks"
+                ]
+            }
+        }
+    }
+}

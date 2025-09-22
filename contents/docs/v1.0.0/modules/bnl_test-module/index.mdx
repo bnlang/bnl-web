@@ -1,0 +1,190 @@
+---
+title: bnl_test module
+description: Minimal test runner and API — define tests and suites, hooks, timeouts, skip/todo/only, diagnostics, subtests, and programmatic run().
+bnTitle: bnl_test মডিউল
+bnDescription: মিনিমাল টেস্ট রানার — টেস্ট/সুইট, হুক, টাইমআউট, skip/todo/only, ডায়াগনস্টিক, সাবটেস্ট, ও প্রোগ্রাম্যাটিক run()।
+banglishTitle: bnl_test module
+banglishDescription: Minimal test runner — tests/suites, hooks, timeouts, skip/todo/only, diagnostics, subtests, and run().
+---
+
+# <I18nEnglish>bnl_test</I18nEnglish>
+# <I18nBangla>bnl_test</I18nBangla>
+# <I18nBanglish>bnl_test</I18nBanglish>
+
+<I18nEnglish>
+The **`bnl_test`** module is a tiny test framework with a familiar API. It supports **suites** (`describe`), **tests** (`test`/`it`), **hooks** (`before/after/beforeEach/afterEach`), **timeouts**, **skip/todo/only**, and a programmatic **`run()`**. It also **auto‑runs** collected tests on process drain unless disabled.
+</I18nEnglish>
+
+<I18nBangla>
+**`bnl_test`** একটি ছোট টেস্ট ফ্রেমওয়ার্ক—`describe`, `test`/`it`, `before/after/beforeEach/afterEach`, টাইমআউট, `skip/todo/only` ও `run()` সাপোর্ট করে। প্রসেস শেষের আগে অটো‑রান হয় (নিষ্ক্রিয় করা যায়)।
+</I18nBangla>
+
+<I18nBanglish>
+**`bnl_test`** chhoto test framework — `describe`, `test`/`it`, `before/after/beforeEach/afterEach`, timeout, `skip/todo/only`, `run()` support kore. Process drain e auto‑run hoy (disable kora jay).
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Defining
+- **`describe(name, [options], fn)`** — define a suite; can nest.  
+- **`test(name, [options], fn)`** / **`it(...)`** — define a test.  
+- Variants: **`test.skip(name, fn)`**, **`test.todo(name)`**, **`test.only(name, [options], fn)`**.
+
+### Hooks
+- **`before(fn)`**, **`after(fn)`** — run once per suite.  
+- **`beforeEach(fn)`**, **`afterEach(fn)`** — run around each test in suite nesting order.
+
+### Running
+- **`run([options])`** → `{ pass, fail, skip, todo, duration }`.  
+- **Auto‑run**: tests run automatically on `beforeExit` unless `BNL_TEST_AUTORUN=0` env is set.
+
+### Test options
+- **`timeout`** *(ms; default 2000)* — per‑test timeout.  
+- **`only`** *(boolean)* — focus this test.  
+- **`skip`**, **`todo`** *(boolean)*.  
+- **`done`** *(boolean)* — allow callback‑style completion (alternative to returning a Promise).
+
+### Test context `t`
+- **`t.diagnostic(msg)`** — add a diagnostic line to the report.  
+- **`t.cleanup(fn)`** — register cleanup (runs LIFO even on failures).  
+- **`t.setTimeout(ms)`** — change current test timeout at runtime.  
+- **`t.test(name, [options], fn)`** — schedule a subtest under the same parent suite.  
+- **`t.skip()`** — skip the current test.
+
+</I18nEnglish>
+
+<I18nBangla>
+### ডিফাইন/হুক/রান
+- **`describe`**, **`test/it`**, ভ্যারিয়েন্ট **`skip/todo/only`**।  
+- হুক: **`before/after`**, **`beforeEach/afterEach`**।  
+- **`run()`** রিটার্ন করে সারাংশ; **অটো‑রান** ডিফল্টে অন।  
+- অপশন: `timeout`, `only`, `skip`, `todo`, `done`।  
+- কনটেক্সট: `t.diagnostic`, `t.cleanup`, `t.setTimeout`, `t.test`, `t.skip`।
+</I18nBangla>
+
+<I18nBanglish>
+### Define/Hook/Run
+- **`describe`**, **`test/it`**, variants **`skip/todo/only`**.  
+- Hooks: **`before/after`**, **`beforeEach/afterEach`**.  
+- **`run()`** returns summary; **auto‑run** on by default.  
+- Options: `timeout`, `only`, `skip`, `todo`, `done`.  
+- Context: `t.diagnostic`, `t.cleanup`, `t.setTimeout`, `t.test`, `t.skip`.  
+</I18nBanglish>
+
+---
+
+## Behavior & Semantics
+
+<I18nEnglish>
+- **Only mode**: if any test/suite is marked `only`, the runner executes only those tests (and their parents).  
+- **Skip vs Todo**: skipped tests are reported as *skipped*; todo are placeholders (no function).  
+- **Timeouts**: exceeding a test’s timeout fails it with `TestTimeoutError`. You can adjust per test using options or `t.setTimeout(ms)`.  
+- **Execution order**: depth‑first, serial; suite `before` runs once, `beforeEach`/`afterEach` wrap each test, then `after` runs once.  
+- **Errors**: any thrown error (or rejected promise) fails the test; cleanups still run.  
+</I18nEnglish>
+
+<I18nBangla>
+- **Only** থাকলে শুধু সেটাই রান।  
+- **Skip/Todo** আলাদা রিপোর্ট হয়।  
+- **Timeout** ছাড়ালে `TestTimeoutError`।  
+- **অর্ডার**: depth‑first, serial।  
+- ত্রুটি হলেও **cleanup** চলে।  
+</I18nBangla>
+
+<I18nBanglish>
+- **Only** thakle sudhu oigulai run.  
+- **Skip/Todo** alada report.  
+- **Timeout** e fail with `TestTimeoutError`.  
+- **Order**: depth‑first, serial.  
+- Error holeo **cleanup** cholbe.  
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const { test, it, describe, before, after, beforeEach, afterEach, run } = require("bnl_test");
+
+describe("math", () => {
+  let acc = 0;
+
+  before(() => { acc = 0; });
+  beforeEach(() => { acc += 1; });
+  afterEach(() => { acc = 0; });
+
+  it("adds", async (t) => {
+    t.diagnostic("starting");
+    const sum = 1 + 2;
+    if (sum !== 3) throw new Error("bad math");
+    t.cleanup(() => console.log("cleanup called"));
+  });
+
+  test.skip("multiplies", () => {});
+  test.todo("divides later");
+});
+
+// Focused test (only)
+test.only("focused", async () => {
+  await new Promise(r => setTimeout(r, 10));
+});
+
+// Programmatic run (optional; auto-run happens by default)
+(async () => {
+  const summary = await run();
+  console.log("summary:", summary);
+})();
+```
+
+```bnl
+// Done-style callback test (avoids returning a Promise)
+test("with done", { done: true }, (t, done) => {
+  setTimeout(() => done(), 5);
+});
+```
+
+```bnl
+// Subtests from within a test
+test("parent", async (t) => {
+  t.test("child 1", () => {});
+  t.test("child 2", { timeout: 100 }, async () => {});
+});
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- **Autorun** can be disabled by setting environment variable `BNL_TEST_AUTORUN=0`.  
+- **Exit code**: failures set `process.exitCode = 1` when autorun triggers.  
+- **Color reporter**: prints ✓/✗ with diagnostics; diags are added via `t.diagnostic`.  
+- Keep tests **small and deterministic** since execution is serial.  
+</I18nEnglish>
+
+<I18nBangla>
+- **অটো‑রান** বন্ধ করতে `BNL_TEST_AUTORUN=0` সেট করুন।  
+- **Exit code** ব্যর্থ হলে 1 সেট হয় (অটো‑রানে)।  
+- **রিপোর্টার** ডায়াগনস্টিক দেখায়।  
+- টেস্ট ছোট ও ডিটারমিনিস্টিক রাখুন।  
+</I18nBangla>
+
+<I18nBanglish>
+- **Autorun** off korte `BNL_TEST_AUTORUN=0` set korun.  
+- **Exit code** fail hole 1 set hoy.  
+- **Reporter** diagnostics dekhay.  
+- Test chhoto & deterministic rakhun.  
+</I18nBanglish>

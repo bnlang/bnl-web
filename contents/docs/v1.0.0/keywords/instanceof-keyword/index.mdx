@@ -1,0 +1,209 @@
+---
+title: instanceof Operator
+description: The instanceof operator in Bnlang checks an object's prototype chain against a constructor. Includes classes, functions, built-ins, Symbol.hasInstance, and pitfalls.
+bnTitle: উদাহরণ_হিসেবে অপারেটর
+bnDescription: Bnlang এ উদাহরণ_হিসেবে (instanceof) — প্রোটোটাইপ চেইন চেক, ক্লাস/ফাংশন/বিল্ট‑ইন, Symbol.hasInstance, ও সতর্কতা।
+banglishTitle: instanceof Operator
+banglishDescription: Bnlang e udahoron_hisebe (instanceof) — prototype chain check, classes, functions, built‑ins, Symbol.hasInstance, pitfalls.
+---
+
+# <I18nEnglish>instanceof Operator</I18nEnglish>
+# <I18nBangla>উদাহরণ_হিসেবে অপারেটর</I18nBangla>
+# <I18nBanglish>instanceof Operator</I18nBanglish>
+
+<I18nEnglish>
+**`instanceof`** tests whether the **prototype chain** of a value contains the `prototype` of a given **constructor** (function or class).  
+It returns **true/false** and works only for **objects** (not primitives), unless custom logic is provided via **`Symbol.hasInstance`**.
+</I18nEnglish>
+
+<I18nBangla>
+**`উদাহরণ_হিসেবে`** অপারেটর কোনো মানের **প্রোটোটাইপ চেইন**‑এ নির্দিষ্ট **কন্সট্রাক্টর**‑এর `prototype` আছে কি না তা যাচাই করে।  
+এটি **সত্য/মিথ্যা** দেয় এবং কেবল **অবজেক্ট**‑এর জন্য নির্ভরযোগ্য (প্রিমিটিভে নয়), তবে **`Symbol.hasInstance`** দিয়ে কাস্টম নিয়ম দেওয়া যায়।
+</I18nBangla>
+
+<I18nBanglish>
+**`udahoron_hisebe`** diye dekha hoy value‑r **prototype chain** e deya **constructor**‑er `prototype` ache kina.  
+**true/false** dey; **object** e kaj kore (primitive e na), kintu **`Symbol.hasInstance`** diye custom rule deya jay.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+expression instanceof Constructor
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+অভিব্যক্তি উদাহরণ_হিসেবে কন্সট্রাক্টর
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+expression udahoron_hisebe Constructor
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) ক্লাস/ইনহেরিটেন্স
+শ্রেণী প্রাণী {}
+শ্রেণী কুকুর প্রসারিত প্রাণী {}
+const d = নতুন কুকুর();
+কনসোল.লগ(d উদাহরণ_হিসেবে কুকুর);   // true
+কনসোল.লগ(d উদাহরণ_হিসেবে প্রাণী);  // true
+কনসোল.লগ(d উদাহরণ_হিসেবে Object); // true
+
+// ২) ফাংশন কন্সট্রাক্টর
+function User() {}
+const u = নতুন User();
+কনসোল.লগ(u উদাহরণ_হিসেবে User);   // true
+
+// ৩) বিল্ট‑ইন
+কনসোল.লগ([] উদাহরণ_হিসেবে Array);       // true
+কনসোল.লগ((new Date()) উদাহরণ_হিসেবে Date); // true
+কনসোল.লগ(/re/ উদাহরণ_হিসেবে RegExp);      // true
+
+// ৪) প্রিমিটিভে কাজ করে না
+কনসোল.লগ(("hi") উদাহরণ_হিসেবে String);   // false
+কনসোল.লগ((42) উদাহরণ_হিসেবে Number);     // false
+কনসোল.লগ((true) উদাহরণ_হিসেবে Boolean);  // false
+কনসোল.লগ((null) উদাহরণ_হিসেবে Object);   // false
+কনসোল.লগ((undefined) উদাহরণ_হিসেবে Object); // false
+
+// ৫) কাস্টম নিয়ম — Symbol.hasInstance
+শ্রেণী জোড়সংখ্যা {
+  স্থির [Symbol.hasInstance](x) {
+    ফেরত (ধরন x === "number") && x % 2 === 0;
+  }
+}
+কনসোল.লগ(42 উদাহরণ_হিসেবে জোড়সংখ্যা); // true
+কনসোল.লগ(7 উদাহরণ_হিসেবে জোড়সংখ্যা);  // false
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) Class/inheritance
+shreni Prani {}
+shreni Kukur prosarito Prani {}
+const d = notun Kukur();
+console.log(d udahoron_hisebe Kukur);   // true
+console.log(d udahoron_hisebe Prani);   // true
+console.log(d udahoron_hisebe Object);  // true
+
+// 2) Function constructor
+function User() {}
+const u = notun User();
+console.log(u udahoron_hisebe User);    // true
+
+// 3) Built‑ins
+console.log([] udahoron_hisebe Array);        // true
+console.log((new Date()) udahoron_hisebe Date); // true
+console.log(/re/ udahoron_hisebe RegExp);     // true
+
+// 4) Primitives do not work
+console.log(("hi") udahoron_hisebe String);   // false
+console.log((42) udahoron_hisebe Number);     // false
+console.log((true) udahoron_hisebe Boolean);  // false
+console.log((null) udahoron_hisebe Object);   // false
+console.log((undefined) udahoron_hisebe Object); // false
+
+// 5) Custom rule — Symbol.hasInstance
+shreni JorShonkha {
+  sthir [Symbol.hasInstance](x) {
+    ferot (dhoron x === "number") && x % 2 === 0;
+  }
+}
+console.log(42 udahoron_hisebe JorShonkha); // true
+console.log(7 udahoron_hisebe JorShonkha);  // false
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Classes/inheritance
+class Animal {}
+class Dog extends Animal {}
+const d = new Dog();
+console.log(d instanceof Dog);     // true
+console.log(d instanceof Animal);  // true
+console.log(d instanceof Object);  // true
+
+// 2) Function constructor
+function User() {}
+const u = new User();
+console.log(u instanceof User);    // true
+
+// 3) Built‑ins
+console.log([] instanceof Array);         // true
+console.log((new Date()) instanceof Date);// true
+console.log(/re/ instanceof RegExp);      // true
+
+// 4) Primitives are not instances
+console.log(("hi") instanceof String);    // false
+console.log((42) instanceof Number);      // false
+console.log((true) instanceof Boolean);   // false
+console.log((null) instanceof Object);    // false
+console.log((undefined) instanceof Object);// false
+
+// 5) Custom rule — Symbol.hasInstance
+class Even {
+  static [Symbol.hasInstance](x) {
+    return (typeof x === "number") && x % 2 === 0;
+  }
+}
+console.log(42 instanceof Even); // true
+console.log(7 instanceof Even);  // false
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- `instanceof` walks the **prototype chain**; it does **not** compare constructors directly.  
+- Works **only** on objects. For primitives, prefer `typeof`. Wrapper objects (`new String("x")`) are generally discouraged.  
+- **Cross‑realm** (iframes, vm contexts) mean different constructors; `x instanceof Array` may be `false`. Prefer **`Array.isArray(x)`** for arrays.  
+- You can customize behavior via `static [Symbol.hasInstance](value)` on a constructor.  
+- For structural checks, use **duck typing** or schema validation instead of `instanceof`.
+</I18nEnglish>
+
+<I18nBangla>
+- `উদাহরণ_হিসেবে` **প্রোটোটাইপ চেইন** ঘুরে দেখে; কন্সট্রাক্টর সরাসরি তুলনা করে না।  
+- কেবল **অবজেক্ট**‑এ নির্ভরযোগ্য; প্রিমিটিভের জন্য `ধরন` (`typeof`) ব্যবহার করুন। র‍্যাপার অবজেক্ট (`new String`) সাধারণত এড়ান।  
+- **ক্রস‑রিয়েল্ম** (iframe/vm)‑এ আলাদা কন্সট্রাক্টর থাকে—তাই `x উদাহরণ_হিসেবে Array` মিথ্যা হতে পারে; অ্যারের জন্য **`Array.isArray(x)`** ভালো।  
+- কন্সট্রাক্টরে `static [Symbol.hasInstance](value)` লিখে আচরণ কাস্টমাইজ করা যায়।  
+- কাঠামোগত যাচাইয়ের জন্য `instanceof`‑এর বদলে **ডাক টাইপিং/স্কিমা ভ্যালিডেশন** ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- `udahoron_hisebe` prototype chain ghure dekhe; constructor direct compare kore na.  
+- Sudhu **object** e reliable; primitive er jonno `dhoron` (typeof) use korun; wrapper object (`new String`) avoid korun.  
+- **Cross‑realm** e (iframe/vm) constructor alada thakte pare — tai `x udahoron_hisebe Array` false hote pare; array check e **`Array.isArray(x)`** bhalo.  
+- Constructor e `static [Symbol.hasInstance](value)` diye behavior customize kora jay.  
+- Structural check er jonno **duck typing/schema validation** beshi upojogi.
+</I18nBanglish>

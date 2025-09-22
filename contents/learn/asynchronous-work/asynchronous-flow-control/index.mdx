@@ -1,0 +1,246 @@
+---
+title: Asynchronous Flow Control
+description: Understanding asynchronous flow control in Bnlang with Bangla, Banglish, and English examples.
+bnTitle: অ্যাসিঙ্ক্রোনাস ফ্লো কন্ট্রোল
+bnDescription: Bnlang এ অ্যাসিঙ্ক্রোনাস ফ্লো কন্ট্রোল এর ধারণা ও উদাহরণ।
+banglishTitle: Asynchronous Flow Control
+banglishDescription: Bnlang e asynchronous flow control er dharona o example English, Bangla ar Banglish e.
+---
+
+# <I18nEnglish>Asynchronous Flow Control</I18nEnglish>
+# <I18nBangla>অ্যাসিঙ্ক্রোনাস ফ্লো কন্ট্রোল</I18nBangla>
+# <I18nBanglish>Asynchronous Flow Control</I18nBanglish>
+
+<I18nEnglish>
+Asynchronous flow control in **Bnlang** allows programs to perform non-blocking tasks, such as reading files, making network requests, or handling timers, without stopping the execution of other code.  
+This ensures efficiency and responsiveness in applications that rely on multiple operations happening together.  
+Common tools for flow control are callbacks, promises, and async/await.
+</I18nEnglish>
+
+<I18nBangla>
+**Bnlang** এ অ্যাসিঙ্ক্রোনাস ফ্লো কন্ট্রোলের মাধ্যমে প্রোগ্রাম একাধিক কাজ একসাথে চালাতে পারে।  
+যেমন ফাইল পড়া, নেটওয়ার্ক রিকোয়েস্ট করা বা টাইমার চালানো — এগুলো বাকি কোড থামিয়ে না রেখেই করা যায়।  
+এই কারণে প্রোগ্রাম হয় দ্রুত এবং রেসপন্সিভ।  
+প্রধান টুলস হলো: কলব্যাক, প্রতিশ্রুতি, এবং `async/await`।
+</I18nBangla>
+
+<I18nBanglish>
+**Bnlang** e asynchronous flow control diye program ekadik kaj ekshathe korte pare.  
+Jemon file pora, network request pathano, ba timer handle kora — onno code thamiye na rekhe ei kaj gulo kora jay.  
+Ete program hoy fast ar responsive.  
+Main tools holo: callback, promise, ar `async/await`.
+</I18nBanglish>
+
+---
+
+## Callbacks
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+function fetchData(callback) {
+  setTimeout(() => {
+    callback("Data loaded");
+  }, 1000);
+}
+
+fetchData((result) => {
+  console.log(result);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+function ডাটা_আনা(কলব্যাক) {
+  সময়সীমা_নির্ধারণ(() => {
+    কলব্যাক("ডাটা লোড হয়েছে");
+  }, 1000);
+}
+
+ডাটা_আনা((ফলাফল) => {
+  কনসোল.লগ(ফলাফল);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+function dataAno(callback) {
+  somoysimaNirdharon(() => {
+    callback("Data load hoise");
+  }, 1000);
+}
+
+dataAno((folafol) => {
+  console.log(folafol);
+});
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Promises
+
+<I18nEnglish>
+Promises represent values that may be available now, later, or never. They provide a cleaner way to handle asynchronous results than callbacks.
+</I18nEnglish>
+
+<I18nBangla>
+প্রতিশ্রুতি এমন একটি মান প্রকাশ করে যা এখন, পরে, অথবা কখনো পাওয়া যেতে পারে। কলব্যাকের তুলনায় এটি আরও পরিষ্কারভাবে অ্যাসিঙ্ক্রোনাস রেজাল্ট হ্যান্ডল করতে দেয়।
+</I18nBangla>
+
+<I18nBanglish>
+Promise holo ekta man, jeta ekhon, pore, ba kokhono ashte pare. Callback er theke eta beshi clean vabe async result handle korte dey.
+</I18nBanglish>
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+const fetchData = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("Data fetched successfully");
+  }, 1000);
+});
+
+fetchData.then((data) => {
+  console.log(data);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const ডাটা_আনা = নতুন প্রতিশ্রুতি((রিজলভ, রিজেক্ট) => {
+  সময়সীমা_নির্ধারণ(() => {
+    রিজলভ("ডাটা সফলভাবে আনা হয়েছে");
+  }, 1000);
+});
+
+ডাটা_আনা.তারপর((ডাটা) => {
+  কনসোল.লগ(ডাটা);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const dataAna = notun Protishruti((resolve, reject) => {
+  somoysimaNirdharon(() => {
+    resolve("Data safollo soho ana hoise");
+  }, 1000);
+});
+
+dataAna.tarpor((data) => {
+  console.log(data);
+});
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Async/Await
+
+<I18nEnglish>
+`async/await` makes asynchronous code look synchronous, improving readability and reducing complexity.
+</I18nEnglish>
+
+<I18nBangla>
+`async/await` ব্যবহার করলে অ্যাসিঙ্ক্রোনাস কোড অনেকটা সিনক্রোনাস কোডের মত দেখায়। এতে কোড হয় সহজপাঠ্য এবং কম জটিল।
+</I18nBangla>
+
+<I18nBanglish>
+`async/await` use korle async code dekhte synchronous er moto hoy. Ete code easy pora jay ar complexity kome.
+</I18nBanglish>
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+async function load() {
+  const data = await new Promise((resolve) => {
+    setTimeout(() => resolve("Done!"), 1000);
+  });
+  console.log(data);
+}
+
+load();
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+async function লোড() {
+  const ডাটা = অপেক্ষা নতুন প্রতিশ্রুতি((রিজলভ) => {
+    সময়সীমা_নির্ধারণ(() => রিজলভ("শেষ!"), 1000);
+  });
+  কনসোল.লগ(ডাটা);
+}
+
+লোড();
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+async function load() {
+  const data = opekkha notun Protishruti((resolve) => {
+    somoysimaNirdharon(() => resolve("Shesh!"), 1000);
+  });
+  console.log(data);
+}
+
+load();
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Avoid deeply nested callbacks (callback hell). Prefer promises or async/await.  
+- Handle errors with `.catch()` in promises or `try/catch` with async/await.  
+- Use async flow only when necessary to keep code clean and maintainable.
+</I18nEnglish>
+
+<I18nBangla>
+- একাধিক নেস্টেড কলব্যাক এড়িয়ে চলুন (callback hell)। এর পরিবর্তে প্রতিশ্রুতি বা async/await ব্যবহার করুন।  
+- এরর হ্যান্ডল করতে প্রতিশ্রুতিে `.catch()` অথবা async/await এ `try/catch` ব্যবহার করুন।  
+- কোড পরিষ্কার ও মেইনটেনযোগ্য রাখার জন্য শুধুমাত্র প্রয়োজন হলে অ্যাসিঙ্ক ফ্লো ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Nested callback koman (callback hell). Promise ba async/await use korun.  
+- Error handle korte promise e `.catch()` ba async/await e `try/catch` use korun.  
+- Code clean ar maintainable rakhar jonno proyojon na hole async flow use korben na.
+</I18nBanglish>

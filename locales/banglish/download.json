@@ -1,0 +1,99 @@
+{
+    "meta": {
+        "title": "Download",
+        "description": "Windows, Linux, ar macOS-er jonno Bnlang CLI ar runtime download korun."
+    },
+    "hero": {
+        "badge": "Bnlang · Download",
+        "title": "Bnlang Download korun",
+        "lead": "Latest Bnlang CLI ar runtime nite parben ekhane. Apnar platform, architecture, ar version select korun, tarpor checksum verify kore quick install steps follow korun."
+    },
+    "os": {
+        "windows": "Windows",
+        "linux": "Linux",
+        "macos": "macOS"
+    },
+    "artifact": {
+        "installer": "Installer",
+        "binary": "Binary Archive",
+        "source": "Source Archive"
+    },
+    "selectors": {
+        "title": "Apnar build select korun",
+        "os": "Operating System",
+        "arch": "Architecture",
+        "version": "Version",
+        "downloadCta": "Download korun {filename}",
+        "allReleases": "Sob Releases",
+        "downloadUnavailable": "Download unavailable",
+        "artifact": "Artifact Type"
+    },
+    "terminal": {
+        "title": "Terminal diye install korun",
+        "copyTooltip": "Command copy korun",
+        "tip": "Tip: Extraction er por ensure korun {bin} apnar {path}-er moddhe ache."
+    },
+    "details": {
+        "title": "Artifact Details",
+        "file": "File name",
+        "size": "Size",
+        "url": "Download URL",
+        "sha": "SHA-256 checksum",
+        "copySha": "Checksum copy korun",
+        "includedTitle": "Included",
+        "included": [
+            "{bin} (CLI & runtime)",
+            "Standard library (subset)",
+            "Man pages / help"
+        ],
+        "reqTitle": "Requirements",
+        "requirements": [
+            "Windows 10+, Linux (glibc 2.28+), macOS 12+",
+            "64-bit preferred performance er jonno",
+            "BPM install er jonno internet"
+        ],
+        "nextTitle": "Next Steps",
+        "next": [
+            {
+                "href": "/{locale}/docs/v1.0.0/get-started",
+                "label": "Shuru korun"
+            },
+            {
+                "href": "/{locale}/examples",
+                "label": "Examples"
+            },
+            {
+                "href": "/releases",
+                "label": "Release Notes",
+                "external": true
+            }
+        ]
+    },
+    "faq": {
+        "title": "FAQ & Troubleshooting",
+        "items": [
+            {
+                "q": "Install er por 'Command not found'",
+                "a": "Ensure korun {bin} apnar PATH-e ache. Linux/macOS-e ./bnlang/bin/bnl theke /usr/local/bin/bnl-e symlink korun. Windows-e folder environment variables-e add korun."
+            },
+            {
+                "q": "Checksum mismatch",
+                "a": "Abr download korun ar sha256sum / PowerShell-er Get-FileHash diye verify korun. Problem thakle network check korun ba issue open korun."
+            },
+            {
+                "q": "Unsupported architecture",
+                "a": "Ekhon support kora hoy: Windows (x64/x86), Linux (x64/x86), macOS (arm64/x64). Future-e aro target add hote pare."
+            },
+            {
+                "q": "BPM kothay?",
+                "a": "BPM Bnlang er sathe include kora. Install er pore `bpm --help` run korun."
+            }
+        ],
+        "guideLinkLabel": "Guide"
+    },
+    "footerCta": {
+        "download": "Download korun {filename}",
+        "guide": "Installation Guide",
+        "github": "GitHub"
+    }
+}

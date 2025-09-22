@@ -1,0 +1,187 @@
+---
+title: Output to Console in Bnlang
+description: Learn how to print messages to the console in Bnlang with examples in English, Bangla, and Banglish.
+bnTitle: Bnlang এ কনসোলে আউটপুট দেওয়া
+bnDescription: Bnlang এ কনসোলে বার্তা প্রিন্ট করার উদাহরণ।
+banglishTitle: Output to Console in Bnlang
+banglishDescription: Bnlang e console e message print korar udahoron English, Bangla ar Banglish e.
+---
+
+# <I18nEnglish>Output to Console in Bnlang</I18nEnglish>
+# <I18nBangla>Bnlang এ কনসোলে আউটপুট দেওয়া</I18nBangla>
+# <I18nBanglish>Output to Console in Bnlang</I18nBanglish>
+
+<I18nEnglish>
+In **Bnlang**, the console is the primary way to display information while running a program.  
+The built‑in **`console`** object provides multiple methods to print messages, debug, or log errors.
+</I18nEnglish>
+
+<I18nBangla>
+**Bnlang** এ প্রোগ্রাম চালানোর সময় তথ্য দেখানোর প্রধান উপায় হলো কনসোল।  
+বিল্ট‑ইন **`console`** অবজেক্ট বার্তা প্রিন্ট করা, ডিবাগ করা বা এরর লগ করার জন্য বিভিন্ন মেথড দেয়।
+</I18nBangla>
+
+<I18nBanglish>
+**Bnlang** e program run korar shomoy totho dekhanor main way holo console.  
+Built‑in **`console`** object message print, debug, ar error log korar jonno onek method dey.
+</I18nBanglish>
+
+---
+
+## Basic Methods
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+    <ul>
+      <li><code>console.log()</code> → Print general messages.</li>
+      <li><code>console.info()</code> → Print informational messages.</li>
+      <li><code>console.warn()</code> → Print warning messages.</li>
+      <li><code>console.error()</code> → Print error messages.</li>
+    </ul>
+  </TabsContent>
+
+  <TabsContent value="bangla">
+    <ul>
+      <li><code>console.log()</code> → সাধারণ বার্তা প্রিন্ট করে।</li>
+      <li><code>console.info()</code> → তথ্যবহুল বার্তা প্রিন্ট করে।</li>
+      <li><code>console.warn()</code> → সতর্কতা বার্তা প্রিন্ট করে।</li>
+      <li><code>console.error()</code> → এরর বার্তা প্রিন্ট করে।</li>
+    </ul>
+  </TabsContent>
+
+  <TabsContent value="banglish">
+    <ul>
+      <li><code>console.log()</code> → Shadharon message print kore.</li>
+      <li><code>console.info()</code> → Information message print kore.</li>
+      <li><code>console.warn()</code> → Warning message print kore.</li>
+      <li><code>console.error()</code> → Error message print kore.</li>
+    </ul>
+  </TabsContent>
+</Tabs>
+
+---
+
+## Examples
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+console.log("Hello, World!");
+console.info("Server started");
+console.warn("Low memory");
+console.error("Something went wrong");
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+কনসোল.লগ("হ্যালো, বিশ্ব!");
+কনসোল.তথ্য("সার্ভার চালু হয়েছে");
+কনসোল.সতর্ক("মেমরি কম");
+কনসোল.ত্রুটি("কিছু ভুল হয়েছে");
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+console.log("Hello, Bishsho!");
+console.info("Server start hoise");
+console.warn("Memory kom");
+console.error("Kisu vul hoise");
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Formatting Output
+
+<I18nEnglish>
+`console.log` supports format specifiers like `%s` (string), `%d` (number), and `%o` (object).
+</I18nEnglish>
+
+<I18nBangla>
+`console.log` এ ফরম্যাট স্পেসিফায়ার ব্যবহার করা যায় যেমন `%s` (স্ট্রিং), `%d` (সংখ্যা), `%o` (অবজেক্ট)।
+</I18nBangla>
+
+<I18nBanglish>
+`console.log` e format specifier use kora jay jemon `%s` (string), `%d` (number), `%o` (object).
+</I18nBanglish>
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+const user = "Alice";
+const age = 25;
+
+console.log("User: %s, Age: %d", user, age);
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const ব্যবহারকারী = "আলিস";
+const বয়স = 25;
+
+কনসোল.লগ("ব্যবহারকারী: %s, বয়স: %d", ব্যবহারকারী, বয়স);
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const byaboharkari = "Alis";
+const boyosh = 25;
+
+console.log("Byaboharkari: %s, Boyosh: %d", byaboharkari, boyosh);
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Use `console.log` for development but clean up logs in production.  
+- Use appropriate log levels (`info`, `warn`, `error`) for clarity.  
+- Avoid logging sensitive information.  
+- Combine logs with monitoring tools for larger projects.
+</I18nEnglish>
+
+<I18nBangla>
+- ডেভেলপমেন্টে `console.log` ব্যবহার করুন তবে প্রোডাকশনে লগ সরিয়ে ফেলুন।  
+- উপযুক্ত লগ লেভেল (`info`, `warn`, `error`) ব্যবহার করুন।  
+- সংবেদনশীল তথ্য লগ করবেন না।  
+- বড় প্রজেক্টে মনিটরিং টুলসের সাথে লগ যুক্ত করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Development e `console.log` use korun, kintu production e log clean korun.  
+- Thik log level (`info`, `warn`, `error`) use korun clarity er jonno.  
+- Sensitive totho log korben na.  
+- Boro project e monitoring tool er shathe log combine korun.
+</I18nBanglish>

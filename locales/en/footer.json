@@ -1,0 +1,22 @@
+{
+    "description": "Bnlang is a programming language that lets you write code in Bangla, English, or Banglish and run it effortlessly.",
+    "useful_links": {
+        "title": "Useful Links",
+        "links": {
+            "about": "About",
+            "learn": "Learn",
+            "contribute": "Contribute"
+        }
+    },
+    "policies": {
+        "title": "Policies",
+        "links": {
+            "privacy": "Privacy Policy",
+            "terms": "Terms & Conditions"
+        }
+    },
+    "download_bnlang": {
+        "title": "Download Bnlang",
+        "description": "Get Bnlang for your computer. Start coding in Bangla today!"
+    }
+}

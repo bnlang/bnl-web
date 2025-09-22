@@ -1,0 +1,120 @@
+---
+title: Number
+description: Numbers in Bnlang with English, Bangla, and Banglish names, including constants, checks, parsing, and formatting.
+bnTitle: সংখ্যা
+bnDescription: Bnlang এ সংখ্যা—ধ্রুবক (সর্বোচ্চ_মান, সর্বনিম্ন_মান...), চেক, পার্সিং, ও ফরম্যাটিং—এর উদাহরণ।
+banglishTitle: Number
+banglishDescription: Bnlang e shonkha—constants (sorbocchoMan, sorbonimnoMan...), checks, parsing, formatting—er udahoron.
+---
+
+# <I18nEnglish>Number</I18nEnglish>
+# <I18nBangla>সংখ্যা</I18nBangla>
+# <I18nBanglish>Number</I18nBanglish>
+
+<I18nEnglish>
+Bnlang provides the number constructor and helpers under **`Number`**, **`সংখ্যা`**, and **`Sonkha`**.  
+It contains constants, type-checking methods, parsing utilities, and prototype formatting methods.
+</I18nEnglish>
+
+<I18nBangla>
+Bnlang এ **`Number`**, **`সংখ্যা`**, ও **`Sonkha`** ব্যবহার করা যায়।  
+এতে ধ্রুবক, সংখ্যা চেক করার মেথড, পার্সিং ফাংশন ও ফরম্যাটিং মেথড রয়েছে।
+</I18nBangla>
+
+<I18nBanglish>
+Bnlang e number constructor use kora jay **`Number`**, **`সংখ্যা`**, **`Sonkha`** name.  
+Ekhane constants, number check korar methods, parsing functions ar formatting methods ache.
+</I18nBanglish>
+
+---
+
+## Constants
+
+<I18nEnglish>
+- `MAX_VALUE`, `MIN_VALUE`, `MAX_SAFE_INTEGER`, `MIN_SAFE_INTEGER`, `POSITIVE_INFINITY`, `NEGATIVE_INFINITY`, `EPSILON`, `NaN`
+</I18nEnglish>
+
+<I18nBangla>
+- `সর্বোচ্চ_মান`, `সর্বনিম্ন_মান`, `সর্বোচ্চ_নিরাপদ_পূর্ণসংখ্যা`, `সর্বনিম্ন_নিরাপদ_পূর্ণসংখ্যা`, `ধনাত্মক_অসীম`, `ঋণাত্মক_অসীম`, `এপসিলন`, `সংখ্যা_নয়`
+</I18nBangla>
+
+<I18nBanglish>
+- `sorbocchoMan`, `sorbonimnoMan`, `sorbocchoNirapodPurnoshonkha`, `sorbonimnoNirapodPurnoshonkha`, `dhonatmakOsim`, `rinatmakOsim`, `epsilon`, `shonkhaNoy`
+</I18nBanglish>
+
+---
+
+## Static Methods
+
+<I18nEnglish>
+- `Number.isFinite(x)`, `Number.isInteger(x)`, `Number.isNaN(x)`, `Number.isSafeInteger(x)`  
+- `Number.parseInt(str)`, `Number.parseFloat(str)`
+</I18nEnglish>
+
+<I18nBangla>
+- `সংখ্যা.সসীম_কি(x)`, `সংখ্যা.পূর্ণসংখ্যা_কি(x)`, `সংখ্যা.সংখ্যা_নয়_কি(x)`, `সংখ্যা.নিরাপদ_পূর্ণসংখ্যা_কি(x)`  
+- `সংখ্যা.পূর্ণসংখ্যায়_রূপান্তর(str)`, `সংখ্যা.ভগ্নাংশে_রূপান্তর(str)`
+</I18nBangla>
+
+<I18nBanglish>
+- `Sonkha.sosimKi(x)`, `Sonkha.purnoSonkhaKi(x)`, `Sonkha.sonkhaNoyKi(x)`, `Sonkha.nirapodPurnoSonkhaKi(x)`  
+- `Sonkha.purnoSonkhayRuponntor(str)`, `Sonkha.vognangsheRuponntor(str)`
+</I18nBanglish>
+
+---
+
+## Prototype Methods
+
+<I18nEnglish>
+- `toFixed(d)`, `toPrecision(d)`, `toExponential(d)`  
+- `toString()`, `toLocaleString()`, `valueOf()`
+</I18nEnglish>
+
+<I18nBangla>
+- `দশমিক_স্থির(d)`, `যথার্থতা(d)`, `সূচকীয়_রূপ(d)`  
+- `অক্ষরমালায়_রুপান্তর()`, `স্থানীয়_অক্ষরমালায়_রুপান্তর()`, `এর_মান()`
+</I18nBangla>
+
+<I18nBanglish>
+- `doshomikSthir(d)`, `jotharthota(d)`, `suchokiyoRup(d)`  
+- `okkhormalayRupantor()`, `sthaniyoOkkhormalayRupantor()`, `erMan()`
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+console.log(Number.MAX_SAFE_INTEGER);
+console.log(Number.isInteger(42.0)); // true
+console.log((3.14159).toFixed(2));   // "3.14"
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+কনসোল.লগ(সংখ্যা.সর্বোচ্চ_নিরাপদ_পূর্ণসংখ্যা);
+কনসোল.লগ(সংখ্যা.পূর্ণসংখ্যা_কি(42)); // true
+কনসোল.লগ((3.14159).দশমিক_স্থির(2));  // "3.14"
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+console.log(Sonkha.sorbocchoNirapodPurnoshonkha);
+console.log(Sonkha.purnoSonkhaKi(42)); // true
+console.log((3.14159).doshomikSthir(2)); // "3.14"
+```
+  </TabsContent>
+</Tabs>

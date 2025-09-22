@@ -1,0 +1,188 @@
+---
+title: return Keyword
+description: The return statement in Bnlang exits a function and optionally returns a value. Examples in English, Bangla, and Banglish.
+bnTitle: ফেরত কীওয়ার্ড
+bnDescription: Bnlang এ ফেরত (return) স্টেটমেন্ট—ফাংশন থেকে বের হওয়া ও মান পাঠানোর নিয়ম, বাংলা উদাহরণসহ।
+banglishTitle: return Keyword
+banglishDescription: Bnlang e return (ferot) diye function theke ber howa ebong value dewa — English, Bangla, Banglish example.
+---
+
+# <I18nEnglish>return Keyword</I18nEnglish>
+# <I18nBangla>ফেরত কীওয়ার্ড</I18nBangla>
+# <I18nBanglish>return Keyword</I18nBanglish>
+
+<I18nEnglish>
+The **`return`** statement **exits the current function** and optionally supplies a value to the caller.  
+Statements after `return` in the same block do **not** run.
+</I18nEnglish>
+
+<I18nBangla>
+**`ফেরত`** স্টেটমেন্ট দিয়ে বর্তমান **ফাংশন থেকে বের হওয়া** যায় এবং প্রয়োজনে একটি মান পাঠানো যায়।  
+`ফেরত`-এর পরের স্টেটমেন্টগুলো আর **চালানো হয় না**।
+</I18nBangla>
+
+<I18nBanglish>
+**`ferot`** diye **current function theke ber** hoy, chaile caller ke ekta value dewa jay.  
+Ekbar `ferot` hole tar porer line gulo **run hoy na**.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+return;          // no value
+return value;    // with value
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+ফেরত;           // মান ছাড়া
+ফেরত মান;       // মান সহ
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+ferot;           // no value
+ferot man;       // with value
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) গ্রেড নির্ধারণ — early ফেরত
+function গ্রেড(নম্বর) {
+  যদি (নম্বর < 0 || নম্বর > 100) {
+    কনসোল.ত্রুটি("অবৈধ নম্বর");
+    ফেরত;                    // value ছাড়া ফেরত
+  }
+  যদি (নম্বর >= 80) ফেরত "A+";
+  নাহলে যদি (নম্বর >= 70) ফেরত "A";
+  নাহলে ফেরত "A-এর নিচে";
+}
+
+// ২) প্রথম জোড় সংখ্যা খুঁজে ফেরত
+function প্রথম_জোড়(অ্যারে) {
+  প্রতি (const n এর অ্যারে) {
+    যদি (n % 2 === 0) ফেরত n; // মিল পেলেই বেরিয়ে যাও
+  }
+  ফেরত null; // কিছু না পেলে
+}
+
+// ৩) অবজেক্ট/অ্যারে ফেরত
+function পরিসংখ্যান(সংখ্যা) {
+  let মোট = 0;
+  প্রতি (const n এর সংখ্যা) মোট += n;
+  ফেরত { total: মোট, avg: মোট / সংখ্যা.length };
+}
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) Grade — early ferot
+function grade(shonkha) {
+  jodi (shonkha < 0 || shonkha > 100) {
+    console.error("Invalid score");
+    ferot;                   // no value
+  }
+  jodi (shonkha >= 80) ferot "A+";
+  nahole jodi (shonkha >= 70) ferot "A";
+  nahole ferot "Below A";
+}
+
+// 2) Find first even
+function firstEven(arr) {
+  proti (const n er arr) {
+    jodi (n % 2 === 0) ferot n;
+  }
+  ferot null;
+}
+
+// 3) Return object/array
+function stats(nums) {
+  let total = 0;
+  proti (const n er nums) total += n;
+  ferot { total: total, avg: total / nums.length };
+}
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Grade — early return
+function grade(score) {
+  if (score < 0 || score > 100) {
+    console.error("Invalid score");
+    return;                  // no value
+  }
+  if (score >= 80) return "A+";
+  else if (score >= 70) return "A";
+  else return "Below A";
+}
+
+// 2) Find first even
+function firstEven(arr) {
+  for (const n of arr) {
+    if (n % 2 === 0) return n;
+  }
+  return null;
+}
+
+// 3) Return object/array
+function stats(nums) {
+  let total = 0;
+  for (const n of nums) total += n;
+  return { total, avg: total / nums.length };
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- `return;` without a value returns **`undefined`**.  
+- `return` exits **only the current function**, not loops/blocks outside it.  
+- Prefer **early returns** for validation to reduce nesting.  
+- When returning an **object literal** from a concise arrow function, wrap it in parentheses: `() => ({ ok: true })`.  
+- In `try { ... } finally { ... }`, the `finally` block runs **even if** a `return` occurs in `try`.
+</I18nEnglish>
+
+<I18nBangla>
+- মান ছাড়া `ফেরত;` দিলে **`undefined`** ফিরে আসে।  
+- `ফেরত` শুধু **বর্তমান ফাংশন** থেকে বের করে; বাইরের লুপ/ব্লককে নয়।  
+- নেস্টিং কমাতে ভ্যালিডেশনে **early return/ফেরত** ব্যবহার করুন।  
+- সংক্ষিপ্ত arrow-style ফাংশনে অবজেক্ট ফেরাতে বন্ধনী দিন: `() => ({ ok: true })`.  
+- `চেষ্টা { ... } অবশেষে { ... }` ব্লকে, `চেষ্টা`র ভেতরে `ফেরত` থাকলেও **অবশেষে** অংশটি চলবে।
+</I18nBangla>
+
+<I18nBanglish>
+- Value ছাড়া `ferot;` dile **`undefined`** ashe.  
+- `ferot` sudhu **current function** thekei ber kore; baire loop/block ke na.  
+- Nesting komate validation e **early ferot** bhalo.  
+- Concise arrow e object ferate parenthesis din: `() => ({ ok: true })`.  
+- `ceshta { ... } obosheshe { ... }` type e, `ceshta` vitor `ferot` thakleo **obosheshe** cholbe.
+</I18nBanglish>

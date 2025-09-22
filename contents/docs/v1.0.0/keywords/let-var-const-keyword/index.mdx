@@ -1,0 +1,237 @@
+---
+title: let · var · const
+description: Variables in Bnlang — differences between block scope (let/const) and function scope (var), reassignment, redeclaration, hoisting/TDZ, and best practices.
+bnTitle: ধরি · চলক · ধ्रুবক
+bnDescription: Bnlang এ ধরি/ধ্রুবক (block scope) বনাম চলক (function scope), পুনঃনিয়োগ, পুনঃঘোষণা, hoisting/TDZ এবং সেরা চর্চা।
+banglishTitle: let · var · const
+banglishDescription: Bnlang e let/const vs var — scope, reassignment, redeclaration, hoisting/TDZ, best practices.
+---
+
+# <I18nEnglish>let · var · const</I18nEnglish>
+# <I18nBangla>ধরি · চলক · ধ্রুবক</I18nBangla>
+# <I18nBanglish>let · var · const</I18nBanglish>
+
+<I18nEnglish>
+- **`let`** — block‑scoped, reassignable, no redeclaration in the same scope.  
+- **`const`** — block‑scoped, **not** reassignable; object contents can still change.  
+- **`var`** — function‑scoped (or global), redeclarable, hoisted as `undefined`. Avoid in modern code.
+</I18nEnglish>
+
+<I18nBangla>
+- **`ধরি (let)`** — **ব্লক‑স্কোপড**, মান পরিবর্তন করা যায়; একই স্কোপে পুনঃঘোষণা করা যায় না।  
+- **`ধ্রুবক (const)`** — **ব্লক‑স্কোপড**, মান **পুনঃনিয়োগ করা যায় না**; তবে অবজেক্টের ভেতরের প্রপার্টি বদলানো যায়।  
+- **`চলক (var)`** — **ফাংশন‑স্কোপড** (বা গ্লোবাল), পুনঃঘোষণা সম্ভব, hoisted হলে `undefined` হয়। আধুনিক কোডে পরিহার্য।
+</I18nBangla>
+
+<I18nBanglish>
+- **`let`** — block‑scoped, value change kora jay; same scope e redeclare kora jay na.  
+- **`const`** — block‑scoped, value **reassign kora jay na**; kintu object er property change kora jay.  
+- **`var`** — function‑scoped/global, redeclarable, hoist hole `undefined`. Modern code e **avoid**.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+let count = 0;
+const PI = 3.1416;
+var legacy = "old";
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+ধরি গননা = 0;
+ধ্রুবক পিআই = 3.1416;
+চলক পুরনো = "old";
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+let gonona = 0;
+const PI = 3.1416;
+var purono = "old";
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) ব্লক স্কোপ বনাম ফাংশন স্কোপ
+function উদাহরণ() {
+  যদি (true) {
+    ধরি এক = "A";
+    ধ্রুবক দুই = "B";
+    চলক তিন = "C";
+  }
+  // কনসোল.লগ(এক, দুই);   // ReferenceError (ব্লক‑স্কোপ)
+  কনসোল.লগ(তিন);          // "C" (var ফাংশন‑স্কোপড)
+}
+উদাহরণ();
+
+// ২) পুনঃঘোষণা ও পুনঃনিয়োগ
+ধরি x = 1;
+x = 2;              // OK
+// ধরি x = 3;       // Error: একই স্কোপে পুনঃঘোষণা নয়
+
+ধ্রুবক cfg = { নাম: "Bnlang" };
+// cfg = {};        // Error: const পুনঃনিয়োগ নয়
+cfg.নাম = "BPM";    // OK: অবজেক্টের ভেতর বদলানো যায়
+
+চলক y = 10;
+চলক y = 20;        // OK (redeclare)
+
+// ৩) hoisting/TDZ
+// কনসোল.লগ(a);    // ReferenceError (TDZ)
+ধরি a = 5;
+// কনসোল.লগ(b);    // ReferenceError (TDZ)
+ধ্রুবক b = 6;
+কনসোল.লগ(c);       // undefined (var hoisted)
+চলক c = 7;
+
+// ৪) লুপে ক্লোজার—let ঠিক মান রাখে
+for (ধরি i = 0; i < 3; i++) {
+  setTimeout(() => কনসোল.লগ("let i:", i), 0);
+}
+// var হলে 3,3,3 দেখাতে পারে
+for (চলক j = 0; j < 3; j++) {
+  setTimeout(() => কনসোল.লগ("var j:", j), 0);
+}
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) Block vs function scope
+function udahoron() {
+  jodi (true) {
+    let ek = "A";
+    const dui = "B";
+    var tin = "C";
+  }
+  // console.log(ek, dui); // ReferenceError (block scope)
+  console.log(tin);        // "C" (var function‑scoped)
+}
+udahoron();
+
+// 2) Redeclare & reassign
+let x = 1;
+x = 2;                 // OK
+// let x = 3;          // Error: same scope redeclare
+
+const cfg = { nam: "Bnlang" };
+// cfg = {};          // Error
+cfg.nam = "BPM";       // OK (mutate property)
+
+var y = 10;
+var y = 20;            // OK (redeclare)
+
+// 3) hoisting/TDZ
+// console.log(a);     // ReferenceError (TDZ)
+let a = 5;
+// console.log(b);     // ReferenceError (TDZ)
+const b = 6;
+console.log(c);        // undefined (var hoisted)
+var c = 7;
+
+// 4) Loop closure
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => console.log("let i:", i), 0);
+}
+for (var j = 0; j < 3; j++) {
+  setTimeout(() => console.log("var j:", j), 0); // prints 3,3,3
+}
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Block vs function scope
+function demo() {
+  if (true) {
+    let a = "A";
+    const b = "B";
+    var c = "C";
+  }
+  // console.log(a, b); // ReferenceError (block‑scoped)
+  console.log(c);       // "C" (var is function‑scoped)
+}
+demo();
+
+// 2) Redeclare & reassign
+let x = 1;
+x = 2;                  // OK
+// let x = 3;           // Error
+
+const cfg = { name: "Bnlang" };
+// cfg = {};           // Error (no reassign)
+cfg.name = "BPM";       // OK (mutate)
+
+var y = 10;
+var y = 20;             // OK (redeclare)
+
+// 3) Hoisting / TDZ
+// console.log(a);      // ReferenceError (TDZ)
+let a = 5;
+// console.log(b);      // ReferenceError (TDZ)
+const b = 6;
+console.log(c);         // undefined (var hoisted)
+var c = 7;
+
+// 4) Loop closure behavior
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => console.log("let i:", i), 0); // 0,1,2
+}
+for (var j = 0; j < 3; j++) {
+  setTimeout(() => console.log("var j:", j), 0); // 3,3,3
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Prefer **`const`** by default, use **`let`** when reassignment is needed, and avoid **`var`**.  
+- `let`/`const` are subject to the **Temporal Dead Zone (TDZ)** from the start of the scope until their declaration line executes.  
+- `const` prevents **rebinding**; it does **not** make objects immutable — use `Object.freeze` for shallow immutability.  
+- Shadowing is allowed in nested blocks, but keep variable naming clear to avoid confusion.  
+- Keep one language style (English/Bangla/Banglish) per file for readability.
+</I18nEnglish>
+
+<I18nBangla>
+- ডিফল্টভাবে **`ধ্রুবক (const)`** ব্যবহার করুন; মান বদলাতে হলে **`ধরি (let)`** নিন; **`চলক (var)`** এড়িয়ে চলুন।  
+- `ধরি/ধ্রুবক` এ **TDZ** প্রযোজ্য—স্কোপ শুরুর পর থেকে ঘোষণার আগ পর্যন্ত অ্যাক্সেস করলে ReferenceError হবে।  
+- `ধ্রুবক` কেবল **রিবাইন্ডিং** আটকায়; অবজেক্ট অপরিবর্তনীয় করতে `Object.freeze` ব্যবহার করুন।  
+- নেস্টেড ব্লকে একই নামের ভেরিয়েবল ছায়া ফেলতে পারে—নামকরণ পরিষ্কার রাখুন।  
+- পড়ার সুবিধায় প্রতি ফাইলে একটি ভাষা স্টাইল বজায় রাখুন।
+</I18nBangla>
+
+<I18nBanglish>
+- By default **`const`** use korun, reassign dorkar hole **`let`** nin; **`var`** avoid korun.  
+- `let/const` e **TDZ** thake — scope er start theke declaration porjonto access korle ReferenceError.  
+- `const` rebind bondho kore; object immutable korte `Object.freeze` lage.  
+- Nested block e shadowing possible — naming clear rakhun.  
+- Readability er jonno ek file e ekta language style.
+</I18nBanglish>

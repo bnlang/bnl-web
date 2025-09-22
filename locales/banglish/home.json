@@ -1,0 +1,221 @@
+{
+    "meta": {
+        "title": "Bnlang — Banglay, English, ba Banglish-e code likhun",
+        "description": "Bnlang holo Bangladesh-er jonno toiri byaboharik, obhibyaktipurno programming language o runtime. Bangla, English, ba Banglish-e likhe modern toolchain ar welcoming community diye taratari ship korun."
+    },
+    "hero": {
+        "badge": "Bnlang · Programming Language",
+        "title": "Banglay, English & Banglish-e code likhun",
+        "subtitle": "Bnlang ekṭi practical ebong expressive programming language o runtime, ja Bangladesh-er demand o context ke mathay rekhe toiri kora hoyeche. Eti apnake matri-bhashay shikhte o software build korte sahajjo korbe, engineering-er rigor bojay rekhe. Clear syntax, predictable semantics, ebong production-ready tooling-er maddhome eta development process-ke kore aro easy, reliable, ebong professional.",
+        "cta": {
+            "docs": "Documentation",
+            "getStarted": "Shuru korun",
+            "github": "GitHub"
+        },
+        "signals": {
+            "stableCore": "Stable core",
+            "versionedReleases": "Versioned releases",
+            "trilingual": "Trilingual by design"
+        }
+    },
+    "stats": {
+        "items": [
+            {
+                "value": "5+",
+                "label": "GitHub Stars"
+            },
+            {
+                "value": "1+",
+                "label": "Packages in BPM"
+            },
+            {
+                "value": "1",
+                "label": "Contributors"
+            },
+            {
+                "value": "v1.0.0",
+                "label": "Latest Release"
+            }
+        ],
+        "platforms": {
+            "title": "Somorthito platform",
+            "windows": "Windows",
+            "macos": "macOS",
+            "linux": "Linux"
+        }
+    },
+    "why": {
+        "title": "Keno Bnlang?",
+        "subtitle": "Ekti language ja apnar natural expression-ke embrace kore, abar engineering rigor-o thik rakhe: predictable semantics, readable syntax, ar production-ready tooling.",
+        "badges": [
+            "Bangla-first",
+            "Predictable semantics",
+            "Async I/O",
+            "Cross-platform CLI",
+            "BPM ecosystem"
+        ],
+        "kickers": {
+            "languageFirst": "Language-first",
+            "trilingual": "Trilingual Syntax",
+            "tooling": "Modern Toolchain",
+            "runtime": "Familiar Async Model",
+            "prod": "Production Ready",
+            "access": "Accessible by Design"
+        },
+        "cta_primary": "Shuru korun",
+        "cta_secondary": "Aro janun",
+        "cards": [
+            {
+                "icon": "Code2",
+                "kicker": "Language-first",
+                "title": "Banglay bhabun. Bnlang-e ship korun.",
+                "body": "Ja vabe apni bhaben, shei vabei code—shobdo, byakaran, flow—tobu-o static structure ar clarity thake.",
+                "points": [
+                    "Readable, beginner-friendly constructs",
+                    "Control flow-te kono surprise nei",
+                    "Team-er jonne consistent formatting"
+                ]
+            },
+            {
+                "icon": "Languages",
+                "kicker": "Trilingual Syntax",
+                "title": "Trilingual Syntax",
+                "body": "English, Bangla, ba Banglish—ja e komfortable, shetai likhun; clarity ba tooling harabe na. Classroom theke pro-level collab—shob jaygay natural.",
+                "points": [
+                    "Mixed-language identifiers & keywords",
+                    "Same AST → same tooling",
+                    "Classroom & collaboration-er jonne dorkar-i"
+                ]
+            },
+            {
+                "icon": "Rocket",
+                "kicker": "Modern Toolchain",
+                "title": "Modern Toolchain",
+                "body": "Packages-er jonne BPM, consistent code-er jonne formatter, confidence-er jonne test runner, ar docs tooling—sob language-er sathei build-in.",
+                "points": [
+                    "BPM packages, lockfiles, integrity",
+                    "First-party formatter & linter",
+                    "Built-in test runner"
+                ]
+            },
+            {
+                "icon": "Activity",
+                "kicker": "Familiar Async Model",
+                "title": "Familiar Async Model",
+                "body": "Event-driven, non-blocking I/O—Promises ar async/await shoho—server, CLI, ar networked app-er jonne perfect.",
+                "points": [
+                    "Streams, timers, ar workers",
+                    "Stable standard library APIs",
+                    "I/O-r jonne zero-copy buffers"
+                ]
+            },
+            {
+                "icon": "Server",
+                "kicker": "Production Ready",
+                "title": "Production Ready",
+                "body": "Deterministic builds, clear error messages, ar predictable performance—local theke cloud porjonto dependable.",
+                "points": [
+                    "Cross-platform binaries",
+                    "Observability hooks (logs/metrics)",
+                    "Safe concurrency primitives"
+                ]
+            },
+            {
+                "icon": "Globe2",
+                "kicker": "Accessible by Design",
+                "title": "Accessible by Design",
+                "body": "Bangladesher students, developers, ar teams-der entry barrier komay—tobu reliability ar performance thik thake.",
+                "points": [
+                    "Docs Bangla & English-e",
+                    "Community-maintained examples",
+                    "Modest hardware-eo bhalo chole"
+                ]
+            }
+        ]
+    },
+    "ecosystem": {
+        "title": "Ecosystem",
+        "subtitle": "Bnlang strong foundation ar open package ecosystem shoho ashe—classroom, startup, ar production shob jaygay ready.",
+        "cards": [
+            {
+                "icon": "Boxes",
+                "title": "Rich Standard Library",
+                "body": "Files, HTTP, crypto, streams, text—rojkar kajer dorkarigulo ready. Chhoto chhoto kajer jonne alada tool khujar proyojon kom."
+            },
+            {
+                "icon": "Package",
+                "title": "BPM Packages",
+                "body": "Official registry diye install, publish, ar share korun. Integrity checks ar signatures diye supply chain secure."
+            },
+            {
+                "icon": "TerminalSquare",
+                "title": "CLI & REPL",
+                "body": "Responsive REPL-e sathe sathe try korun, ar CLI diye project scaffold, test run, formatting, ar package commands—ek jaygay."
+            },
+            {
+                "icon": "Code2",
+                "title": "JavaScript Interop",
+                "body": "Proyojone existing JavaScript libraries leverage korun, ar sathe Bnlang-er readable syntax ar predictable semantics enjoy korun."
+            }
+        ]
+    },
+    "community": {
+        "title": "Community-te jog din",
+        "subtitle": "Prosno korun, contribute korun, ba ja banachhen ta showcase korun. Apnar idea-tei Bnlang boro hoy.",
+        "cta": {
+            "github": "GitHub-e contribute korun",
+            "guide": "Community Guide"
+        }
+    },
+    "features": {
+        "title": "Key Features",
+        "subtitle": "Bnlang-er core capabilities—clear syntax, familiar async model, real package manager, built-in testing, ar practical streaming APIs.",
+        "cta_primary": "Shuru korun",
+        "cta_secondary": "Details dekhun",
+        "blocks": {
+            "trilingual": {
+                "title": "Trilingual Syntax",
+                "body": "Bangla, Banglish, ba English—ja apnar kache shobcheye natural—tatei likhun; compiler ar tooling etake ekta predictable language hisebe trate kore.",
+                "labels": {
+                    "bn": "Bangla",
+                    "banglish": "Banglish",
+                    "en": "English"
+                },
+                "points": [
+                    "Mixed-language identifiers & keywords",
+                    "Same AST → same tooling & semantics",
+                    "Classroom, team, ar public docs-er jonne upojukto"
+                ],
+                "caption": "Audience-er vasha use korun—readability, structure, ba tooling chara."
+            },
+            "async": {
+                "title": "Familiar Async Model",
+                "body": "Event-driven, non-blocking I/O ar async/await app-ke responsive rakhay, tools-o thake snappy.",
+                "points": [
+                    "Promises ar async functions—clear code-er jonne",
+                    "try/catch diye predictable error handling",
+                    "Network ar file workload shohoje compose korun"
+                ]
+            },
+            "packages": {
+                "title": "Packages with BPM",
+                "body": "First-party package manager—lockfiles, integrity verification, ar streamlined scripts shoho.",
+                "caption": "Install, share, ship—extra glue code chara. BPM language module system-er sathe align."
+            },
+            "testing": {
+                "title": "Testing Built-in",
+                "body": "Lightweight test runner toolchain-er ongsho—day-one thekei team-ke correctness maintain korte shahajyo kore.",
+                "caption": "Zero-config unit tests, human-readable output, ar CI-te fast feedback."
+            },
+            "io": {
+                "title": "Practical I/O-r jonne Streams & Buffers",
+                "body": "Boro file process korte kom memory use korun, ar streaming API diye efficient pipeline toyri korun.",
+                "points": [
+                    "Backpressure-aware primitives",
+                    "Binary-safe buffers—performant parsing-er jonne",
+                    "Real-world data-r jonne composable utilities"
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,128 @@
+---
+title: http module
+description: HTTP APIs for creating servers and clients, handling requests and responses, headers, status codes, and streaming bodies.
+bnTitle: http মডিউল
+bnDescription: HTTP API — সার্ভার ও ক্লায়েন্ট তৈরি, রিকোয়েস্ট ও রেসপন্স হ্যান্ডলিং, হেডার, স্ট্যাটাস কোড, এবং স্ট্রিম বডি।
+banglishTitle: http module
+banglishDescription: HTTP API — create server & client, handle request/response, headers, status codes, and streaming bodies.
+---
+
+# <I18nEnglish>http</I18nEnglish>
+# <I18nBangla>http</I18nBangla>
+# <I18nBanglish>http</I18nBanglish>
+
+<I18nEnglish>
+The **`http`** module provides utilities to create HTTP servers and clients. It supports request/response streaming, headers, and status codes.
+</I18nEnglish>
+
+<I18nBangla>
+**`http`** মডিউল দিয়ে HTTP সার্ভার ও ক্লায়েন্ট তৈরি করা যায়। এটি রিকোয়েস্ট/রেসপন্স স্ট্রিমিং, হেডার ও স্ট্যাটাস কোড সাপোর্ট করে।
+</I18nBangla>
+
+<I18nBanglish>
+**`http`** module diye HTTP server & client banano jay. Ete request/response streaming, header & status code support ache.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Server
+- **`http.createServer([options], requestListener)`** — create an HTTP server.
+- **server.listen(port[, host], callback)** — start listening.
+- **request (IncomingMessage)**:
+  - `req.method`, `req.url`, `req.headers`
+  - `req.on("data")`, `req.on("end")`
+- **response (ServerResponse)**:
+  - `res.statusCode`, `res.setHeader(name, value)`
+  - `res.write(data)`, `res.end([data])`
+
+### Client
+- **`http.request(options, callback)`** — create HTTP request.
+- **`http.get(options, callback)`** — shortcut for GET.
+- **ClientRequest**: `.write()`, `.end()`.
+- **IncomingMessage**: stream for response body.
+
+</I18nEnglish>
+
+<I18nBangla>
+### সার্ভার
+- **`createServer`**, **`listen`** — সার্ভার তৈরি ও চালানো।
+- **রিকোয়েস্ট**: মেথড, ইউআরএল, হেডার, ডেটা স্ট্রিম।
+- **রেসপন্স**: স্ট্যাটাস কোড, হেডার, `write`, `end`।
+
+### ক্লায়েন্ট
+- **`request`**, **`get`** — HTTP রিকোয়েস্ট।
+- **ClientRequest/IncomingMessage** — ডেটা স্ট্রিম হ্যান্ডল।
+</I18nBangla>
+
+<I18nBanglish>
+### Server
+- **`createServer`**, **`listen`** — server create & run.
+- **Request**: method, url, headers, data stream.
+- **Response**: statusCode, header, `write`, `end`.
+
+### Client
+- **`request`**, **`get`** — HTTP request.
+- **ClientRequest/IncomingMessage** — handle response stream.
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const http = require("http");
+
+// Simple HTTP server
+const server = http.createServer((req, res) => {
+  console.log(req.method, req.url);
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "text/plain");
+  res.end("Hello World\n");
+});
+
+server.listen(3000, () => console.log("Server running on port 3000"));
+
+// Simple HTTP client GET
+http.get("http://localhost:3000", (res) => {
+  console.log("status:", res.statusCode);
+  res.on("data", (chunk) => console.log("body:", chunk.toString()));
+});
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Responses must be explicitly ended with **`res.end()`**.  
+- Always set proper **headers** (e.g., `Content-Type`) for clients.  
+- Request and response bodies are **streams**; handle `'data'` and `'end'`.  
+- For HTTPS, use the separate **`https`** module.  
+</I18nEnglish>
+
+<I18nBangla>
+- রেসপন্স অবশ্যই **`res.end()`** দিয়ে শেষ করতে হবে।  
+- ক্লায়েন্টের জন্য সঠিক **হেডার** দিন।  
+- রিকোয়েস্ট ও রেসপন্স বডি **স্ট্রিম**।  
+- HTTPS এর জন্য আলাদা **`https`** মডিউল ব্যবহার করুন।  
+</I18nBangla>
+
+<I18nBanglish>
+- Response must end with **`res.end()`**.  
+- Client er jonno proper **header** set korun.  
+- Request & response body holo **stream**.  
+- HTTPS er jonno **`https`** module use korun.  
+</I18nBanglish>

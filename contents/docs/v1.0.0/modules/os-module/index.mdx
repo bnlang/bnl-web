@@ -1,0 +1,128 @@
+---
+title: os module
+description: Operating system utilities — information about platform, CPU, memory, uptime, network interfaces, and common paths.
+bnTitle: os মডিউল
+bnDescription: অপারেটিং সিস্টেম ইউটিলিটি — প্ল্যাটফর্ম, CPU, মেমরি, আপটাইম, নেটওয়ার্ক ইন্টারফেস ও কমন পাথ তথ্য।
+banglishTitle: os module
+banglishDescription: OS utility — platform, CPU, memory, uptime, network interfaces, common paths.
+---
+
+# <I18nEnglish>os</I18nEnglish>
+# <I18nBangla>os</I18nBangla>
+# <I18nBanglish>os</I18nBanglish>
+
+<I18nEnglish>
+The **`os`** module provides operating system-related utility methods and properties. Useful for system information and environment-aware programs.
+</I18nEnglish>
+
+<I18nBangla>
+**`os`** মডিউল অপারেটিং সিস্টেম সম্পর্কিত ইউটিলিটি দেয়। সিস্টেম তথ্য ও পরিবেশ-সচেতন প্রোগ্রামের জন্য দরকার।
+</I18nBangla>
+
+<I18nBanglish>
+**`os`** module operating system related utility dey. System info & environment-aware program er jonno use hoy.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### System Information
+- **`os.platform()`** — operating system platform (`linux`, `win32`, `darwin`).  
+- **`os.arch()`** — CPU architecture (`x64`, `arm64`).  
+- **`os.version()`** — OS version string.  
+- **`os.release()`** — OS release.  
+- **`os.type()`** — OS name (`Linux`, `Windows_NT`, `Darwin`).  
+
+### Resources
+- **`os.cpus()`** — info about each CPU core.  
+- **`os.totalmem()`**, **`os.freemem()`** — total and free memory in bytes.  
+- **`os.loadavg()`** — load averages (Unix only).  
+- **`os.uptime()`** — system uptime in seconds.  
+
+### User & Paths
+- **`os.userInfo()`** — current user details.  
+- **`os.homedir()`** — home directory path.  
+- **`os.tmpdir()`** — temp directory path.  
+- **`os.hostname()`** — system hostname.  
+
+### Network
+- **`os.networkInterfaces()`** — object with network details.  
+
+### Constants
+- **`os.constants`** — error codes, signals, etc.  
+
+</I18nEnglish>
+
+<I18nBangla>
+### সিস্টেম তথ্য
+- **`platform/arch/version/release/type`** — সিস্টেমের ধরন ও ভার্সন।  
+- **`cpus/totalmem/freemem/loadavg/uptime`** — CPU ও মেমরি তথ্য।  
+- **`userInfo/homedir/tmpdir/hostname`** — ইউজার ও পাথ।  
+- **`networkInterfaces`**, **`constants`**।  
+</I18nBangla>
+
+<I18nBanglish>
+### Info
+- **`platform/arch/version/release/type`** — OS type & version.  
+- **`cpus/totalmem/freemem/loadavg/uptime`** — CPU & memory info.  
+- **`userInfo/homedir/tmpdir/hostname`** — user & path.  
+- **`networkInterfaces`**, **`constants`**.  
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const os = require("os");
+
+console.log("Platform:", os.platform());
+console.log("Arch:", os.arch());
+console.log("Hostname:", os.hostname());
+
+console.log("CPUs:", os.cpus().length);
+console.log("Total mem:", os.totalmem());
+console.log("Free mem:", os.freemem());
+
+console.log("Home dir:", os.homedir());
+console.log("Temp dir:", os.tmpdir());
+
+console.log("Network:", os.networkInterfaces());
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Values like memory are in **bytes** — convert for readability.  
+- `loadavg` is Unix-only, returns `[1m, 5m, 15m]` load averages.  
+- Use `os.constants` for error/signal codes instead of hardcoding.  
+- System info may differ across platforms — always test cross-platform.  
+</I18nEnglish>
+
+<I18nBangla>
+- মেমরির মান **বাইটে** হয় — কনভার্ট করে দেখান।  
+- `loadavg` শুধু ইউনিক্সে কাজ করে।  
+- কনস্ট্যান্টের জন্য `os.constants` ব্যবহার করুন।  
+- প্ল্যাটফর্মভেদে আউটপুট আলাদা হতে পারে।  
+</I18nBangla>
+
+<I18nBanglish>
+- Memory value **byte** e thake — convert kore show korun.  
+- `loadavg` sudhu Unix e kaj kore.  
+- Constants er jonno `os.constants` use korun.  
+- Cross-platform output alada hote pare.  
+</I18nBanglish>

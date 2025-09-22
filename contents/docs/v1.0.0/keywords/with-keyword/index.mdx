@@ -1,0 +1,192 @@
+---
+title: with Statement
+description: The with statement in Bnlang temporarily brings an object's properties into scope. Use is discouraged; not allowed in strict mode or modules.
+bnTitle: সাথে বিবৃতি
+bnDescription: Bnlang এ সাথে (with) ব্যবহার করে অবজেক্টের প্রপার্টি স্কোপে আনা — সতর্কতা, সীমাবদ্ধতা এবং বিকল্প পদ্ধতি।
+banglishTitle: with Statement
+banglishDescription: Bnlang e sathe (with) diye object er property scope e ana — warnings, limits, and alternatives.
+---
+
+# <I18nEnglish>with Statement</I18nEnglish>
+# <I18nBangla>সাথে বিবৃতি</I18nBangla>
+# <I18nBanglish>with Statement</I18nBanglish>
+
+<I18nEnglish>
+**`with (obj) { ... }`** temporarily treats the object's properties as if they were in the local scope.  
+Its use is **strongly discouraged** because it makes code **ambiguous**, **slower**, and it is **disallowed** in **strict mode** and **ES modules**.
+</I18nEnglish>
+
+<I18nBangla>
+**`সাথে (অবজেক্ট) { ... }`** ব্লকের ভেতরে ঐ অবজেক্টের প্রপার্টিগুলোকে **লোকাল স্কোপে** এনে দেয়।  
+এটি ব্যবহার **নিরুৎসাহিত**—কোড **অস্পষ্ট** হয়, **ধীর** হতে পারে, এবং **strict mode**/**ES module**‑এ **নিষিদ্ধ**।
+</I18nBangla>
+
+<I18nBanglish>
+**`sathe (object) { ... }`** block er vitore oi object er property‑gulo **local scope** er moto access kora jay.  
+Eta **use na korai bhalo** — code **ambiguity** baray, **slow** korte pare, ar **strict mode**/**ES module**‑e **allowed na**.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+with (object) {
+  // statements (sloppy mode only; not allowed in strict/modules)
+}
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+সাথে (অবজেক্ট) {
+  // স্টেটমেন্ট (শুধু sloppy মোড; strict/module‑এ নিষিদ্ধ)
+}
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+sathe (object) {
+  // statements (sloppy mode only)
+}
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) বেসিক — অবজেক্টের প্রপার্টি লোকাল স্কোপে
+const ব্যবহারকারী = { নাম: "Mamun", শহর: "Dhaka" };
+
+সাথে (ব্যবহারকারী) {
+  কনসোল.লগ(নাম, শহর);   // ব্যবহারকারী.নাম, ব্যবহারকারী.শহর
+}
+
+// ২) অস্পষ্টতা — লিখলে কী হবে?
+const প্রোফাইল = { নাম: "Rafi" };
+সাথে (প্রোফাইল) {
+  নাম = "Zara";          // যদি 'নাম' থাকে → প্রোফাইল.নাম বদলাবে
+                         // না থাকলে sloppy‑mode‑এ global তৈরি হবে! (খুব খারাপ)
+}
+
+// ৩) strict mode‑এ নিষিদ্ধ (SyntaxError)
+"use strict";
+// সাথে ({ a: 1 }) { কনসোল.লগ(a); } // ❌ SyntaxError (module‑এও নিষিদ্ধ)
+
+// ৪) বিকল্প — ডেস্ট্রাকচারিং/লোকাল উপনাম
+const order = { id: 10, total: 999, customer: { name: "Alice" } };
+const { id, total, customer: { name } } = order;
+কনসোল.লগ(id, total, name);
+
+// অথবা অস্থায়ী উপনাম
+const o = order.customer;
+কনসোল.লগ(o.name);
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) Basic
+const byaboharkari = { nam: "Mamun", shohor: "Dhaka" };
+
+sathe (byaboharkari) {
+  console.log(nam, shohor); // byaboharkari.nam, byaboharkari.shohor
+}
+
+// 2) Ambiguity — assignment danger
+const profile = { nam: "Rafi" };
+sathe (profile) {
+  nam = "Zara"; // thakle profile.nam change; na thakle sloppy‑mode global! 👎
+}
+
+// 3) Strict/module — not allowed
+"use strict";
+// sathe ({ a: 1 }) { console.log(a); } // ❌ SyntaxError
+
+// 4) Alternatives — destructuring / alias
+const order = { id: 10, total: 999, customer: { name: "Alice" } };
+const { id, total, customer: { name } } = order;
+console.log(id, total, name);
+
+const o = order.customer;
+console.info(o.name);
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Basic
+const user = { name: "Mamun", city: "Dhaka" };
+
+with (user) {
+  console.log(name, city); // user.name, user.city
+}
+
+// 2) Ambiguity — assignment hazard
+const profile = { name: "Rafi" };
+with (profile) {
+  name = "Zara"; // if property exists → profile.name changes;
+                 // otherwise in sloppy mode → creates a global! 👎
+}
+
+// 3) Strict/modules — disallowed
+"use strict";
+// with ({ a: 1 }) { console.log(a); } // ❌ SyntaxError
+
+// 4) Alternatives
+const order = { id: 10, total: 999, customer: { name: "Alice" } };
+const { id, total, customer: { name } } = order;
+console.log(id, total, name);
+
+// or an alias
+const o = order.customer;
+console.log(o.name);
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- **Avoid `with`**. It hampers optimization and makes name resolution ambiguous (hard for humans and engines).  
+- **Not allowed** in **strict mode** or **ES modules** (modules are always strict).  
+- Assignments inside `with` are risky: may write to the object or accidentally create/modify a global in sloppy mode.  
+- Prefer **destructuring**, **local aliases**, or direct qualified access (`obj.prop`).  
+- Keep one language style (English/Bangla/Banglish) per file.
+</I18nEnglish>
+
+<I18nBangla>
+- **`সাথে` ব্যবহার এড়িয়ে চলুন**—নাম রেজোলিউশন অস্পষ্ট হয় এবং জাভাস্ক্রিপ্ট ইঞ্জিন অপ্টিমাইজেশনে বাধা দেয়।  
+- **strict mode**/**ES module**‑এ **নিষিদ্ধ**।  
+- `সাথে` ব্লকের ভেতরে **অ্যাসাইনমেন্ট বিপজ্জনক**—অবজেক্টে লিখতে পারে, আবার sloppy‑mode‑এ গ্লোবালও তৈরি করে ফেলতে পারে।  
+- **ডেস্ট্রাকচারিং**, **লোকাল উপনাম**, বা সরাসরি `অবজেক্ট.প্রপার্টি` ব্যবহার করুন।  
+- পড়ার সুবিধায় প্রতি ফাইলে এক ভাষা স্টাইল রাখুন।
+</I18nBangla>
+
+<I18nBanglish>
+- **`sathe` use na korun** — name resolve **ambiguous** hoy, engine optimize‑e problem hoy.  
+- **strict mode**/**ES module**‑e **allowed na**.  
+- `sathe` vitor **assignment risky** — object e likhte pare, ba sloppy‑mode e global baniye felte pare.  
+- **destructuring**, **local alias**, ba direct `object.property` bhalo.  
+- Ek file e ekta language style maintain korun.
+</I18nBanglish>

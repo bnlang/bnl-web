@@ -1,0 +1,197 @@
+---
+title: Understanding setImmediate
+description: Learn how setImmediate works in Bnlang with explanations and examples in English, Bangla, and Banglish.
+bnTitle: setImmediate বোঝা
+bnDescription: Bnlang এ setImmediate এর কাজের পদ্ধতি এবং উদাহরণ।
+banglishTitle: Understanding setImmediate
+banglishDescription: Bnlang e setImmediate er kajer poddhoti o udahoron English, Bangla ar Banglish e.
+---
+
+# <I18nEnglish>Understanding setImmediate</I18nEnglish>
+# <I18nBangla>setImmediate বোঝা</I18nBangla>
+# <I18nBanglish>Understanding setImmediate</I18nBanglish>
+
+<I18nEnglish>
+In **Bnlang**, `setImmediate` is a function that schedules a callback to run on the **check phase** of the event loop.  
+This means it executes **after I/O events** but before timers scheduled with `setTimeout(…, 0)`.  
+It is useful for deferring execution to the next cycle of the event loop without unnecessary delays.
+</I18nEnglish>
+
+<I18nBangla>
+**Bnlang** এ `setImmediate` হলো এমন একটি ফাংশন যা কলব্যাককে ইভেন্ট লুপের **চেক ফেজে** চালায়।  
+এটি I/O ইভেন্টের পরে, কিন্তু `setTimeout(…, 0)` এর আগেই চালানো হয়।  
+এর মাধ্যমে অযথা ডিলে না দিয়ে পরবর্তী লুপ সাইকেলে কোড defer করা যায়।
+</I18nBangla>
+
+<I18nBanglish>
+**Bnlang** e `setImmediate` holo ekta function, ja callback ke event loop er **check phase** e run kore.  
+Eta I/O event er pore, kintu `setTimeout(…, 0)` er agei run hoy.  
+Eta diye unnecessary delay chara porer loop cycle e code defer kora jay.
+</I18nBanglish>
+
+---
+
+## Basic Example
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+console.log("Start");
+
+setImmediate(() => {
+  console.log("Immediate callback");
+});
+
+console.log("End");
+
+// Output:
+// Start
+// End
+// Immediate callback
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+কনসোল.লগ("শুরু");
+
+setImmediate(() => {
+  কনসোল.লগ("ইমিডিয়েট কলব্যাক");
+});
+
+কনসোল.লগ("শেষ");
+
+// আউটপুট:
+// শুরু
+// শেষ
+// ইমিডিয়েট কলব্যাক
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+console.log("Shuru");
+
+setImmediate(() => {
+  console.log("Immediate callback");
+});
+
+console.log("Shesh");
+
+// Output:
+// Shuru
+// Shesh
+// Immediate callback
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## setImmediate vs setTimeout
+
+<I18nEnglish>
+- `setImmediate` executes callbacks in the **check phase**, right after I/O.  
+- `setTimeout(fn, 0)` executes in the **timers phase**, which comes later.  
+In practice, `setImmediate` usually runs faster than `setTimeout(…, 0)`.
+</I18nEnglish>
+
+<I18nBangla>
+- `setImmediate` **চেক ফেজে** চালায়, I/O এর পরপরই।  
+- `setTimeout(fn, 0)` **টাইমার ফেজে** চালায়, যা পরে আসে।  
+প্র্যাকটিক্যালি, `setImmediate` সাধারণত `setTimeout(…, 0)` এর চেয়ে দ্রুত চলে।
+</I18nBangla>
+
+<I18nBanglish>
+- `setImmediate` **check phase** e run hoy, I/O er porei.  
+- `setTimeout(fn, 0)` **timer phase** e run hoy, ja pore ashe.  
+Chorcha te, `setImmediate` shadharonoto `setTimeout(…, 0)` er theke taratari run kore.
+</I18nBanglish>
+
+---
+
+## Example: setImmediate vs setTimeout
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+setTimeout(() => console.log("Timeout 0"), 0);
+setImmediate(() => console.log("Immediate"));
+
+console.log("Done");
+
+// Output order may vary:
+// Done
+// Immediate
+// Timeout 0
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+সময়সীমা_নির্ধারণ(() => কনসোল.লগ("সময়সীমা_নির্ধারণ ০"), 0);
+setImmediate(() => কনসোল.লগ("ইমিডিয়েট"));
+
+কনসোল.লগ("শেষ");
+
+// আউটপুট অর্ডার ভিন্ন হতে পারে:
+// শেষ
+// ইমিডিয়েট
+// সময়সীমা_নির্ধারণ ০
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+somoysimaNirdharon(() => console.log("Timeout 0"), 0);
+setImmediate(() => console.log("Immediate"));
+
+console.log("Shesh");
+
+// Output order vary korte pare:
+// Shesh
+// Immediate
+// Timeout 0
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Use `setImmediate` to break up long-running tasks and keep the event loop responsive.  
+- Prefer `setImmediate` over `setTimeout(…, 0)` when you need execution as soon as the current I/O completes.  
+- Avoid blocking inside callbacks to maintain performance.
+</I18nEnglish>
+
+<I18nBangla>
+- দীর্ঘ কাজ ছোট ছোট অংশে ভেঙে ইভেন্ট লুপ রেসপন্সিভ রাখতে `setImmediate` ব্যবহার করুন।  
+- বর্তমান I/O শেষ হবার সাথে সাথেই চালাতে হলে `setImmediate` ব্যবহার করুন, `setTimeout(…, 0)` এর পরিবর্তে।  
+- কলব্যাকের ভিতরে ব্লকিং কোড দেবেন না, পারফরম্যান্স কমে যাবে।
+</I18nBangla>
+
+<I18nBanglish>
+- Long task ke vag kore event loop responsive rakhar jonno `setImmediate` use korun.  
+- Current I/O sesh hole sathe sathe chalate hole `setImmediate` prefer korun, `setTimeout(…, 0)` er bodole.  
+- Callback er vitore blocking code debena, performance kombe.
+</I18nBanglish>

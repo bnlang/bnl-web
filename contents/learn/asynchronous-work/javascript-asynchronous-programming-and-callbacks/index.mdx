@@ -1,0 +1,354 @@
+---
+title: JavaScript Asynchronous Programming & Callbacks
+description: A self-contained guide to asynchronous programming and callbacks in Bnlang with English, Bangla, and Banglish examples.
+bnTitle: জাভাস্ক্রিপ্ট অ্যাসিঙ্ক্রোনাস প্রোগ্রামিং ও কলব্যাক
+bnDescription: Bnlang এ অ্যাসিঙ্ক্রোনাস প্রোগ্রামিং ও কলব্যাকের ব্যবহার, সমস্যা এবং সমাধানসহ উদাহরণ।
+banglishTitle: JavaScript Asynchronous Programming & Callbacks
+banglishDescription: Bnlang e asynchronous programming ar callback er upor self-contained guide English, Bangla, Banglish e.
+---
+
+# <I18nEnglish>JavaScript Asynchronous Programming & Callbacks</I18nEnglish>
+# <I18nBangla>জাভাস্ক্রিপ্ট অ্যাসিঙ্ক্রোনাস প্রোগ্রামিং ও কলব্যাক</I18nBangla>
+# <I18nBanglish>JavaScript Asynchronous Programming & Callbacks</I18nBanglish>
+
+<I18nEnglish>
+In **Bnlang**, asynchronous programming lets your program start tasks (like network requests, file access, or timers) and continue running without waiting.  
+A **callback** is a function you pass to another function to be invoked later, typically after an asynchronous operation finishes.  
+This page explains the callback pattern, error-first callbacks, common pitfalls (callback hell), and safer alternatives.
+</I18nEnglish>
+
+<I18nBangla>
+**Bnlang** এ অ্যাসিঙ্ক্রোনাস প্রোগ্রামিং এমনভাবে কাজ করে যেখানে নেটওয়ার্ক, ফাইল বা টাইমার চালু রেখেও বাকি কোড চলতে থাকে।  
+**কলব্যাক** হল এমন ফাংশন যা অন্য ফাংশনে পাঠানো হয় এবং কাজ শেষ হলে পরে ডাকা হয়।  
+এখানে কলব্যাক প্যাটার্ন, এরর-ফার্স্ট কলব্যাক, সাধারণ সমস্যা (কোলব্যাক হেল) এবং বিকল্প সমাধান নিয়ে আলোচনা করা হয়েছে।
+</I18nBangla>
+
+<I18nBanglish>
+**Bnlang** e asynchronous programming mane holo — network/file/timer er moto kaj shuru koreo onno code cholte thake.  
+**Callback** mane holo ekta function ke arek function e pass kora, kaj shesh hole pore oita ke call kora.  
+Eikhane callback pattern, error-first callback, common problem (callback hell), ar bhalo alternative gulo dekhano holo.
+</I18nBanglish>
+
+---
+
+## The Event Loop in One Minute
+
+<I18nEnglish>
+Bnlang runs an event loop that manages queues of tasks. When an asynchronous operation completes, its callback is queued and executed when the call stack is free. This design keeps programs responsive.
+</I18nEnglish>
+
+<I18nBangla>
+Bnlang একটি ইভেন্ট লুপ চালায় যা টাস্কের কিউ ম্যানেজ করে। অ্যাসিঙ্ক কাজ শেষ হলে তার কলব্যাক কিউতে যোগ হয় এবং কল স্ট্যাক ফাঁকা হলে চালানো হয়। এতে প্রোগ্রাম রেসপন্সিভ থাকে।
+</I18nBangla>
+
+<I18nBanglish>
+Bnlang ekta event loop chalaye, ja task queue manage kore. Async kaj shesh hole callback queue te jay, stack khali hole execute hoy — eita program ke responsive rakhe.
+</I18nBanglish>
+
+---
+
+## Basic Callback Pattern
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+function readLater(callback) {
+  setTimeout(() => {
+    callback(null, "Done reading!");
+  }, 500);
+}
+
+readLater((err, data) => {
+  if (err) {
+    console.error("Failed:", err);
+  } else {
+    console.log("Result:", data);
+  }
+});
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+function পরে_পড়ো(কলব্যাক) {
+  সময়সীমা_নির্ধারণ(() => {
+    কলব্যাক(null, "পড়া শেষ!");
+  }, 500);
+}
+
+পরে_পড়ো((এরর, ডাটা) => {
+  যদি (এরর) {
+    কনসোল.ত্রুটি("ব্যর্থ:", এরর);
+  } নাহলে {
+    কনসোল.লগ("ফলাফল:", ডাটা);
+  }
+});
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+function porePoro(callback) {
+  somoysimaNirdharon(() => {
+    callback(null, "Pora shesh!");
+  }, 500);
+}
+
+porePoro((error, data) => {
+  jodi (error) {
+    console.error("Byartho:", error);
+  } nahole {
+    console.log("Folafol:", data);
+  }
+});
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Error‑First Callbacks
+
+<I18nEnglish>
+A common convention is **error‑first** callbacks: the first argument is an error (if any), the second is the result. If `err` is not `null`, handle the error and do not use the result.
+</I18nEnglish>
+
+<I18nBangla>
+প্রচলিত নিয়ম হলো **এরর‑ফার্স্ট** কলব্যাক: প্রথম আর্গুমেন্টে এরর (থাকলে), দ্বিতীয়টিতে রেজাল্ট। `err` `null` না হলে এরর হ্যান্ডল করুন এবং রেজাল্ট ব্যবহার করবেন না।
+</I18nBangla>
+
+<I18nBanglish>
+Procholito **error‑first** convention e prothom argument error (thakle), ditiyo result. `err` `null` na hole error handle korun, result ar use korben na.
+</I18nBanglish>
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+function doWork(cb) {
+  setTimeout(() => cb(null, 42), 300);
+}
+
+doWork((err, value) => {
+  if (err) return console.error(err);
+  console.log("Value:", value);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+function কাজ_করো(কলব্যাক) {
+  সময়সীমা_নির্ধারণ(() => কলব্যাক(null, 42), 300);
+}
+
+কাজ_করো((এরর, মান) => {
+  যদি (এরর) ফেরত কনসোল.ত্রুটি(এরর);
+  কনসোল.লগ("মান:", মান);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+function kajKoro(cb) {
+  somoysimaNirdharon(() => cb(null, 42), 300);
+}
+
+kajKoro((err, man) => {
+  jodi (err) return console.error(err);
+  console.log("Man:", man);
+});
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Avoiding Callback Hell
+
+<I18nEnglish>
+- Break large functions into small, named functions and compose them.  
+- Prefer **Promises** or **async/await** for sequential flow.  
+- Reuse common error handlers.
+</I18nEnglish>
+
+<I18nBangla>
+- বড় ফাংশন ভেঙে ছোট, নামযুক্ত ফাংশনে ভাগ করুন ও কম্পোজ করুন।  
+- সিকোয়েন্সিয়াল ফ্লোর জন্য **প্রতিশ্রুতি** বা **async/await** ব্যবহার করুন।  
+- সাধারণ এরর হ্যান্ডলার পুনঃব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Boro function ke chhoto named function e vag kore compose korun.  
+- Sequential flow te **Promise** ba **async/await** prefer korun.  
+- Common error handler reuse korun.
+</I18nBanglish>
+
+---
+
+## From Callback to Promise (Promisify)
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+function withCallback(a, b, cb) {
+  setTimeout(() => cb(null, a + b), 200);
+}
+
+function withPromise(a, b) {
+  return new Promise((resolve, reject) => {
+    withCallback(a, b, (err, sum) => {
+      if (err) reject(err);
+      else resolve(sum);
+    });
+  });
+}
+
+withPromise(3, 4).then(console.log); // 7
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+function কলব্যাক_সহ(a, b, cb) {
+  সময়সীমা_নির্ধারণ(() => cb(null, a + b), 200);
+}
+
+function প্রতিশ্রুতি_সহ(a, b) {
+  ফেরত নতুন প্রতিশ্রুতি((রিজলভ, রিজেক্ট) => {
+    কলব্যাক_সহ(a, b, (এরর, যোগফল) => {
+      যদি (এরর) রিজেক্ট(এরর);
+      নাহলে রিজলভ(যোগফল);
+    });
+  });
+}
+
+প্রতিশ্রুতি_সহ(3, 4).তারপর(কনসোল.লগ); // 7
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+function withCallback(a, b, cb) {
+  somoysimaNirdharon(() => cb(null, a + b), 200);
+}
+
+function withPromise(a, b) {
+  return notun promise((resolve, reject) => {
+    withCallback(a, b, (err, sum) => {
+      jodi (err) reject(err);
+      nahole resolve(sum);
+    });
+  });
+}
+
+withPromise(3, 4).tarpor(console.log); // 7
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Mixing Callbacks with Timers
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+function pollUntilReady(isReady, done) {
+  const id = setInterval(() => {
+    if (isReady()) {
+      clearInterval(id);
+      done(null, "Ready!");
+    }
+  }, 100);
+}
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+function প্রস্তুত_হওয়া_পর্যন্ত_পোল(isReady, done) {
+  const আইডি = ইন্টারভ্যাল(() => {
+    যদি (isReady()) {
+      ক্লিয়ার_ইন্টারভ্যাল(আইডি);
+      done(null, "প্রস্তুত!");
+    }
+  }, 100);
+}
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+function pollHoyaPorjonto(isReady, shesh) {
+  const id = interval(() => {
+    jodi (isReady()) {
+      clearInterval(id);
+      shesh(null, "Ready!");
+    }
+  }, 100);
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Best Practices Recap
+
+<I18nEnglish>
+- Use error‑first callbacks consistently.  
+- Keep callback functions pure and small.  
+- Prefer promises/async‑await for complex flows.  
+- Always clear timers you start.
+</I18nEnglish>
+
+<I18nBangla>
+- সর্বত্র error‑first প্যাটার্ন অনুসরণ করুন।  
+- কলব্যাকগুলো ছোট ও পার্শ্বপ্রভাব‑মুক্ত রাখুন।  
+- জটিল ফ্লোতে প্রতিশ্রুতি বা async‑await ব্যবহার করুন।  
+- নিজে শুরু করা টাইমার অবশ্যই ক্লিয়ার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Error‑first pattern maintain korun.  
+- Callback chhoto, side‑effect kom rakhun.  
+- Complex flow te promise/async‑await prefer korun.  
+- Jekono timer start korle clear korte vulben na.
+</I18nBanglish>

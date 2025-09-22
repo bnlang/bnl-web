@@ -1,0 +1,357 @@
+---
+title: switch & case Keywords
+description: Using switch, case, default, and break in Bnlang with examples in English, Bangla, and Banglish.
+bnTitle: বিকল্প ও অবস্থা কীওয়ার্ড
+bnDescription: Bnlang এ বিকল্প (switch), অবস্থা (case), অন্যথায় (default) ও থামুন (break) ব্যবহারের নিয়ম ও উদাহরণ।
+banglishTitle: switch & case Keywords
+banglishDescription: Bnlang e switch (bikolpo), case (obostha), default (onnothay), break (thamun) usage with examples.
+---
+
+# <I18nEnglish>switch & case Keywords</I18nEnglish>
+# <I18nBangla>বিকল্প ও অবস্থা কীওয়ার্ড</I18nBangla>
+# <I18nBanglish>switch & case Keywords</I18nBanglish>
+
+<I18nEnglish>
+Use **`switch`** to select one of many branches based on a single expression.  
+Each **`case`** is a label to match; use **`break`** to stop execution, and **`default`** as the fallback when no case matches.
+</I18nEnglish>
+
+<I18nBangla>
+**`বিকল্প`** ব্যবহার করুন একটি অভিব্যক্তির মান অনুযায়ী একাধিক পথের মধ্যে যেকোনো একটি চালাতে।  
+প্রতিটি **`অবস্থা`** একটি লেবেল; **`থামুন`** দিয়ে ব্লক শেষ করুন, আর কোনো অবস্থা না মিললে **`অন্যথায়`** চলবে।
+</I18nBangla>
+
+<I18nBanglish>
+**`bikolpo`** diye ekta expression er value onujayi onekgulo path er modhye ekta choose hoy.  
+Protiti **`obostha`** label; cholte thaka bondho korte **`thamun`**, ebong kono case match na korle **`onnothay`**.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+switch (expression) {
+  case value1:
+    // statements
+    break;            // usually stop here
+  case value2:
+    // statements
+    break;
+  default:
+    // fallback
+}
+```
+<br/>
+```bnl
+// Grouping multiple cases
+switch (x) {
+  case 1:
+  case 2:
+  case 3:
+    // handle 1,2,3
+    break;
+  default:
+    // ...
+}
+```
+<br/>
+```bnl
+// Placing default earlier (falls through if no break)
+switch (code) {
+  default:
+    console.log("Unknown");
+    // no break -> falls through
+  case "A":
+    console.log("Handled A");
+    break;
+}
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+বিকল্প (অভিব্যক্তি) {
+  অবস্থা মান১:
+    // স্টেটমেন্ট
+    থামুন;
+  অবস্থা মান২:
+    // স্টেটমেন্ট
+    থামুন;
+  অন্যথায়:
+    // ডিফল্ট/ফলব্যাক
+}
+```
+
+```bnl
+// একাধিক অবস্থা একসাথে গ্রুপ
+বিকল্প (x) {
+  অবস্থা 1:
+  অবস্থা 2:
+  অবস্থা 3:
+    // 1,2,3 একভাবে হ্যান্ডল
+    থামুন;
+  অন্যথায়:
+    // ...
+}
+```
+
+```bnl
+// শুরুতে অন্যথায় রাখলে (থামুন না দিলে) পরের ব্লকে পড়বে
+বিকল্প (কোড) {
+  অন্যথায়:
+    কনসোল.লগ("অজানা");
+  অবস্থা "A":
+    কনসোল.লগ("A হ্যান্ডলড");
+    থামুন;
+}
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+bikolpo (expression) {
+  obostha man1:
+    // statements
+    thamun;
+  obostha man2:
+    // statements
+    thamun;
+  onnothay:
+    // fallback
+}
+```
+
+```bnl
+// Multiple case grouping
+bikolpo (x) {
+  obostha 1:
+  obostha 2:
+  obostha 3:
+    // handle 1,2,3
+    thamun;
+  onnothay:
+    // ...
+}
+```
+
+```bnl
+// default agey dile (thamun na thakle) fall-through hobe
+bikolpo (kod) {
+  onnothay:
+    console.log("Unknown");
+  obostha "A":
+    console.log("Handled A");
+    thamun;
+}
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) গ্রেড মেসেজ
+let গ্রেড = "B";
+
+বিকল্প (গ্রেড) {
+  অবস্থা "A":
+    কনসোল.লগ("দারুণ!");
+    থামুন;
+  অবস্থা "B":
+    কনসোল.লগ("ভালো কাজ!");
+    থামুন;
+  অবস্থা "C":
+    কনসোল.সতর্ক("গড় মান");
+    থামুন;
+  অন্যথায়:
+    কনসোল.ত্রুটি("ভুল গ্রেড");
+}
+
+// ২) সপ্তাহের দিন গ্রুপিং
+const দিন = 6;
+বিকল্প (দিন) {
+  অবস্থা 1:
+  অবস্থা 2:
+  অবস্থা 3:
+  অবস্থা 4:
+  অবস্থা 5:
+    ছাপাও("কর্মদিবস");
+    থামুন;
+  অবস্থা 6:
+  অবস্থা 7:
+    দেখাও("সপ্তাহান্ত");
+    থামুন;
+  অন্যথায়:
+    লিখো("অজানা দিন");
+}
+
+// ৩) রেঞ্জ‑চেক: বিকল্প (true) কৌশল
+const n = 10;
+বিকল্প (true) {
+  অবস্থা n < 0:
+    কনসোল.সতর্ক("ঋণাত্মক");
+    থামুন;
+  অবস্থা n === 0:
+    কনসোল.লগ("শূন্য");
+    থামুন;
+  অবস্থা n > 0 && n % 2 === 0:
+    কনসোল.লগ("ধনাত্মক জোড়");
+    থামুন;
+  অন্যথায়:
+    কনসোল.লগ("ধনাত্মক বিজোড়");
+}
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) Grade message
+let grade = "B";
+
+bikolpo (grade) {
+  obostha "A":
+    console.log("Excellent!");
+    thamun;
+  obostha "B":
+    console.log("Good job!");
+    thamun;
+  obostha "C":
+    console.warn("Average");
+    thamun;
+  onnothay:
+    console.error("Invalid grade");
+}
+
+// 2) Weekday/weekend grouping
+const din = 6;
+bikolpo (din) {
+  obostha 1:
+  obostha 2:
+  obostha 3:
+  obostha 4:
+  obostha 5:
+    chapao("Weekday");
+    thamun;
+  obostha 6:
+  obostha 7:
+    dekhao("Weekend");
+    thamun;
+  onnothay:
+    likho("Unknown day");
+}
+
+// 3) Range check with `bikolpo (true)`
+const n = 10;
+bikolpo (true) {
+  obostha n < 0:
+    console.warn("Negative");
+    thamun;
+  obostha n === 0:
+    console.log("Zero");
+    thamun;
+  obostha n > 0 && n % 2 === 0:
+    console.log("Positive even");
+    thamun;
+  onnothay:
+    console.log("Positive odd");
+}
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Grade message
+let grade = "B";
+
+switch (grade) {
+  case "A":
+    console.log("Excellent!");
+    break;
+  case "B":
+    console.log("Good job!");
+    break;
+  case "C":
+    console.warn("Average");
+    break;
+  default:
+    console.error("Invalid grade");
+}
+
+// 2) Weekday/weekend grouping
+const day = 6;
+switch (day) {
+  case 1:
+  case 2:
+  case 3:
+  case 4:
+  case 5:
+    print("Weekday");
+    break;
+  case 6:
+  case 7:
+    console.info("Weekend");
+    break;
+  default:
+    console.log("Unknown day");
+}
+
+// 3) Range check pattern
+const n = 10;
+switch (true) {
+  case n < 0:
+    console.warn("Negative");
+    break;
+  case n === 0:
+    console.log("Zero");
+    break;
+  case n > 0 && n % 2 === 0:
+    console.log("Positive even");
+    break;
+  default:
+    console.log("Positive odd");
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Put **`break`** after each `case` unless you intentionally want **fall‑through**.  
+- Only one **`default`** per switch; it can appear anywhere in the block.  
+- Use a `switch (true)` pattern to express range logic succinctly, otherwise prefer `if...else` for complex predicates.  
+- For simple value-to-result mapping, an **object map** can be faster and more readable than a long switch.
+</I18nEnglish>
+
+<I18nBangla>
+- প্রতিটি `অবস্থা`র শেষে সাধারণত **`থামুন`** রাখুন, নাহলে **fall‑through** হবে।  
+- একটি `বিকল্প` ব্লকে মাত্র একটি **`অন্যথায়`** থাকতে পারে এবং এটি যেকোনো স্থানে রাখা যায়।  
+- রেঞ্জ লজিকের জন্য `বিকল্প (true)` কৌশল কার্যকর; খুব জটিল শর্তে `যদি...নাহলে` আরামদায়ক।  
+- সরল মান‑থেকে‑ফলাফল ম্যাপিং হলে দীর্ঘ `বিকল্প`‑এর বদলে **অবজেক্ট ম্যাপ** ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Protiti `obostha` por **`thamun`** din, na hole **fall‑through** hote pare.  
+- Protiti `bikolpo` te sudhu ekta **`onnothay`** thake, ebong seta block er je kono jaygai thakte pare.  
+- Range logic e `bikolpo (true)` upokari; onek complex condition e `jodi...nahole` sohoj.  
+- Shohoj value→result map hole long switch er cheye **object map** porishkar.
+</I18nBanglish>

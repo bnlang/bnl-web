@@ -1,0 +1,186 @@
+---
+title: Using the Bnlang Test Runner
+description: A practical guide on how to use the Bnlang Test Runner with English, Bangla, and Banglish examples.
+bnTitle: Bnlang টেস্ট রানার ব্যবহার
+bnDescription: Bnlang টেস্ট রানার ব্যবহার করার প্রায়োগিক গাইড, উদাহরণসহ।
+banglishTitle: Using the Bnlang Test Runner
+banglishDescription: Bnlang Test Runner beboharer proyogik guide, udahoron English, Bangla ar Banglish e.
+---
+
+# <I18nEnglish>Using the Bnlang Test Runner</I18nEnglish>
+# <I18nBangla>Bnlang টেস্ট রানার ব্যবহার</I18nBangla>
+# <I18nBanglish>Using the Bnlang Test Runner</I18nBanglish>
+
+<I18nEnglish>
+The **Bnlang Test Runner** helps you run and manage tests for your Bnlang applications.  
+It supports running individual files, watching for changes, and integrating with CI/CD systems.  
+This guide explains how to run tests effectively.
+</I18nEnglish>
+
+<I18nBangla>
+**Bnlang টেস্ট রানার** ব্যবহার করে সহজে আপনার Bnlang অ্যাপ্লিকেশনের টেস্ট চালানো যায়।  
+এটি আলাদা ফাইল চালানো, পরিবর্তন মনিটর করা এবং CI/CD সিস্টেমের সাথে ইন্টিগ্রেশন সাপোর্ট করে।  
+এই গাইডে টেস্ট সঠিকভাবে চালানোর নিয়ম দেখানো হয়েছে।
+</I18nBangla>
+
+<I18nBanglish>
+**Bnlang Test Runner** use kore easy vabe Bnlang application er test run kora jay.  
+Eta individual file run, poriborton monitor kora, ar CI/CD system er shathe integrate korte support kore.  
+Ei guide e test kibhabe properly run korte hoy sheta dekhano holo.
+</I18nBanglish>
+
+---
+
+## Running Tests
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```sh
+# Run all tests in the project
+bnl --test
+
+# Run a specific test file
+bnl --test tests/math.test.bnl
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```sh
+# প্রজেক্টের সব টেস্ট চালান
+bnl --test
+
+# নির্দিষ্ট টেস্ট ফাইল চালান
+bnl --test tests/math.test.bnl
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```sh
+# Project er shob test run korun
+bnl --test
+
+# Specific test file run korun
+bnl --test tests/math.test.bnl
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Watching for Changes
+
+<I18nEnglish>
+You can run the test runner in **watch mode**, which automatically reruns tests when files change.
+</I18nEnglish>
+
+<I18nBangla>
+আপনি টেস্ট রানারকে **watch mode** এ চালাতে পারেন, যা ফাইল পরিবর্তন হলে স্বয়ংক্রিয়ভাবে টেস্ট চালায়।
+</I18nBangla>
+
+<I18nBanglish>
+Apni test runner ke **watch mode** e run korte paren, ja file change hole automatic test chalaye.
+</I18nBanglish>
+
+---
+
+## Filtering Tests
+
+<I18nEnglish>
+Use the `--only` flag or `.only` in test definitions to run specific tests.  
+Mark tests with `.skip` to temporarily disable them.
+</I18nEnglish>
+
+<I18nBangla>
+`--only` ফ্ল্যাগ বা টেস্ট ডেফিনিশনে `.only` ব্যবহার করে নির্দিষ্ট টেস্ট চালাতে পারেন।  
+`.skip` ব্যবহার করলে টেস্ট সাময়িকভাবে এড়ানো যায়।
+</I18nBangla>
+
+<I18nBanglish>
+`--only` flag ba test definition e `.only` use kore specific test run korte parben.  
+`.skip` use korle test temporarily skip kora jay.
+</I18nBanglish>
+
+---
+
+## Example: Filtering
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+import test from "bnlang:test";
+
+test.only("runs this test only", (t) => {
+  t.ok(true);
+});
+
+test.skip("skips this test", (t) => {
+  t.ok(false);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+import test from "bnlang:test";
+
+test.only("শুধু এই টেস্ট চলবে", (t) => {
+  t.ok(true);
+});
+
+test.skip("এই টেস্ট এড়ানো হবে", (t) => {
+  t.ok(false);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+import test from "bnlang:test";
+
+test.only("shudhu ei test cholbe", (t) => {
+  t.ok(true);
+});
+
+test.skip("ei test skip hobe", (t) => {
+  t.ok(false);
+});
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Keep test files in a `tests/` directory.  
+- Integrate test runs into CI/CD pipelines.
+</I18nEnglish>
+
+<I18nBangla>
+- টেস্ট ফাইলগুলো `tests/` ডিরেক্টরিতে রাখুন।  
+- CI/CD পাইপলাইনে টেস্ট অন্তর্ভুক্ত করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Test file gulo `tests/` directory te rakhun.  
+- CI/CD pipeline e test integrate korun.
+</I18nBanglish>

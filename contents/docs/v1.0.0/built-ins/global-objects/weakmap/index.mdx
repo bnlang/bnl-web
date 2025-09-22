@@ -1,0 +1,103 @@
+---
+title: WeakMap
+description: The WeakMap object in Bnlang with Bangla, Banglish, and English usage for weak key-value collections.
+bnTitle: দুর্বল_মানচিত্র
+bnDescription: Bnlang এ দুর্বল_মানচিত্র ব্যবহার করে key-value জোড়া সংরক্ষণ করা হয়, যেখানে key শুধুমাত্র অবজেক্ট হতে পারে।
+banglishTitle: DurbolManchitro
+banglishDescription: Bnlang e DurbolManchitro diye object key-based collection toiri kora jay.
+---
+
+# <I18nEnglish>WeakMap</I18nEnglish>
+# <I18nBangla>দুর্বল_মানচিত্র</I18nBangla>
+# <I18nBanglish>DurbolManchitro</I18nBanglish>
+
+<I18nEnglish>
+The **WeakMap** object holds key-value pairs where keys must be objects, and values can be any data.  
+Keys are held weakly, meaning they do not prevent garbage collection.
+</I18nEnglish>
+
+<I18nBangla>
+**দুর্বল_মানচিত্র** key-value জোড়া ধরে রাখে যেখানে key অবজেক্ট হতে হবে, আর value যেকোনো ডেটা হতে পারে।  
+Keys গুলি দুর্বলভাবে সংরক্ষিত হয়, তাই garbage collection এ মুছে যেতে পারে।
+</I18nBangla>
+
+<I18nBanglish>
+**DurbolManchitro** object key-value pair store kore, jekhane key shudhu object hote pare ar value jekono data hote pare.  
+Keys weak vabe store hoy bole garbage collection e cole jete pare.
+</I18nBanglish>
+
+---
+
+## Static & Constructor
+
+<I18nEnglish>
+Create a WeakMap instance using `new WeakMap()` or its Bnlang equivalents.
+</I18nEnglish>
+
+<I18nBangla>
+`new দুর্বল_মানচিত্র()` ব্যবহার করে নতুন WeakMap তৈরি করা যায়।
+</I18nBangla>
+
+<I18nBanglish>
+`new DurbolManchitro()` diye notun WeakMap create kora jay.
+</I18nBanglish>
+
+```bnl
+const wm1 = new WeakMap();
+const wm2 = new দুর্বল_মানচিত্র();
+const wm3 = new DurbolManchitro();
+```
+
+---
+
+## Methods
+
+### set()
+
+<I18nEnglish>Associates a value with an object key.</I18nEnglish>  
+<I18nBangla>একটি object key এর সাথে value সংযুক্ত করে।</I18nBangla>  
+<I18nBanglish>Ekta object key er shathe value songjukto kore.</I18nBanglish>
+
+```bnl
+const wm = new দুর্বল_মানচিত্র();
+const key = {};
+wm.স্থাপন(key, 123);
+```
+
+### get()
+
+<I18nEnglish>Retrieves the value associated with the object key.</I18nEnglish>  
+<I18nBangla>object key এর সাথে সংযুক্ত value ফেরত দেয়।</I18nBangla>  
+<I18nBanglish>Object key er shathe songjukto value ferot dey.</I18nBanglish>
+
+```bnl
+console.log(wm.গ্রহন(key)); // 123
+```
+
+### has()
+
+<I18nEnglish>Checks if a key exists in the WeakMap.</I18nEnglish>  
+<I18nBangla>WeakMap এ key আছে কি না তা যাচাই করে।</I18nBangla>  
+<I18nBanglish>WeakMap e key ache kina check kore.</I18nBanglish>
+
+```bnl
+console.log(wm.আছে(key)); // true
+```
+
+### delete()
+
+<I18nEnglish>Removes a key-value pair from the WeakMap.</I18nEnglish>  
+<I18nBangla>WeakMap থেকে একটি key-value জোড়া মুছে ফেলে।</I18nBangla>  
+<I18nBanglish>WeakMap theke ekta key-value pair muche felo.</I18nBanglish>
+
+```bnl
+wm.মুছুন(key);
+```
+
+---
+
+## Limitations
+
+<I18nEnglish>WeakMaps are not enumerable; they have no keys(), values(), entries(), or size.</I18nEnglish>  
+<I18nBangla>WeakMap গুলো enumerable নয়; এগুলোর keys(), values(), entries(), বা size নেই।</I18nBangla>  
+<I18nBanglish>WeakMap gulo enumerable noy; egulor keys(), values(), entries(), ba size nei.</I18nBanglish>

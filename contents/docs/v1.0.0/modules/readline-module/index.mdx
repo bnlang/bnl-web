@@ -1,0 +1,130 @@
+---
+title: readline module
+description: Readline APIs for reading input from streams like process.stdin line by line, supporting prompts, history, and interfaces.
+bnTitle: readline মডিউল
+bnDescription: readline API — process.stdin থেকে লাইন বাই লাইন ইনপুট, প্রম্পট, হিস্ট্রি ও ইন্টারফেস সাপোর্ট।
+banglishTitle: readline module
+banglishDescription: readline API — read input line by line from process.stdin, with prompt, history, and interfaces.
+---
+
+# <I18nEnglish>readline</I18nEnglish>
+# <I18nBangla>readline</I18nBangla>
+# <I18nBanglish>readline</I18nBanglish>
+
+<I18nEnglish>
+The **`readline`** module provides an interface for reading input line by line from a readable stream (such as `process.stdin`). Supports prompts, history, and question/answer patterns.
+</I18nEnglish>
+
+<I18nBangla>
+**`readline`** মডিউল লাইন বাই লাইন ইনপুট পড়তে দেয় (যেমন `process.stdin`)। প্রম্পট, হিস্ট্রি ও প্রশ্ন/উত্তর সাপোর্ট করে।
+</I18nBangla>
+
+<I18nBanglish>
+**`readline`** module line by line input read korte dey (e.g., `process.stdin`). Prompt, history & question/answer support kore.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Interface
+- **`readline.createInterface(options)`** — create interface.  
+  Options:  
+  - `input`: readable stream (e.g., `process.stdin`)  
+  - `output`: writable stream (e.g., `process.stdout`)  
+  - `prompt`: prompt string  
+
+### Methods
+- **`rl.question(query, cb)`** — ask question, call cb with answer.  
+- **`rl.prompt()`** — display prompt.  
+- **`rl.close()`** — close interface.  
+
+### Events
+- **`'line'`** — emitted when user enters a line.  
+- **`'close'`** — when input closes.  
+- **`'SIGINT'`** — on Ctrl+C.  
+
+</I18nEnglish>
+
+<I18nBangla>
+### ইন্টারফেস
+- **`createInterface`** — ইনপুট/আউটপুট দিয়ে ইন্টারফেস।  
+- মেথড: **`question`**, **`prompt`**, **`close`**।  
+- ইভেন্ট: **`line`**, **`close`**, **`SIGINT`**।  
+</I18nBangla>
+
+<I18nBanglish>
+### Interface
+- **`createInterface`** — input/output diye interface.  
+- Method: **`question`**, **`prompt`**, **`close`**.  
+- Event: **`line`**, **`close`**, **`SIGINT`**.  
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const readline = require("readline");
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  prompt: "> "
+});
+
+rl.prompt();
+
+rl.on("line", (line) => {
+  console.log("You typed:", line);
+  if (line === "exit") rl.close();
+  else rl.prompt();
+});
+
+rl.on("close", () => {
+  console.log("Goodbye!");
+  process.exit(0);
+});
+
+// Ask a single question
+// rl.question("What is your name? ", (answer) => {
+//   console.log("Hello", answer);
+//   rl.close();
+// });
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Use **`question`** for simple one-time input.  
+- Use **`line`** event with **`prompt`** for interactive shells.  
+- Always call **`close`** when done to free resources.  
+- Handle **`SIGINT`** (Ctrl+C) if you need graceful shutdown.  
+</I18nEnglish>
+
+<I18nBangla>
+- একবারের ইনপুটের জন্য **`question`**।  
+- ইন্টারঅ্যাকটিভ শেলের জন্য **`line`** ইভেন্ট।  
+- শেষে **`close`** করতে হবে।  
+- **`SIGINT`** (Ctrl+C) ধরতে পারেন।  
+</I18nBangla>
+
+<I18nBanglish>
+- One-time input er jonno **`question`**.  
+- Interactive shell er jonno **`line`** event.  
+- Shesh e **`close`** korte hobe.  
+- **`SIGINT`** (Ctrl+C) handle kora jete pare.  
+</I18nBanglish>

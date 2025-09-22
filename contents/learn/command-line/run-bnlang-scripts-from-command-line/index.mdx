@@ -1,0 +1,190 @@
+---
+title: Run Bnlang Scripts from Command Line
+description: Learn how to run Bnlang scripts directly from the command line with examples in English, Bangla, and Banglish.
+bnTitle: কমান্ড লাইন থেকে Bnlang স্ক্রিপ্ট চালানো
+bnDescription: কমান্ড লাইন থেকে Bnlang স্ক্রিপ্ট চালানোর উদাহরণ।
+banglishTitle: Run Bnlang Scripts from Command Line
+banglishDescription: Command line theke Bnlang script run korar udahoron English, Bangla ar Banglish e.
+---
+
+# <I18nEnglish>Run Bnlang Scripts from Command Line</I18nEnglish>
+# <I18nBangla>কমান্ড লাইন থেকে Bnlang স্ক্রিপ্ট চালানো</I18nBangla>
+# <I18nBanglish>Run Bnlang Scripts from Command Line</I18nBanglish>
+
+<I18nEnglish>
+Bnlang programs can be executed directly from the command line using the **`bnl`** command.  
+This allows developers to quickly test, debug, and run scripts without extra setup.
+</I18nEnglish>
+
+<I18nBangla>
+**`bnl`** কমান্ড ব্যবহার করে সরাসরি কমান্ড লাইন থেকে Bnlang প্রোগ্রাম চালানো যায়।  
+এর মাধ্যমে ডেভেলপাররা দ্রুত টেস্ট, ডিবাগ এবং স্ক্রিপ্ট চালাতে পারে।
+</I18nBangla>
+
+<I18nBanglish>
+Bnlang program command line theke **`bnl`** command diye directly run kora jay.  
+Eta diye developer ra fast vabe test, debug, ar script run korte pare.
+</I18nBanglish>
+
+---
+
+## Running a Script
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```sh
+# Run a script
+bnl hello.bnl
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```sh
+# একটি স্ক্রিপ্ট চালান
+bnl hello.bnl
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```sh
+# Ekta script run korun
+bnl hello.bnl
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Example Script
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+// file: hello.bnl
+console.log("Hello, World!");
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ফাইল: hello.bnl
+কনসোল.লগ("হ্যালো, বিশ্ব!");
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// file: hello.bnl
+console.log("Hello, Bishsho!");
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Running with Arguments
+
+<I18nEnglish>
+You can pass command-line arguments to Bnlang scripts using `process.argv`.
+</I18nEnglish>
+
+<I18nBangla>
+`process.argv` ব্যবহার করে Bnlang স্ক্রিপ্টে কমান্ড লাইন আর্গুমেন্ট পাঠানো যায়।
+</I18nBangla>
+
+<I18nBanglish>
+`process.argv` use kore Bnlang script e command line argument pathano jay.
+</I18nBanglish>
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+// file: greet.bnl
+const name = process.argv[2] || "Guest";
+console.log("Hello,", name);
+```
+
+```sh
+bnl greet.bnl Alice
+# Output: Hello, Alice
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ফাইল: greet.bnl
+const নাম = process.argv[2] || "অতিথি";
+কনসোল.লগ("হ্যালো,", নাম);
+```
+
+```sh
+bnl greet.bnl আলিস
+# আউটপুট: হ্যালো, আলিস
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// file: greet.bnl
+const nam = process.argv[2] || "Guest";
+console.log("Hello,", nam);
+```
+
+```sh
+bnl greet.bnl Alis
+# Output: Hello, Alis
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Keep scripts small and modular.  
+- Use meaningful file names.  
+- Validate input when using arguments.  
+- Organize scripts in a `scripts/` directory.
+</I18nEnglish>
+
+<I18nBangla>
+- স্ক্রিপ্ট ছোট এবং মডুলার রাখুন।  
+- অর্থবহ ফাইল নাম ব্যবহার করুন।  
+- আর্গুমেন্ট ব্যবহার করলে ইনপুট যাচাই করুন।  
+- স্ক্রিপ্টগুলো `scripts/` ডিরেক্টরিতে রাখুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Script chhoto ar modular rakhun.  
+- Meaningful file name use korun.  
+- Argument use korle input validate korun.  
+- Script gulo `scripts/` directory te rakhun.
+</I18nBanglish>

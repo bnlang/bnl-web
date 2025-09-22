@@ -1,0 +1,93 @@
+---
+title: Proxy
+description: Proxy objects in Bnlang (প্রক্সি) with support for intercepting operations, using Bangla and Banglish names.
+bnTitle: প্রক্সি
+bnDescription: Bnlang এ প্রক্সি ব্যবহার করে অবজেক্টের আচরণ কাস্টমাইজ ও ইন্টারসেপ্ট করার উপায়।
+banglishTitle: Proxy
+banglishDescription: Bnlang e Proxy (proksi) diye object er behavior customize kora jay.
+---
+
+# <I18nEnglish>Proxy</I18nEnglish>
+# <I18nBangla>প্রক্সি</I18nBangla>
+# <I18nBanglish>Proxy</I18nBanglish>
+
+<I18nEnglish>
+A **Proxy** (Bangla: **প্রক্সি**) wraps a target object and a handler to intercept operations like `get`, `set`, etc.
+
+Static method: `Proxy.revocable(target, handler)` · Bangla: `প্রক্সি.প্রত্যাহারযোগ্য(target, handler)` · Banglish: `Proxy.prottaharjuggo(target, handler)`
+</I18nEnglish>
+
+<I18nBangla>
+**প্রক্সি** দিয়ে একটি টার্গেট অবজেক্টকে মোড়ানো হয় এবং `get`, `set` ইত্যাদি অপারেশন ইন্টারসেপ্ট করা যায়।
+
+স্ট্যাটিক মেথড: `প্রক্সি.প্রত্যাহারযোগ্য(target, handler)`
+</I18nBangla>
+
+<I18nBanglish>
+**Proxy (proksi)** use kore target object wrap kora hoy, jekhane handler diye `get`, `set` moto operation intercept kora jay.
+
+Static method: `Proxy.prottaharjuggo(target, handler)`
+</I18nBanglish>
+
+---
+
+## Example
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const target = {};
+const handler = {
+  get: (obj, prop) => (prop in obj ? obj[prop] : "default")
+};
+
+const p = new Proxy(target, handler);
+console.log(p.abc); // "default"
+
+const { proxy, revoke } = Proxy.revocable(target, handler);
+console.log(proxy.abc); // "default"
+revoke();
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const target = {};
+const handler = {
+  get: (obj, prop) => (prop in obj ? obj[prop] : "ডিফল্ট")
+};
+
+const p = new প্রক্সি(target, handler);
+কনসোল.লগ(p.abc); // "ডিফল্ট"
+
+const { proxy, revoke } = প্রক্সি.প্রত্যাহারযোগ্য(target, handler);
+কনসোল.লগ(proxy.abc); // "ডিফল্ট"
+revoke();
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const target = {};
+const handler = {
+  get: (obj, prop) => (prop in obj ? obj[prop] : "default")
+};
+
+const p = new Proxy(target, handler);
+console.log(p.abc); // "default"
+
+const { proxy, revoke } = Proxy.prottaharjuggo(target, handler);
+console.log(proxy.abc); // "default"
+revoke();
+```
+  </TabsContent>
+</Tabs>

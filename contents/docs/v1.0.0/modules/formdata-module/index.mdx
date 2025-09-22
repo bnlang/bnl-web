@@ -1,0 +1,113 @@
+---
+title: formdata module
+description: FormData API for building multipart/form-data requests — append fields, files, and iterate entries for HTTP submission.
+bnTitle: formdata মডিউল
+bnDescription: FormData API — multipart/form-data রিকোয়েস্ট তৈরি, ফিল্ড ও ফাইল যোগ করা, এবং HTTP সাবমিশনের জন্য এন্ট্রি ইটারেট।
+banglishTitle: formdata module
+banglishDescription: FormData API — build multipart/form-data request, append fields & files, iterate entries for HTTP submission.
+---
+
+# <I18nEnglish>formdata</I18nEnglish>
+# <I18nBangla>formdata</I18nBangla>
+# <I18nBanglish>formdata</I18nBanglish>
+
+<I18nEnglish>
+The **`FormData`** API provides a way to build multipart/form-data bodies for HTTP requests, typically used with **`fetch`** for file uploads and form submissions.
+</I18nEnglish>
+
+<I18nBangla>
+**`FormData`** API দিয়ে multipart/form-data বডি তৈরি করা যায়, সাধারণত **`fetch`** দিয়ে ফাইল আপলোড বা ফর্ম সাবমিটে ব্যবহৃত।
+</I18nBangla>
+
+<I18nBanglish>
+**`FormData`** API diye multipart/form-data body create kora jay, usually **`fetch`** sathe file upload or form submit er jonno use hoy.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Class: FormData
+- **`new FormData()`** — create empty form.  
+- **`form.append(name, value[, filename])`** — add field or file.  
+- **`form.set(name, value[, filename])`** — set/replace field.  
+- **`form.get(name)`**, **`form.getAll(name)`** — retrieve values.  
+- **`form.has(name)`**, **`form.delete(name)`** — check/remove.  
+- Iterable: `for (const [key, value] of form)`.
+
+</I18nEnglish>
+
+<I18nBangla>
+### মেথড
+- **`append/set`** — ফিল্ড বা ফাইল যোগ/সেট।  
+- **`get/getAll`** — মান আনা।  
+- **`has/delete`** — চেক/ডিলিট।  
+- ইটারেবল।  
+</I18nBangla>
+
+<I18nBanglish>
+### Methods
+- **`append/set`** — field/file add or set.  
+- **`get/getAll`** — get value.  
+- **`has/delete`** — check/delete.  
+- Iterable.  
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+// Build a form body
+const form = new FormData();
+form.append("username", "mamun");
+form.append("avatar", new Blob(["filedata"]), "avatar.png");
+
+// Submit with fetch
+const res = await fetch("https://example.com/upload", {
+  method: "POST",
+  body: form
+});
+console.log("status:", res.status);
+
+// Iterate form data
+for (const [key, value] of form) {
+  console.log(key, value);
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Automatically sets **Content-Type: multipart/form-data** with proper boundary when used with fetch.  
+- Supports files (Blob, File, Buffer) and simple fields.  
+- Duplicate keys are allowed; use `.getAll()` to retrieve them.  
+- Useful for browser and server-side environments.  
+</I18nEnglish>
+
+<I18nBangla>
+- **fetch** এর সাথে ব্যবহার করলে Content-Type নিজে সেট হয়।  
+- ফাইল ও সাধারণ ফিল্ড সাপোর্ট করে।  
+- একই নামের ফিল্ড একাধিকবার রাখা যায়।  
+- ব্রাউজার ও সার্ভার-সাইড উভয় জায়গায় উপযোগী।  
+</I18nBangla>
+
+<I18nBanglish>
+- **fetch** sathe use korle Content-Type auto set hoy.  
+- File & simple field support kore.  
+- Duplicate key rakha jay, `.getAll()` diye pawa jay.  
+- Browser & server-side e use kora jay.  
+</I18nBanglish>

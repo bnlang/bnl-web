@@ -1,0 +1,275 @@
+---
+title: async · await
+description: Asynchronous programming in Bnlang using async functions, await, parallel vs sequential patterns, Promise.all, error handling, and for‑await‑of.
+bnTitle: অসমলয় · অপেক্ষা
+bnDescription: Bnlang এ অসমলয় (async) ফাংশন ও অপেক্ষা (await) — সিকোয়েন্সিয়াল বনাম প্যারালাল, Promise.all, ত্রুটি হ্যান্ডলিং, for‑await‑of ইত্যাদি।
+banglishTitle: async · await
+banglishDescription: Bnlang e osomoloy function & opekkha — sequential vs parallel, Promise.all, error handling, for‑await‑of.
+---
+
+# <I18nEnglish>async · await</I18nEnglish>
+# <I18nBangla>অসমলয় · অপেক্ষা</I18nBangla>
+# <I18nBanglish>async · await</I18nBanglish>
+
+<I18nEnglish>
+Use **`async`** to declare a function that returns a **Promise**. Inside it, use **`await`** to pause until a Promise settles and extract its value.  
+`try/catch/finally` works with `await` for error handling and cleanup.
+</I18nEnglish>
+
+<I18nBangla>
+**`অসমলয়`** দিয়ে ঘোষিত ফাংশন একটি **Promise** ফেরত দেয়। এর ভেতরে **`অপেক্ষা`** ব্যবহার করলে প্রমিস resolve/reject না হওয়া পর্যন্ত থামে এবং মানটি পাওয়া যায়।  
+ত্রুটি হ্যান্ডলিং ও ক্লিন‑আপের জন্য `চেষ্টা/ধরুন/অবশেষে` — `try/catch/finally`—ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+**`osomoloy`** function ekta **Promise** ferot dey. Vitor e **`opekkha`** dile promise resolve na howa porjonto thame thake ebong value pawa jay.  
+Error handle & cleanup er jonno `ceshta/dhorun/obosheshe` use korun.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+// Declare
+async function load(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("Bad response");
+  return await res.text();
+}
+
+// Arrow
+const loadJSON = async (url) => {
+  const res = await fetch(url);
+  return await res.json();
+};
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+// ঘোষণা
+অসমলয় ফাংশন লোড(url) {
+  const res = অপেক্ষা fetch(url);
+  যদি (!res.ok) নিক্ষেপ new Error("খারাপ রেসপন্স");
+  ফেরত অপেক্ষা res.text();
+}
+
+// অ্যারো
+const লোডজসন = অসমলয় (url) => {
+  const res = অপেক্ষা fetch(url);
+  ফেরত অপেক্ষা res.json();
+};
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+// Declaration
+osomoloy function load(url) {
+  const res = opekkha fetch(url);
+  jodi (!res.ok) nikkhep new Error("Bad response");
+  ferot opekkha res.text();
+}
+
+// Arrow
+const loadJSON = osomoloy (url) => {
+  const res = opekkha fetch(url);
+  ferot opekkha res.json();
+};
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) সিকোয়েন্সিয়াল — একটার পর একটা
+অসমলয় ফাংশন ডেটাআনো() {
+  চেষ্টা {
+    const a = অপেক্ষা fetch("/a");
+    const b = অপেক্ষা fetch("/b"); // /a শেষ না হলে শুরু হবে না
+    const c = অপেক্ষা fetch("/c");
+    ফেরত [অপেক্ষা a.text(), অপেক্ষা b.text(), অপেক্ষা c.text()];
+  } ধরুন (ত্রু) {
+    কনসোল.ত্রুটি("লোড ব্যর্থ:", ত্রু.message);
+    ফেরত [];
+  } অবশেষে {
+    কনসোল.তথ্য("শেষ");
+  }
+}
+
+// ২) প্যারালাল — Promise.all দিয়ে
+অসমলয় ফাংশন দ্রুতআনো() {
+  চেষ্টা {
+    const [a, b, c] = অপেক্ষা Promise.all([
+      fetch("/a"),
+      fetch("/b"),
+      fetch("/c"),
+    ]);
+    ফেরত অপেক্ষা Promise.all([a.text(), b.text(), c.text()]);
+  } ধরুন (ত্রু) {
+    কনসোল.ত্রুটি("ব্যর্থ:", ত্রু);
+    ফেরত [];
+  }
+}
+
+// ৩) for‑await‑of — স্ট্রিম/অ্যাসিঙ্ক ইটারেবল
+অসমলয় ফাংশন পড়ো(স্ট্রিম) {
+  চেষ্টা {
+    জন্য অপেক্ষা (const চাঙ্ক এর স্ট্রিম) {     // for await...of
+      কনসোল.লগ("চাঙ্ক:", চাঙ্ক);
+    }
+  } অবশেষে {
+    কনসোল.তথ্য("স্ট্রিম বন্ধ");
+  }
+}
+
+// ৪) টপ‑লেভেল অপেক্ষা (ES মডিউলে)
+// const config = অপেক্ষা fetch("/cfg.json").then(r => r.json());
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) Sequential
+osomoloy function dataAno() {
+  ceshta {
+    const a = opekkha fetch("/a");
+    const b = opekkha fetch("/b"); // /a shesh na hole shuru hobe na
+    const c = opekkha fetch("/c");
+    ferot [opekkha a.text(), opekkha b.text(), opekkha c.text()];
+  } dhorun (err) {
+    console.error("load failed:", err.message);
+    ferot [];
+  } obosheshe {
+    console.info("done");
+  }
+}
+
+// 2) Parallel with Promise.all
+osomoloy function drutoAno() {
+  ceshta {
+    const [a, b, c] = opekkha Promise.all([
+      fetch("/a"),
+      fetch("/b"),
+      fetch("/c"),
+    ]);
+    ferot opekkha Promise.all([a.text(), b.text(), c.text()]);
+  } dhorun (err) {
+    console.error("failed:", err);
+    ferot [];
+  }
+}
+
+// 3) for‑await‑of on async iterable
+osomoloy function poro(stream) {
+  ceshta {
+    jonno opekkha (const chunk er stream) {   // for await...of
+      console.log("chunk:", chunk);
+    }
+  } obosheshe {
+    console.info("stream closed");
+  }
+}
+
+// 4) Top‑level await (ES module)
+// const config = opekkha fetch("/cfg.json").then(r => r.json());
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Sequential
+async function loadSlow() {
+  try {
+    const a = await fetch("/a");
+    const b = await fetch("/b"); // waits for a
+    const c = await fetch("/c");
+    return [await a.text(), await b.text(), await c.text()];
+  } catch (err) {
+    console.error("load failed:", err.message);
+    return [];
+  } finally {
+    console.info("done");
+  }
+}
+
+// 2) Parallel with Promise.all
+async function loadFast() {
+  try {
+    const [a, b, c] = await Promise.all([
+      fetch("/a"),
+      fetch("/b"),
+      fetch("/c"),
+    ]);
+    return await Promise.all([a.text(), b.text(), c.text()]);
+  } catch (err) {
+    console.error("failed:", err);
+    return [];
+  }
+}
+
+// 3) for‑await‑of on async iterables
+async function read(stream) {
+  try {
+    for await (const chunk of stream) {
+      console.log("chunk:", chunk);
+    }
+  } finally {
+    console.info("stream closed");
+  }
+}
+
+// 4) Top‑level await (ES modules only)
+// const config = await fetch("/cfg.json").then(r => r.json());
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- `await` **serializes** by default; to run tasks in parallel, **start promises first**, then `await` them (or use `Promise.all`).  
+- Wrap `await` in **`try/catch`** to handle rejections. `finally` runs for cleanup.  
+- Avoid `await` inside hot `for` loops when tasks are independent — batch them and `Promise.all`.  
+- `for await...of` works on **async iterables** (streams, readers).  
+- **Top‑level `await`** is allowed only in ES modules.  
+- Keep one language style (English/Bangla/Banglish) per file for consistency.
+</I18nEnglish>
+
+<I18nBangla>
+- `অপেক্ষা` দিলে কাজগুলো **সিকোয়েন্সিয়াল** হয়ে যায়; প্যারালালে চালাতে চাইলে আগে **প্রমিস শুরু** করুন, পরে `Promise.all` বা আলাদাভাবে `অপেক্ষা` করুন।  
+- রিজেক্ট হ্যান্ডল করতে `চেষ্টা/ধরুন` ব্যবহার করুন; ক্লিন‑আপের জন্য `অবশেষে`।  
+- স্বাধীন কাজগুলোর ক্ষেত্রে লুপের ভেতরে এক‑এক করে `অপেক্ষা` থেকে বিরত থাকুন—ব্যাচ করে `Promise.all` করুন।  
+- `for অপেক্ষা...এর` (for‑await‑of) **অ্যাসিঙ্ক ইটারেবল**‑এ কাজ করে।  
+- **টপ‑লেভেল `অপেক্ষা`** কেবল ES মডিউলে বৈধ।  
+- একই ফাইলে একই ভাষা স্টাইল বজায় রাখুন।
+</I18nBangla>
+
+<I18nBanglish>
+- `opekkha` default e **serial** kore; parallel korte hole age promise start korun, pore `Promise.all` ba alada kore `opekkha`.  
+- Reject handle korte `ceshta/dhorun` use korun; cleanup er jonno `obosheshe`.  
+- Independent task hole loop er vitor ek‑ek kore `opekkha` na kore batch + `Promise.all`.  
+- `for opekkha...er` (for‑await‑of) **async iterable** e kaj kore.  
+- **Top‑level `opekkha`** sudhu ES module e valid.  
+- Ek file e ekta language style maintain korun.
+</I18nBanglish>

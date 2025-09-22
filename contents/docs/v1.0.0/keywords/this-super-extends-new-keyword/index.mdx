@@ -1,0 +1,285 @@
+---
+title: this · super · extends · new
+description: Core OOP keywords in Bnlang — `this` binding, inheritance with `extends`/`super`, and object creation via `new`.
+bnTitle: এটি · অভিভাবক · প্রসারিত · নতুন
+bnDescription: Bnlang এ এটি (this), অভিভাবক (super), প্রসারিত (extends), নতুন (new) — ব্যবহার, উদাহরণ, ও নোট।
+banglishTitle: this · super · extends · new
+banglishDescription: Bnlang e this, obhibhabok, prosarito, notun — usage & best practices.
+---
+
+# <I18nEnglish>this · super · extends · new</I18nEnglish>
+# <I18nBangla>এটি · অভিভাবক · প্রসারিত · নতুন</I18nBangla>
+# <I18nBanglish>this · super · extends · new</I18nBanglish>
+
+<I18nEnglish>
+- **`this`** — references the current instance or call‑site receiver.  
+- **`extends`** — creates a subclass that inherits from a base class.  
+- **`super`** — calls the base constructor or methods from a subclass.  
+- **`new`** — creates an instance by running the constructor and wiring the prototype.
+</I18nEnglish>
+
+<I18nBangla>
+- **`এটি (this)`** — বর্তমান ইনস্ট্যান্স/কল‑সাইট রিসিভারকে নির্দেশ করে।  
+- **`প্রসারিত (extends)`** — একটি বেস শ্রেণী থেকে সাবক্লাস তৈরি করে।  
+- **`অভিভাবক (super)`** — সাবক্লাস থেকে বেস কন্সট্রাক্টর/মেথড কল করতে ব্যবহৃত।  
+- **`নতুন (new)`** — কন্সট্রাক্টর চালিয়ে প্রোটোটাইপ সেট করে ইনস্ট্যান্স তৈরি করে।
+</I18nBangla>
+
+<I18nBanglish>
+- **`this`** — current instance/call‑site receiver ke refer kore.  
+- **`prosarito (extends)`** — base class theke subclass toyri kore.  
+- **`obhibhabok (super)`** — subclass theke base constructor/method call korte.  
+- **`notun (new)`** — constructor chalaye prototype wire kore instance create kore.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+// Class with this/new
+class User {
+  constructor(name) {
+    this.name = name;         // use 'this'
+  }
+  hello() { console.log("Hi", this.name); }
+}
+
+// Inheritance with extends/super
+class Admin extends User {
+  constructor(name, level) {
+    super(name);              // must call first
+    this.level = level;
+  }
+  hello() {
+    super.hello();            // call base method
+    console.log("Level:", this.level);
+  }
+}
+
+const u = new User("Mamun");  // 'new'
+u.hello();
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+// এটি/নতুন সহ শ্রেণী
+শ্রেণী ব্যবহারকারী {
+  constructor(নাম) {
+    এটি.নাম = নাম;
+  }
+  hello() { কনসোল.লগ("হাই", এটি.নাম); }
+}
+
+// প্রসারিত/অভিভাবক ব্যবহার
+শ্রেণী প্রশাসক প্রসারিত ব্যবহারকারী {
+  constructor(নাম, স্তর) {
+    অভিভাবক(নাম);            // আগে কল করতে হবে
+    এটি.স্তর = স্তর;
+  }
+  hello() {
+    অভিভাবক.hello();          // বেস মেথড কল
+    কনসোল.লগ("স্তর:", এটি.স্তর);
+  }
+}
+
+const u = নতুন ব্যবহারকারী("Mamun");
+u.hello();
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+// this/notun
+shreni Byaboharkari {
+  constructor(nam) {
+    eti.nam = nam;
+  }
+  hello() { console.log("Hi", eti.nam); }
+}
+
+// prosarito/obhibhabok
+shreni Proshashok prosarito Byaboharkari {
+  constructor(nam, level) {
+    obhibhabok(nam);          // age call dorkar
+    eti.level = level;
+  }
+  hello() {
+    obhibhabok.hello();       // base method
+    console.log("Level:", eti.level);
+  }
+}
+
+const u = notun Byaboharkari("Mamun");
+u.hello();
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) এটি (this) — মেথড বনাম অ্যারো
+শ্রেণী বোতাম {
+  constructor(লেবেল) { এটি.লেবেল = লেবেল; }
+  চাপ() { কনসোল.লগ("চাপ:", এটি.লেবেল); }         // মেথড: ডায়নামিক this
+  // অ্যারো‑ফিল্ড: this লেক্সিক্যালি ক্যাপচার হয়
+  ক্রিয়া = () => কনসোল.লগ("ক্রিয়া:", এটি.লেবেল);
+}
+
+const b = নতুন বোতাম("Save");
+const প্রেস = b.চাপ;
+প্রেস.call({ লেবেল: "Hack" });   // "চাপ: Hack" — কলসাইট নির্ভর
+b.ক্রিয়া.call({ লেবেল: "Hack" }); // "ক্রিয়া: Save" — অ্যারো this স্থির
+
+// ২) প্রসারিত/অভিভাবক — ওভাররাইড ও super.method
+শ্রেণী লগার {
+  log(msg) { কনসোল.লগ("[LOG]", msg); }
+}
+শ্রেণী ফাইললগার প্রসারিত লগার {
+  log(msg) {
+    অভিভাবক.log(msg); // বেস আচরণ
+    কনসোল.তথ্য("ফাইলে লেখা:", msg);
+  }
+}
+
+// ৩) নতুন (new) — ছাড়া কল করলে সমস্যা
+শ্রেণী কাউন্ট {
+  constructor(n = 0) { এটি.n = n; }
+}
+চেষ্টা {
+  const x = কাউন্ট(5); // ❌ নতুন ছাড়া — TypeError
+} ধরুন (ত্রু) {
+  কনসোল.সতর্ক("নতুন লাগবে:", ত্রু.message);
+}
+const y = নতুন কাউন্ট(5); // ✅
+কনসোল.লগ("y.n =", y.n);
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) this — method vs arrow
+shreni Button {
+  constructor(label) { eti.label = label; }
+  press() { console.log("press:", eti.label); }      // dynamic this
+  kriya = () => console.log("kriya:", eti.label);    // lexical this
+}
+
+const b = notun Button("Save");
+const press = b.press;
+press.call({ label: "Hack" });      // "press: Hack" — call‑site
+b.kriya.call({ label: "Hack" });    // "kriya: Save" — arrow keeps this
+
+// 2) prosarito/obhibhabok — override + super.method
+shreni Logger {
+  log(msg) { console.log("[LOG]", msg); }
+}
+shreni FileLogger prosarito Logger {
+  log(msg) {
+    obhibhabok.log(msg);
+    console.info("write to file:", msg);
+  }
+}
+
+// 3) notun — missing 'notun' causes error
+shreni Count {
+  constructor(n = 0) { eti.n = n; }
+}
+ceshta {
+  const x = Count(5); // ❌ without notun
+} dhorun (err) {
+  console.warn("notun dorkar:", err.message);
+}
+const y = notun Count(5); // ✅
+console.log("y.n =", y.n);
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) this — method vs arrow
+class Button {
+  constructor(label) { this.label = label; }
+  press() { console.log("press:", this.label); }      // dynamic this
+  action = () => console.log("action:", this.label);  // lexical this
+}
+
+const b = new Button("Save");
+const press = b.press;
+press.call({ label: "Hack" });   // "press: Hack" — call‑site receiver
+b.action.call({ label: "Hack" }); // "action: Save" — arrow keeps 'this'
+
+// 2) extends/super — override + super.method
+class Logger {
+  log(msg) { console.log("[LOG]", msg); }
+}
+class FileLogger extends Logger {
+  log(msg) {
+    super.log(msg);
+    console.info("write to file:", msg);
+  }
+}
+
+// 3) new — forgetting 'new' throws
+class Count {
+  constructor(n = 0) { this.n = n; }
+}
+try {
+  const x = Count(5); // ❌ TypeError in strict mode
+} catch (err) {
+  console.warn("need 'new':", err.message);
+}
+const y = new Count(5); // ✅
+console.log("y.n =", y.n);
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- In subclass constructors, **call `super(...)` before using `this`**.  
+- `super.method()` calls the base prototype method; inside **static** methods, `super` refers to the base **constructor** (useful for `super.someStatic()`).  
+- **Arrow fields** capture `this` lexically; prefer normal methods when you need prototype sharing or `super`.  
+- `new` creates an object linked to the constructor’s **prototype**, runs the constructor, and returns the object (unless the constructor returns another object).  
+- Avoid rebinding methods when possible; prefer class fields with arrows only for event handlers that need fixed `this`.  
+- Keep one language style per file for readability.
+</I18nEnglish>
+
+<I18nBangla>
+- সাবক্লাস কন্সট্রাক্টরে **`অভিভাবক(...)` কল করার আগে `এটি` ব্যবহার করা যাবে না**।  
+- `অভিভাবক.মেথড()` বেস প্রোটোটাইপের মেথড কল করে; **স্থির** মেথডের ভিতরে `অভিভাবক` বেস কন্সট্রাক্টরকে নির্দেশ করে (`অভিভাবক.someStatic()`)।  
+- **অ্যারো‑ফিল্ড** `this` লেক্সিক্যালি বেঁধে রাখে; প্রোটোটাইপ শেয়ারিং বা `অভিভাবক` দরকার হলে সাধারণ মেথড ব্যবহার করুন।  
+- `নতুন` কন্সট্রাক্টরের **prototype**‑এ লিংক করা অবজেক্ট তৈরি করে, কন্সট্রাক্টর চালায়, এবং সেটিই ফেরত দেয় (যদি অন্য অবজেক্ট ফেরত না দেয়)।  
+- মেথড বারবার `bind` না করে প্রয়োজন হলে তবেই অ্যারো‑ফিল্ড ব্যবহার করুন (ইভেন্ট‑হ্যান্ডলার ইত্যাদি)।  
+- পড়ার সুবিধায় প্রতি ফাইলে একটিই ভাষা স্টাইল বজায় রাখুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Subclass constructor e **`obhibhabok(...)`** er **age** `eti` use kora jabe na.  
+- `obhibhabok.method()` base prototype method ke call kore; **sthir** method er vitor `obhibhabok` base constructor ke refer kore (`obhibhabok.someStatic()`).  
+- **Arrow field** `this` ke lexical bhabe dhore; prototype share ba `obhibhabok` dorkar hole normal method use korun.  
+- `notun` prototype link toiri kore, constructor chalaye, object return kore (jodi onno object return na hoy).  
+- Method repeatedly `bind` na kore, dorkar holei arrow‑field use korun (event handler, etc.).  
+- Ek file e ekta language style rakhun.
+</I18nBanglish>

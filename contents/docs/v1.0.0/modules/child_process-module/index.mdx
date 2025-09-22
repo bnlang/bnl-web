@@ -1,0 +1,125 @@
+---
+title: child_process module
+description: APIs to spawn and manage subprocesses — run commands, communicate with stdin/stdout/stderr, handle exit codes, and use sync/async variants.
+bnTitle: child_process মডিউল
+bnDescription: সাবপ্রসেস চালানো ও ম্যানেজ করার API — কমান্ড রান, stdin/stdout/stderr দিয়ে যোগাযোগ, এক্সিট কোড হ্যান্ডল, সিঙ্ক/অ্যাসিঙ্ক ভ্যারিয়েন্ট।
+banglishTitle: child_process module
+banglishDescription: API to run & manage subprocess — execute commands, communicate via stdin/stdout/stderr, handle exit codes, sync/async variants.
+---
+
+# <I18nEnglish>child_process</I18nEnglish>
+# <I18nBangla>child_process</I18nBangla>
+# <I18nBanglish>child_process</I18nBanglish>
+
+<I18nEnglish>
+The **`child_process`** module allows running other programs from within your application. It provides ways to spawn new processes, run commands, and communicate with them.
+</I18nEnglish>
+
+<I18nBangla>
+**`child_process`** মডিউল দিয়ে অ্যাপ্লিকেশনের ভেতর থেকে অন্য প্রোগ্রাম চালানো যায়। নতুন প্রসেস স্পাউন, কমান্ড চালানো ও যোগাযোগ করা যায়।
+</I18nBangla>
+
+<I18nBanglish>
+**`child_process`** module diye application theke onno program run kora jay. New process spawn, command run & communicate kora jay.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Process Creation
+- **`spawn(command, args?, options?)`** — launch a new process with streams for I/O.  
+- **`exec(command, options?, callback)`** — run a command in a shell, buffer output.  
+- **`execFile(file, args?, options?, callback)`** — run executable file directly, no shell.  
+- **`fork(modulePath, args?, options?)`** — spawn new Node/Bnlang process with IPC channel.
+
+### Synchronous Variants
+- **`spawnSync(command, args?, options?)`**  
+- **`execFileSync(file, args?, options?)`**  
+- **`execSync(command, options?)`**  
+
+### ChildProcess Object
+- **Streams**: `.stdin`, `.stdout`, `.stderr`.  
+- **Events**: `'exit'`, `'error'`, `'close'`.  
+- **Properties**: `.pid`, `.killed`.  
+- **Methods**: `.kill([signal])`.  
+
+</I18nEnglish>
+
+<I18nBangla>
+### প্রসেস চালানো
+- **`spawn`**, **`exec`**, **`execFile`**, **`fork`** — নতুন প্রসেস তৈরি।
+- **সিঙ্ক ভ্যারিয়েন্ট**: **`spawnSync`**, **`execFileSync`**, **`execSync`**।
+- **ChildProcess** অবজেক্টে stdin, stdout, stderr, ইভেন্ট, প্রপার্টি থাকে।
+</I18nBangla>
+
+<I18nBanglish>
+### Run process
+- **`spawn`**, **`exec`**, **`execFile`**, **`fork`** — new process.  
+- **Sync variants**: **`spawnSync`**, **`execFileSync`**, **`execSync`**.  
+- **ChildProcess** object e stdin, stdout, stderr, events, properties thake.  
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const { spawn, exec, fork } = require("child_process");
+
+// spawn: stream output
+const ls = spawn("ls", ["-l"]);
+ls.stdout.on("data", (data) => console.log("stdout:", data.toString()));
+ls.stderr.on("data", (data) => console.error("stderr:", data.toString()));
+ls.on("close", (code) => console.log("child exited with", code));
+
+// exec: buffered output
+exec("echo Hello", (err, stdout, stderr) => {
+  if (err) throw err;
+  console.log("exec output:", stdout);
+});
+
+// fork: run another JS module with IPC
+const child = fork("worker.js");
+child.on("message", (msg) => console.log("From child:", msg));
+child.send({ hello: "world" });
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- **`spawn`** is best for streaming large output.  
+- **`exec`** buffers output, risk of exceeding memory with huge output.  
+- **`execFile`** avoids shell, safer for fixed binaries.  
+- **`fork`** is optimized for spawning another runtime script with messaging.  
+- Always handle **errors** and exit codes to avoid zombie processes.  
+</I18nEnglish>
+
+<I18nBangla>
+- বড় আউটপুটের জন্য **`spawn`** ভালো।  
+- **`exec`** আউটপুট বাফার করে, খুব বড় হলে মেমরি সমস্যা।  
+- **`execFile`** শেল ছাড়া চালায়, নিরাপদ।  
+- **`fork`** অন্য স্ক্রিপ্ট চালাতে উপযোগী।  
+- ত্রুটি ও এক্সিট কোড হ্যান্ডল করুন।  
+</I18nBangla>
+
+<I18nBanglish>
+- Large output er jonno **`spawn`** best.  
+- **`exec`** buffer kore, huge output e memory issue hote pare.  
+- **`execFile`** shell chara run kore, safer.  
+- **`fork`** optimized for script run with IPC.  
+- Error & exit code handle korte hobe.  
+</I18nBanglish>

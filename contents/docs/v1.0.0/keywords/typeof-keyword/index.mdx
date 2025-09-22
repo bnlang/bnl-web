@@ -1,0 +1,219 @@
+---
+title: typeof Operator
+description: The typeof operator in Bnlang for runtime type checks — primitives, functions, objects, arrays, null, symbol, bigint, undeclared safety, and common pitfalls.
+bnTitle: ধরন অপারেটর
+bnDescription: Bnlang এ ধরন (typeof) অপারেটর—রানটাইম টাইপ চেক, প্রিমিটিভ/ফাংশন/অবজেক্ট/অ্যারেসহ, undeclared নিরাপত্তা ও বিশেষ কেস।
+banglishTitle: typeof Operator
+banglishDescription: Bnlang e dhoron (typeof) operator — runtime type checks, quirks (null/object), and best practices.
+---
+
+# <I18nEnglish>typeof Operator</I18nEnglish>
+# <I18nBangla>ধরন অপারেটর</I18nBangla>
+# <I18nBanglish>typeof Operator</I18nBanglish>
+
+<I18nEnglish>
+The **`typeof`** operator returns a string describing the type of a value at **runtime**.  
+It is safe to use on **undeclared identifiers** (returns `"undefined"` instead of throwing).
+</I18nEnglish>
+
+<I18nBangla>
+**`ধরন`** (typeof) অপারেটর রানটাইমে কোনো মানের টাইপ একটি **স্ট্রিং** হিসেবে ফেরত দেয়।  
+এটি **ঘোষিত নয়** এমন ভেরিয়েবলেও নিরাপদ—ত্রুটি না দিয়ে `"undefined"` ফেরত দেয়।
+</I18nBangla>
+
+<I18nBanglish>
+**`dhoron`** (typeof) operator runtime e kono value‑r type **string** hisebe dey.  
+**Undeclared** identifier e'o safe — error na diye `"undefined"` phire dey.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+typeof expression
+typeof (expression)  // parentheses optional
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+ধরন অভিব্যক্তি
+ধরন (অভিব্যক্তি)   // বন্ধনী ঐচ্ছিক
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+dhoron expression
+dhoron (expression)  // parenthesis optional
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) প্রিমিটিভ ও বিশেষ কেস
+কনসোল.লগ(ধরন 42);            // "number"
+কনসোল.লগ(ধরন NaN);           // "number"
+কনসোল.লগ(ধরন "Hi");          // "string"
+কনসোল.লগ(ধরন true);          // "boolean"
+কনসোল.লগ(ধরন undefined);     // "undefined"
+কনসোল.লগ(ধরন 10n);           // "bigint"
+কনসোল.লগ(ধরন Symbol("s"));   // "symbol"
+
+// ২) ফাংশন/অ্যারে/অবজেক্ট/নাল
+ফাংশন f() {}
+কনসোল.লগ(ধরন f);             // "function"
+কনসোল.লগ(ধরন []);            // "object"  ← অ্যারে হলেও object
+কনসোল.লগ(ধরন {});            // "object"
+কনসোল.লগ(ধরন null);          // "object"  ← ঐতিহাসিক বিশেষ কেস
+
+// ৩) ঘোষণা নেই — তবু নিরাপদ
+কনসোল.লগ(ধরন অজানা_চলক);     // "undefined" (ReferenceError নয়)
+কনসোল.লগ(ধরন window !== "undefined" ? window : undefined);
+
+// ৪) typeof‑গার্ড প্যাটার্ন
+function লগ(x) {
+  যদি (ধরন x === "string" || ধরন x === "number") {
+    দেখাও("প্রিন্ট:", x);
+  } নাহলে যদি (ধরন x === "function") {
+    লিখো("ফাংশন:", x.name);
+  } নাহলে {
+    কনসোল.সতর্ক("টাইপ সাপোর্ট নেই:", ধরন x);
+  }
+}
+
+// ৫) অ্যারে/তারিখ/রেজেক্স আলাদা করতে
+কনসোল.লগ(Array.isArray([]));       // true
+কনসোল.লগ((new Date()) instanceof Date); // true
+কনসোল.লগ((/re/) instanceof RegExp);     // true
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) Primitives & quirks
+console.log(dhoron 42);            // "number"
+console.log(dhoron NaN);           // "number"
+console.log(dhoron "Hi");          // "string"
+console.log(dhoron true);          // "boolean"
+console.log(dhoron undefined);     // "undefined"
+console.log(dhoron 10n);           // "bigint"
+console.log(dhoron Symbol("s"));   // "symbol"
+
+// 2) function/array/object/null
+function f() {}
+console.log(dhoron f);             // "function"
+console.log(dhoron []);            // "object"  ← array but "object"
+console.log(dhoron {});            // "object"
+console.log(dhoron null);          // "object"  ← historical quirk
+
+// 3) undeclared — safe
+console.log(dhoron ajana_cholok);  // "undefined" (no ReferenceError)
+
+// 4) typeof guard
+function log(x) {
+  jodi (dhoron x === "string" || dhoron x === "number") {
+    dekhao("print:", x);
+  } nahole jodi (dhoron x === "function") {
+    likho("function:", x.name);
+  } nahole {
+    console.warn("unsupported type:", dhoron x);
+  }
+}
+
+// 5) Distinguish arrays/dates/regex
+console.log(Array.isArray([]));          // true
+console.log((new Date()) instanceof Date); // true
+console.log((/re/) instanceof RegExp);     // true
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Primitives & special cases
+console.log(typeof 42);            // "number"
+console.log(typeof NaN);           // "number"
+console.log(typeof "Hi");          // "string"
+console.log(typeof true);          // "boolean"
+console.log(typeof undefined);     // "undefined"
+console.log(typeof 10n);           // "bigint"
+console.log(typeof Symbol("s"));   // "symbol"
+
+// 2) function/array/object/null
+function f() {}
+console.log(typeof f);             // "function"
+console.log(typeof []);            // "object"   (arrays are objects)
+console.log(typeof {});            // "object"
+console.log(typeof null);          // "object"   (historical quirk)
+
+// 3) undeclared — safe with typeof
+console.log(typeof notDeclared);   // "undefined" (no ReferenceError)
+
+// 4) typeof guard
+function log(x) {
+  if (typeof x === "string" || typeof x === "number") {
+    print("print:", x);
+  } else if (typeof x === "function") {
+    console.info("function:", x.name);
+  } else {
+    console.warn("unsupported type:", typeof x);
+  }
+}
+
+// 5) Distinguishing objects
+console.log(Array.isArray([]));              // true
+console.log((new Date()) instanceof Date);   // true
+console.log((/re/) instanceof RegExp);       // true
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- `typeof` always returns one of: `"undefined"`, `"boolean"`, `"number"`, `"bigint"`, `"string"`, `"symbol"`, `"function"`, `"object"`.  
+- Historical quirk: **`typeof null === "object"`**. Arrays, dates, and regexes also report `"object"` — use **`Array.isArray`** or **`instanceof`** to disambiguate.  
+- Safe for **undeclared** variables: `typeof notDeclared === "undefined"`. Directly reading `notDeclared` would throw `ReferenceError`.  
+- Classes are functions: `typeof class X {} === "function"`. Instances: `"object"`.  
+- `NaN` is a number; check with `Number.isNaN`.  
+- Keep one language style (English/Bangla/Banglish) per file for clarity.
+</I18nEnglish>
+
+<I18nBangla>
+- `ধরন` সর্বদা এইগুলোর একটি ফেরত দেয়: `"undefined"`, `"boolean"`, `"number"`, `"bigint"`, `"string"`, `"symbol"`, `"function"`, `"object"`।  
+- ঐতিহাসিক বিশেষ কেস: **`ধরন null === "object"`**। অ্যারে, তারিখ, রেজেক্সও `"object"` দেখায়—ভেদ করতে **`Array.isArray`** বা **`instanceof`** ব্যবহার করুন।  
+- **ঘোষিত নয়** এমন ভেরিয়েবলে নিরাপদ: `ধরন notDeclared === "undefined"`; সরাসরি `notDeclared` পড়লে `ReferenceError` হবে।  
+- ক্লাস আসলে ফাংশন: `ধরন class X {} === "function"`; ইনস্ট্যান্স: `"object"`।  
+- `NaN` একটি number; যাচাই করুন `Number.isNaN` দিয়ে।  
+- পড়ার সুবিধায় একটি ভাষা স্টাইল বজায় রাখুন।
+</I18nBangla>
+
+<I18nBanglish>
+- `dhoron` er possible result gulo: `"undefined"`, `"boolean"`, `"number"`, `"bigint"`, `"string"`, `"symbol"`, `"function"`, `"object"`.  
+- Quirk: **`dhoron null === "object"`**. Array/Date/RegExp o `"object"` — alada korte **`Array.isArray`**/`instanceof`.  
+- **Undeclared** variable e safe: `dhoron notDeclared === "undefined"`; kintu direct `notDeclared` read korle `ReferenceError`.  
+- Class hocche function: `dhoron class X {} === "function"`; instance hole `"object"`.  
+- `NaN` number; check korun `Number.isNaN`.  
+- Readability er jonno ek file e ekta language style rakhun.
+</I18nBanglish>

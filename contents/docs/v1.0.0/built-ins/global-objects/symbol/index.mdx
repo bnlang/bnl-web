@@ -1,0 +1,115 @@
+---
+title: Symbol
+description: The Symbol object in Bnlang with Bangla, Banglish, and English usage for unique identifiers and well-known symbols.
+bnTitle: প্রতীক
+bnDescription: Bnlang এ প্রতীক ব্যবহার করে অনন্য সনাক্তকারী এবং বিশেষ সিম্বল তৈরির উদাহরণ।
+banglishTitle: Protik
+banglishDescription: Bnlang e Protik diye unique identifier ar special symbol toiri kora.
+---
+
+# <I18nEnglish>Symbol</I18nEnglish>
+# <I18nBangla>প্রতীক</I18nBangla>
+# <I18nBanglish>Protik</I18nBanglish>
+
+<I18nEnglish>
+The **Symbol** function creates unique values. In Bnlang, you can also use **`প্রতীক`** or **`Protik`**. Symbols are often used as unique object property keys and for special well-known behaviors.
+</I18nEnglish>
+
+<I18nBangla>
+**প্রতীক** ব্যবহার করে অনন্য মান তৈরি করা যায়। এগুলোকে সাধারণত অবজেক্টের প্রোপার্টি কী এবং বিশেষ বিল্ট-ইন আচরণের জন্য ব্যবহার করা হয়।
+</I18nBangla>
+
+<I18nBanglish>
+**Protik** diye unique value toiri kora jay. Egulo object er property key ba special built-in behavior er jonno bebohar kora hoy.
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const id = Symbol("id");
+console.log(id.toString()); // "Symbol(id)"
+console.log(Symbol.for("shared") === Symbol.for("shared")); // true
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const id = প্রতীক("id");
+কনসোল.লগ(id.অক্ষরমালায়_রুপান্তর()); // "Symbol(id)"
+কনসোল.লগ(প্রতীক.জন্য("shared") === প্রতীক.জন্য("shared")); // true
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const id = Protik("id");
+console.log(id.okkhormalayRupantor()); // "Symbol(id)"
+console.log(Protik.jonno("shared") === Protik.jonno("shared")); // true
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Well-Known Symbols
+
+<I18nEnglish>
+Symbols also provide special behaviors in JavaScript. For example:
+- `Symbol.iterator`
+- `Symbol.asyncIterator`
+- `Symbol.match`
+- `Symbol.replace`
+- `Symbol.search`
+- `Symbol.split`
+- `Symbol.toStringTag`
+- `Symbol.hasInstance`
+- `Symbol.isConcatSpreadable`
+- `Symbol.species`
+- `Symbol.toPrimitive`
+- `Symbol.unscopables`
+</I18nEnglish>
+
+<I18nBangla>
+JavaScript এ প্রতীক বিশেষ কিছু বিল্ট-ইন আচরণও নির্ধারণ করে। যেমন:
+- `প্রতীক.ইটারেটর`
+- `প্রতীক.অসমলয়_ইটারেটর`
+- `প্রতীক.মিলান`
+- `প্রতীক.প্রতিস্থাপন`
+- `প্রতীক.অনুসন্ধান`
+- `প্রতীক.ভাগ`
+- `প্রতীক.অক্ষরমালার_ট্যাগে_রুপান্তর`
+- `প্রতীক.উদাহরন_আছে`
+- `প্রতীক.সংযুক্তিতে_বিস্তারযোগ্য`
+- `প্রতীক.প্রজাতি`
+- `প্রতীক.আদিমে_রুপান্তর`
+- `প্রতীক.অপ্রত্যাশিত`
+</I18nBangla>
+
+<I18nBanglish>
+JavaScript e **Protik** diye special behavior define kora jay. Uddharonshorup:
+- `Protik.iterator`
+- `Protik.osomloyIterator`
+- `Protik.milao`
+- `Protik.protisthapon`
+- `Protik.onusondhan`
+- `Protik.vag`
+- `Protik.okkhoromalarTaggerRupantor`
+- `Protik.udahoronAche`
+- `Protik.songjuktiteBistarjoggo`
+- `Protik.projati`
+- `Protik.adimeRupantor`
+- `Protik.oprotyashito`
+</I18nBanglish>

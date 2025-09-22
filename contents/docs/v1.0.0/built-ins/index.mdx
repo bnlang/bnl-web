@@ -1,0 +1,277 @@
+---
+title: Bnlang Builtins Overview
+description: A practical overview of Bnlang built‑in values, functions, and standard objects—how they map to English, Bangla, and Banglish names; what each does; and how to use them with short, focused examples.
+bnTitle: Bnlang বিল্ট‑ইন সারাংশ
+bnDescription: Bnlang এর বিল্ট‑ইন মান, ফাংশন ও স্ট্যান্ডার্ড অবজেক্ট—ইংরেজি/বাংলা/বেঙ্গলিশ নামে ব্যবহার, কী কাজ করে, এবং ছোট উদাহরণ।
+banglishTitle: Bnlang Builtins
+banglishDescription: Bnlang er built‑in gulo—English/Bangla/Banglish name, kaj, ebong choto example.
+---
+
+# <I18nEnglish>Bnlang Builtins</I18nEnglish>
+# <I18nBangla>Bnlang বিল্ট‑ইন</I18nBangla>
+# <I18nBanglish>Bnlang Builtins</I18nBanglish>
+
+<I18nEnglish>
+This page collects **all built‑in things** exposed by Bnlang—global values/functions and the standard library objects you know from JavaScript—presented with **three parallel names** (English, **Bangla**, **Banglish**).  
+You can use *any* of the available names interchangeably in code; pick **one language style per file** for readability.
+</I18nEnglish>
+
+<I18nBangla>
+এখানে Bnlang‑এর **সব বিল্ট‑ইন** একত্রে দেওয়া হলো—গ্লোবাল মান/ফাংশন ও JavaScript‑জাত স্ট্যান্ডার্ড অবজেক্ট—যেগুলো **ইংরেজি/বাংলা/বেঙ্গলিশ** তিনরকম নামে ব্যবহার করা যায়।  
+কোডের পাঠযোগ্যতার জন্য **একটি ভাষা স্টাইল (ইংরেজি/বাংলা/বেঙ্গলিশ) প্রতি ফাইলে** অনুসরণ করুন।
+</I18nBangla>
+
+<I18nBanglish>
+Ekhane Bnlang er **shob built‑in** ek jaygay—global value/function ar JS standard object gulo—**English/Bangla/Banglish** tin nam e deya.  
+Readability er jonno **protiti file e ekta style** e thakun.
+</I18nBanglish>
+
+---
+
+## Name Model
+
+<I18nEnglish>
+- Every builtin can be called by **English**, **Bangla**, or **Banglish** names.  
+- Internally these are the same thing; choose whichever name suits your file’s language.  
+- In docs we show them as “available names”, not as technical aliasing.
+</I18nEnglish>
+
+<I18nBangla>
+- প্রতিটি বিল্ট‑ইনকে **ইংরেজি**, **বাংলা**, বা **বেঙ্গলিশ** যে কোনো নামে ডাকা যায়।  
+- ভেতরে এগুলো একই জিনিস; আপনার ফাইলের ভাষা অনুযায়ী নাম বেছে নিন।  
+- ডকে আমরা এগুলোকে “ব্যবহারযোগ্য নাম” হিসেবে দেখাই।
+</I18nBangla>
+
+<I18nBanglish>
+- Protiti builtin‑e **English**, **Bangla**, **Banglish** nam cholbe.  
+- Vitore sob ek‑i jinis; file er language onujayi nam nin.  
+- Ei doke amra egulo “available names” hisebe dekhacchi.
+</I18nBanglish>
+
+---
+
+## Quick Table of Builtins
+
+> Use this as a map. Details and examples for each item live in their own pages (linked names).
+
+| Category | English | Bangla | Banglish | Notes |
+|---|---|---|---|---|
+| **Globals: values** | `undefined`, `NaN`, `Infinity` | `অসংজ্ঞায়িত`, `সংখ্যা_নয়`, `অসীম` | `asongyayito`, `sonkhaNoy`, `oshim` | Predefined global values. |
+| **Globals: functions** | `eval`, `isFinite`, `isNaN`, `parseInt`, `parseFloat`, `encodeURI`, `decodeURI`, `encodeURIComponent`, `decodeURIComponent`, `queueMicrotask` | `মূল্যায়ন`, `সসীম_কি`, `সংখ্যা_নয়_কি`, `পূর্ণসংখ্যায়_রূপান্তর`, `ভগ্নাংশে_রূপান্তর`, `ইউআরআই_এনকোড`, `ইউআরআই_ডিকোড`, `ইউআরআই_উপাদান_এনকোড`, `ইউআরআই_উপাদান_ডিকোড`, `ক্ষুদ্র_কাজের_সারি` | `mullayon`, `soshimKi`, `sonkhaNoyKi`, `purnoshonkhaTeRupantor`, `voghnangsheRupantor`, `uriEncode`, `uriDecode`, `uriUpadanEncode`, `uriUpadanDecode`, `khudroKajerSari` | Global helpers. |
+| **Console** | `console` | `কনসোল` | — + helpers `ছাপাও/দেখাও/লিখো/প্রিন্ট/print` | Node‑like logger with pretty‑printer. |
+| **Array** | `Array` | `তালিকা` | `Talika` | Construction, traversal, search, transform, etc. |
+| **Object** | `Object` | `বস্তু` | `Bostu` | Create/assign/inspect. |
+| **Function (ctor)** | `Function` | `নির্মাতা_ফাংশন` | `NirmataFunction` | Construct new functions. |
+| **Number** | `Number` | `সংখ্যা` | `Sonkha` | Constants, checks, parse & format. |
+| **String** | `String` | `অক্ষরমালা` | `Okkhoromala` | Text search/modify/format. |
+| **Boolean** | `Boolean` | `বুলিয়ান` | `Booliyan` | True/false wrapper (typically avoid `new`). |
+| **Math** | `Math` | `গণিত` | `Gonit` | Constants & numeric functions. |
+| **Date** | `Date` | `তারিখ` | `Tarikh` | Time & calendar utilities. |
+| **RegExp** | `RegExp` | `রেজেক্স` | `RegEx` | Regular expressions. |
+| **JSON** | `JSON` | `জেসন` | `Jeson` | Parse/stringify. |
+| **Map** | `Map` | `মানচিত্র` | `Manchitro` | Key→value (any types). |
+| **Set** | `Set` | `সমষ্টি` | `Somoshti` | Unique values. |
+| **WeakMap** | `WeakMap` | `দুর্বল_মানচিত্র` | `DurbolManchitro` | Object keys, weakly held. |
+| **WeakSet** | `WeakSet` | `দুর্বল_সমষ্টি` | `DurbolSomoshti` | Object values, weakly held. |
+| **Promise** | `Promise` | `প্রতিশ্রুতি` | `Protishruti` | Async values, chaining. |
+| **Proxy** | `Proxy` | `প্রক্সি` | — | Intercept object ops. |
+| **Reflect** | `Reflect` | `প্রতিফলন` | `Protifolon` | Object meta‑ops. |
+| **Symbol** | `Symbol` | `প্রতীক` | `Protik` | Unique keys & well‑known symbols. |
+| **Atomics** | `Atomics` | `অ্যাটোমিকস` | — | SharedArrayBuffer sync primitives. |
+| **Binary Data** | `ArrayBuffer`, `DataView`, `TypedArray`s | (same usage) | (same usage) | Byte buffers & typed views. |
+
+> Items without a Banglish or Bangla cell mean the English name is typically used as‑is (or variants are pending).
+
+---
+
+## Conventions & Interop
+
+<I18nEnglish>
+- **One file, one style:** pick English, Bangla, or Banglish names in a given file.  
+- **Strict comparisons:** prefer `===` / `!==`.  
+- **Modules:** names work the same inside ESM/CJS.  
+- **Console shortcuts:** `ছাপাও/দেখাও/লিখো/প্রিন্ট/print` route to `console.log(...)`.
+</I18nEnglish>
+
+<I18nBangla>
+- **প্রতি ফাইলে এক স্টাইল:** একই ফাইলে ইংরেজি/বাংলা/বেঙ্গলিশ মিশাবেন না।  
+- **কঠোর তুলনা:** `===` / `!==` ব্যবহার করুন।  
+- **মডিউল:** ESM/CJS‑এ একইভাবে কাজ করে।  
+- **কনসোল শর্টকাট:** `ছাপাও/দেখাও/লিখো/প্রিন্ট/print` → `console.log(...)`।
+</I18nBangla>
+
+<I18nBanglish>
+- **One‑style‑per‑file:** ek file e eki style maintain korun.  
+- **Strict compare:** `===` / `!==`.  
+- **Module agnostic:** ESM/CJS e same.  
+- **Console short:** `chapao/dekhao/likho/print` → `console.log(...)`.
+</I18nBanglish>
+
+---
+
+## Global Values & Functions
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+// Values
+console.log(undefined, NaN, Infinity);
+
+// Functions
+console.log(isFinite(10), isNaN(NaN));
+console.log(parseInt("42", 10), parseFloat("3.14"));
+console.log(encodeURI("https://ex.com?q=হ্যাঁ"));
+queueMicrotask(() => console.log("microtask ran"));
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// মান
+কনসোল.লগ(অসংজ্ঞায়িত, সংখ্যা_নয়, অসীম);
+
+// ফাংশন
+কনসোল.লগ(সসীম_কি(10), সংখ্যা_নয়_কি(সংখ্যা_নয়));
+কনসোল.লগ(পূর্ণসংখ্যায়_রূপান্তর("42", 10), ভগ্নাংশে_রূপান্তর("3.14"));
+কনসোল.লগ(ইউআরআই_এনকোড("https://ex.com?q=হ্যাঁ"));
+ক্ষুদ্র_কাজের_সারি(() => কনসোল.লগ("মাইক্রোটাস্ক চালু"));
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// Values
+console.log(asongyayito, sonkhaNoy, oshim);
+
+// Functions
+console.log(soshimKi(10), sonkhaNoyKi(sonkhaNoy));
+console.log(purnoshonkhaTeRupantor("42", 10), voghnangsheRupantor("3.14"));
+console.log(uriEncode("https://ex.com?q=ha"));
+khudroKajerSari(() => console.log("microtask ran"));
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Core Objects (snapshot)
+
+- **Array / তালিকা / Talika** — create arrays, map/filter/reduce, search (`includes`, `find`), order (`sort`, `reverse`), slice/splice.  
+- **Object / বস্তু / Bostu** — create (`তৈরি`), inspect (`চাবিগুলি/মানগুলি/জোড়াগুলি`), define properties, assign, seal/freeze.  
+- **String / অক্ষরমালা / Okkhoromala** — search (`includes`, `search`), extract (`slice`, `substring`), modify (`replace`, `padStart`), case.  
+- **Number / সংখ্যা / Sonkha** — constants (`MAX_VALUE`, …), checks (`isFinite`), parse/format.  
+- **Function / নির্মাতা_ফাংশন / NirmataFunction** — `new Function(...)`, call/apply/bind helpers available by name.  
+
+---
+
+## Collections & Iteration
+
+- **Map / মানচিত্র / Manchitro** — key→value of any type; iterate `keys/values/entries`.  
+- **Set / সমষ্টি / Somoshti** — unique values; iterate `values`.  
+- **WeakMap / দুর্বল_মানচিত্র / DurbolManchitro** — object keys; **not iterable**.  
+- **WeakSet / দুর্বল_সমষ্টি / DurbolSomoshti** — object values; **not iterable**.  
+
+```bnl
+// Bangla
+const মানচিত্র১ = new মানচিত্র();
+মানচিত্র১.স্থাপন("a", 1);
+ছাপাও(মানচিত্র১.গ্রহন("a")); // 1
+
+const সমষ্টি১ = new সমষ্টি();
+সমষ্টি১.যোগ(1); সমষ্টি১.যোগ(1);
+ছাপাও(সমষ্টি১.আকার); // 1
+```
+
+---
+
+## Text & Regex
+
+- **RegExp / রেজেক্স / RegEx** — `পরীক্ষা`, `কার্যকর`, integrate with string match/replace/search/split.  
+- **JSON / জেসন / Jeson** — `বিশ্লেষণ` (parse), `অক্ষরায়ন` (stringify).  
+
+```bnl
+const r = new রেজেক্স("a+", "g");
+ছাপাও(r.পরীক্ষা("baaa")); // true
+
+const obj = জেসন.বিশ্লেষণ('{"x":1}');
+ছাপাও(জেসন.অক্ষরায়ন(obj)); // {"x":1}
+```
+
+---
+
+## Numbers, Math, Date
+
+- **Math / গণিত / Gonit** — constants (`pi`, `e`) and functions (`lomb/hypot`, `random`, `sqrt`, …).  
+- **Date / তারিখ / Tarikh** — getters/setters (local/UTC), to‑string/locale conversions.  
+
+```bnl
+ছাপাও(গণিত.লম্ব(3,4)); // 5
+const d = new তারিখ();
+ছাপাও(d.বছর()); // e.g., 2025
+```
+
+---
+
+## Async & Meta
+
+- **Promise / প্রতিশ্রুতি / Protishruti** — chaining via `তারপর/ধরো/অবশেষে`. Static: `সব`, `দ্রুততম`, `যেকোনো`…  
+- **Proxy / প্রক্সি** — intercept `get/set/has`… (`প্রত্যাহারযোগ্য` for revocable).  
+- **Reflect / প্রতিফলন / Protifolon** — meta ops: `প্রয়োগ/নির্মাণ/গ্রহন/স্থাপন/নিজের_চাবিগুলি`…  
+- **Symbol / প্রতীক / Protik** — unique keys + well‑known symbols (`ইটারেটর`, `প্রতিস্থাপন`, `প্রজাতি`, …).  
+- **Atomics / অ্যাটোমিকস** — `যোগ/উপ/এবং/অথবা/এক্সঅর`, `লোড/স্টোর`, `অপেক্ষা/অবহিত` (SharedArrayBuffer).  
+
+```bnl
+const p = new প্রতিশ্রুতি(r => r(42));
+p.তারপর(v => ছাপাও(v));
+
+const target = {a:1};
+const handler = { get(o,k){ return k in o ? o[k] : "ডিফল্ট"; } };
+const px = new প্রক্সি(target, handler);
+ছাপাও(px.b); // "ডিফল্ট"
+```
+
+---
+
+## Binary Data (heads‑up)
+
+- **ArrayBuffer / DataView / TypedArrays** (e.g., `Int8Array`, `Uint16Array`, `Float32Array`) are available with standard English names today. Bnlang names can follow the same pattern when introduced. Use these for byte‑level work.
+
+```bnl
+const buf = new ArrayBuffer(8);
+const view = new DataView(buf);
+view.setUint32(0, 0xDEADBEEF);
+```
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Keep code **single‑style** per file.  
+- Extract complex conditions to helpers; use early returns.  
+- Prefer `for…of` for iterable collections; avoid relying on WeakMap/WeakSet enumeration.  
+- For dates/numbers/strings, prefer dedicated methods to manual parsing.
+</I18nEnglish>
+
+<I18nBangla>
+- **এক স্টাইল** বজায় রাখুন।  
+- জটিল লজিক আলাদা হেল্পারে তুলুন; প্রয়োজনে early return।  
+- ইটারেবল কালেকশনে `for…of` ব্যবহার করুন; WeakMap/WeakSet‑এ এনুমারেশন নেই।  
+- তারিখ/সংখ্যা/অক্ষরমালার জন্য নিজস্ব মেথড ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- File‑e **ek style** e thakun.  
+- Jotil logic helper‑e tulun; early return bhalo.  
+- Iterable‑e `for…of` use korun; WeakMap/WeakSet enumerate hoy na.  
+- Date/number/string er built‑in method use korun.
+</I18nBanglish>

@@ -1,0 +1,148 @@
+---
+title: crypto module
+description: Cryptography APIs — hashing, HMAC, encryption/decryption, key generation, signing, verifying, and random bytes.
+bnTitle: crypto মডিউল
+bnDescription: ক্রিপ্টোগ্রাফি API — হ্যাশিং, HMAC, এনক্রিপশন/ডিক্রিপশন, কী জেনারেশন, সাইনিং, ভেরিফিকেশন ও র‍্যান্ডম বাইট।
+banglishTitle: crypto module
+banglishDescription: Cryptography API — hashing, HMAC, encrypt/decrypt, key generation, sign, verify, random bytes.
+---
+
+# <I18nEnglish>crypto</I18nEnglish>
+# <I18nBangla>crypto</I18nBangla>
+# <I18nBanglish>crypto</I18nBanglish>
+
+<I18nEnglish>
+The **`crypto`** module provides cryptographic functionality, including wrappers for hashing, HMAC, ciphers, key derivation, signatures, and secure random values.
+</I18nEnglish>
+
+<I18nBangla>
+**`crypto`** মডিউল ক্রিপ্টোগ্রাফিক ফাংশন দেয় — হ্যাশিং, HMAC, সাইফার, কী ডেরিভেশন, সিগনেচার ও নিরাপদ র‍্যান্ডম ভ্যালু।
+</I18nBangla>
+
+<I18nBanglish>
+**`crypto`** module cryptographic function dey — hashing, HMAC, cipher, key derivation, signature & secure random value.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Hashing
+- **`crypto.createHash(algorithm)`** — create hash object.  
+  - `.update(data)`, `.digest([encoding])`.  
+
+### HMAC
+- **`crypto.createHmac(algorithm, key)`** — keyed-hash for auth.  
+
+### Random
+- **`crypto.randomBytes(size[, callback])`** — secure random buffer.  
+- **`crypto.randomUUID()`** — random UUID v4.  
+
+### Key Derivation
+- **`crypto.pbkdf2(password, salt, iterations, keylen, digest, cb)`**.  
+- Promise API: `crypto.pbkdf2Sync`, `crypto.scrypt`.  
+
+### Cipher / Decipher
+- **`crypto.createCipheriv(algorithm, key, iv)`** — encrypt.  
+- **`crypto.createDecipheriv(algorithm, key, iv)`** — decrypt.  
+
+### Signing / Verifying
+- **`crypto.createSign(algorithm)`**, `.update(data)`, `.sign(privateKey)`.  
+- **`crypto.createVerify(algorithm)`**, `.update(data)`, `.verify(publicKey, sig)`.  
+
+### Key Generation
+- **`crypto.generateKeyPair(type, options, callback)`** — async key pair.  
+- **`crypto.generateKeyPairSync(type, options)`** — sync.  
+
+</I18nEnglish>
+
+<I18nBangla>
+### ফাংশন
+- **`createHash/createHmac`** — হ্যাশ ও HMAC।  
+- **`randomBytes/randomUUID`** — নিরাপদ র‍্যান্ডম ভ্যালু।  
+- **`pbkdf2/scrypt`** — কী ডেরিভেশন।  
+- **`createCipheriv/createDecipheriv`** — এনক্রিপশন/ডিক্রিপশন।  
+- **`createSign/createVerify`** — সাইনিং/ভেরিফিকেশন।  
+- **`generateKeyPair`** — কী তৈরি।  
+</I18nBangla>
+
+<I18nBanglish>
+### Functions
+- **`createHash/createHmac`** — hash & HMAC.  
+- **`randomBytes/randomUUID`** — secure random value.  
+- **`pbkdf2/scrypt`** — key derivation.  
+- **`createCipheriv/createDecipheriv`** — encrypt/decrypt.  
+- **`createSign/createVerify`** — sign/verify.  
+- **`generateKeyPair`** — key generate.  
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const crypto = require("crypto");
+
+// Hashing
+const hash = crypto.createHash("sha256").update("hello").digest("hex");
+console.log("sha256:", hash);
+
+// HMAC
+const hmac = crypto.createHmac("sha256", "secret").update("data").digest("hex");
+console.log("hmac:", hmac);
+
+// Random
+console.log("uuid:", crypto.randomUUID());
+console.log("random bytes:", crypto.randomBytes(8).toString("hex"));
+
+// Symmetric encrypt/decrypt
+const key = crypto.randomBytes(32);
+const iv = crypto.randomBytes(16);
+const cipher = crypto.createCipheriv("aes-256-cbc", key, iv);
+let enc = cipher.update("secret text", "utf8", "hex");
+enc += cipher.final("hex");
+
+const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
+let dec = decipher.update(enc, "hex", "utf8");
+dec += decipher.final("utf8");
+console.log("decrypted:", dec);
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Use modern algorithms like **sha256**, **sha512**, **aes-256-gcm**.  
+- Avoid weak algorithms (MD5, DES).  
+- Keys and IVs must have correct lengths for chosen cipher.  
+- Use `randomBytes` for cryptographic randomness, not `Math.random()`.  
+- For password storage, prefer **scrypt** or **argon2** over raw hash.  
+</I18nEnglish>
+
+<I18nBangla>
+- **sha256/sha512/aes-256-gcm** ব্যবহার করুন।  
+- দুর্বল অ্যালগরিদম (MD5, DES) এড়িয়ে চলুন।  
+- কী ও IV এর দৈর্ঘ্য সঠিক হতে হবে।  
+- নিরাপদ র‍্যান্ডমের জন্য `randomBytes` ব্যবহার করুন।  
+- পাসওয়ার্ড সংরক্ষণে **scrypt/argon2** ভালো।  
+</I18nBangla>
+
+<I18nBanglish>
+- Use **sha256/sha512/aes-256-gcm**.  
+- Weak algo (MD5, DES) avoid korun.  
+- Key & IV length thik hote hobe.  
+- Secure random jonno `randomBytes` use korun, `Math.random()` noy.  
+- Password store e **scrypt/argon2** valo.  
+</I18nBanglish>

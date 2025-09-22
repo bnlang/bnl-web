@@ -1,0 +1,237 @@
+---
+title: class Keyword
+description: Define classes in Bnlang — constructors, methods, fields, getters/setters, static members, inheritance (extends/super), and private fields.
+bnTitle: শ্রেণী কীওয়ার্ড
+bnDescription: Bnlang এ শ্রেণী (class), নির্মাতা (constructor), মেথড, ফিল্ড, গেটার/সেটার, স্থির (static) সদস্য, প্রসারিত (extends)/অভিভাবক (super), প্রাইভেট ফিল্ড।
+banglishTitle: class Keyword
+banglishDescription: Bnlang e class, constructor, methods, fields, getter/setter, static, extends/super, private fields.
+---
+
+# <I18nEnglish>class Keyword</I18nEnglish>
+# <I18nBangla>শ্রেণী কীওয়ার্ড</I18nBangla>
+# <I18nBanglish>class Keyword</I18nBanglish>
+
+<I18nEnglish>
+Use **`class`** to define blueprints for objects.  
+Classes can have a **constructor**, **methods**, **fields** (including **private** `#fields`), **getters/setters**, **static** members, and support inheritance via **`extends`** and **`super`**.
+</I18nEnglish>
+
+<I18nBangla>
+**`শ্রেণী`** দিয়ে অবজেক্টের নকশা সংজ্ঞায়িত করা যায়।  
+এতে থাকতে পারে **নির্মাতা** (constructor), **মেথড**, **ফিল্ড** (প্রাইভেট `#ফিল্ড` সহ), **গেটার/সেটার**, **স্থির** সদস্য এবং **`প্রসারিত`**/ **`অভিভাবক`** দিয়ে ইনহেরিটেন্স।
+</I18nBangla>
+
+<I18nBanglish>
+**`shreni`** (class) diye object er blueprint toiri hoy.  
+Constructor, methods, fields (private `#field` সহ), getter/setter, **sthir** (static) member, ebong **`prosarito`**/**`obhibhabok`** diye inheritance support kore.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+class Account {
+  #balance = 0;                // private field
+  currency = "BDT";           // public field
+
+  constructor(owner, opening = 0) {
+    this.owner = owner;       // instance property
+    this.deposit(opening);    // call method
+  }
+
+  deposit(amount) {           // instance method
+    this.#balance += amount;
+  }
+
+  get balance() {             // getter
+    return this.#balance;
+  }
+
+  set balance(v) {            // setter (validate)
+    if (v < 0) throw new Error("negative");
+    this.#balance = v;
+  }
+
+  static bank = "BNL Bank";   // static field
+  static from(user) {         // static factory
+    return new Account(user, 0);
+  }
+}
+
+class Savings extends Account {         // inheritance
+  constructor(owner, opening, rate = 0.05) {
+    super(owner, opening);              // call parent constructor
+    this.rate = rate;
+  }
+  accrue() {
+    this.#balance = this.balance * (1 + this.rate); // via getter or internal logic
+  }
+}
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+শ্রেণী হিসাব {
+  #ব্যালেন্স = 0;                 // প্রাইভেট ফিল্ড
+  মুদ্রা = "BDT";                 // পাবলিক ফিল্ড
+
+  constructor(মালিক, প্রারম্ভ = 0) {
+    এটি.মালিক = মালিক;            // ইনস্ট্যান্স প্রপার্টি
+    এটি.জমা(প্রারম্ভ);            // মেথড কল
+  }
+
+  জমা(পরিমাণ) {                   // ইনস্ট্যান্স মেথড
+    #ব্যালেন্স += পরিমাণ;
+  }
+
+  get ব্যালেন্স() {                // গেটার
+    ফেরত #ব্যালেন্স;
+  }
+
+  set ব্যালেন্স(v) {               // সেটার (ভ্যালিডেশন)
+    যদি (v < 0) নিক্ষেপ new Error("ঋণাত্মক");
+    #ব্যালেন্স = v;
+  }
+
+  স্থির ব্যাংক = "BNL Bank";       // স্থির ফিল্ড
+  স্থির from(ব্যবহারকারী) {       // স্থির ফ্যাক্টরি
+    ফেরত নতুন হিসাব(ব্যবহারকারী, 0);
+  }
+}
+
+শ্রেণী সঞ্চয় প্রসারিত হিসাব {      // ইনহেরিটেন্স
+  constructor(মালিক, প্রারম্ভ, হার = 0.05) {
+    অভিভাবক(মালিক, প্রারম্ভ);      // প্যারেন্ট কন্সট্রাক্টর কল
+    এটি.হার = হার;
+  }
+  accrue() {
+    #ব্যালেন্স = এটি.ব্যালেন্স * (1 + এটি.হার);
+  }
+}
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+shreni Hisab {
+  #balance = 0;
+  mudra = "BDT";
+
+  constructor(malik, prarombho = 0) {
+    eti.malik = malik;
+    eti.joma(prarombho);
+  }
+
+  joma(poriman) {
+    #balance += poriman;
+  }
+
+  get balance() {
+    ferot #balance;
+  }
+
+  set balance(v) {
+    jodi (v < 0) nikkhep new Error("negative");
+    #balance = v;
+  }
+
+  sthir bank = "BNL Bank";
+  sthir from(byaboharkari) {
+    ferot notun Hisab(byaboharkari, 0);
+  }
+}
+
+shreni Sonchoy prosarito Hisab {
+  constructor(malik, prarombho, har = 0.05) {
+    obhibhabok(malik, prarombho);
+    eti.har = har;
+  }
+  accrue() {
+    #balance = eti.balance * (1 + eti.har);
+  }
+}
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+const a = নতুন হিসাব("Mamun", 1000);
+a.জমা(500);
+দেখাও("ব্যালেন্স:", a.ব্যালেন্স);   // getter
+
+const b = সঞ্চয়.থেকে?; // উদাহরণস্বরূপ আলাদা কন্সট্রাকশন
+const c = হিসাব.from("Rafi");        // স্থির ফ্যাক্টরি
+কনসোল.লগ(হিসাব.ব্যাংক);             // স্থির ফিল্ড
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const a = notun Hisab("Mamun", 1000);
+a.joma(500);
+dekhao("balance:", a.balance);
+
+const c = Hisab.from("Rafi");
+console.log(Hisab.bank);
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+const a = new Account("Mamun", 1000);
+a.deposit(500);
+print("balance:", a.balance);
+
+const c = Account.from("Rafi");
+console.log(Account.bank);
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- **Fields** declared directly inside the class body are set up per‑instance at construction; **`static`** fields belong to the class constructor.  
+- Call **`super(...)`** in a subclass constructor **before** accessing `this`.  
+- **Private fields** `#name` are truly private (not accessible via `this["#name"]`). Names are lexical, not dynamic.  
+- Methods are on the **prototype**; arrow functions as fields create a new function per instance (useful for `this` binding, but increases memory).  
+- Keep language style consistent per file; in Bangla/Banglish, aliases are: `শ্রেণী`/`shreni`, `প্রসারিত`/`prosarito`, `অভিভাবক`/`obhibhabok`, `স্থির`/`sthir`, `নতুন`/`notun`.
+</I18nEnglish>
+
+<I18nBangla>
+- ক্লাস বডিতে ঘোষিত **ফিল্ড** নির্মাণকালে প্রতিটি ইনস্ট্যান্সে সেট হয়; **`স্থির`** ফিল্ড ক্লাস‑এর সাথেই থাকে।  
+- সাবক্লাস কন্সট্রাক্টরে `এটি` ব্যবহারের **আগে** অবশ্যই **`অভিভাবক(...)`** কল করুন।  
+- **প্রাইভেট ফিল্ড** `#নাম` সত্যিকারের প্রাইভেট—`এটি["#নাম"]` দিয়ে পাওয়া যায় না; নামটি লেক্সিক্যাল।  
+- মেথডগুলো **প্রোটোটাইপে** থাকে; অ্যারো‑মেথড ফিল্ড প্রতিটি ইনস্ট্যান্সে নতুন ফাংশন তৈরি করে (binding সুবিধা, তবে মেমরি বেশি)।  
+- প্রতি ফাইলে একই ভাষা স্টাইল অনুসরণ করা শ্রেয়: `শ্রেণী`, `প্রসারিত`, `অভিভাবক`, `স্থির`, `নতুন` ইত্যাদি।
+</I18nBangla>
+
+<I18nBanglish>
+- Class body te **field** gulo instance‑wise set hoy; **`sthir`** field class er sathe thake.  
+- Subclass e `eti` use korar **age** **`obhibhabok(...)`** call korte hobe.  
+- **Private field** `#name` asolei private — bracket diye pawa jay na; eta lexical.  
+- Method prototype e thake; arrow‑field dile protiti instance e notun function (this binding er jonno upokari, kintu memory baray).  
+- Ek file e ekta language style e thakun: `shreni`, `prosarito`, `obhibhabok`, `sthir`, `notun`.
+</I18nBanglish>

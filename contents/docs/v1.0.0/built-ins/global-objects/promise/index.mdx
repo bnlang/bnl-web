@@ -1,0 +1,119 @@
+---
+title: Promise
+description: Promise in Bnlang with English, Bangla, and Banglish usage for async operations.
+bnTitle: প্রতিশ্রুতি
+bnDescription: Bnlang এ অ্যাসিনক্রোনাস কাজের জন্য প্রতিশ্রুতি (Promise) এর ব্যবহার।
+banglishTitle: Promise
+banglishDescription: Bnlang e async kaj er jonne Protishruti (Promise) er use.
+---
+
+# <I18nEnglish>Promise</I18nEnglish>
+# <I18nBangla>প্রতিশ্রুতি</I18nBangla>
+# <I18nBanglish>Promise</I18nBanglish>
+
+<I18nEnglish>
+Use **`Promise`**, **`প্রতিশ্রুতি`**, or **`Protishruti`** for asynchronous operations.  
+It provides static methods to resolve, reject, and combine promises, and instance methods to handle results.
+</I18nEnglish>
+
+<I18nBangla>
+অ্যাসিনক্রোনাস কাজের জন্য **`Promise`**, **`প্রতিশ্রুতি`**, বা **`Protishruti`** ব্যবহার করা হয়।  
+এতে সমাধান, প্রত্যাখ্যান, একাধিক প্রতিশ্রুতির সমন্বয় এবং ফলাফল হ্যান্ডেল করার মেথড থাকে।
+</I18nBangla>
+
+<I18nBanglish>
+Async kajer jonne **`Promise`**, **`প্রতিশ্রুতি`**, othoba **`Protishruti`** use kora hoy.  
+Eta diye resolve, reject, onek promise combine kora ar result handle kora jay.
+</I18nBanglish>
+
+---
+
+## Static Methods
+
+<I18nEnglish>
+- `Promise.resolve(v)` → `প্রতিশ্রুতি.সমাধান(v)` → `Protishruti.somadhan(v)`  
+- `Promise.reject(e)` → `প্রতিশ্রুতি.প্রত্যাখ্যান(e)` → `Protishruti.prottakhan(e)`  
+- `Promise.all(arr)` → `প্রতিশ্রুতি.সব(arr)` → `Protishruti.shob(arr)`  
+- `Promise.allSettled(arr)` → `প্রতিশ্রুতি.সব_সমাপ্ত(arr)` → `Protishruti.sobSomapto(arr)`  
+- `Promise.race(arr)` → `প্রতিশ্রুতি.দ্রুততম(arr)` → `Protishruti.drutotomo(arr)`  
+- `Promise.any(arr)` → `প্রতিশ্রুতি.যেকোনো(arr)` → `Protishruti.jekono(arr)`  
+- `Promise.withResolvers()` → `প্রতিশ্রুতি.সমাধানকারীদের_সহ()` → `Protishruti.somadhankariderSoho()`
+</I18nEnglish>
+
+<I18nBangla>
+- সমাধান: `প্রতিশ্রুতি.সমাধান(v)`  
+- প্রত্যাখ্যান: `প্রতিশ্রুতি.প্রত্যাখ্যান(e)`  
+- সব: `প্রতিশ্রুতি.সব(arr)`  
+- সব সমাপ্ত: `প্রতিশ্রুতি.সব_সমাপ্ত(arr)`  
+- দ্রুততম: `প্রতিশ্রুতি.দ্রুততম(arr)`  
+- যেকোনো: `প্রতিশ্রুতি.যেকোনো(arr)`  
+- সমাধানকারীদের সহ: `প্রতিশ্রুতি.সমাধানকারীদের_সহ()`
+</I18nBangla>
+
+<I18nBanglish>
+- Somadhan: `Protishruti.somadhan(v)`  
+- Prottakhan: `Protishruti.prottakhan(e)`  
+- Shob: `Protishruti.shob(arr)`  
+- Sob Somapto: `Protishruti.sobSomapto(arr)`  
+- Drutotomo: `Protishruti.drutotomo(arr)`  
+- Jekono: `Protishruti.jekono(arr)`  
+- Somadhankarider Soho: `Protishruti.somadhankariderSoho()`
+</I18nBanglish>
+
+---
+
+## Instance Methods
+
+<I18nEnglish>
+- `p.then(fn)` → `p.তারপর(fn)` → `p.tarpor(fn)`  
+- `p.catch(fn)` → `p.ধরো(fn)` → `p.dhoro(fn)`  
+- `p.finally(fn)` → `p.অবশেষে(fn)` → `p.obosheshe(fn)`
+</I18nEnglish>
+
+<I18nBangla>
+- তারপর: `p.তারপর(fn)`  
+- ধরো: `p.ধরো(fn)`  
+- অবশেষে: `p.অবশেষে(fn)`
+</I18nBangla>
+
+<I18nBanglish>
+- Tarpor: `p.tarpor(fn)`  
+- Dhoro: `p.dhoro(fn)`  
+- Obosheshe: `p.obosheshe(fn)`
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const p = Promise.resolve(42);
+p.then(v => console.log(v));
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const p = প্রতিশ্রুতি.সমাধান(42);
+p.তারপর(v => কনসোল.লগ(v));
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const p = Protishruti.somadhan(42);
+p.tarpor(v => console.log(v));
+```
+  </TabsContent>
+</Tabs>

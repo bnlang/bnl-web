@@ -1,0 +1,100 @@
+---
+title: Set
+description: The Set object in Bnlang with Bangla, Banglish, and English usage for unique collections.
+bnTitle: সমষ্টি
+bnDescription: Bnlang এ সমষ্টি ব্যবহার করে অনন্য মানের সংগ্রহ তৈরির উদাহরণ।
+banglishTitle: Set
+banglishDescription: Bnlang e Somoshti diye unique maner collection toiri kora.
+---
+
+# <I18nEnglish>Set</I18nEnglish>
+# <I18nBangla>সমষ্টি</I18nBangla>
+# <I18nBanglish>Somoshti</I18nBanglish>
+
+<I18nEnglish>
+The **Set** object stores unique values. In Bnlang, you can also use **`সমষ্টি`** or **`Somoshti`**. A value in a Set may only occur once.
+</I18nEnglish>
+
+<I18nBangla>
+**সমষ্টি** দিয়ে অনন্য মান রাখা যায়। প্রতিটি মান একবারই থাকতে পারবে।
+</I18nBangla>
+
+<I18nBanglish>
+**Somoshti** diye unique value rakha jay. Protiti man shudhu ekbar thakte parbe.
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const s = new Set();
+s.add(1);
+s.add(2);
+console.log(s.has(1)); // true
+console.log(s.size);   // 2
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const s = new সমষ্টি();
+s.যোগ(1);
+s.যোগ(2);
+কনসোল.লগ(s.আছে(1)); // true
+কনসোল.লগ(s.আকার());   // 2
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const s = new Somoshti();
+s.jog(1);
+s.jog(2);
+console.log(s.ache(1)); // true
+console.log(s.akar());    // 2
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Methods
+
+<I18nEnglish>
+- `add(value)` – Insert a value.
+- `delete(value)` – Remove a value.
+- `clear()` – Remove all values.
+- `has(value)` – Check existence.
+- `size` – Count values.
+- Iteration: `keys()`, `values()`, `entries()`, `forEach()`.
+</I18nEnglish>
+
+<I18nBangla>
+- `যোগ(মান)` – একটি মান যোগ করে।
+- `মোছো(মান)` – একটি মান মুছে দেয়।
+- `পরিষ্কার()` – সব মান মুছে দেয়।
+- `আছে(মান)` – মান আছে কিনা দেখে।
+- `আকার` – মোট মানের সংখ্যা।
+- ইটারেশন: `চাবিগুলি()`, `মানগুলি()`, `জোড়াগুলি()`, `প্রতিটি_চালান()`।
+</I18nBangla>
+
+<I18nBanglish>
+- `jog(man)` – ekta value add kore.
+- `mocho(man)` – ekta value delete kore.
+- `porishkar()` – shob value delete kore.
+- `ache(man)` – value ache kina check kore.
+- `akar` – total value count.
+- Iteration: `chabiguli()`, `manguli()`, `joraguli()`, `protitiChalano()`.
+</I18nBanglish>

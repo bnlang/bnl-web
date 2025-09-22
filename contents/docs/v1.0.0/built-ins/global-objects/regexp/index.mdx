@@ -1,0 +1,109 @@
+---
+title: RegExp
+description: Working with regular expressions in Bnlang using English, Bangla, and Banglish names with short examples.
+bnTitle: রেজেক্স
+bnDescription: Bnlang এ রেজেক্স—RegExp কন্সট্রাক্টর এবং এর মেথডসমূহ (পরীক্ষা, কার্যকর, প্রতীক মিলাও ইত্যাদি)।
+banglishTitle: RegEx
+banglishDescription: Bnlang e RegEx—constructor ar method gulo (porikkha, karjokor, protikMilao etc.).
+---
+
+# <I18nEnglish>RegExp</I18nEnglish>
+# <I18nBangla>রেজেক্স</I18nBangla>
+# <I18nBanglish>RegEx</I18nBanglish>
+
+<I18nEnglish>
+Regular expressions are used for pattern matching in strings.  
+Constructor names: **`RegExp`**, **`রেজেক্স`**, **`RegEx`**.  
+Prototype methods include `test`, `exec`, and symbol-based match helpers.
+</I18nEnglish>
+
+<I18nBangla>
+স্ট্রিং প্যাটার্ন মেলানোর জন্য রেজেক্স ব্যবহার করা হয়।  
+কন্সট্রাক্টর নাম: **`RegExp`**, **`রেজেক্স`**, **`RegEx`**।  
+মেথডসমূহের মধ্যে আছে `পরীক্ষা`, `কার্যকর`, এবং প্রতীক ভিত্তিক ম্যাচ ফাংশন।
+</I18nBangla>
+
+<I18nBanglish>
+String pattern matching er jonne regex use hoy.  
+Constructor name gulo: **`RegExp`**, **`রেজেক্স`**, **`RegEx`**.  
+Method gulo holo `porikkha`, `karjokor`, ebong symbol-based match helper.
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+// Test if string has digits
+const r = new RegExp("\\d+");
+console.log(r.test("abc123")); // true
+
+// Exec example
+const result = r.exec("id42");
+console.log(result[0]); // "42"
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// স্ট্রিং-এ সংখ্যা আছে কি না পরীক্ষা
+const r = new রেজেক্স("\\d+");
+কনসোল.লগ(r.পরীক্ষা("abc123")); // true
+
+// কার্যকর উদাহরণ
+const result = r.কার্যকর("id42");
+কনসোল.লগ(result[0]); // "42"
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// String e digit ache kina check
+const r = new RegEx("\\d+");
+console.log(r.porikkha("abc123")); // true
+
+// Exec example
+const result = r.karjokor("id42");
+console.log(result[0]); // "42"
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Symbol-based methods
+
+<I18nEnglish>
+- **match**: `r[Symbol.match](str)` → find matches  
+- **matchAll**: `r[Symbol.matchAll](str)` → iterator of all matches  
+- **replace**: `r[Symbol.replace](str, replacer)` → replace text  
+- **search**: `r[Symbol.search](str)` → find index  
+- **split**: `r[Symbol.split](str)` → split string
+</I18nEnglish>
+
+<I18nBangla>
+- **ম্যাচ**: `r[Symbol.match](স্ট্রিং)` → ম্যাচ খুঁজুন  
+- **সব ম্যাচ**: `r[Symbol.matchAll](স্ট্রিং)` → সব ম্যাচের ইটারেটর  
+- **বদলাও**: `r[Symbol.replace](স্ট্রিং, প্রতিস্থাপন)` → টেক্সট পরিবর্তন  
+- **অনুসন্ধান**: `r[Symbol.search](স্ট্রিং)` → সূচক খুঁজুন  
+- **বিভাজন**: `r[Symbol.split](স্ট্রিং)` → স্ট্রিং বিভক্ত করুন
+</I18nBangla>
+
+<I18nBanglish>
+- **match**: `r[Symbol.match](string)` → find match  
+- **sobMatch**: `r[Symbol.matchAll](string)` → iterator of all matches  
+- **bodlao**: `r[Symbol.replace](string, replacer)` → replace text  
+- **onusondhan**: `r[Symbol.search](string)` → find index  
+- **bibhajon**: `r[Symbol.split](string)` → split string
+</I18nBanglish>

@@ -1,0 +1,134 @@
+---
+title: Bnlang File Paths
+description: Learn how to work with file paths in Bnlang, including relative and absolute paths, and cross-platform handling.
+bnTitle: Bnlang ফাইল পাথ
+bnDescription: Bnlang এ ফাইল পাথ নিয়ে কাজ করা শিখুন, রিলেটিভ এবং অ্যাবসোলিউট পাথসহ ক্রস-প্ল্যাটফর্ম ব্যবহার।
+banglishTitle: Bnlang File Paths
+banglishDescription: Bnlang e file path niye kaj kora, relative ar absolute path plus cross-platform use.
+---
+
+# <I18nEnglish>Bnlang File Paths</I18nEnglish>
+# <I18nBangla>Bnlang ফাইল পাথ</I18nBangla>
+# <I18nBanglish>Bnlang File Paths</I18nBanglish>
+
+<I18nEnglish>
+Working with **file paths** is an important part of file system operations in Bnlang.  
+File paths can be **absolute** (starting from the root of the file system) or **relative** (starting from the current working directory).  
+Bnlang provides built-in modules to handle file paths in a cross-platform way, so your programs work on Windows, Linux, and macOS.
+</I18nEnglish>
+
+<I18nBangla>
+Bnlang এ **ফাইল পাথ** নিয়ে কাজ করা ফাইল সিস্টেম অপারেশনের একটি গুরুত্বপূর্ণ অংশ।  
+ফাইল পাথ হতে পারে **অ্যাবসোলিউট** (ফাইল সিস্টেমের রুট থেকে শুরু) অথবা **রিলেটিভ** (বর্তমান কাজের ডিরেক্টরি থেকে শুরু)।  
+Bnlang ক্রস-প্ল্যাটফর্ম উপায়ে ফাইল পাথ হ্যান্ডল করার জন্য বিল্ট-ইন মডিউল সরবরাহ করে, যাতে আপনার প্রোগ্রাম Windows, Linux এবং macOS এ কাজ করে।
+</I18nBangla>
+
+<I18nBanglish>
+Bnlang e **file path** niye kaj kora file system operation er ekta important part.  
+File path hote pare **absolute** (file system er root theke start) othoba **relative** (current working directory theke start).  
+Bnlang cross-platform way te file path handle korar jonno built-in module dey, jate program Windows, Linux, ar macOS e run kore.
+</I18nBanglish>
+
+---
+
+## Types of Paths
+
+<I18nEnglish>
+- **Absolute Path** → Specifies the full path from the root of the file system.  
+- **Relative Path** → Specifies the path relative to the current working directory.  
+- **Cross-Platform Paths** → Use helpers to handle different separators (e.g., `/` in Linux, `\` in Windows).
+</I18nEnglish>
+
+<I18nBangla>
+- **অ্যাবসোলিউট পাথ** → ফাইল সিস্টেমের রুট থেকে পুরো পাথ উল্লেখ করে।  
+- **রিলেটিভ পাথ** → বর্তমান কাজের ডিরেক্টরি থেকে পাথ উল্লেখ করে।  
+- **ক্রস-প্ল্যাটফর্ম পাথ** → আলাদা সিস্টেমের সেপারেটর (যেমন Linux এ `/`, Windows এ `\`) হ্যান্ডল করার জন্য হেল্পার ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- **Absolute Path** → File system er root theke full path bole dey.  
+- **Relative Path** → Current working directory theke path bole dey.  
+- **Cross-Platform Path** → Different system separator (Linux e `/`, Windows e `\`) handle korar jonno helper use korun.
+</I18nBanglish>
+
+---
+
+## Example: Using File Paths
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+const path = require("path");
+
+// Absolute path
+const absolutePath = path.resolve("/user/docs/file.txt");
+console.log("Absolute:", absolutePath);
+
+// Relative path
+const relativePath = path.join("docs", "file.txt");
+console.log("Relative:", relativePath);
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const path = require("path");
+
+// অ্যাবসোলিউট পাথ
+const পূর্ণপাথ = path.resolve("/user/docs/file.txt");
+কনসোল.লগ("পূর্ণ:", পূর্ণপাথ);
+
+// রিলেটিভ পাথ
+const আপেক্ষিক = path.join("docs", "file.txt");
+কনসোল.লগ("আপেক্ষিক:", আপেক্ষিক);
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const path = require("path");
+
+// Absolute path
+const fullPath = path.resolve("/user/docs/file.txt");
+console.log("Purno:", fullPath);
+
+// Relative path
+const aprekhik = path.join("docs", "file.txt");
+console.log("Aprekshik:", aprekhik);
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Always use the `path` module for portability.  
+- Avoid hardcoding separators (`/` or `\`) in your code.  
+- Use `path.resolve()` for absolute paths and `path.join()` for building relative paths.  
+- Test file operations on multiple platforms if your project targets cross-platform environments.
+</I18nEnglish>
+
+<I18nBangla>
+- সর্বদা `path` মডিউল ব্যবহার করুন যাতে পোর্টেবিলিটি বজায় থাকে।  
+- কোডে সেপারেটর (`/` বা `\`) হার্ডকোড করা এড়িয়ে চলুন।  
+- অ্যাবসোলিউট পাথের জন্য `path.resolve()` এবং রিলেটিভ পাথ তৈরির জন্য `path.join()` ব্যবহার করুন।  
+- যদি আপনার প্রজেক্ট ক্রস-প্ল্যাটফর্ম হয় তবে একাধিক প্ল্যাটফর্মে ফাইল অপারেশন টেস্ট করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Portability rakhte always `path` module use korun.  
+- Code e separator (`/` or `\`) hardcode kora avoid korun.  
+- Absolute path er jonno `path.resolve()` ar relative path er jonno `path.join()` use korun.  
+- Jodi project cross-platform target kore, tahole multiple platform e file operation test korun.
+</I18nBanglish>

@@ -1,0 +1,201 @@
+---
+title: Global Functions
+description: Built-in global functions in Bnlang with examples in English, Bangla, and Banglish.
+bnTitle: গ্লোবাল ফাংশন
+bnDescription: Bnlang এ বিল্ট-ইন গ্লোবাল ফাংশন যেমন মূল্যায়ন, সসীম_কি, সংখ্যা_নয়_কি এর উদাহরণ।
+banglishTitle: Global Functions
+banglishDescription: Bnlang e built-in global function jemon mullayon, soshimKi, sonkhaNoyKi er example.
+---
+
+# <I18nEnglish>Global Functions</I18nEnglish>
+# <I18nBangla>গ্লোবাল ফাংশন</I18nBangla>
+# <I18nBanglish>Global Functions</I18nBanglish>
+
+<I18nEnglish>
+Bnlang provides built-in global functions similar to JavaScript:
+- **`eval`** → `মূল্যায়ন` / `mullayon`  
+- **`isFinite`** → `সসীম_কি` / `soshimKi`  
+- **`isNaN`** → `সংখ্যা_নয়_কি` / `sonkhaNoyKi`  
+- **`parseInt`** → `পূর্ণসংখ্যায়_রূপান্তর` / `purnoshonkhaTeRupantor`  
+- **`parseFloat`** → `ভগ্নাংশে_রূপান্তর` / `voghnangsheRupantor`  
+- **`encodeURI`** → `ইউআরআই_এনকোড` / `uriEncode`  
+- **`decodeURI`** → `ইউআরআই_ডিকোড` / `uriDecode`  
+- **`encodeURIComponent`** → `ইউআরআই_উপাদান_এনকোড` / `uriUpadanEncode`  
+- **`decodeURIComponent`** → `ইউআরআই_উপাদান_ডিকোড` / `uriUpadanDecode`  
+- **`queueMicrotask`** → `ক্ষুদ্র_কাজের_সারি` / `khudroKajerSari`  
+- **`require`** → `প্রয়োজন` / `proyojon`
+</I18nEnglish>
+
+<I18nBangla>
+Bnlang এ কিছু বিল্ট-ইন গ্লোবাল ফাংশন আছে:
+- **`মূল্যায়ন`** → `eval`  
+- **`সসীম_কি`** → `isFinite`  
+- **`সংখ্যা_নয়_কি`** → `isNaN`  
+- **`পূর্ণসংখ্যায়_রূপান্তর`** → `parseInt`  
+- **`ভগ্নাংশে_রূপান্তর`** → `parseFloat`  
+- **`ইউআরআই_এনকোড`** → `encodeURI`  
+- **`ইউআরআই_ডিকোড`** → `decodeURI`  
+- **`ইউআরআই_উপাদান_এনকোড`** → `encodeURIComponent`  
+- **`ইউআরআই_উপাদান_ডিকোড`** → `decodeURIComponent`  
+- **`ক্ষুদ্র_কাজের_সারি`** → `queueMicrotask`
+- **`প্রয়োজন`** → `require`
+</I18nBangla>
+
+<I18nBanglish>
+Bnlang e kichu built-in global function ache:
+- **`mullayon`** → `eval`  
+- **`soshimKi`** → `isFinite`  
+- **`sonkhaNoyKi`** → `isNaN`  
+- **`purnoshonkhaTeRupantor`** → `parseInt`  
+- **`voghnangsheRupantor`** → `parseFloat`  
+- **`uriEncode`** → `encodeURI`  
+- **`uriDecode`** → `decodeURI`  
+- **`uriUpadanEncode`** → `encodeURIComponent`  
+- **`uriUpadanDecode`** → `decodeURIComponent`  
+- **`khudroKajerSari`** → `queueMicrotask`
+- **`proyojon`** → `require`
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+// eval
+console.log(eval("2 + 3 * 4")); // 14
+
+// isFinite
+console.log(isFinite(10));        // true
+console.log(isFinite(Infinity));  // false
+
+// isNaN
+console.log(isNaN("abc"));        // true
+console.log(isNaN(42));           // false
+
+// parseInt
+console.log(parseInt("42"));      // 42
+console.log(parseInt("101", 2));  // 5
+
+// parseFloat
+console.log(parseFloat("3.1416")); // 3.1416
+
+// encodeURI / decodeURI
+const url = "https://example.com/a b?x=১ ২";
+const encUrl = encodeURI(url);
+console.log(encUrl);              // encoded URL
+console.log(decodeURI(encUrl));   // original URL
+
+// encodeURIComponent / decodeURIComponent
+const q = "a b&=বাংলা";
+const encQ = encodeURIComponent(q);
+console.log(encQ);                // encoded component
+console.log(decodeURIComponent(encQ)); // original component
+
+// queueMicrotask
+console.log("start");
+queueMicrotask(() => console.log("microtask"));
+console.log("end");               // order: start, end, microtask
+
+// require (CommonJS-style)
+const path = require("path");
+console.log(path.basename("/x/y/z.txt")); // z.txt
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// মূল্যায়ন (eval)
+কনসোল.লগ(মূল্যায়ন("2 + 3 * 4")); // 14
+
+// সসীম_কি (isFinite)
+কনসোল.লগ(সসীম_কি(10));          // true
+কনসোল.লগ(সসীম_কি(অসীম));    // false
+
+// সংখ্যা_নয়_কি (isNaN)
+কনসোল.লগ(সংখ্যা_নয়_কি("abc"));   // true
+কনসোল.লগ(সংখ্যা_নয়_কি(42));      // false
+
+// পূর্ণসংখ্যায়_রূপান্তর (parseInt)
+কনসোল.লগ(পূর্ণসংখ্যায়_রূপান্তর("42"));      // 42
+কনসোল.লগ(পূর্ণসংখ্যায়_রূপান্তর("101", 2));  // 5
+
+// ভগ্নাংশে_রূপান্তর (parseFloat)
+কনসোল.লগ(ভগ্নাংশে_রূপান্তর("3.1416")); // 3.1416
+
+// ইউআরআই_এনকোড / ইউআরআই_ডিকোড (encodeURI / decodeURI)
+ধরি ইউআরএল = "https://example.com/a b?x=১ ২";
+ধরি এনকোডেড = ইউআরআই_এনকোড(ইউআরএল);
+কনসোল.লগ(এনকোডেড);                 // এনকোডেড URL
+কনসোল.লগ(ইউআরআই_ডিকোড(এনকোডেড));   // আসল URL
+
+// ইউআরআই_উপাদান_এনকোড / ইউআরআই_উপাদান_ডিকোড
+ধরি ক = "a b&=বাংলা";
+ধরি এন = ইউআরআই_উপাদান_এনকোড(ক);
+কনসোল.লগ(এন);                        // এনকোডেড কম্পোনেন্ট
+কনসোল.লগ(ইউআরআই_উপাদান_ডিকোড(এন));   // আসল কম্পোনেন্ট
+
+// ক্ষুদ্র_কাজের_সারি (queueMicrotask)
+কনসোল.লগ("শুরু");
+ক্ষুদ্র_কাজের_সারি(() => কনসোল.লগ("মাইক্রোটাস্ক"));
+কনসোল.লগ("শেষ");                      // ক্রম: শুরু, শেষ, মাইক্রোটাস্ক
+
+// প্রয়োজন (require)
+ধরি পথ = প্রয়োজন("path");
+কনসোল.লগ(পথ.basename("/x/y/z.txt"));    // z.txt
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// mullayon (eval)
+console.log(mullayon("2 + 3 * 4")); // 14
+
+// soshimKi (isFinite)
+console.log(soshimKi(10));         // true
+console.log(soshimKi(Infinity));   // false
+
+// sonkhaNoyKi (isNaN)
+console.log(sonkhaNoyKi("abc"));   // true
+console.log(sonkhaNoyKi(42));      // false
+
+// purnoshonkhaTeRupantor (parseInt)
+console.log(purnoshonkhaTeRupantor("42"));     // 42
+console.log(purnoshonkhaTeRupantor("101", 2)); // 5
+
+// voghnangsheRupantor (parseFloat)
+console.log(voghnangsheRupantor("3.1416")); // 3.1416
+
+// uriEncode / uriDecode
+const url = "https://example.com/a b?x=1 2";
+const enc = uriEncode(url);
+console.log(enc);                 // encoded URL
+console.log(uriDecode(enc));      // original URL
+
+// uriUpadanEncode / uriUpadanDecode
+const q = "a b&=bangla";
+const eq = uriUpadanEncode(q);
+console.log(eq);                   // encoded component
+console.log(uriUpadanDecode(eq));  // original component
+
+// khudroKajerSari (queueMicrotask)
+console.log("shuru");
+khudroKajerSari(() => console.log("microtask"));
+console.log("shesh");              // order: shuru, shesh, microtask
+
+// proyojon (require)
+const path = proyojon("path");
+console.log(path.basename("/x/y/z.txt")); // z.txt
+```
+  </TabsContent>
+</Tabs>

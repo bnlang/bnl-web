@@ -1,0 +1,149 @@
+---
+title: Bnlang File Stats
+description: Learn how to retrieve and understand file statistics in Bnlang, including size, type, and timestamps.
+bnTitle: Bnlang ফাইল স্ট্যাটস
+bnDescription: Bnlang এ ফাইলের পরিসংখ্যান পাওয়া শিখুন, যেমন সাইজ, ধরন, এবং টাইমস্ট্যাম্প।
+banglishTitle: Bnlang File Stats
+banglishDescription: Bnlang e file stats pete shikha, jemon size, type ar timestamp.
+---
+
+# <I18nEnglish>Bnlang File Stats</I18nEnglish>
+# <I18nBangla>Bnlang ফাইল স্ট্যাটস</I18nBangla>
+# <I18nBanglish>Bnlang File Stats</I18nBanglish>
+
+<I18nEnglish>
+File statistics (or **file stats**) provide detailed information about a file, such as its size, type, creation date, and last modification date.  
+In Bnlang, you can use built-in modules to get these details and make decisions in your program, such as checking if a path is a file or a directory.
+</I18nEnglish>
+
+<I18nBangla>
+ফাইল পরিসংখ্যান (**ফাইল স্ট্যাটস**) একটি ফাইলের বিস্তারিত তথ্য দেয়, যেমন সাইজ, ধরন, তৈরির তারিখ এবং সর্বশেষ পরিবর্তনের তারিখ।  
+Bnlang এ আপনি বিল্ট-ইন মডিউল ব্যবহার করে এই তথ্যগুলি পেতে পারেন এবং আপনার প্রোগ্রামে সিদ্ধান্ত নিতে পারেন, যেমন একটি পাথ ফাইল না ডিরেক্টরি তা যাচাই করা।
+</I18nBangla>
+
+<I18nBanglish>
+File statistics (**file stats**) ekta file er detail information dey, jemon size, type, creation date, ar last modification date.  
+Bnlang e apni built-in module use kore ei info pete parben, ar program e decision nite parben, jemon ekta path file naki directory sheta check kora.
+</I18nBanglish>
+
+---
+
+## Example: Getting File Stats
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+const fs = require("fs");
+
+fs.stat("example.txt", (err, stats) => {
+  if (err) {
+    console.error("Error:", err);
+    return;
+  }
+  console.log("Is file?", stats.isFile());
+  console.log("Is directory?", stats.isDirectory());
+  console.log("Size:", stats.size);
+  console.log("Created:", stats.birthtime);
+  console.log("Modified:", stats.mtime);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const fs = require("fs");
+
+fs.stat("example.txt", (ত্রুটি, পরিসংখ্যান) => {
+  যদি (ত্রুটি) {
+    কনসোল.ত্রুটি("সমস্যা:", ত্রুটি);
+    ফেরত;
+  }
+  কনসোল.লগ("ফাইল?", পরিসংখ্যান.isFile());
+  কনসোল.লগ("ডিরেক্টরি?", পরিসংখ্যান.isDirectory());
+  কনসোল.লগ("সাইজ:", পরিসংখ্যান.size);
+  কনসোল.লগ("তৈরি:", পরিসংখ্যান.birthtime);
+  কনসোল.লগ("পরিবর্তন:", পরিসংখ্যান.mtime);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const fs = require("fs");
+
+fs.stat("example.txt", (truti, porisonkhan) => {
+  jodi (truti) {
+    console.error("Samossha:", truti);
+    return;
+  }
+  console.log("File?", porisonkhan.isFile());
+  console.log("Directory?", porisonkhan.isDirectory());
+  console.log("Size:", porisonkhan.size);
+  console.log("Toiri:", porisonkhan.birthtime);
+  console.log("Poriborton:", porisonkhan.mtime);
+});
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Common Properties
+
+<I18nEnglish>
+- **isFile()** → Checks if the path is a file.  
+- **isDirectory()** → Checks if the path is a directory.  
+- **size** → Returns the file size in bytes.  
+- **birthtime** → The date the file was created.  
+- **mtime** → The date the file was last modified.
+</I18nEnglish>
+
+<I18nBangla>
+- **isFile()** → যাচাই করে পাথটি ফাইল কিনা।  
+- **isDirectory()** → যাচাই করে পাথটি ডিরেক্টরি কিনা।  
+- **size** → ফাইলের সাইজ (বাইটে) দেয়।  
+- **birthtime** → ফাইলটি কবে তৈরি হয়েছে তার তারিখ দেয়।  
+- **mtime** → ফাইলটি সর্বশেষ কখন পরিবর্তিত হয়েছে তা জানায়।
+</I18nBangla>
+
+<I18nBanglish>
+- **isFile()** → Path file kina check kore.  
+- **isDirectory()** → Path directory kina check kore.  
+- **size** → File size byte e dey.  
+- **birthtime** → File kobe toiri hoyeche shetar date dey.  
+- **mtime** → File last kobe poriborton hoyeche sheta dey.
+</I18nBanglish>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Always handle errors when reading file stats.  
+- Use `isFile()` and `isDirectory()` before performing operations.  
+- File sizes are in bytes, so convert them if needed (e.g., KB, MB).  
+- Use stats to check last modification date for caching or versioning logic.
+</I18nEnglish>
+
+<I18nBangla>
+- ফাইল স্ট্যাটস পড়ার সময় সবসময় ত্রুটি হ্যান্ডল করুন।  
+- কোনো অপারেশন করার আগে `isFile()` এবং `isDirectory()` ব্যবহার করুন।  
+- ফাইলের সাইজ বাইটে হয়, তাই প্রয়োজন হলে এটি কনভার্ট করুন (যেমন KB, MB)।  
+- ক্যাশিং বা ভার্সনিং লজিকের জন্য সর্বশেষ পরিবর্তনের তারিখ যাচাই করতে স্ট্যাটস ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- File stats porar shomoy always error handle korun.  
+- Operation korar age `isFile()` ar `isDirectory()` use korun.  
+- File size byte e thake, proyojon hole convert korun (KB, MB).  
+- Caching ba versioning logic er jonno last modification date check korte stats use korun.
+</I18nBanglish>

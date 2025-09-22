@@ -1,0 +1,218 @@
+---
+title: for Loop
+description: The for loop in Bnlang for counting, iteration with for...of and for...in, including break/continue usage. Examples in English, Bangla, and Banglish.
+bnTitle: প্রতি লুপ
+bnDescription: Bnlang এ প্রতি (for) লুপ—গণনা, for...of, for...in এবং থামুন/চলুন ব্যবহারের উদাহরণ।
+banglishTitle: for Loop
+banglishDescription: Bnlang e for (proti) loop—counting, for...of, for...in, break/continue examples in English, Bangla, Banglish.
+---
+
+# <I18nEnglish>for Loop</I18nEnglish>
+# <I18nBangla>প্রতি লুপ</I18nBangla>
+# <I18nBanglish>for Loop</I18nBanglish>
+
+<I18nEnglish>
+The **`for`** loop repeats a block of code a specific number of times, or iterates over collections with **`for...of`** and **`for...in`**.  
+Use **`break`** to exit early and **`continue`** to skip the current iteration.
+</I18nEnglish>
+
+<I18nBangla>
+**`প্রতি`** (for) লুপ নির্দিষ্ট সংখ্যকবার কোড চালায়; আবার **`for...of`** দিয়ে iterable (array, string ইত্যাদি) ঘোরা যায় এবং **`for...in`** দিয়ে অবজেক্টের কী ঘোরা যায়।  
+আগেভাগে বের হতে **`থামুন`** এবং চলতি ধাপ স্কিপ করতে **`চলুন`** ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+**`proti`** (for) loop diye nirdishto bar code chalano jay; **`for...of`** diye iterable gulo iterate kora jay, ar **`for...in`** diye object er key gulo.  
+Early exit er jonno **`thamun`**, current iteration skip er jonno **`colun`** use korun.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+// Counting loop
+for (let i = start; i < end; i++) {
+  // body
+}
+
+// Iterate values from an iterable
+for (const item of iterable) {
+  // use item
+}
+
+// Iterate keys from an object
+for (const key in object) {
+  // use key, object[key]
+}
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+// গণনাভিত্তিক লুপ
+প্রতি (let i = শুরু; i < শেষ; i++) {
+  // কাজ
+}
+
+// iterable থেকে মান ঘোরা
+প্রতি (const আইটেম এর iterable) {
+  // আইটেম ব্যবহার
+}
+
+// অবজেক্টের কী ঘোরা
+প্রতি (const কী মধ্যে অবজেক্ট) {
+  // কী এবং অবজেক্ট[কী]
+}
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+// Counting loop
+proti (let i = start; i < end; i++) {
+  // body
+}
+
+// Iterate values from iterable
+proti (const item er iterable) {
+  // use item
+}
+
+// Iterate keys from object
+proti (const key modhye object) {
+  // use key, object[key]
+}
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Counting with break / continue
+let sum = 0;
+for (let i = 1; i <= 10; i++) {
+  if (i === 5) continue;         // skip 5
+  if (i > 8) break;               // stop at 9
+  sum += i;
+}
+console.log("sum =", sum);
+
+// 2) for...of over arrays and strings
+const nums = [2, 4, 6];
+for (const n of nums) {
+  print(n * n);
+}
+
+for (const ch of "ABC") {
+  console.log(ch);
+}
+
+// 3) for...in over object keys
+const user = { name: "Rafi", city: "Dhaka" };
+for (const k in user) {
+  console.info(k, "=>", user[k]);
+}
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) থামুন / চলুন সহ গণনা
+let যোগফল = 0;
+প্রতি (let i = 1; i <= 10; i++) {
+  যদি (i === 5) চলুন;      // ৫ স্কিপ
+  যদি (i > 8) থামুন;        // ৯ পর্যন্ত
+  যোগফল += i;
+}
+কনসোল.লগ("যোগফল =", যোগফল);
+
+// ২) for...of দিয়ে অ্যারে ও স্ট্রিং
+const সংখ্যা = [2, 4, 6];
+প্রতি (const n এর সংখ্যা) {
+  ছাপাও(n * n);
+}
+
+প্রতি (const ch এর "ABC") {
+  কনসোল.লগ(ch);
+}
+
+// ৩) for...in দিয়ে অবজেক্টের কী
+const ব্যবহারকারী = { নাম: "রাফি", শহর: "Dhaka" };
+প্রতি (const কী মধ্যে ব্যবহারকারী) {
+  কনসোল.তথ্য(কী, "=>", ব্যবহারকারী[কী]);
+}
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) break / continue
+let sum = 0;
+proti (let i = 1; i <= 10; i++) {
+  jodi (i === 5) colun;   // skip 5
+  jodi (i > 8) thamun;     // stop at 9
+  sum += i;
+}
+console.log("sum =", sum);
+
+// 2) for...of over arrays & strings
+const shonkha = [2, 4, 6];
+proti (const n er shonkha) {
+  print(n * n);
+}
+
+proti (const ch er "ABC") {
+  console.log(ch);
+}
+
+// 3) for...in over object keys
+const byaboharkari = { nam: "Rafi", shohor: "Dhaka" };
+proti (const key modhye byaboharkari) {
+  console.info(key, "=>", byaboharkari[key]);
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Prefer `let` in loop headers so the index is block‑scoped.  
+- Use **`for...of`** for array/iterable values; use **`for...in`** for object keys.  
+- Avoid using `for...in` on arrays (order is not guaranteed).  
+- Combine with **`break`** (exit) and **`continue`** (skip) when needed.
+</I18nEnglish>
+
+<I18nBangla>
+- লুপ হেডারে `let` ব্যবহার করুন যাতে সূচকটি ব্লক‑স্কোপড থাকে।  
+- অ্যারে/ইটারেবল মানের জন্য **`for...of`**, অবজেক্টের কী‑এর জন্য **`for...in`**।  
+- অ্যারেতে **`for...in`** এড়িয়ে চলুন (অর্ডার নির্ভরযোগ্য নয়)।  
+- প্রয়োজনে **`থামুন`** (break) ও **`চলুন`** (continue) ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Loop header e `let` use korle index block‑scoped thake.  
+- Array/iterable er jonno **`for...of`**, object key er jonno **`for...in`**.  
+- Array te **`for...in`** chara chalun (order guarantee thake na).  
+- Dorkar hole **`thamun`** ebong **`colun`** use korun.
+</I18nBanglish>

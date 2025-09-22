@@ -1,0 +1,143 @@
+---
+title: net module
+description: Networking APIs for creating TCP servers and clients, handling sockets, data events, connection lifecycle, and stream-based communication.
+bnTitle: net মডিউল
+bnDescription: নেটওয়ার্কিং API — TCP সার্ভার ও ক্লায়েন্ট তৈরি, সকেট হ্যান্ডলিং, ডেটা ইভেন্ট, কানেকশন লাইফসাইকেল ও স্ট্রিম কমিউনিকেশন।
+banglishTitle: net module
+banglishDescription: Networking API — create TCP server & client, handle sockets, data events, connection lifecycle, stream communication.
+---
+
+# <I18nEnglish>net</I18nEnglish>
+# <I18nBangla>net</I18nBangla>
+# <I18nBanglish>net</I18nBanglish>
+
+<I18nEnglish>
+The **`net`** module provides an asynchronous network API for creating TCP servers and clients. Communication uses **sockets** which are stream-based.
+</I18nEnglish>
+
+<I18nBangla>
+**`net`** মডিউল অ্যাসিঙ্ক নেটওয়ার্ক API দেয়, TCP সার্ভার ও ক্লায়েন্ট তৈরি করতে। যোগাযোগ হয় **সকেট** দিয়ে, যা স্ট্রিম-ভিত্তিক।
+</I18nBangla>
+
+<I18nBanglish>
+**`net`** module async network API dey TCP server & client banate. Communication hoy **socket** diye, jeta stream-based.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Server
+- **`net.createServer([options], [connectionListener])`** — create a TCP server.
+- **server.listen(port[, host], callback)** — start listening.
+- **server.close([callback])** — stop server.
+- **Events**:
+  - **`'connection'`**: new client socket.
+  - **`'listening'`**, **`'close'`**, **`'error'`**.
+
+### Socket (net.Socket)
+- Duplex stream representing connection.
+- **`socket.connect(port[, host], [callback])`** — initiate client connection.
+- **`socket.write(data)`** — send data.
+- **`socket.end([data])`** — half-close, optionally send final data.
+- **Properties**: `socket.remoteAddress`, `socket.remotePort`, `socket.localAddress`, `socket.localPort`.
+- **Events**:
+  - **`'data'`**: incoming data chunk.
+  - **`'end'`**: remote closed.
+  - **`'error'`**: error occurred.
+  - **`'close'`**: fully closed.
+
+</I18nEnglish>
+
+<I18nBangla>
+### সার্ভার
+- **`createServer`**, **`listen`**, **`close`** — TCP সার্ভার তৈরি ও চালু/বন্ধ।
+- ইভেন্ট: **`connection`**, **`listening`**, **`close`**, **`error`**।
+
+### সকেট
+- কানেকশনকে রিপ্রেজেন্ট করে।
+- মেথড: **`connect`**, **`write`**, **`end`**।
+- প্রপার্টি: `remoteAddress`, `remotePort` ইত্যাদি।
+- ইভেন্ট: **`data`**, **`end`**, **`error`**, **`close`**।
+</I18nBangla>
+
+<I18nBanglish>
+### Server
+- **`createServer`**, **`listen`**, **`close`** — TCP server create & control.
+- Events: **`connection`**, **`listening`**, **`close`**, **`error`**.
+
+### Socket
+- Represent connection.
+- Methods: **`connect`**, **`write`**, **`end`**.
+- Properties: `remoteAddress`, `remotePort`.
+- Events: **`data`**, **`end`**, **`error`**, **`close`**.
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const net = require("net");
+
+// Simple echo server
+const server = net.createServer((socket) => {
+  console.log("Client connected");
+
+  socket.on("data", (data) => {
+    console.log("Received:", data.toString());
+    socket.write("Echo: " + data);
+  });
+
+  socket.on("end", () => console.log("Client disconnected"));
+});
+
+server.listen(3000, () => console.log("Server listening on port 3000"));
+
+// Client example
+const client = net.createConnection({ port: 3000 }, () => {
+  console.log("Connected to server");
+  client.write("Hello server!");
+});
+
+client.on("data", (data) => {
+  console.log("From server:", data.toString());
+  client.end();
+});
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- TCP is stream-oriented; use `'data'` events to accumulate or parse messages.  
+- Always handle **errors** on both server and client sockets.  
+- The server can handle multiple concurrent clients.  
+- Use **`end`** to close a socket gracefully, **`destroy`** to force.  
+</I18nEnglish>
+
+<I18nBangla>
+- TCP স্ট্রিম-ভিত্তিক; `'data'` ইভেন্ট দিয়ে ডেটা জমান বা পার্স করুন।  
+- সার্ভার ও ক্লায়েন্ট দুই দিকেই **ত্রুটি** হ্যান্ডল করুন।  
+- সার্ভার একাধিক ক্লায়েন্ট একসাথে হ্যান্ডল করতে পারে।  
+- সকেট সুন্দরভাবে বন্ধ করতে **`end`**, জোর করে বন্ধে **`destroy`**।  
+</I18nBangla>
+
+<I18nBanglish>
+- TCP stream-oriented, `'data'` event diye data accumulate or parse korun.  
+- Server & client dujonei **error** handle korte hobe.  
+- Server multiple client ekshathe handle korte pare.  
+- Socket graceful close korte **`end`**, force korte **`destroy`**.  
+</I18nBanglish>

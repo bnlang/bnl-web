@@ -1,0 +1,254 @@
+---
+title: throw Keyword
+description: The throw statement in Bnlang raises an exception to signal errors. Examples in Bangla, Banglish, and English.
+bnTitle: নিক্ষেপ কীওয়ার্ড
+bnDescription: Bnlang এ নিক্ষেপ (throw) দিয়ে ত্রুটি ছুঁড়ে দেওয়া—উদাহরণ ও সেরা চর্চা।
+banglishTitle: throw Keyword
+banglishDescription: Bnlang e nikkhep (throw) diye error raise kora—examples & best practices.
+---
+
+# <I18nEnglish>throw Keyword</I18nEnglish>
+# <I18nBangla>নিক্ষেপ কীওয়ার্ড</I18nBangla>
+# <I18nBanglish>throw Keyword</I18nBanglish>
+
+<I18nEnglish>
+Use **`throw`** to signal an exceptional condition. It stops normal execution and jumps to the nearest matching `catch`.  
+Prefer throwing **`Error`** objects (or subclasses) so stack traces and metadata are preserved.
+</I18nEnglish>
+
+<I18nBangla>
+**`নিক্ষেপ`** ব্যবহার করুন ব্যতিক্রমী অবস্থায় ত্রুটি জানাতে। এটি স্বাভাবিক এক্সিকিউশন থামিয়ে নিকটতম `ধরুন` ব্লকে চলে যায়।  
+স্ট্যাক‑ট্রেস ও তথ্য ধরে রাখতে **`Error`** অবজেক্ট (বা তার সাবক্লাস) নিক্ষেপ করা উত্তম।
+</I18nBangla>
+
+<I18nBanglish>
+**`nikkhep`** diye exceptional obostha signal korun. Normal execution bondho hoye nearest `dhorun` e chole jay.  
+Stack trace thakar jonno **`Error`** object (ba subclass) throw kora bhalo.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+throw expression;                 // usually an Error
+throw new Error("Message");       // recommended
+class ValidationError extends Error {}
+throw new ValidationError("Bad input");
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+নিক্ষেপ অভিব্যক্তি;                 // সাধারণত Error
+নিক্ষেপ new Error("বার্তা");         // সুপারিশকৃত
+class ValidationError extends Error {}
+নিক্ষেপ new ValidationError("ভুল ইনপুট");
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+nikkhep expression;                 // usually an Error
+nikkhep new Error("Message");       // recommended
+class ValidationError extends Error {}
+nikkhep new ValidationError("Bad input");
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) বেসিক নিক্ষেপ/ধরুন
+চেষ্টা {
+  const বয়স = -2;
+  যদি (বয়স < 0) নিক্ষেপ new Error("অবৈধ বয়স");
+  কনসোল.লগ("ঠিক আছে");
+} ধরুন (ত্রু) {
+  কনসোল.ত্রুটি("ভুল:", ত্রু.message);
+} অবশেষে {
+  কনসোল.তথ্য("সবশেষে চলবে");
+}
+
+// ২) কাস্টম Error সাবক্লাস
+class ইনপুটত্রুটি extends Error {
+  constructor(msg) {
+    super(msg);
+    this.name = "ইনপুটত্রুটি";
+  }
+}
+function মূল্যায়ন(x) {
+  যদি (typeof x !== "number") নিক্ষেপ new ইনপুটত্রুটি("সংখ্যা দিতে হবে");
+  ফেরত x * 2;
+}
+
+// ৩) cause দিয়ে কনটেক্সট চেইন করা
+function পার্স(json) {
+  চেষ্টা {
+    ফেরত JSON.parse(json);
+  } ধরুন (মূল) {
+    নিক্ষেপ new Error("JSON পার্স ব্যর্থ", { cause: মূল });
+  }
+}
+
+চেষ্টা {
+  পার্স("{bad json}");
+} ধরুন (ত্রু) {
+  কনসোল.ত্রুটি(ত্রু.message);
+  যদি (ত্রু.cause) কনসোল.তথ্য("মূল কারণ:", ত্রু.cause.message);
+}
+
+// ৪) অসমলয় ফাংশনে নিক্ষেপ (প্রমিস রিজেক্ট)
+অসমলয় function ডাউনলোড(url) {
+  const res = অপেক্ষা fetch(url);
+  যদি (!res.ok) নিক্ষেপ new Error("রেসপন্স ব্যর্থ");
+  ফেরত অপেক্ষা res.text();
+}
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) Basic nikkhep/dhorun
+ceshta {
+  const boyosh = -2;
+  jodi (boyosh < 0) nikkhep new Error("Obaidho boyosh");
+  console.log("OK");
+} dhorun (err) {
+  console.error("Error:", err.message);
+} obosheshe {
+  console.info("Always runs finally");
+}
+
+// 2) Custom Error subclass
+class InputError extends Error {
+  constructor(msg) {
+    super(msg);
+    this.name = "InputError";
+  }
+}
+function mulloyon(x) {
+  jodi (typeof x !== "number") nikkhep new InputError("Number dorkar");
+  ferot x * 2;
+}
+
+// 3) Wrap with cause
+function parse(json) {
+  ceshta {
+    ferot JSON.parse(json);
+  } dhorun (root) {
+    nikkhep new Error("JSON parse failed", { cause: root });
+  }
+}
+
+ceshta {
+  parse("{bad json}");
+} dhorun (err) {
+  console.error(err.message);
+  jodi (err.cause) console.info("cause:", err.cause.message);
+}
+
+// 4) Async function — throwing rejects the Promise
+osomoloy function download(url) {
+  const res = opekkha fetch(url);
+  jodi (!res.ok) nikkhep new Error("Bad response");
+  ferot opekkha res.text();
+}
+```
+  </TabsContent>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Basic throw/catch
+try {
+  const age = -2;
+  if (age < 0) throw new Error("Invalid age");
+  console.log("OK");
+} catch (err) {
+  console.error("Error:", err.message);
+} finally {
+  console.info("Always runs finally");
+}
+
+// 2) Custom Error subclass
+class InputError extends Error {
+  constructor(msg) {
+    super(msg);
+    this.name = "InputError";
+  }
+}
+function evaluate(x) {
+  if (typeof x !== "number") throw new InputError("Number required");
+  return x * 2;
+}
+
+// 3) Wrapping with cause
+function parse(json) {
+  try {
+    return JSON.parse(json);
+  } catch (root) {
+    throw new Error("JSON parse failed", { cause: root });
+  }
+}
+
+try {
+  parse("{bad json}");
+} catch (err) {
+  console.error(err.message);
+  if (err.cause) console.info("cause:", err.cause.message);
+}
+
+// 4) Throwing in async function rejects the promise
+async function download(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("Bad response");
+  return await res.text();
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- You can throw **any** value, but prefer `Error` or subclasses for consistent stacks and features like `cause`.  
+- `throw` aborts the current execution path and unwinds the stack until a matching `catch`.  
+- `finally` runs even if a `throw` happens.  
+- Avoid using exceptions for normal control flow; reserve them for truly exceptional situations.  
+- When converting errors, **wrap** and set `{ cause: original }` to keep context, or **rethrow** the original (`throw err`) to preserve its stack.
+</I18nEnglish>
+
+<I18nBangla>
+- যেকোনো মান নিক্ষেপ করা সম্ভব, তবে স্ট্যাক ও কনটেক্সট বজায় রাখতে `Error`/সাবক্লাস ব্যবহার করুন।  
+- `নিক্ষেপ` দিলে স্ট্যাক আনউইন্ড হয়ে মিলযুক্ত `ধরুন` পাওয়া পর্যন্ত থেমে যায়।  
+- `অবশেষে` ব্লক নিক্ষেপ হলেও চলে।  
+- সাধারণ নিয়ন্ত্রণ প্রবাহে ব্যতিক্রম ব্যবহার করবেন না—শুধু বিশেষ পরিস্থিতিতে রাখুন।  
+- ত্রুটি রূপান্তর করলে `{ cause: মূল }` দিন, বা মূল ত্রুটিই **পুনরায় নিক্ষেপ** করুন (`নিক্ষেপ ত্রু`) যাতে স্ট্যাক থাকে।
+</I18nBangla>
+
+<I18nBanglish>
+- Jekono value throw kora jaye, kintu `Error`/subclass best — stack & `cause` pai.  
+- `nikkhep` hole stack unwind hote thake, match kora `dhorun` paowa porjonto.  
+- `obosheshe` always run kore jodi throw o hoy.  
+- Normal control flow e exception chara chalun; sudhu exceptional case e use korun.  
+- Error convert korle `{ cause: original }` set korun, ba original‑i **rethrow** korun (`throw err`) stack rakhte.
+</I18nBanglish>

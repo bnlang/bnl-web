@@ -1,0 +1,103 @@
+---
+title: Function (Constructor)
+description: Creating functions dynamically with the Function constructor in Bnlang using English, Bangla, and Banglish names.
+bnTitle: নির্মাতা_ফাংশন
+bnDescription: Bnlang এ Function কন্সট্রাক্টর—নির্মাতা_ফাংশন, NirmataFunction—দিয়ে ডায়নামিক ফাংশন তৈরির উদাহরণ।
+banglishTitle: Function (Constructor)
+banglishDescription: Bnlang e Function constructor (NirmataFunction, নির্মাতা_ফাংশন) diye dynamic function toiri kora.
+---
+
+# <I18nEnglish>Function (Constructor)</I18nEnglish>
+# <I18nBangla>নির্মাতা_ফাংশন</I18nBangla>
+# <I18nBanglish>Function (Constructor)</I18nBanglish>
+
+<I18nEnglish>
+You can build functions dynamically using the constructor: **`Function`**, **`নির্মাতা_ফাংশন`**, or **`NirmataFunction`**.
+It accepts parameter names and a body string, returning a new function object.
+</I18nEnglish>
+
+<I18nBangla>
+Bnlang এ ডায়নামিক ফাংশন তৈরি করতে ব্যবহার করা যায় **`Function`**, **`নির্মাতা_ফাংশন`**, বা **`NirmataFunction`**।
+এটি আর্গুমেন্ট নাম ও বডি স্ট্রিং নেয় এবং একটি নতুন ফাংশন অবজেক্ট ফেরত দেয়।
+</I18nBangla>
+
+<I18nBanglish>
+Bnlang e dynamic function banate use kora jay **`Function`**, **`নির্মাতা_ফাংশন`**, ba **`NirmataFunction`**.
+Eta parameter nam ar body string ney, ar ekta notun function object return kore.
+</I18nBanglish>
+
+---
+
+## Static Helpers
+
+<I18nEnglish>
+- Invoke: `.call()` → `নির্মাতা_ফাংশন.ডাকুন`, `NirmataFunction.dakun`
+- Apply: `.apply()` → `নির্মাতা_ফাংশন.প্রয়োগ`, `NirmataFunction.proyog`
+- Bind: `.bind()` → `নির্মাতা_ফাংশন.বাঁধো`, `NirmataFunction.badho`
+- To string: `.toString()` → `নির্মাতা_ফাংশন.অক্ষরমালায়_রুপান্তর`, `NirmataFunction.okkhoromalayRupantor`
+- Properties: `.name` (`নাম`, `nam`), `.length` (`দৈর্ঘ্য`, `doirghyo`)
+</I18nEnglish>
+
+<I18nBangla>
+- চালানো: `নির্মাতা_ফাংশন.ডাকুন`
+- প্রয়োগ: `নির্মাতা_ফাংশন.প্রয়োগ`
+- বাঁধা: `নির্মাতা_ফাংশন.বাঁধো`
+- স্ট্রিং এ রূপান্তর: `নির্মাতা_ফাংশন.অক্ষরমালায়_রুপান্তর`
+- প্রোপার্টি: `নাম`, `দৈর্ঘ্য`
+</I18nBangla>
+
+<I18nBanglish>
+- Call: `NirmataFunction.dakun`
+- Apply: `NirmataFunction.proyog`
+- Bind: `NirmataFunction.badho`
+- To string: `NirmataFunction.okkhoromalayRupantor`
+- Properties: `nam`, `doirghyo`
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const f1 = new Function("a", "b", "return a + b;");
+console.log(f1(2, 3)); // 5
+
+console.log(NirmataFunction.dakun.call(f1, null, 4, 6)); // 10
+console.log(f1.name);     // "anonymous"
+console.log(f1.length);   // 2
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const f1 = new নির্মাতা_ফাংশন("ক", "খ", "return ক + খ;");
+কনসোল.লগ(f1(2, 3)); // 5
+
+কনসোল.লগ(নির্মাতা_ফাংশন.ডাকুন.call(f1, null, 4, 6)); // 10
+কনসোল.লগ(f1.নাম);      // "anonymous"
+কনসোল.লগ(f1.দৈর্ঘ্য);  // 2
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const f1 = new NirmataFunction("a", "b", "return a + b;");
+console.log(f1(2, 3)); // 5
+
+console.log(NirmataFunction.dakun.call(f1, null, 4, 6)); // 10
+console.log(f1.nam);        // "anonymous"
+console.log(f1.doirghyo);   // 2
+```
+  </TabsContent>
+</Tabs>

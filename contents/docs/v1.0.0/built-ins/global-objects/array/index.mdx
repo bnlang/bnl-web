@@ -1,0 +1,144 @@
+---
+title: Array
+description: Array constructor, static methods, and prototype methods in Bnlang with English, Bangla, and Banglish names and examples.
+bnTitle: তালিকা
+bnDescription: Bnlang এ Array (তালিকা) এর কনস্ট্রাক্টর, স্ট্যাটিক এবং প্রোটোটাইপ মেথড এর উদাহরণ।
+banglishTitle: Array
+banglishDescription: Bnlang e Array (Talika) er constructor, static o prototype method er example.
+---
+
+# <I18nEnglish>Array</I18nEnglish>
+# <I18nBangla>তালিকা</I18nBangla>
+# <I18nBanglish>Array</I18nBanglish>
+
+<I18nEnglish>
+In Bnlang, `Array` works like in JavaScript but can also be used with Bangla and Banglish names.  
+Available as **`Array`**, **`তালিকা`**, and **`Talika`**.  
+Use these for creating and working with lists of values.
+</I18nEnglish>
+
+<I18nBangla>
+Bnlang এ `Array` JavaScript এর মত কাজ করে তবে বাংলায় এবং Banglish নামেও ব্যবহার করা যায়।  
+এটি পাওয়া যায় **`Array`**, **`তালিকা`**, এবং **`Talika`** হিসেবে।  
+এগুলো দিয়ে মানের তালিকা তৈরি ও ব্যবহার করা যায়।
+</I18nBangla>
+
+<I18nBanglish>
+Bnlang e `Array` JavaScript er moto kaj kore kintu Bangla ar Banglish name o use kora jay.  
+Eta deya ache **`Array`**, **`তালিকা`**, ar **`Talika`** hisebe.  
+Egulo diye list toiri o kaj kora jay.
+</I18nBanglish>
+
+---
+
+## Static Methods
+
+<I18nEnglish>
+- `Array.isArray()` → also available as `তালিকা.তালিকা_কি`, `Talika.talikaKi`  
+- `Array.from()` → also available as `তালিকা.থেকে`, `Talika.theke`  
+- `Array.fromAsync()` → also available as `তালিকা.অসমলয়_থেকে`, `Talika.osomoloyTheke`  
+- `Array.of()` → also available as `তালিকা.এর`, `Talika.er`
+</I18nEnglish>
+
+<I18nBangla>
+- `Array.isArray()` → ব্যবহার করা যায় `তালিকা.তালিকা_কি`  
+- `Array.from()` → ব্যবহার করা যায় `তালিকা.থেকে`  
+- `Array.fromAsync()` → ব্যবহার করা যায় `তালিকা.অসমলয়_থেকে`  
+- `Array.of()` → ব্যবহার করা যায় `তালিকা.এর`
+</I18nBangla>
+
+<I18nBanglish>
+- `Array.isArray()` → use kora jay `Talika.talikaKi` name o  
+- `Array.from()` → use kora jay `Talika.theke` name o  
+- `Array.fromAsync()` → use kora jay `Talika.osomoloyTheke` name o  
+- `Array.of()` → use kora jay `Talika.er` name o
+</I18nBanglish>
+
+---
+
+## Prototype Methods (Common)
+
+<I18nEnglish>
+- Add/Remove → `push()` (`শেষে_যোগ`, `shesheJog`), `pop()` (`শেষ_উপাদান`, `sheshUpadan`)  
+- Shift/Unshift → `shift()` (`প্রথম_উপাদান`, `prothomUpadan`), `unshift()` (`প্রথমে_যোগ`, `prothomeJog`)  
+- Map/Filter → `map()` (`মাপ`, `map`), `filter()` (`বাছাই`, `bachai`)  
+- Reduce → `reduce()` (`কমান`, `koman`), `reduceRight()` (`ডান_থেকে_কমান`, `danThekeKoman`)  
+- ForEach → `forEach()` (`প্রতিটি_চালাও`, `protitiCalao`)
+</I18nEnglish>
+
+<I18nBangla>
+- যোগ/অপসারণ → `শেষে_যোগ()`, `শেষ_উপাদান()`  
+- প্রথম উপাদান → `প্রথম_উপাদান()`, `প্রথমে_যোগ()`  
+- রূপান্তর → `মাপ()`, `বাছাই()`  
+- যোগফল → `কমান()`, `ডান_থেকে_কমান()`  
+- প্রতিটি চালানো → `প্রতিটি_চালাও()`
+</I18nBangla>
+
+<I18nBanglish>
+- Add/Remove → `shesheJog()`, `sheshUpadan()`  
+- First element → `prothomUpadan()`, `prothomeJog()`  
+- Transform → `map()`, `bachai()`  
+- Reduce → `koman()`, `danThekeKoman()`  
+- For each → `protitiCalao()`
+</I18nBanglish>
+
+---
+
+## Property Names
+
+<I18nEnglish>
+- `.length` can also be accessed as `দৈর্ঘ্য` (Bangla) or `doirghyo` (Banglish).
+</I18nEnglish>
+
+<I18nBangla>
+- `.length` কে `দৈর্ঘ্য` নামেও ব্যবহার করা যায়।
+</I18nBangla>
+
+<I18nBanglish>
+- `.length` ke `doirghyo` name o use kora jay.
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const arr = Array.of(1, 2, 3);
+console.log(arr); // [1, 2, 3]
+
+arr.push(4);
+console.log(arr.length); // 4
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const তালিকা১ = তালিকা.এর(1, 2, 3);
+কনসোল.লগ(তালিকা১); // [1, 2, 3]
+
+তালিকা১.শেষে_যোগ(4);
+কনসোল.লগ(তালিকা১.দৈর্ঘ্য); // 4
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const talika1 = Talika.er(1, 2, 3);
+console.log(talika1); // [1, 2, 3]
+
+talika1.shesheJog(4);
+console.log(talika1.doirghyo); // 4
+```
+  </TabsContent>
+</Tabs>

@@ -1,0 +1,208 @@
+---
+title: process module
+description: Process APIs for runtime—PID, argv, env, cwd, chdir, uptime, memory, exit, signals, events, and task scheduling utilities.
+bnTitle: প্রসেস মডিউল
+bnDescription: রানটাইম প্রসেস API—PID, argv, env, cwd, chdir, uptime, মেমরি, exit, সিগন্যাল, ইভেন্ট ও টাস্ক শিডিউলিং ইউটিলিটি।
+banglishTitle: process module
+banglishDescription: Runtime process API—PID, argv, env, cwd, chdir, uptime, memory, exit, signals, events, task scheduling utilities.
+---
+
+# <I18nEnglish>process</I18nEnglish>
+# <I18nBangla>প্রসেস</I18nBangla>
+# <I18nBanglish>process</I18nBanglish>
+
+<I18nEnglish>
+The **`process`** module exposes information and utilities about the current running program:
+IDs, arguments, environment variables, working directory, performance/memory, exit codes, **signals**, and lifecycle **events**.
+</I18nEnglish>
+
+<I18nBangla>
+**`process`** মডিউলটি চলমান প্রোগ্রাম সম্পর্কে তথ্য ও ইউটিলিটি দেয়—আইডি, আর্গুমেন্ট, পরিবেশ ভেরিয়েবল, ওয়ার্কিং ডিরেক্টরি, কর্মক্ষমতা/মেমরি, এক্সিট কোড, **সিগন্যাল**, এবং লাইফসাইকেল **ইভেন্ট**।
+</I18nBangla>
+
+<I18nBanglish>
+**`process`** module choloman program somporke totho & utility dey—ID, argument, environment variable, working directory, performance/memory, exit code, **signal**, ebong lifecycle **event**.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Properties
+- **`process.pid`**: numeric process ID.
+- **`process.ppid`**: parent process ID.
+- **`process.argv`**: array of command‑line arguments (`argv[0]` = runtime, `argv[1]` = script).
+- **`process.execPath`**: absolute path to the runtime executable.
+- **`process.cwd()`**: current working directory string.
+- **`process.env`**: mutable map of environment variables (strings).
+- **`process.platform`**: OS identifier (e.g., `win32`, `linux`, `darwin`).
+- **`process.arch`**: CPU architecture (`x64`, `arm64`, etc.).
+- **`process.uptime()`**: seconds since start.
+- **`process.hrtime.bigint()`**: high‑resolution time in nanoseconds as `bigint`.
+- **`process.memoryUsage()`**: object with RSS/heap stats.
+- **`process.exitCode`**: number used when process exits (defaults to `0`).
+
+### Methods
+- **`process.chdir(path)`**: change working directory.
+- **`process.exit([code])`**: exit immediately (use sparingly; prefer letting the event loop drain).
+- **`process.kill(pid[, signal])`**: send a signal to a PID (default `SIGTERM`).
+- **`process.nextTick(fn)`**: queue a microtask to run before other queued work.
+- **`setImmediate(fn)`**: schedule a macrotask after I/O callbacks (paired with `clearImmediate(id)`).
+
+### Events
+- **`'beforeExit'`**: emitted when the event loop becomes empty. You may schedule more work here.
+- **`'exit'`** *(code)*: the process is exiting; only synchronous work allowed.
+- **`'uncaughtException'`** *(err)*: an exception bubbled to the top.
+- **`'unhandledRejection'`** *(reason, promise)*: a Promise rejected without a handler.
+- **`'warning'`** *(warning)*: non‑fatal runtime warnings.
+- **Signal events**: e.g., `'SIGINT'`, `'SIGTERM'`, `'SIGHUP'`.
+
+### Signals (common)
+- **`SIGINT`**: interrupt (Ctrl+C).
+- **`SIGTERM`**: polite termination request.
+- **`SIGHUP`**: terminal/session closed; often used to reload config.
+- **`SIGKILL`**: forced kill (cannot be caught or ignored).
+- **`SIGUSR1/2`**: user‑defined. Behavior is app‑specific.
+
+### Exit Codes
+- **`0`**: success.
+- **`1`**: generic failure.
+- **`>1`**: app‑defined or OS‑defined errors. Keep them documented.
+
+</I18nEnglish>
+
+<I18nBangla>
+
+### প্রপার্টি
+- **`process.pid`**: চলমান প্রসেসের আইডি (সংখ্যা)。
+- **`process.ppid`**: প্যারেন্ট প্রসেস আইডি。
+- **`process.argv`**: কমান্ড‑লাইন আর্গুমেন্টের অ্যারে (`argv[0]` রানটাইম, `argv[1]` স্ক্রিপ্ট)。
+- **`process.execPath`**: রানটাইম এক্সিকিউটেবলের অ্যাবসোলিউট পথ。
+- **`process.cwd()`**: বর্তমান ওয়ার্কিং ডিরেক্টরি。
+- **`process.env`**: পরিবেশ ভেরিয়েবল (স্ট্রিং) এর ম্যাপ—পরিবর্তনযোগ্য。
+- **`process.platform`**: অপারেটিং সিস্টেম আইডেন্টিফায়ার。
+- **`process.arch`**: CPU আর্কিটেকচার。
+- **`process.uptime()`**: শুরু থেকে কতো সেকেন্ড হয়েছে。
+- **`process.hrtime.bigint()`**: ন্যানোসেকেন্ড‑রেজোলিউশন সময় (`bigint`)。
+- **`process.memoryUsage()`**: RSS/heap সহ মেমরি স্ট্যাটস অবজেক্ট。
+- **`process.exitCode`**: প্রক্রিয়া শেষ হলে যে কোড ফেরত যাবে (ডিফল্ট `0`)。
+
+### মেথড
+- **`process.chdir(path)`**: কাজের ডিরেক্টরি বদলায়。
+- **`process.exit([code])`**: তৎক্ষণাৎ বের হয় (সতর্কভাবে ব্যবহার করুন)。
+- **`process.kill(pid[, signal])`**: নির্দিষ্ট PID‑এ সিগন্যাল পাঠায়。
+- **`process.nextTick(fn)`**: মাইক্রোটাস্ক কিউ‑তে দিয়ে খুব দ্রুত চালায়。
+- **`setImmediate(fn)`**: I/O‑র পরে চালানোর জন্য কাজ কিউ করে。
+
+### ইভেন্ট
+- **`'beforeExit'`**: ইভেন্ট লুপ ফাঁকা হলে。
+- **`'exit'`** *(code)*: প্রসেস শেষ হচ্ছে; শুধু সিঙ্ক কাজ করুন。
+- **`'uncaughtException'`** *(err)*: ধরা না পড়া এক্সেপশন。
+- **`'unhandledRejection'`** *(reason, promise)*: হ্যান্ডলার ছাড়া প্রমিস রিজেক্ট。
+- **`'warning'`** *(warning)*: সতর্কতামূলক বার্তা。
+- **সিগন্যাল ইভেন্ট**: যেমন `'SIGINT'`, `'SIGTERM'`, `'SIGHUP'`।
+
+### এক্সিট কোড
+- **`0`**: সফল।
+- **`1`**: সাধারণ ত্রুটি।
+- **`>1`**: অ্যাপ/ওএস নির্ধারিত—ডকুমেন্টেড রাখুন।
+
+</I18nBangla>
+
+<I18nBanglish>
+
+### Properties
+- **`process.pid`**: choloman process ID (number)。
+- **`process.ppid`**: parent process ID。
+- **`process.argv`**: command‑line argument array (`argv[0]` runtime, `argv[1]` script)。
+- **`process.execPath`**: runtime executable er absolute path。
+- **`process.cwd()`**: current working directory。
+- **`process.env`**: environment variable map (string), change kora jay。
+- **`process.platform`**: OS identifier。
+- **`process.arch`**: CPU architecture。
+- **`process.uptime()`**: start theke koto second gelo。
+- **`process.hrtime.bigint()`**: high‑res time in ns as `bigint`。
+- **`process.memoryUsage()`**: memory stats object。
+- **`process.exitCode`**: exit hole je code return hobe (default `0`)。
+
+### Methods
+- **`process.chdir(path)`**: working directory change kore。
+- **`process.exit([code])`**: sathe sathe exit (carefully use)。
+- **`process.kill(pid[, signal])`**: PID‑e signal pathay。
+- **`process.nextTick(fn)`**: microtask queue‑te dey—very early run hoy。
+- **`setImmediate(fn)`**: I/O er pore run korar jonno schedule kore。
+
+### Events
+- **`'beforeExit'`**, **`'exit'`**, **`'uncaughtException'`**, **`'unhandledRejection'`**, **`'warning'`**, signal events (`'SIGINT'`, `'SIGTERM'`, `'SIGHUP'`)।
+
+### Exit Codes
+- **`0`** success, **`1`** generic error, onno gula app/OS defined—document korun।
+
+</I18nBanglish>
+
+---
+
+## Examples (English)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+// Read argv & env
+console.log(process.argv);
+console.log("PORT:", process.env.PORT);
+
+// Change CWD safely
+try {
+  process.chdir("/tmp");
+  console.log("Now in:", process.cwd());
+} catch (err) {
+  console.error("chdir failed:", err.message);
+}
+
+// Graceful shutdown on SIGINT (Ctrl+C)
+process.on("SIGINT", () => {
+  console.log("Shutting down...");
+  process.exit(0);
+});
+
+// Schedule: nextTick vs setImmediate
+process.nextTick(() => console.log("microtask"));
+setImmediate(() => console.log("macrotask"));
+
+// Set exit code without immediate exit
+process.exitCode = 1;
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Prefer setting **`process.exitCode`** over calling `process.exit()` directly in libraries; let the event loop flush.
+- Do not mutate `process.env` for cross‑module config; read once and pass explicit options.
+- Always handle **signals** to close files, servers, and timers gracefully.
+- Use **`nextTick`** for microtask‑like callbacks; use **`setImmediate`** to defer after I/O.
+</I18nEnglish>
+
+<I18nBangla>
+- লাইব্রেরিতে সরাসরি `process.exit()` না ডেকে **`process.exitCode`** সেট করুন—ইভেন্ট লুপকে শেষ হতে দিন।
+- কনফিগের জন্য `process.env` এলোমেলো না করে একবার পড়ে অপশন হিসেবে পাঠান।
+- **সিগন্যাল** হ্যান্ডল করে ফাইল/সার্ভার/টাইমার সুন্দরভাবে বন্ধ করুন।
+- মাইক্রোটাস্কের জন্য **`nextTick`**, I/O‑র পরে ডিফার করতে **`setImmediate`** ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Library te direct `process.exit()` na diye **`process.exitCode`** set korun—event loop ke finish korte din.
+- Config er jonno `process.env` randomly change korben na; ekbar read kore option hisebe pass korun.
+- **Signal** handle kore resource gulo graceful vabe bondho korun.
+- Microtask er jonno **`nextTick`**, I/O er pore defer korte **`setImmediate`** use korun.
+</I18nBanglish>

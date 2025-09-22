@@ -1,0 +1,179 @@
+---
+title: while Loop
+description: The while loop in Bnlang for condition-based repetition, including break/continue patterns. Examples in English, Bangla, and Banglish.
+bnTitle: যতক্ষণ লুপ
+bnDescription: Bnlang এ যতক্ষণ (while) লুপ—শর্তভিত্তিক পুনরাবৃত্তি, break/continue উদাহরণসহ।
+banglishTitle: while Loop
+banglishDescription: Bnlang e while (jotokkhon) loop—condition-based repetition, break/colun examples in English, Bangla, Banglish.
+---
+
+# <I18nEnglish>while Loop</I18nEnglish>
+# <I18nBangla>যতক্ষণ লুপ</I18nBangla>
+# <I18nBanglish>while Loop</I18nBanglish>
+
+<I18nEnglish>
+The **`while`** loop repeats a block **as long as** its condition evaluates to **true**.  
+The condition is checked **before** each iteration. Use **`break`** to exit early and **`continue`** to skip the current iteration.
+</I18nEnglish>
+
+<I18nBangla>
+**`যতক্ষণ`** লুপ শর্ত **সত্য** থাকা পর্যন্ত ব্লকটি বারবার চালায়।  
+প্রতিটি ইটারেশনের **আগে** শর্ত পরীক্ষা করা হয়। আগেভাগে বের হতে **`থামুন`** এবং বর্তমান ধাপ স্কিপ করতে **`চলুন`** ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+**`jotokkhon`** loop condition **true** thaka porjonto code bar bar chalaye।  
+Protiti iteration er **age** condition check hoy. Early exit er jonno **`thamun`**, current step skip er jonno **`colun`** use korun.
+</I18nBanglish>
+
+---
+
+## Syntax
+
+<I18nEnglish>
+
+```bnl
+while (condition) {
+  // body
+}
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```bnl
+যতক্ষণ (শর্ত) {
+  // কাজ
+}
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```bnl
+jotokkhon (condition) {
+  // body
+}
+```
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+// 1) Counting with while
+let i = 0;
+while (i < 5) {
+  console.log("i =", i);
+  i++; // be sure to update the state!
+}
+
+// 2) Skip evens, stop after a threshold
+let n = 0;
+while (n < 10) {
+  n++;
+  if (n % 2 === 0) continue; // skip even numbers
+  if (n > 7) break;          // exit early
+  print("odd:", n);
+}
+
+// 3) Consume a queue until empty
+const queue = ["A", "B", "C"];
+while (queue.length > 0) {
+  const item = queue.shift();
+  console.info("processing", item);
+}
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+// ১) যতক্ষণ দিয়ে গণনা
+let i = 0;
+যতক্ষণ (i < 5) {
+  কনসোল.লগ("i =", i);
+  i++; // স্টেট আপডেট করতে ভুলবেন না
+}
+
+// ২) জোড় স্কিপ, নির্দিষ্ট সীমায় থামা
+let n = 0;
+যতক্ষণ (n < 10) {
+  n++;
+  যদি (n % 2 === 0) চলুন;  // জোড় বাদ
+  যদি (n > 7) থামুন;       // আগে বের হও
+  ছাপাও("বিজোড়:", n);
+}
+
+// ৩) কিউ ফাঁকা হওয়া পর্যন্ত প্রসেস
+const কিউ = ["A", "B", "C"];
+যতক্ষণ (কিউ.length > 0) {
+  const আইটেম = কিউ.shift();
+  কনসোল.তথ্য("প্রসেসিং", আইটেম);
+}
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+// 1) Counting with jotokkhon
+let i = 0;
+jotokkhon (i < 5) {
+  console.log("i =", i);
+  i++; // state update korte hobe
+}
+
+// 2) Skip evens, stop after threshold
+let n = 0;
+jotokkhon (n < 10) {
+  n++;
+  jodi (n % 2 === 0) colun; // skip even
+  jodi (n > 7) thamun;       // exit early
+  chapao("odd:", n);
+}
+
+// 3) Consume a queue
+const queue = ["A", "B", "C"];
+jotokkhon (queue.length > 0) {
+  const item = queue.shift();
+  console.info("processing", item);
+}
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Ensure the loop **state changes** so the condition eventually becomes false; otherwise you’ll create an infinite loop.  
+- Prefer `for` when you know the iteration count, and `for...of` for arrays/iterables.  
+- Pattern: `while (true) { ... if (stop) break; }` is useful for event loops and readers.  
+- If you need the body to run **at least once**, consider `do ... while`.
+</I18nEnglish>
+
+<I18nBangla>
+- লুপের **স্টেট পরিবর্তন** করুন যাতে শর্ত একসময় মিথ্যা হয়—নাহলে অনন্ত লুপ হবে।  
+- নির্দিষ্ট গণনার জন্য `প্রতি` (for) এবং অ্যারে/ইটারেবলের জন্য `for...of` সুবিধাজনক।  
+- প্যাটার্ন `যতক্ষণ (true) { ... যদি (থামা_উচিত) থামুন; }` ইভেন্ট লুপ/রিডারে উপকারী।  
+- অন্তত একবার চালাতে চাইলে `করো ... যতক্ষণ` (do...while) ব্যবহার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Loop er **state change** na hole condition false hobe na — infinite loop hoye jete pare.  
+- Iteration count jodi jana thake, `proti` (for) valo; array/iterable er jonno `for...of`.  
+- Pattern `jotokkhon (true) { ... jodi (stop) thamun; }` onek jaygay upokari.  
+- Ekbar to chalatei hobe jodi, tahole `korun ... jotokkhon` (do...while) bhebe dekhun.
+</I18nBanglish>

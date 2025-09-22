@@ -1,0 +1,82 @@
+---
+title: JSON
+description: Working with JSON in Bnlang using English, Bangla, and Banglish names with examples.
+bnTitle: জেসন
+bnDescription: Bnlang এ JSON ব্যবহারের জন্য—বিশ্লেষণ (parse) ও অক্ষরায়ন (stringify)—এর উদাহরণ।
+banglishTitle: JSON
+banglishDescription: Bnlang e JSON use kora—bisleshon (parse) ar okkhorayan (stringify) er udahoron.
+---
+
+# <I18nEnglish>JSON</I18nEnglish>
+# <I18nBangla>জেসন</I18nBangla>
+# <I18nBanglish>JSON</I18nBanglish>
+
+<I18nEnglish>
+Bnlang provides the JSON object in three forms: **`JSON`**, **`জেসন`**, **`Jeson`**.  
+Use it to parse JSON text into objects and to stringify objects into JSON text.
+</I18nEnglish>
+
+<I18nBangla>
+Bnlang এ JSON পাওয়া যায় **`JSON`**, **`জেসন`**, **`Jeson`** নামে।  
+এটি ব্যবহার করে JSON টেক্সট থেকে অবজেক্ট বানানো যায় এবং অবজেক্টকে JSON টেক্সটে রূপান্তর করা যায়।
+</I18nBangla>
+
+<I18nBanglish>
+Bnlang e JSON ache **`JSON`**, **`জেসন`**, **`Jeson`** name.  
+Eta diye JSON text ke object e rupantor kora jay, ar object ke abar JSON text e okkhorayan kora jay.
+</I18nBanglish>
+
+---
+
+## Methods
+
+<I18nEnglish>
+- Parse JSON string: `JSON.parse(text)` → `জেসন.বিশ্লেষণ(text)` → `Jeson.bisleshon(text)`  
+- Stringify object: `JSON.stringify(obj)` → `জেসন.অক্ষরায়ন(obj)` → `Jeson.okkhorayan(obj)`
+</I18nEnglish>
+
+<I18nBangla>
+- JSON স্ট্রিং বিশ্লেষণ: `জেসন.বিশ্লেষণ(text)` / `JSON.parse(text)` / `Jeson.bisleshon(text)`  
+- অবজেক্টকে JSON টেক্সটে রূপান্তর: `জেসন.অক্ষরায়ন(obj)` / `JSON.stringify(obj)` / `Jeson.okkhorayan(obj)`
+</I18nBangla>
+
+<I18nBanglish>
+- JSON string parse: `Jeson.bisleshon(text)` / `JSON.parse(text)` / `জেসন.বিশ্লেষণ(text)`  
+- Object stringify: `Jeson.okkhorayan(obj)` / `JSON.stringify(obj)` / `জেসন.অক্ষরায়ন(obj)`
+</I18nBanglish>
+
+---
+
+## Examples
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const obj = JSON.parse('{"a":1}');
+console.log(JSON.stringify(obj)); // {"a":1}
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const obj = জেসন.বিশ্লেষণ('{"a":1}');
+কনসোল.লগ(জেসন.অক্ষরায়ন(obj)); // {"a":1}
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const obj = Jeson.bisleshon('{"a":1}');
+console.log(Jeson.okkhorayan(obj)); // {"a":1}
+```
+  </TabsContent>
+</Tabs>

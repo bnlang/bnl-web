@@ -1,0 +1,179 @@
+---
+title: Bnlang Package Manager (BPM)
+description: Learn about the Bnlang Package Manager (BPM), how it works, and how to use it effectively.
+bnTitle: Bnlang প্যাকেজ ম্যানেজার (BPM)
+bnDescription: Bnlang প্যাকেজ ম্যানেজার (BPM) এর ধারণা, কাজ করার নিয়ম এবং ব্যবহার পদ্ধতি।
+banglishTitle: Bnlang Package Manager (BPM)
+banglishDescription: Bnlang Package Manager (BPM) er dharona, kajer poddhoti ar bebohar poddhoti English, Bangla ar Banglish e.
+---
+
+# <I18nEnglish>Bnlang Package Manager (BPM)</I18nEnglish>
+# <I18nBangla>Bnlang প্যাকেজ ম্যানেজার (BPM)</I18nBangla>
+# <I18nBanglish>Bnlang Package Manager (BPM)</I18nBanglish>
+
+<I18nEnglish>
+The **Bnlang Package Manager (BPM)** is the official package manager for the Bnlang programming language.  
+It allows developers to **discover**, **install**, and **manage** libraries and tools, making the ecosystem richer and more productive.  
+BPM simplifies sharing code and ensures a consistent workflow across projects.
+</I18nEnglish>
+
+<I18nBangla>
+**Bnlang প্যাকেজ ম্যানেজার (BPM)** হলো Bnlang প্রোগ্রামিং ভাষার অফিসিয়াল প্যাকেজ ম্যানেজার।  
+এটি ব্যবহার করে ডেভেলপাররা সহজেই **লাইব্রেরি খুঁজে**, **ইনস্টল করে** এবং **ম্যানেজ করতে** পারে।  
+এর ফলে ইকোসিস্টেম আরও শক্তিশালী হয় এবং কাজ হয় দ্রুত।  
+BPM কোড শেয়ারিং সহজ করে এবং সব প্রজেক্টে একসাথে কাজ করার অভিজ্ঞতা দেয়।
+</I18nBangla>
+
+<I18nBanglish>
+**Bnlang Package Manager (BPM)** holo Bnlang programming language er official package manager.  
+Eta diye developer ra easy vabe **library khuje**, **install kore**, ar **manage korte** pare.  
+Ete ecosystem aro strong hoy ar productivity baray.  
+BPM code sharing ke easy kore, ar project gulo te ekshathe kaj kora easier hoy.
+</I18nBanglish>
+
+---
+
+## Installing BPM
+
+<I18nEnglish>
+BPM comes bundled with Bnlang. You can verify installation by running:
+</I18nEnglish>
+
+<I18nBangla>
+BPM Bnlang এর সাথে অন্তর্ভুক্ত থাকে। নিচের কমান্ড দিয়ে ইনস্টলেশন যাচাই করতে পারেন:
+</I18nBangla>
+
+<I18nBanglish>
+BPM Bnlang er shathe ase. Nicher command diye check korte parben:
+</I18nBanglish>
+
+```sh
+bpm --version
+```
+
+---
+
+## Basic Commands
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="bangla">
+    <ul>
+      <li><code>bpm init</code> → নতুন প্রজেক্ট শুরু করে এবং <code>bnl_package.json</code> ফাইল তৈরি করে।</li>
+      <li><code>bpm install &lt;প্যাকেজ&gt;</code> → রেজিস্ট্রি থেকে একটি প্যাকেজ ইনস্টল করে।</li>
+      <li><code>bpm remove &lt;প্যাকেজ&gt;</code> → ইনস্টল করা প্যাকেজ সরিয়ে দেয়।</li>
+      <li><code>bpm update &lt;প্যাকেজ&gt;</code> → প্যাকেজ সর্বশেষ সংস্করণে আপডেট করে।</li>
+      <li><code>bpm publish</code> → প্যাকেজ BPM রেজিস্ট্রিতে প্রকাশ করে।</li>
+    </ul>
+  </TabsContent>
+
+  <TabsContent value="banglish">
+    <ul>
+      <li><code>bpm init</code> → Notun project start kore, ar <code>bnl_package.json</code> file create kore.</li>
+      <li><code>bpm install &lt;package&gt;</code> → Registry theke ekta package install kore.</li>
+      <li><code>bpm remove &lt;package&gt;</code> → Installed package remove kore.</li>
+      <li><code>bpm update &lt;package&gt;</code> → Package ke latest version e update kore.</li>
+      <li><code>bpm publish</code> → Package ke BPM registry te publish kore.</li>
+    </ul>
+  </TabsContent>
+
+  <TabsContent value="english">
+    <ul>
+      <li><code>bpm init</code> → Initialize a new project with a <code>bnl_package.json</code> file.</li>
+      <li><code>bpm install &lt;package&gt;</code> → Install a package from the registry.</li>
+      <li><code>bpm remove &lt;package&gt;</code> → Remove an installed package.</li>
+      <li><code>bpm update &lt;package&gt;</code> → Update a package to the latest version.</li>
+      <li><code>bpm publish</code> → Publish a package to the BPM registry.</li>
+    </ul>
+  </TabsContent>
+</Tabs>
+
+---
+
+## Example Workflow
+
+<I18nEnglish>
+
+```sh
+# Initialize a new project
+bpm init
+
+# Install a library
+bpm install my-package
+
+# Remove it if no longer needed
+bpm uninstall my-package
+
+# Publish your own library
+bpm publish
+```
+</I18nEnglish>
+
+<I18nBangla>
+
+```sh
+# নতুন প্রজেক্ট শুরু
+bpm init
+
+# একটি লাইব্রেরি ইনস্টল
+bpm install lodash
+
+# পরে আপডেট করুন
+bpm update lodash
+
+# প্রয়োজন না হলে সরিয়ে দিন
+bpm remove lodash
+
+# নিজের লাইব্রেরি প্রকাশ করুন
+bpm publish
+```
+</I18nBangla>
+
+<I18nBanglish>
+
+```sh
+# Notun project start
+bpm init
+
+# Ekta library install
+bpm install lodash
+
+# Pore update korun
+bpm update lodash
+
+# Dorkar na hole remove korun
+bpm remove lodash
+
+# Nijer library publish korun
+bpm publish
+```
+</I18nBanglish>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Keep your <code>bnl_package.json</code> file under version control.  
+- Use semantic versioning (<code>^1.2.3</code>) for predictable updates.  
+- Always run <code>bpm audit</code> to check for security issues.  
+- Share your packages with meaningful names and documentation.
+</I18nEnglish>
+
+<I18nBangla>
+- আপনার <code>bnl_package.json</code> ফাইল version control এ রাখুন।  
+- পূর্বাভাসযোগ্য আপডেটের জন্য semantic versioning (<code>^1.2.3</code>) ব্যবহার করুন।  
+- নিরাপত্তা সমস্যা চেক করার জন্য সবসময় <code>bpm audit</code> চালান।  
+- প্যাকেজ অর্থপূর্ণ নাম এবং ডকুমেন্টেশন সহ শেয়ার করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Nijer <code>bnl_package.json</code> file ke version control e rakhen।  
+- Predictable update er jonno semantic versioning (<code>^1.2.3</code>) use korun.  
+- Package ke meaningful name ar documentation shathe share korun.
+</I18nBanglish>

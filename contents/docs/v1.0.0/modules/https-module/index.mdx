@@ -1,0 +1,129 @@
+---
+title: https module
+description: HTTPS APIs for creating secure servers and clients with TLS/SSL, handling requests, responses, certificates, and streaming bodies.
+bnTitle: https মডিউল
+bnDescription: HTTPS API — সিকিউর সার্ভার ও ক্লায়েন্ট তৈরি, TLS/SSL সাপোর্ট, রিকোয়েস্ট, রেসপন্স, সার্টিফিকেট ও স্ট্রিম হ্যান্ডলিং।
+banglishTitle: https module
+banglishDescription: HTTPS API — secure server & client with TLS/SSL, handle request/response, certificates, and streaming bodies.
+---
+
+# <I18nEnglish>https</I18nEnglish>
+# <I18nBangla>https</I18nBangla>
+# <I18nBanglish>https</I18nBanglish>
+
+<I18nEnglish>
+The **`https`** module works like **`http`** but uses TLS/SSL for secure communication. Requires certificates and keys for servers.
+</I18nEnglish>
+
+<I18nBangla>
+**`https`** মডিউল **`http`** এর মতই, তবে সিকিউর কমিউনিকেশনের জন্য TLS/SSL ব্যবহার করে। সার্ভারের জন্য সার্টিফিকেট ও কী প্রয়োজন।
+</I18nBangla>
+
+<I18nBanglish>
+**`https`** module **`http`** er motoi, kintu secure communication er jonno TLS/SSL use kore. Server er jonno certificate & key dorkar.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Server
+- **`https.createServer(options, requestListener)`** — create HTTPS server.  
+  Options usually include:  
+  - `key`: private key  
+  - `cert`: certificate  
+- **server.listen(port[, host], callback)**  
+- Request/response APIs are identical to **http**.
+
+### Client
+- **`https.request(options, callback)`** — make HTTPS request.  
+- **`https.get(options, callback)`** — shortcut for GET.  
+- Supports additional TLS options like `ca`, `rejectUnauthorized`.
+
+</I18nEnglish>
+
+<I18nBangla>
+### সার্ভার
+- **`createServer`** TLS/SSL সহ সার্ভার তৈরি।  
+- অপশন: `key`, `cert`।  
+- রিকোয়েস্ট/রেসপন্স API http এর মত।
+
+### ক্লায়েন্ট
+- **`request`**, **`get`** HTTPS রিকোয়েস্ট।  
+- TLS অপশন যেমন `ca`, `rejectUnauthorized`।
+</I18nBangla>
+
+<I18nBanglish>
+### Server
+- **`createServer`** TLS/SSL server banay.  
+- Options: `key`, `cert`.  
+- Request/response API same as http.
+
+### Client
+- **`request`**, **`get`** HTTPS request.  
+- TLS options: `ca`, `rejectUnauthorized`.
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const https = require("https");
+const fs = require("fs");
+
+// HTTPS server with self-signed cert
+const options = {
+  key: fs.readFileSync("key.pem"),
+  cert: fs.readFileSync("cert.pem")
+};
+
+const server = https.createServer(options, (req, res) => {
+  res.writeHead(200);
+  res.end("Secure Hello World\n");
+});
+
+server.listen(3443, () => console.log("HTTPS server running on port 3443"));
+
+// HTTPS client GET
+https.get("https://example.com", (res) => {
+  console.log("status:", res.statusCode);
+  res.on("data", (chunk) => console.log("body:", chunk.toString()));
+});
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Requires valid certificate/key for production. Use self-signed only for testing.  
+- Request and response handling are the same as **http**.  
+- Additional TLS options control verification (CA, rejectUnauthorized).  
+- Use **port 443** by convention for HTTPS.  
+</I18nEnglish>
+
+<I18nBangla>
+- প্রোডাকশনে বৈধ সার্টিফিকেট/কী দরকার। টেস্টের জন্যই কেবল self-signed।  
+- রিকোয়েস্ট/রেসপন্স http এর মতই।  
+- TLS অপশন দিয়ে ভেরিফিকেশন নিয়ন্ত্রণ করা যায়।  
+- HTTPS এর জন্য প্রচলিত পোর্ট 443।  
+</I18nBangla>
+
+<I18nBanglish>
+- Production e valid certificate/key dorkar. Self-signed shudhu test er jonno.  
+- Request/response API http er motoi.  
+- TLS options diye verification control kora jay.  
+- HTTPS default port holo 443.  
+</I18nBanglish>

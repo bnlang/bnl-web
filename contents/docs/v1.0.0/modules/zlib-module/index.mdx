@@ -1,0 +1,129 @@
+---
+title: zlib module
+description: Compression APIs — gzip, deflate, brotli, streaming compression/decompression, synchronous and asynchronous utilities.
+bnTitle: zlib মডিউল
+bnDescription: কম্প্রেশন API — gzip, deflate, brotli, স্ট্রিম ভিত্তিক কম্প্রেশন/ডিকম্প্রেশন, সিঙ্ক ও অ্যাসিঙ্ক ইউটিলিটি।
+banglishTitle: zlib module
+banglishDescription: Compression API — gzip, deflate, brotli, stream compression/decompression, sync & async utilities.
+---
+
+# <I18nEnglish>zlib</I18nEnglish>
+# <I18nBangla>zlib</I18nBangla>
+# <I18nBanglish>zlib</I18nBanglish>
+
+<I18nEnglish>
+The **`zlib`** module provides compression and decompression utilities using formats like **gzip**, **deflate**, and **brotli**. Supports both streaming and buffer-based APIs.
+</I18nEnglish>
+
+<I18nBangla>
+**`zlib`** মডিউল কম্প্রেশন ও ডিকম্প্রেশন দেয় — যেমন **gzip**, **deflate**, **brotli**। স্ট্রিম ও বাফার-ভিত্তিক API সাপোর্ট করে।
+</I18nBangla>
+
+<I18nBanglish>
+**`zlib`** module compression & decompression dey — like **gzip**, **deflate**, **brotli**. Stream & buffer-based API support kore.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Compression Streams
+- **`zlib.createGzip()`**, **`zlib.createGunzip()`**  
+- **`zlib.createDeflate()`**, **`zlib.createInflate()`**  
+- **`zlib.createBrotliCompress()`**, **`zlib.createBrotliDecompress()`**  
+
+These return transform streams usable with **pipeline**.
+
+### Utility Functions
+- **`zlib.gzip(buf, cb)`**, **`zlib.gunzip(buf, cb)`**  
+- **`zlib.deflate(buf, cb)`**, **`zlib.inflate(buf, cb)`**  
+- **`zlib.brotliCompress(buf, cb)`**, **`zlib.brotliDecompress(buf, cb)`**  
+
+Synchronous variants exist: **`gzipSync`**, **`deflateSync`**, etc.
+
+### Options
+- Compression level, strategy, windowBits, etc. configurable.  
+
+</I18nEnglish>
+
+<I18nBangla>
+### ফাংশন
+- **`createGzip/createGunzip`**, **`createDeflate/createInflate`**, **`createBrotliCompress/createBrotliDecompress`** — স্ট্রিম API।  
+- **`gzip/gunzip/deflate/inflate/brotliCompress/brotliDecompress`** — বাফার API।  
+- সিঙ্ক ভ্যারিয়েন্টও আছে।  
+</I18nBangla>
+
+<I18nBanglish>
+### Functions
+- **`createGzip/createGunzip`**, **`createDeflate/createInflate`**, **`createBrotliCompress/createBrotliDecompress`** — stream API.  
+- **`gzip/gunzip/deflate/inflate/brotliCompress/brotliDecompress`** — buffer API.  
+- Sync variant o ache.  
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const fs = require("fs");
+const zlib = require("zlib");
+const { pipeline } = require("stream");
+
+// Compress a file with gzip
+pipeline(
+  fs.createReadStream("input.txt"),
+  zlib.createGzip(),
+  fs.createWriteStream("input.txt.gz"),
+  (err) => {
+    if (err) console.error("Compression failed:", err);
+    else console.log("File compressed");
+  }
+);
+
+// Decompress gzip
+pipeline(
+  fs.createReadStream("input.txt.gz"),
+  zlib.createGunzip(),
+  fs.createWriteStream("output.txt"),
+  (err) => {
+    if (err) console.error("Decompression failed:", err);
+    else console.log("File decompressed");
+  }
+);
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Use **streams** for large files to avoid memory pressure.  
+- **Brotli** usually offers better compression ratio but may be slower.  
+- Always handle pipeline errors to avoid partial files.  
+- Synchronous methods block the event loop — use only for small buffers.  
+</I18nEnglish>
+
+<I18nBangla>
+- বড় ফাইলের জন্য **স্ট্রিম** ব্যবহার করুন।  
+- **Brotli** সাধারণত ভালো কম্প্রেশন দেয় কিন্তু ধীর।  
+- পাইপলাইনে ত্রুটি ধরুন।  
+- সিঙ্ক মেথড ইভেন্ট লুপ ব্লক করে।  
+</I18nBangla>
+
+<I18nBanglish>
+- Large file er jonno **stream** use korun.  
+- **Brotli** better compression dey kintu slow hote pare.  
+- Pipeline error handle korun.  
+- Sync method loop block kore.  
+</I18nBanglish>

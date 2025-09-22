@@ -1,0 +1,169 @@
+---
+title: Working with Directories in Bnlang
+description: Learn how to create, read, and manage directories in Bnlang with examples.
+bnTitle: Bnlang এ ডিরেক্টরি নিয়ে কাজ
+bnDescription: Bnlang এ ডিরেক্টরি তৈরি, পড়া এবং ম্যানেজ করা শিখুন উদাহরণসহ।
+banglishTitle: Working with Directories in Bnlang
+banglishDescription: Bnlang e directory create, read ar manage korar example shoho.
+---
+
+# <I18nEnglish>Working with Directories in Bnlang</I18nEnglish>
+# <I18nBangla>Bnlang এ ডিরেক্টরি নিয়ে কাজ</I18nBangla>
+# <I18nBanglish>Working with Directories in Bnlang</I18nBanglish>
+
+<I18nEnglish>
+Directories (or folders) are essential for organizing files in a file system.  
+Bnlang provides built-in functions to **create**, **read**, and **manage** directories.  
+You can also check if a path is a directory or a file, which helps in writing flexible file system utilities.
+</I18nEnglish>
+
+<I18nBangla>
+ডিরেক্টরি (বা ফোল্ডার) ফাইল সিস্টেমে ফাইল সংগঠিত করার জন্য অপরিহার্য।  
+Bnlang **তৈরি**, **পড়া**, এবং **ম্যানেজ** করার জন্য বিল্ট-ইন ফাংশন প্রদান করে।  
+আপনি একটি পাথ ডিরেক্টরি নাকি ফাইল তা যাচাই করতে পারেন, যা নমনীয় ফাইল সিস্টেম ইউটিলিটি লেখায় সাহায্য করে।
+</I18nBangla>
+
+<I18nBanglish>
+Directory (ba folder) file system e file organize korar jonno essential.  
+Bnlang built-in function dey directory **create**, **read**, ar **manage** korar jonno.  
+Apni ekta path directory naki file sheta check korte paren, ja flexible file system utility likhte help kore.
+</I18nBanglish>
+
+---
+
+## Example: Creating a Directory
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+const fs = require("fs");
+
+fs.mkdir("myFolder", (err) => {
+  if (err) {
+    console.error("Error creating directory:", err);
+    return;
+  }
+  console.log("Directory created successfully!");
+});
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const fs = require("fs");
+
+fs.mkdir("আমারফোল্ডার", (ত্রুটি) => {
+  যদি (ত্রুটি) {
+    কনসোল.ত্রুটি("ডিরেক্টরি তৈরির সমস্যা:", ত্রুটি);
+    ফেরত;
+  }
+  কনসোল.লগ("ডিরেক্টরি সফলভাবে তৈরি হয়েছে!");
+});
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const fs = require("fs");
+
+fs.mkdir("amarFolder", (truti) => {
+  jodi (truti) {
+    console.error("Directory create error:", truti);
+    return;
+  }
+  console.log("Directory create hoye geche!");
+});
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Example: Reading a Directory
+
+<Tabs defaultValue="bangla" className="w-full">
+  <TabsList>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+const fs = require("fs");
+
+fs.readdir(".", (err, files) => {
+  if (err) {
+    console.error("Error reading directory:", err);
+    return;
+  }
+  console.log("Files:", files);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const fs = require("fs");
+
+fs.readdir(".", (ত্রুটি, ফাইলসমূহ) => {
+  যদি (ত্রুটি) {
+    কনসোল.ত্রুটি("ডিরেক্টরি পড়ার সমস্যা:", ত্রুটি);
+    ফেরত;
+  }
+  কনসোল.লগ("ফাইলসমূহ:", ফাইলসমূহ);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const fs = require("fs");
+
+fs.readdir(".", (truti, filegulo) => {
+  jodi (truti) {
+    console.error("Directory read error:", truti);
+    return;
+  }
+  console.log("Files:", filegulo);
+});
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Always handle errors when creating or reading directories.  
+- Use relative paths carefully; prefer absolute paths for consistency.  
+- For recursive directory creation, pass `{ recursive: true }` to `fs.mkdir()`.  
+- Validate whether a path is a directory before performing operations on it.
+</I18nEnglish>
+
+<I18nBangla>
+- ডিরেক্টরি তৈরি বা পড়ার সময় সবসময় ত্রুটি হ্যান্ডল করুন।  
+- রিলেটিভ পাথ সতর্কতার সাথে ব্যবহার করুন; সামঞ্জস্য বজায় রাখতে অ্যাবসোলিউট পাথ ব্যবহার করুন।  
+- রিকারসিভ ডিরেক্টরি তৈরি করতে `fs.mkdir()` এ `{ recursive: true }` ব্যবহার করুন।  
+- কোনো অপারেশন করার আগে একটি পাথ ডিরেক্টরি কিনা যাচাই করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Directory create ba read korar shomoy always error handle korun.  
+- Relative path careful vabe use korun; consistency jonno absolute path prefer korun.  
+- Recursive directory create korar jonno `fs.mkdir()` e `{ recursive: true }` use korun.  
+- Operation korar age path directory kina check korun.
+</I18nBanglish>

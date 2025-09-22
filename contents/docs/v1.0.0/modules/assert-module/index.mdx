@@ -1,0 +1,139 @@
+---
+title: assert module
+description: Assertion testing utilities for verifying invariants — strict equality, deep equality, throws, rejects, and custom messages.
+bnTitle: assert মডিউল
+bnDescription: অ্যাসার্ট টেস্টিং ইউটিলিটি — কঠোর সমতা, গভীর সমতা, থ্রো, রিজেক্ট ও কাস্টম বার্তা যাচাই।
+banglishTitle: assert module
+banglishDescription: Assertion testing utility — strict equality, deep equality, throws, rejects, custom messages.
+---
+
+# <I18nEnglish>assert</I18nEnglish>
+# <I18nBangla>assert</I18nBangla>
+# <I18nBanglish>assert</I18nBanglish>
+
+<I18nEnglish>
+The **`assert`** module provides a set of functions for verifying conditions (assertions). If the condition fails, an **AssertionError** is thrown.
+</I18nEnglish>
+
+<I18nBangla>
+**`assert`** মডিউল শর্ত যাচাইয়ের জন্য ফাংশন দেয়। শর্ত মিথ্যা হলে **AssertionError** নিক্ষেপ করে।
+</I18nBangla>
+
+<I18nBanglish>
+**`assert`** module condition verify korar jonno function dey. Condition fail hole **AssertionError** throw kore.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Basic
+- **`assert(value[, message])`** — throws if value is falsy.
+- **`assert.ok(value[, message])`** — same as above.
+
+### Equality
+- **`assert.equal(actual, expected[, message])`** — loose equality (`==`).
+- **`assert.notEqual(actual, expected[, message])`** — not equal.
+- **`assert.strictEqual(actual, expected[, message])`** — strict (`===`).
+- **`assert.notStrictEqual(actual, expected[, message])`** — strict not equal.
+
+### Deep
+- **`assert.deepEqual(actual, expected[, message])`** — deep comparison (`==` rules).
+- **`assert.notDeepEqual(...)`**
+- **`assert.deepStrictEqual(actual, expected[, message])`** — deep + strict.
+- **`assert.notDeepStrictEqual(...)`**
+
+### Exceptions
+- **`assert.throws(fn[, error])`** — expect function to throw.
+- **`assert.doesNotThrow(fn[, error])`**
+- **`assert.rejects(asyncFn[, error])`** — expect promise rejection.
+- **`assert.doesNotReject(asyncFn[, error])`**
+
+### Misc
+- **`assert.fail([message])`** — always throws.  
+- **`assert.ifError(value)`** — throws if value is truthy (commonly error).  
+
+</I18nEnglish>
+
+<I18nBangla>
+### প্রধান ফাংশন
+- **`ok`** — সত্য কিনা যাচাই।
+- **`equal/strictEqual`** — সমতা যাচাই।
+- **`deepEqual/deepStrictEqual`** — অবজেক্ট গভীরভাবে যাচাই।
+- **`throws/rejects`** — এক্সেপশন/রিজেকশন প্রত্যাশা।
+- **`fail/ifError`** — সবসময় ফেল বা ত্রুটি ধরুন।
+</I18nBangla>
+
+<I18nBanglish>
+### Functions
+- **`ok`** — value true kina check.  
+- **`equal/strictEqual`** — equality check.  
+- **`deepEqual/deepStrictEqual`** — deep object check.  
+- **`throws/rejects`** — expect exception/rejection.  
+- **`fail/ifError`** — always fail or check error.  
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const assert = require("assert");
+
+// Basic
+assert.ok(true);
+assert.ok(1);
+
+// Equality
+assert.strictEqual(2 + 2, 4);
+assert.notStrictEqual(2 + 2, 5);
+
+// Deep equality
+assert.deepStrictEqual({ a: 1 }, { a: 1 });
+
+// Throws
+assert.throws(() => {
+  throw new Error("fail");
+});
+
+// Rejects (async)
+(async () => {
+  await assert.rejects(Promise.reject(new Error("bad")));
+})();
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Use **strict** variants to avoid coercion pitfalls.  
+- **Deep** comparisons are useful for objects/arrays.  
+- Wrap async assertions in `async` functions.  
+- Assertion errors include `actual`, `expected`, and `operator`.  
+</I18nEnglish>
+
+<I18nBangla>
+- কোরশন এড়াতে **strict** ভ্যারিয়েন্ট ব্যবহার করুন।  
+- অবজেক্ট/অ্যারে যাচাইয়ে **deep** দরকার।  
+- অ্যাসিঙ্ক ফাংশনে async assertion দিন।  
+- AssertionError এ actual, expected, operator থাকে।  
+</I18nBangla>
+
+<I18nBanglish>
+- Coercion avoid korte **strict** variant use korun.  
+- Object/array check e **deep** use kora uchit.  
+- Async function e async assertion use korun.  
+- AssertionError e actual, expected, operator thake.  
+</I18nBanglish>

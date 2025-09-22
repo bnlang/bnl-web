@@ -1,0 +1,102 @@
+---
+title: string_decoder module
+description: Decode buffers into strings without breaking multibyte characters — useful for streaming data like UTF-8 text.
+bnTitle: string_decoder মডিউল
+bnDescription: বাফার থেকে স্ট্রিং ডিকোড — মাল্টিবাইট ক্যারেক্টার ভেঙে না ফেলে, UTF-8 টেক্সট স্ট্রিমের জন্য উপযোগী।
+banglishTitle: string_decoder module
+banglishDescription: Decode buffer to string — prevent breaking multibyte chars, useful for UTF-8 text streams.
+---
+
+# <I18nEnglish>string_decoder</I18nEnglish>
+# <I18nBangla>string_decoder</I18nBangla>
+# <I18nBanglish>string_decoder</I18nBanglish>
+
+<I18nEnglish>
+The **`string_decoder`** module provides a way to decode `Buffer` objects into strings without breaking multibyte characters. Useful when streaming text data.
+</I18nEnglish>
+
+<I18nBangla>
+**`string_decoder`** মডিউল `Buffer` কে স্ট্রিং এ ডিকোড করে, মাল্টিবাইট ক্যারেক্টার না ভেঙে। টেক্সট স্ট্রিম হ্যান্ডল করতে দরকার।
+</I18nBangla>
+
+<I18nBanglish>
+**`string_decoder`** module `Buffer` theke string decode kore, multibyte character na venge. Text stream handle korte use hoy.
+</I18nBanglish>
+
+---
+
+## API Surface
+
+<I18nEnglish>
+
+### Class: StringDecoder
+- **`new StringDecoder([encoding])`** — default `utf8`.  
+- **`.write(buffer)`** — returns string decoded from buffer.  
+- **`.end([buffer])`** — flush remaining input and end decoding.  
+
+Supported encodings: `utf8`, `utf16le`, `base64`.  
+
+</I18nEnglish>
+
+<I18nBangla>
+### ক্লাস
+- **`StringDecoder`** — ডিফল্ট `utf8`।  
+- **`.write`**, **`.end`** — বাফার থেকে স্ট্রিং এ কনভার্ট।  
+- সাপোর্টেড এনকোডিং: `utf8`, `utf16le`, `base64`।  
+</I18nBangla>
+
+<I18nBanglish>
+### Class
+- **`StringDecoder`** — default `utf8`.  
+- **`.write`**, **`.end`** — buffer to string convert.  
+- Supported encoding: `utf8`, `utf16le`, `base64`.  
+</I18nBanglish>
+
+---
+
+## Examples (English only)
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+const { StringDecoder } = require("string_decoder");
+const decoder = new StringDecoder("utf8");
+
+const buf1 = Buffer.from([0xe0, 0xa4, 0xa8]); // incomplete UTF-8 char
+const buf2 = Buffer.from([0xa6]);
+
+console.log(decoder.write(buf1)); // empty, waiting for completion
+console.log(decoder.write(buf2)); // outputs proper char (e.g., 'न')
+
+// End flush
+console.log(decoder.end());
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Notes
+
+<I18nEnglish>
+- Unlike `buf.toString()`, StringDecoder preserves whole characters across chunk boundaries.  
+- Useful when reading text from streams in arbitrary-sized chunks.  
+- Always call `.end()` at the end of input to flush buffered bytes.  
+</I18nEnglish>
+
+<I18nBangla>
+- `buf.toString()` এর বিপরীতে, StringDecoder ক্যারেক্টার ভাঙে না।  
+- স্ট্রিম থেকে টেক্সট পড়ার সময় উপযোগী।  
+- সবশেষে `.end()` দিয়ে ফ্লাশ করুন।  
+</I18nBangla>
+
+<I18nBanglish>
+- `buf.toString()` er biporite, StringDecoder character bhange na.  
+- Stream theke text read korte useful.  
+- Shesh e `.end()` diye flush korte hobe.  
+</I18nBanglish>

@@ -1,0 +1,204 @@
+---
+title: Discovering the Bnlang Test Runner
+description: Learn about the Bnlang Test Runner, its features, and usage with examples in English, Bangla, and Banglish.
+bnTitle: Bnlang টেস্ট রানার আবিষ্কার
+bnDescription: Bnlang টেস্ট রানার, এর ফিচার এবং ব্যবহার উদাহরণসহ।
+banglishTitle: Discovering the Bnlang Test Runner
+banglishDescription: Bnlang Test Runner er feature ar bebohar English, Bangla ar Banglish e.
+---
+
+# <I18nEnglish>Discovering the Bnlang Test Runner</I18nEnglish>
+# <I18nBangla>Bnlang টেস্ট রানার আবিষ্কার</I18nBangla>
+# <I18nBanglish>Discovering the Bnlang Test Runner</I18nBanglish>
+
+<I18nEnglish>
+The **Bnlang Test Runner** is the official tool for writing and running tests in the Bnlang ecosystem.  
+It provides a simple API for defining tests, assertions, and hooks, ensuring reliable and maintainable code.  
+With the test runner, you can automate quality checks and confidently refactor projects.
+</I18nEnglish>
+
+<I18nBangla>
+**Bnlang টেস্ট রানার** হলো Bnlang ইকোসিস্টেমে টেস্ট লেখার এবং চালানোর অফিসিয়াল টুল।  
+এটি টেস্ট, অ্যাসারশন এবং হুক ডিফাইন করার সহজ API দেয়, যা কোডকে নির্ভরযোগ্য ও মেইনটেনযোগ্য রাখে।  
+টেস্ট রানার দিয়ে কোডের মান যাচাই অটোমেট করা যায় এবং নিশ্চিন্তে প্রজেক্ট রিফ্যাক্টর করা যায়।
+</I18nBangla>
+
+<I18nBanglish>
+**Bnlang Test Runner** holo Bnlang ecosystem e test lekhar ar chalano official tool.  
+Eta test, assertion ar hook define korar easy API dey, ja code ke reliable ar maintainable rakhe.  
+Test runner diye code er quality check automate kora jay ar project confidently refactor kora jay.
+</I18nBanglish>
+
+---
+
+## Writing a Simple Test
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+const { test } = require("bnl_test");
+
+test("addition works", (t) => {
+  t.equal(2 + 2, 4);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const { test } = require("bnl_test");
+
+test("যোগফল কাজ করছে", (t) => {
+  t.equal(2 + 2, 4);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const { test } = require("bnl_test");
+
+test("jogfol kaj korche", (t) => {
+  t.equal(2 + 2, 4);
+});
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Assertions
+
+<I18nEnglish>
+Assertions are checks that confirm expected outcomes.  
+Common methods include `t.equal`, `t.notEqual`, `t.ok`, and `t.fail`.
+</I18nEnglish>
+
+<I18nBangla>
+অ্যাসারশন মানে হলো প্রত্যাশিত ফলাফল যাচাই করা।  
+সাধারণ মেথডগুলোর মধ্যে আছে: `t.equal`, `t.notEqual`, `t.ok`, এবং `t.fail`।
+</I18nBangla>
+
+<I18nBanglish>
+Assertion mane holo prottashito folafol check kora.  
+Common method holo: `t.equal`, `t.notEqual`, `t.ok`, ar `t.fail`.
+</I18nBanglish>
+
+---
+
+## Hooks
+
+<I18nEnglish>
+The runner supports lifecycle hooks:  
+- `before` → Runs once before all tests.  
+- `after` → Runs once after all tests.  
+- `beforeEach` → Runs before each test.  
+- `afterEach` → Runs after each test.
+</I18nEnglish>
+
+<I18nBangla>
+রানার লাইফসাইকেল হুক সাপোর্ট করে:  
+- `before` → সব টেস্টের আগে একবার চলে।  
+- `after` → সব টেস্টের পরে একবার চলে।  
+- `beforeEach` → প্রতিটি টেস্টের আগে চলে।  
+- `afterEach` → প্রতিটি টেস্টের পরে চলে।
+</I18nBangla>
+
+<I18nBanglish>
+Runner lifecycle hook support kore:  
+- `before` → Shob test er age ekbar run hoy.  
+- `after` → Shob test er pore ekbar run hoy.  
+- `beforeEach` → Protiti test er age run hoy.  
+- `afterEach` → Protiti test er pore run hoy.
+</I18nBanglish>
+
+---
+
+## Example with Hooks
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```js
+const { test } = require("bnl_test");
+
+test.before(() => console.log("Setup"));
+test.after(() => console.log("Teardown"));
+
+test("check value", (t) => {
+  const x = 10;
+  t.ok(x > 5);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="bangla">
+
+```bnl
+const { test } = require("bnl_test");
+
+test.before(() => কনসোল.লগ("সেটআপ"));
+test.after(() => কনসোল.লগ("টিয়ারডাউন"));
+
+test("মান যাচাই", (t) => {
+  const x = 10;
+  t.ok(x > 5);
+});
+```
+  </TabsContent>
+
+  <TabsContent value="banglish">
+
+```bnl
+const { test } = require("bnl_test");
+
+test.before(() => console.log("Setup"));
+test.after(() => console.log("Teardown"));
+
+test("man jachai", (t) => {
+  const x = 10;
+  t.ok(x > 5);
+});
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Group related tests for readability.  
+- Keep test functions small and focused.  
+- Use hooks for setup/teardown logic.  
+- Automate tests in CI/CD pipelines for reliability.
+</I18nEnglish>
+
+<I18nBangla>
+- সম্পর্কিত টেস্ট একসাথে লিখুন।  
+- টেস্ট ফাংশন ছোট ও নির্দিষ্ট রাখুন।  
+- সেটআপ/টিয়ারডাউন লজিকের জন্য হুক ব্যবহার করুন।  
+- নির্ভরযোগ্যতার জন্য টেস্ট CI/CD তে অটোমেট করুন।
+</I18nBangla>
+
+<I18nBanglish>
+- Related test gulo ekshathe likhun.  
+- Test function chhoto ar specific rakhun.  
+- Setup/teardown logic er jonno hook use korun.  
+- Reliability er jonno test ke CI/CD te automate korun.
+</I18nBanglish>

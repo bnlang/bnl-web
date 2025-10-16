@@ -370,7 +370,7 @@ export default function DownloadPage({ locale }: Props) {
               ) : (
                 <select
                   id="sel-version"
-                  className="w-full rounded-md border bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-bd-green"
+                  className="w-full rounded-md border px-3 py-2 outline-none focus:ring-2 focus:ring-bd-green"
                   value={version}
                   onChange={(e) => setVersion(e.target.value)}
                 >
@@ -394,7 +394,7 @@ export default function DownloadPage({ locale }: Props) {
               ) : (
                 <select
                   id="sel-artifact"
-                  className="w-full rounded-md border bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-bd-green"
+                  className="w-full rounded-md border px-3 py-2 outline-none focus:ring-2 focus:ring-bd-green"
                   value={artifact}
                   onChange={(e) => setArtifact(e.target.value as ArtifactType)}
                 >
@@ -428,7 +428,7 @@ export default function DownloadPage({ locale }: Props) {
               ) : (
                 <select
                   id="sel-os"
-                  className="w-full rounded-md border bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-bd-green"
+                  className="w-full rounded-md border px-3 py-2 outline-none focus:ring-2 focus:ring-bd-green"
                   value={os}
                   onChange={(e) => setOS(e.target.value as OSKey)}
                 >
@@ -463,7 +463,7 @@ export default function DownloadPage({ locale }: Props) {
               ) : (
                 <select
                   id="sel-arch"
-                  className="w-full rounded-md border bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-bd-green"
+                  className="w-full rounded-md border px-3 py-2 outline-none focus:ring-2 focus:ring-bd-green"
                   value={arch}
                   onChange={(e) => setArch(e.target.value as ArchKey)}
                 >
@@ -592,7 +592,7 @@ export default function DownloadPage({ locale }: Props) {
                       {t("download.details.sha")}
                     </div>
                     <div className="flex items-center gap-2">
-                      <code className="font-mono text-[11px] sm:text-xs md:text-sm bg-neutral-100 px-2 py-1 rounded break-all">
+                      <code className="font-mono text-[11px] sm:text-xs md:text-sm bg-neutral-100 dark:bg-gray-900 px-2 py-1 rounded break-all">
                         {checksum || "—"}
                       </code>
                       {checksum && (

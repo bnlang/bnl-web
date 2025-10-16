@@ -74,10 +74,16 @@ export function Header({ isFullWidth, locale = "en" }: HeaderProps) {
                 {t("header.contribute")}
               </Link>
               <Link
-                href={`/${locale}/releases`}
+                href={`/${locale}/tutorials`}
                 className="text-md hover:text-bd-green transition-colors"
               >
-                {t("header.releases")}
+                {t("header.tutorials")}
+              </Link>
+              <Link
+                href={`https://bpm.bnlang.dev/`}
+                className="text-md hover:text-bd-green transition-colors"
+              >
+                BPM
               </Link>
             </nav>
           </div>
@@ -168,10 +174,16 @@ export function Header({ isFullWidth, locale = "en" }: HeaderProps) {
                 {t("header.contribute")}
               </Link>
               <Link
-                href={`/${locale}/releases`}
+                href={`/${locale}/tutorials`}
                 className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
-                {t("header.releases")}
+                {t("header.tutorials")}
+              </Link>
+              <Link
+                href={`https://bpm.bnlang.dev`}
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              >
+                BPM
               </Link>
               <Link
                 href={`/${locale}/download`}

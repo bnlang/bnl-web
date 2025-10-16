@@ -21,6 +21,10 @@ export function Footer({
           href: "/learn/get-started",
         },
         {
+          label: t("footer.useful_links.links.blog"),
+          href: "/blogs",
+        },
+        {
           label: t("footer.useful_links.links.contribute"),
           href: "https://github.com/bnlang",
         },

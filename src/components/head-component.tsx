@@ -8,6 +8,7 @@ interface HeadComponentProps {
   title?: string;
   description?: string;
   keywords?: string;
+  ogImage?: string;
   type?: "article" | "website";
 }
 
@@ -16,6 +17,7 @@ export default function HeadComponent({
   description,
   keywords,
   locale,
+  ogImage,
   pathname,
   type = "website",
 }: HeadComponentProps) {
@@ -38,7 +40,7 @@ export default function HeadComponent({
           property="og:description"
           content={description || t("head.description")}
         />
-        <meta property="og:image:alt" content="Bnlang" />
+        <meta property="og:image:alt" content={title ? title : "Bnlang"} />
         <meta property="og:site_name" content="Bnlang" />
         <meta property="og:type" content={type} />
         <meta
@@ -49,7 +51,11 @@ export default function HeadComponent({
         />
         <meta
           property="og:image"
-          content={`${process.env.NEXT_PUBLIC_SITE_URL}/images/og_image.jpg`}
+          content={
+            ogImage
+              ? ogImage
+              : `${process.env.NEXT_PUBLIC_SITE_URL}/images/og_image.jpg`
+          }
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -66,8 +72,11 @@ export default function HeadComponent({
 
         <link rel="shortcut icon" href="/favicon.png" />
       </Head>
-      
-      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-P2GS8KPLZJ"></Script>
+
+      <Script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-P2GS8KPLZJ"
+      ></Script>
       <Script id="google-tag" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];

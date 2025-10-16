@@ -453,7 +453,7 @@ export default function BlogsPage({ locale }: Props) {
                           />
                           <div className="h-56 overflow-hidden">
                             <img
-                              src={`${process.env.NEXT_PUBLIC_CDN_URL}/uploads/blogs/${tut.thumbnail}`}
+                              src={`${process.env.NEXT_PUBLIC_STATIC_CDN_URL}/uploads/blogs/${tut.thumbnail}`}
                               width="100%"
                               alt={title}
                             />

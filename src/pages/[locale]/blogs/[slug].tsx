@@ -207,7 +207,7 @@ export default function BlogDetailsSSR({
         }
         locale={locale}
         pathname={`/${locale}/blogs/${slug}`}
-        ogImage={`${process.env.NEXT_PUBLIC_CDN_URL || ""}/uploads/blogs/${
+        ogImage={`${process.env.NEXT_PUBLIC_STATIC_CDN_URL || ""}/uploads/blogs/${
           blog?.thumbnail || ""
         }`}
         type="article"

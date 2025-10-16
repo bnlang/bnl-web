@@ -18,6 +18,7 @@ import HeadComponent from "@/components/head-component";
 import { formatReadableDate } from "@/lib/utils";
 import { Blog } from "@/types/blogs.types";
 import { blogCategories } from "@/lib/data/blog-categories";
+import { Info } from "lucide-react";
 
 type BlogsResponse = {
   total: number;
@@ -410,6 +411,12 @@ export default function BlogsPage({ locale }: Props) {
               ) : data.records.length === 0 ? (
                 <Card>
                   <CardContent className="py-12 text-center">
+                    <div className="mb-5">
+                      <Info
+                        size={60}
+                        className="mx-auto mb-2 text-muted-foreground"
+                      />
+                    </div>
                     <p className="text-muted-foreground">
                       No blogs matched your filters.
                     </p>

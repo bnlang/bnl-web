@@ -19,6 +19,7 @@ import { tutorialCategories } from "@/lib/data/tutorial-categories";
 import HeadComponent from "@/components/head-component";
 import { Tutorial } from "@/types/tutorials.types";
 import { formatReadableDate } from "@/lib/utils";
+import { Info } from "lucide-react";
 
 type TutorialsResponse = {
   total: number;
@@ -486,6 +487,9 @@ export default function TutorialsPage({ locale }: Props) {
               ) : data.records.length === 0 ? (
                 <Card>
                   <CardContent className="py-12 text-center">
+                    <div className="mb-5">
+                      <Info size={60} className="mx-auto mb-2 text-muted-foreground" />
+                    </div>
                     <p className="text-muted-foreground">
                       No tutorials matched your filters.
                     </p>

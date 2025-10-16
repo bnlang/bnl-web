@@ -15,12 +15,12 @@ export type Heading = { id: string; text: string; depth: number };
 
 export type LoadedDoc =
   | {
-    found: true;
-    sourceVersion: string;
-    mdx: any;
-    headings: Heading[];
-    frontmatter: Record<string, any>;
-  }
+      found: true;
+      sourceVersion: string;
+      mdx: any;
+      headings: Heading[];
+      frontmatter: Record<string, any>;
+    }
   | { found: false };
 
 function mdxPath(version: string, slug: string[]) {
@@ -37,7 +37,7 @@ function mdxPath(version: string, slug: string[]) {
 export async function loadMdxWithFallback(
   locale: string,
   slug: string[],
-  requestedVersion?: string | null,
+  requestedVersion?: string | null
 ): Promise<LoadedDoc> {
   let chosen: string | null = null;
   let contentRaw: string | null = null;
@@ -57,7 +57,7 @@ export async function loadMdxWithFallback(
     const filePath = path.join(BASE_DIR, ...slug, "index.mdx");
 
     if (fs.existsSync(filePath)) {
-      chosen = 'learn';
+      chosen = "learn";
       contentRaw = fs.readFileSync(filePath, "utf8");
     }
   }
@@ -77,7 +77,10 @@ export async function loadMdxWithFallback(
       remarkPlugins: [remarkGfm, remarkRehype],
       rehypePlugins: [
         rehypeSlug,
-        [rehypeAutolinkHeadings, { behavior: "wrap", properties: { className: ["no-underline"] } }],
+        [
+          rehypeAutolinkHeadings,
+          { behavior: "wrap", properties: { className: ["no-underline"] } },
+        ],
         () => (tree: Root) => {
           visitParents(tree, "element", (node: any, ancestors: any[]) => {
             if (!/^h[1-6]$/.test(node.tagName)) return;
@@ -86,7 +89,9 @@ export async function loadMdxWithFallback(
 
             const wrapper = ancestors
               .reverse()
-              .find((a) => ["I18nEnglish", "I18nBangla", "I18nBanglish"].includes(a?.name));
+              .find((a) =>
+                ["I18nEnglish", "I18nBangla", "I18nBanglish"].includes(a?.name)
+              );
 
             if (wrapper && wrapper.name !== wanted) return;
 
@@ -106,6 +111,47 @@ export async function loadMdxWithFallback(
     sourceVersion: chosen,
     mdx,
     headings,
+    frontmatter: data || {},
+  };
+}
+
+export async function loadMdxWithRawContent(
+  contentRaw: string
+): Promise<LoadedDoc> {
+  const { content, data } = matter(contentRaw);
+  const headings: Heading[] = [];
+
+  const mdx = await serialize(content, {
+    mdxOptions: {
+      remarkPlugins: [remarkGfm, remarkRehype],
+      rehypePlugins: [
+        rehypeSlug,
+        [
+          rehypeAutolinkHeadings,
+          { behavior: "wrap", properties: { className: ["no-underline"] } },
+        ],
+        () => (tree: Root) => {
+          visitParents(tree, "element", (node: any) => {
+            if (!/^h[1-6]$/.test(node.tagName)) return;
+            const depth = Number(node.tagName.slice(1));
+            if (depth < 2 || depth > 4) return;
+
+            const id = node.properties?.id as string;
+            const text = toString(node).trim();
+            if (id && text) headings.push({ id, text, depth });
+          });
+        },
+      ],
+      format: "mdx",
+    },
+    parseFrontmatter: false,
+  });
+
+  return {
+    found: true,
+    mdx,
+    headings,
+    sourceVersion: "raw",
     frontmatter: data || {},
   };
 }

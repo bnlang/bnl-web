@@ -9,11 +9,13 @@ import { Footer } from "@/components/footer";
 import type { SupportedLocale } from "@/types/locale.types";
 import { Tutorial } from "@/types/tutorials.types";
 import { formatReadableDate } from "@/lib/utils";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import HeadComponent from "@/components/head-component";
 import type { GetServerSideProps } from "next";
 import { normalizeLocale } from "@/lib/i18n";
+import { loadMdxWithRawContent } from "@/lib/mdx";
+import { MDXRemote } from "next-mdx-remote";
+import CodeBlock from "@/components/CodeBlock";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 const TUTORIAL_ENDPOINT = `${API_URL}/tutorials`;
@@ -28,6 +30,9 @@ type Props = {
     Pick<Tutorial, "_id" | "slug" | "title" | "createdAt" | "category" | "tags">
   >;
   canonicalUrl: string;
+  source: any;
+  headings: Array<{ id: string; text: string; depth: number }>;
+  sourceVersion: string;
 };
 
 function pickByLocale(obj: LocaleText | undefined, locale: SupportedLocale) {
@@ -178,10 +183,20 @@ export default function TutorialDetailsSSR({
   tutorial,
   relatedPosts,
   canonicalUrl,
+  source,
+  headings,
 }: Props) {
   const title = pickByLocale(tutorial?.title, locale);
   const summary = pickByLocale(tutorial?.summary, locale);
-  const description = pickByLocale(tutorial?.description, locale);
+
+  const onTocClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", `#${id}`);
+    }
+  };
 
   return (
     <>
@@ -235,14 +250,48 @@ export default function TutorialDetailsSSR({
 
             <Separator className="my-6" />
 
-            <div className="prose prose-neutral dark:prose-invert max-w-none">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {description}
-              </ReactMarkdown>
-            </div>
+            <article className="prose prose-zinc dark:prose-invert max-w-none [&_*:where(h2,h3,h4)]:scroll-mt-24">
+              <MDXRemote
+                {...source}
+                components={{
+                  pre: CodeBlock,
+                }}
+              />
+            </article>
           </article>
 
-          <aside className="lg:col-span-4 space-y-6">
+          <aside className="lg:col-span-4 space-y-6 sticky top-16 h-[calc(100vh-4rem)]">
+            <div className="hidden xl:block">
+              <ScrollArea className="h-full px-3 pb-4">
+                <div className="mb-3 text-lg">
+                  On this page
+                </div>
+                {headings.length > 0 ? (
+                  <nav aria-label="Table of contents" className="space-y-3">
+                    {headings.map((h) => (
+                      <a
+                        key={h.id}
+                        href={`#${h.id}`}
+                        onClick={(e) => onTocClick(e, h.id)}
+                        className={[
+                          "block text-base leading-5 hover:underline",
+                          h.depth === 2
+                            ? "ml-0"
+                            : h.depth === 3
+                            ? "ml-3"
+                            : "ml-6",
+                          "text-foreground/80 hover:text-foreground",
+                        ].join(" ")}
+                      >
+                        {h.text}
+                      </a>
+                    ))}
+                  </nav>
+                ) : (
+                  <div className="text-xs text-muted-foreground">—</div>
+                )}
+              </ScrollArea>
+            </div>
             <SocialShare url={canonicalUrl} title={title || ""} />
             <RelatedPosts relatedPosts={relatedPosts} locale={locale} />
           </aside>
@@ -278,6 +327,16 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
     process.env.NEXT_PUBLIC_SITE_URL
   }/${locale}/tutorials/${encodeURIComponent(slug)}`;
 
+  const loaded = await loadMdxWithRawContent(
+    locale === "bn"
+      ? data.result.description.bangla
+      : locale === "banglish"
+      ? data.result.description.banglish
+      : data.result.description.english
+  );
+
+  if (!loaded.found) return { notFound: true };
+
   return {
     props: {
       locale,
@@ -290,6 +349,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
         >
       >,
       canonicalUrl,
+      source: loaded.mdx,
+      headings: loaded.headings,
+      sourceVersion: loaded.sourceVersion,
     },
   };
 };

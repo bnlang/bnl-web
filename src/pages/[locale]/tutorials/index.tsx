@@ -508,7 +508,7 @@ export default function TutorialsPage({ locale }: Props) {
                           ? tut.summary.bangla
                           : tut.summary.english;
 
-                      const href = `/${locale}/tutorials/${tut.slug}`;
+                      const href = `/${locale}/tutorials/view/?slug=${tut.slug}`;
 
                       return (
                         <Card

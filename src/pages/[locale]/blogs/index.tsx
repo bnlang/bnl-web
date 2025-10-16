@@ -432,7 +432,7 @@ export default function BlogsPage({ locale }: Props) {
                           ? tut.summary.bangla
                           : tut.summary.english;
 
-                      const href = `/${locale}/blogs/${tut.slug}`;
+                      const href = `/${locale}/blogs/view?slug=${tut.slug}`;
 
                       return (
                         <Card

@@ -1,5 +1,4 @@
 import * as React from "react";
-import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "sonner";
@@ -16,9 +15,12 @@ import { formatReadableDate } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import HeadComponent from "@/components/head-component";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { normalizeLocale } from "@/lib/i18n";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 const TUTORIAL_ENDPOINT = `${API_URL}/tutorials`;
+type Props = { locale: SupportedLocale };
 
 function pickByLocale<T extends Record<string, string>>(
   obj: T | undefined,
@@ -189,10 +191,9 @@ function RelatedPosts({
   );
 }
 
-export default function TutorialDetailsCSR() {
+export default function TutorialDetailsCSR({ locale }: Props) {
   const router = useRouter();
-  const { locale = "en", slug } = router.query as {
-    locale?: SupportedLocale;
+  const { slug } = router.query as {
     slug?: string;
   };
 
@@ -210,7 +211,7 @@ export default function TutorialDetailsCSR() {
   const canonicalUrl =
     typeof window !== "undefined"
       ? window.location.href
-      : `/${locale || "en"}/tutorials/${slug || ""}`;
+      : `/${locale || "en"}/tutorials/view?slug=${slug || ""}`;
 
   React.useEffect(() => {
     if (!slug) return;
@@ -263,98 +264,111 @@ export default function TutorialDetailsCSR() {
   );
 
   return (
-    <div className="min-h-screen">
-      <Head>
-        <title>{title ? `${title} — Tutorials` : "Loading… — Tutorials"}</title>
-        <meta name="description" content={summary || title || "Tutorial"} />
-        <meta property="og:title" content={title || "Tutorial"} />
-        <meta
-          property="og:description"
-          content={summary || title || "Tutorial"}
-        />
-        <meta property="og:type" content="article" />
-        <link rel="canonical" href={canonicalUrl} />
-      </Head>
-
+    <>
       <HeadComponent
         title={
           locale === "bn"
             ? tutorial?.title.bangla
             : locale === "banglish"
             ? tutorial?.title.banglish
-            : tutorial?.title.english || "Tutorial"
+            : tutorial?.title.english || "Bnlang Tutorials"
         }
         description={
           locale === "bn"
             ? tutorial?.summary.bangla
             : locale === "banglish"
             ? tutorial?.summary.banglish
-            : tutorial?.summary.english || "Tutorial"
+            : tutorial?.summary.english || "Bnlang Tutorials"
         }
         locale={locale}
-        pathname={`/${locale}/tutorials/${slug}`}
+        pathname={
+          slug
+            ? `/${locale}/tutorials/view?slug=${slug}`
+            : `/${locale}/tutorials`
+        }
         type="article"
       />
 
-      <Header />
+      <div className="min-h-screen">
+        <Header />
 
-      {loading ? (
-        <PageSkeleton />
-      ) : !tutorial ? (
-        <div className="mx-auto max-w-7xl px-4 py-16">
-          <Card>
-            <CardContent className="py-10 text-center">
-              <p className="text-muted-foreground">
-                Could not load this tutorial.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      ) : (
-        <div className="mx-auto max-w-7xl px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <article className="lg:col-span-8">
-            <div className="space-y-3">
-              <h1 className="text-3xl font-semibold tracking-tight">{title}</h1>
-              <p className="text-muted-foreground">{summary}</p>
-              <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-                <span>
-                  Updated {formatReadableDate(tutorial.updatedAt || new Date())}
-                </span>
-                <span>•</span>
-                <span className="capitalize">
-                  Category: {tutorial.category}
-                </span>
+        {loading ? (
+          <PageSkeleton />
+        ) : !tutorial ? (
+          <div className="mx-auto max-w-7xl px-4 py-16">
+            <Card>
+              <CardContent className="py-10 text-center">
+                <p className="text-muted-foreground">
+                  Could not load this tutorial.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        ) : (
+          <div className="mx-auto max-w-7xl px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <article className="lg:col-span-8">
+              <div className="space-y-3">
+                <h1 className="text-3xl font-semibold tracking-tight">
+                  {title}
+                </h1>
+                <p className="text-muted-foreground">{summary}</p>
+                <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                  <span>
+                    Updated{" "}
+                    {formatReadableDate(tutorial.updatedAt || new Date())}
+                  </span>
+                  <span>•</span>
+                  <span className="capitalize">
+                    Category: {tutorial.category}
+                  </span>
+                </div>
+
+                {tutorial.tags && tutorial.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {tutorial.tags.map((tag) => (
+                      <Badge key={tag} variant="outline" className="capitalize">
+                        #{tag}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              {tutorial.tags && tutorial.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 pt-1">
-                  {tutorial.tags.map((tag) => (
-                    <Badge key={tag} variant="outline" className="capitalize">
-                      #{tag}
-                    </Badge>
-                  ))}
-                </div>
-              )}
-            </div>
+              <Separator className="my-6" />
 
-            <Separator className="my-6" />
-
-            <div className="prose prose-neutral dark:prose-invert max-w-none">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {description}
-              </ReactMarkdown>
-            </div>
-          </article>
-          <aside className="lg:col-span-4 space-y-6">
-            <SocialShare url={canonicalUrl} title={title || ""} />
-            <RelatedPosts
-              relatedPosts={relatedPosts}
-              locale={(locale as SupportedLocale) || "en"}
-            />
-          </aside>
-        </div>
-      )}
-      <Footer locale={(locale as SupportedLocale) || "en"} />
-    </div>
+              <div className="prose prose-neutral dark:prose-invert max-w-none">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {description}
+                </ReactMarkdown>
+              </div>
+            </article>
+            <aside className="lg:col-span-4 space-y-6">
+              <SocialShare url={canonicalUrl} title={title || ""} />
+              <RelatedPosts
+                relatedPosts={relatedPosts}
+                locale={(locale as SupportedLocale) || "en"}
+              />
+            </aside>
+          </div>
+        )}
+        <Footer locale={(locale as SupportedLocale) || "en"} />
+      </div>
+    </>
   );
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const locales: SupportedLocale[] = ["en", "bn", "banglish"];
+  return {
+    paths: locales.map((l) => ({ params: { locale: l } })),
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
+  const rawLocale = (params as any)?.locale as string | undefined;
+  const normalized = normalizeLocale(rawLocale);
+  const locale: SupportedLocale =
+    rawLocale === "banglish" ? "banglish" : (normalized as SupportedLocale);
+  return { props: { locale } };
+};

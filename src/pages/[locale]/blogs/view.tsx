@@ -1,5 +1,4 @@
 import * as React from "react";
-import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "sonner";
@@ -15,9 +14,12 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Blog } from "@/types/blogs.types";
 import HeadComponent from "@/components/head-component";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { normalizeLocale } from "@/lib/i18n";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 const BLOG_ENDPOINT = `${API_URL}/blogs`;
+type Props = { locale: SupportedLocale };
 
 function pickByLocale<T extends Record<string, string>>(
   obj: T | undefined,
@@ -156,7 +158,7 @@ function RelatedPosts({
         ) : (
           relatedPosts.map((r) => {
             const title = pickByLocale(r.title, locale);
-            const href = `/${locale}/blogs/${r.slug}`;
+            const href = `/${locale}/blogs/view?slug=${r.slug}`;
             return (
               <div key={String(r._id)} className="space-y-1">
                 <Link
@@ -179,10 +181,9 @@ function RelatedPosts({
   );
 }
 
-export default function BlogDetailsCSR() {
+export default function BlogDetailsCSR({ locale }: Props) {
   const router = useRouter();
-  const { locale = "en", slug } = router.query as {
-    locale?: SupportedLocale;
+  const { slug } = router.query as {
     slug?: string;
   };
 
@@ -195,7 +196,7 @@ export default function BlogDetailsCSR() {
   const canonicalUrl =
     typeof window !== "undefined"
       ? window.location.href
-      : `/${locale || "en"}/blogs/${slug || ""}`;
+      : `/${locale || "en"}/blogs/view?slug=${slug || ""}`;
 
   React.useEffect(() => {
     if (!slug) return;
@@ -245,81 +246,97 @@ export default function BlogDetailsCSR() {
   );
 
   return (
-    <div className="min-h-screen">
-      <Head>
-        <title>{title ? `${title} — Blogs` : "Loading… — Blogs"}</title>
-        <meta name="description" content={summary || title || "Blog"} />
-        <meta property="og:title" content={title || "Blog"} />
-        <meta property="og:description" content={summary || title || "Blog"} />
-        <meta property="og:type" content="article" />
-        <link rel="canonical" href={canonicalUrl} />
-      </Head>
-
+    <>
       <HeadComponent
         title={
           locale === "bn"
             ? blog?.title.bangla
             : locale === "banglish"
             ? blog?.title.banglish
-            : blog?.title.english || "Blog"
+            : blog?.title.english || "Bnlang Blog"
         }
         description={
           locale === "bn"
             ? blog?.summary.bangla
             : locale === "banglish"
             ? blog?.summary.banglish
-            : blog?.summary.english || "Blog"
+            : blog?.summary.english || "Bnlang Blog"
         }
         locale={locale}
-        pathname={`/${locale}/blogs/${slug}`}
+        pathname={
+          slug ? `/${locale}/blogs/view?slug=${slug}` : `/${locale}/blogs`
+        }
         ogImage={`${process.env.NEXT_PUBLIC_CDN_URL}/uploads/blogs/${blog?.thumbnail}`}
         type="article"
       />
-      <Header />
 
-      {loading ? (
-        <PageSkeleton />
-      ) : !blog ? (
-        <div className="mx-auto max-w-7xl px-4 py-16">
-          <Card>
-            <CardContent className="py-10 text-center">
-              <p className="text-muted-foreground">Could not load this blog.</p>
-            </CardContent>
-          </Card>
-        </div>
-      ) : (
-        <div className="mx-auto max-w-7xl px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <article className="lg:col-span-8">
-            <div className="space-y-3">
-              <h1 className="text-3xl font-semibold tracking-tight">{title}</h1>
-              <p className="text-muted-foreground">{summary}</p>
-              <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-                <span>
-                  Updated {formatReadableDate(blog.updatedAt || new Date())}
-                </span>
-                <span>•</span>
-                <span className="capitalize">Category: {blog.category}</span>
+      <div className="min-h-screen">
+        <Header />
+
+        {loading ? (
+          <PageSkeleton />
+        ) : !blog ? (
+          <div className="mx-auto max-w-7xl px-4 py-16">
+            <Card>
+              <CardContent className="py-10 text-center">
+                <p className="text-muted-foreground">
+                  Could not load this blog.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        ) : (
+          <div className="mx-auto max-w-7xl px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <article className="lg:col-span-8">
+              <div className="space-y-3">
+                <h1 className="text-3xl font-semibold tracking-tight">
+                  {title}
+                </h1>
+                <p className="text-muted-foreground">{summary}</p>
+                <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                  <span>
+                    Updated {formatReadableDate(blog.updatedAt || new Date())}
+                  </span>
+                  <span>•</span>
+                  <span className="capitalize">Category: {blog.category}</span>
+                </div>
               </div>
-            </div>
 
-            <Separator className="my-6" />
+              <Separator className="my-6" />
 
-            <div className="prose prose-neutral dark:prose-invert max-w-none">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {description}
-              </ReactMarkdown>
-            </div>
-          </article>
-          <aside className="lg:col-span-4 space-y-6">
-            <SocialShare url={canonicalUrl} title={title || ""} />
-            <RelatedPosts
-              relatedPosts={relatedPosts}
-              locale={(locale as SupportedLocale) || "en"}
-            />
-          </aside>
-        </div>
-      )}
-      <Footer locale={(locale as SupportedLocale) || "en"} />
-    </div>
+              <div className="prose prose-neutral dark:prose-invert max-w-none">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {description}
+                </ReactMarkdown>
+              </div>
+            </article>
+            <aside className="lg:col-span-4 space-y-6">
+              <SocialShare url={canonicalUrl} title={title || ""} />
+              <RelatedPosts
+                relatedPosts={relatedPosts}
+                locale={(locale as SupportedLocale) || "en"}
+              />
+            </aside>
+          </div>
+        )}
+        <Footer locale={(locale as SupportedLocale) || "en"} />
+      </div>
+    </>
   );
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const locales: SupportedLocale[] = ["en", "bn", "banglish"];
+  return {
+    paths: locales.map((l) => ({ params: { locale: l } })),
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
+  const rawLocale = (params as any)?.locale as string | undefined;
+  const normalized = normalizeLocale(rawLocale);
+  const locale: SupportedLocale =
+    rawLocale === "banglish" ? "banglish" : (normalized as SupportedLocale);
+  return { props: { locale } };
+};

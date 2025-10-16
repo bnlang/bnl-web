@@ -1,12 +1,9 @@
 import * as React from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import type { SupportedLocale } from "@/types/locale.types";
@@ -15,45 +12,29 @@ import { formatReadableDate } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import HeadComponent from "@/components/head-component";
-import { GetStaticPaths, GetStaticProps } from "next";
+import type { GetServerSideProps } from "next";
 import { normalizeLocale } from "@/lib/i18n";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 const TUTORIAL_ENDPOINT = `${API_URL}/tutorials`;
-type Props = { locale: SupportedLocale };
 
-function pickByLocale<T extends Record<string, string>>(
-  obj: T | undefined,
-  locale: SupportedLocale
-) {
+type LocaleText = { english?: string; bangla?: string; banglish?: string };
+
+type Props = {
+  locale: SupportedLocale;
+  slug: string;
+  tutorial: Tutorial;
+  relatedPosts: Array<
+    Pick<Tutorial, "_id" | "slug" | "title" | "createdAt" | "category" | "tags">
+  >;
+  canonicalUrl: string;
+};
+
+function pickByLocale(obj: LocaleText | undefined, locale: SupportedLocale) {
   if (!obj) return "";
   if (locale === "bn") return obj.bangla ?? obj.english ?? "";
   if (locale === "banglish") return obj.banglish ?? obj.english ?? "";
   return obj.english ?? "";
-}
-
-function PageSkeleton() {
-  return (
-    <div className="mx-auto max-w-7xl px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
-      <div className="lg:col-span-8 space-y-4">
-        <Skeleton className="h-8 w-3/4" />
-        <div className="flex gap-2">
-          <Skeleton className="h-4 w-24" />
-          <Skeleton className="h-4 w-24" />
-          <Skeleton className="h-4 w-32" />
-        </div>
-        <Skeleton className="h-24 w-full rounded-md" />
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-5/6" />
-        <Skeleton className="h-4 w-2/3" />
-        <Skeleton className="h-52 w-full" />
-      </div>
-      <div className="lg:col-span-4 space-y-6">
-        <Skeleton className="h-36 w-full" />
-        <Skeleton className="h-64 w-full" />
-      </div>
-    </div>
-  );
 }
 
 function SocialShare({ url, title }: { url: string; title: string }) {
@@ -191,184 +172,124 @@ function RelatedPosts({
   );
 }
 
-export default function TutorialDetailsCSR({ locale }: Props) {
-  const router = useRouter();
-  const { slug } = router.query as {
-    slug?: string;
-  };
-
-  const [loading, setLoading] = React.useState(true);
-  const [tutorial, setTutorial] = React.useState<Tutorial | null>(null);
-  const [relatedPosts, setRelatedPosts] = React.useState<
-    Array<
-      Pick<
-        Tutorial,
-        "_id" | "slug" | "title" | "createdAt" | "category" | "tags"
-      >
-    >
-  >([]);
-
-  const canonicalUrl =
-    typeof window !== "undefined"
-      ? window.location.href
-      : `/${locale || "en"}/tutorials/view?slug=${slug || ""}`;
-
-  React.useEffect(() => {
-    if (!slug) return;
-
-    const ac = new AbortController();
-    const run = async () => {
-      setLoading(true);
-      try {
-        const [detailRes] = await Promise.all([
-          fetch(`${TUTORIAL_ENDPOINT}/${encodeURIComponent(slug as string)}`, {
-            signal: ac.signal,
-          }),
-          fetch(`${TUTORIAL_ENDPOINT}?limit=6&page=1&status=1`, {
-            signal: ac.signal,
-          }),
-        ]);
-
-        if (!detailRes.ok)
-          throw new Error(`Failed to load tutorial (${detailRes.status})`);
-        const detailJson = await detailRes.json();
-        if (!detailJson?.result?.status)
-          throw new Error("This post is not published.");
-
-        setTutorial(detailJson.result);
-        setRelatedPosts(detailJson.relatedPosts);
-      } catch (err: any) {
-        const msg = err?.message || "Failed to load tutorial";
-        toast.error(msg);
-        setTutorial(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    run();
-    return () => ac.abort();
-  }, [slug]);
-
-  const title = pickByLocale(
-    tutorial?.title,
-    (locale as SupportedLocale) || "en"
-  );
-  const summary = pickByLocale(
-    tutorial?.summary,
-    (locale as SupportedLocale) || "en"
-  );
-  const description = pickByLocale(
-    tutorial?.description,
-    (locale as SupportedLocale) || "en"
-  );
+export default function TutorialDetailsSSR({
+  locale,
+  slug,
+  tutorial,
+  relatedPosts,
+  canonicalUrl,
+}: Props) {
+  const title = pickByLocale(tutorial?.title, locale);
+  const summary = pickByLocale(tutorial?.summary, locale);
+  const description = pickByLocale(tutorial?.description, locale);
 
   return (
     <>
       <HeadComponent
         title={
           locale === "bn"
-            ? tutorial?.title.bangla
+            ? tutorial?.title?.bangla
             : locale === "banglish"
-            ? tutorial?.title.banglish
-            : tutorial?.title.english || "Bnlang Tutorials"
+            ? tutorial?.title?.banglish
+            : tutorial?.title?.english || "Bnlang Tutorials"
         }
         description={
           locale === "bn"
-            ? tutorial?.summary.bangla
+            ? tutorial?.summary?.bangla
             : locale === "banglish"
-            ? tutorial?.summary.banglish
-            : tutorial?.summary.english || "Bnlang Tutorials"
+            ? tutorial?.summary?.banglish
+            : tutorial?.summary?.english || "Bnlang Tutorials"
         }
         locale={locale}
-        pathname={
-          slug
-            ? `/${locale}/tutorials/view?slug=${slug}`
-            : `/${locale}/tutorials`
-        }
+        pathname={`/${locale}/tutorials/${slug}`}
         type="article"
       />
 
       <div className="min-h-screen">
         <Header />
+        <div className="mx-auto max-w-7xl px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <article className="lg:col-span-8">
+            <div className="space-y-3">
+              <h1 className="text-3xl font-semibold tracking-tight">{title}</h1>
+              <p className="text-muted-foreground">{summary}</p>
+              <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                <span>
+                  Updated {formatReadableDate(tutorial.updatedAt || new Date())}
+                </span>
+                <span>•</span>
+                <span className="capitalize">
+                  Category: {tutorial.category}
+                </span>
+              </div>
 
-        {loading ? (
-          <PageSkeleton />
-        ) : !tutorial ? (
-          <div className="mx-auto max-w-7xl px-4 py-16">
-            <Card>
-              <CardContent className="py-10 text-center">
-                <p className="text-muted-foreground">
-                  Could not load this tutorial.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        ) : (
-          <div className="mx-auto max-w-7xl px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <article className="lg:col-span-8">
-              <div className="space-y-3">
-                <h1 className="text-3xl font-semibold tracking-tight">
-                  {title}
-                </h1>
-                <p className="text-muted-foreground">{summary}</p>
-                <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-                  <span>
-                    Updated{" "}
-                    {formatReadableDate(tutorial.updatedAt || new Date())}
-                  </span>
-                  <span>•</span>
-                  <span className="capitalize">
-                    Category: {tutorial.category}
-                  </span>
+              {tutorial.tags && tutorial.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {tutorial.tags.map((tag) => (
+                    <Badge key={tag} variant="outline" className="capitalize">
+                      #{tag}
+                    </Badge>
+                  ))}
                 </div>
+              )}
+            </div>
 
-                {tutorial.tags && tutorial.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2 pt-1">
-                    {tutorial.tags.map((tag) => (
-                      <Badge key={tag} variant="outline" className="capitalize">
-                        #{tag}
-                      </Badge>
-                    ))}
-                  </div>
-                )}
-              </div>
+            <Separator className="my-6" />
 
-              <Separator className="my-6" />
+            <div className="prose prose-neutral dark:prose-invert max-w-none">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {description}
+              </ReactMarkdown>
+            </div>
+          </article>
 
-              <div className="prose prose-neutral dark:prose-invert max-w-none">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {description}
-                </ReactMarkdown>
-              </div>
-            </article>
-            <aside className="lg:col-span-4 space-y-6">
-              <SocialShare url={canonicalUrl} title={title || ""} />
-              <RelatedPosts
-                relatedPosts={relatedPosts}
-                locale={(locale as SupportedLocale) || "en"}
-              />
-            </aside>
-          </div>
-        )}
-        <Footer locale={(locale as SupportedLocale) || "en"} />
+          <aside className="lg:col-span-4 space-y-6">
+            <SocialShare url={canonicalUrl} title={title || ""} />
+            <RelatedPosts relatedPosts={relatedPosts} locale={locale} />
+          </aside>
+        </div>
+        <Footer locale={locale} />
       </div>
     </>
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const locales: SupportedLocale[] = ["en", "bn", "banglish"];
-  return {
-    paths: locales.map((l) => ({ params: { locale: l } })),
-    fallback: false,
-  };
-};
+export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
+  const { params, query } = ctx;
 
-export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const rawLocale = (params as any)?.locale as string | undefined;
   const normalized = normalizeLocale(rawLocale);
   const locale: SupportedLocale =
     rawLocale === "banglish" ? "banglish" : (normalized as SupportedLocale);
-  return { props: { locale } };
+
+  const slug = (query?.slug as string | undefined)?.trim();
+  if (!slug) return { notFound: true };
+
+  const detailRes = await fetch(
+    `${TUTORIAL_ENDPOINT}/${encodeURIComponent(slug)}`,
+    {
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+  if (!detailRes.ok) return { notFound: true };
+  const data = await detailRes.json();
+
+  if (!data?.result?.status) return { notFound: true };
+  const canonicalUrl = `${
+    process.env.NEXT_PUBLIC_SITE_URL
+  }/${locale}/tutorials/${encodeURIComponent(slug)}`;
+
+  return {
+    props: {
+      locale,
+      slug,
+      tutorial: data.result as Tutorial,
+      relatedPosts: (data.relatedPosts || []) as Array<
+        Pick<
+          Tutorial,
+          "_id" | "slug" | "title" | "createdAt" | "category" | "tags"
+        >
+      >,
+      canonicalUrl,
+    },
+  };
 };

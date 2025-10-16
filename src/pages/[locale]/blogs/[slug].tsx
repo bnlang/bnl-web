@@ -1,11 +1,8 @@
 import * as React from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import type { SupportedLocale } from "@/types/locale.types";
@@ -14,45 +11,29 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Blog } from "@/types/blogs.types";
 import HeadComponent from "@/components/head-component";
-import { GetStaticPaths, GetStaticProps } from "next";
+import type { GetServerSideProps } from "next";
 import { normalizeLocale } from "@/lib/i18n";
+
+type LocaleText = { english?: string; bangla?: string; banglish?: string };
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 const BLOG_ENDPOINT = `${API_URL}/blogs`;
-type Props = { locale: SupportedLocale };
 
-function pickByLocale<T extends Record<string, string>>(
-  obj: T | undefined,
-  locale: SupportedLocale
-) {
+type Props = {
+  locale: SupportedLocale;
+  slug: string;
+  blog: Blog;
+  relatedPosts: Array<
+    Pick<Blog, "_id" | "slug" | "title" | "createdAt" | "category">
+  >;
+  canonicalUrl: string;
+};
+
+function pickByLocale(obj: LocaleText | undefined, locale: SupportedLocale) {
   if (!obj) return "";
   if (locale === "bn") return obj.bangla ?? obj.english ?? "";
   if (locale === "banglish") return obj.banglish ?? obj.english ?? "";
   return obj.english ?? "";
-}
-
-function PageSkeleton() {
-  return (
-    <div className="mx-auto max-w-7xl px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
-      <div className="lg:col-span-8 space-y-4">
-        <Skeleton className="h-8 w-3/4" />
-        <div className="flex gap-2">
-          <Skeleton className="h-4 w-24" />
-          <Skeleton className="h-4 w-24" />
-          <Skeleton className="h-4 w-32" />
-        </div>
-        <Skeleton className="h-24 w-full rounded-md" />
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-5/6" />
-        <Skeleton className="h-4 w-2/3" />
-        <Skeleton className="h-52 w-full" />
-      </div>
-      <div className="lg:col-span-4 space-y-6">
-        <Skeleton className="h-36 w-full" />
-        <Skeleton className="h-64 w-full" />
-      </div>
-    </div>
-  );
 }
 
 function SocialShare({ url, title }: { url: string; title: string }) {
@@ -158,7 +139,7 @@ function RelatedPosts({
         ) : (
           relatedPosts.map((r) => {
             const title = pickByLocale(r.title, locale);
-            const href = `/${locale}/blogs/view?slug=${r.slug}`;
+            const href = `/${locale}/blogs/${r.slug}`;
             return (
               <div key={String(r._id)} className="space-y-1">
                 <Link
@@ -181,162 +162,113 @@ function RelatedPosts({
   );
 }
 
-export default function BlogDetailsCSR({ locale }: Props) {
-  const router = useRouter();
-  const { slug } = router.query as {
-    slug?: string;
-  };
-
-  const [loading, setLoading] = React.useState(true);
-  const [blog, setBlog] = React.useState<Blog | null>(null);
-  const [relatedPosts, setRelatedPosts] = React.useState<
-    Array<Pick<Blog, "_id" | "slug" | "title" | "createdAt" | "category">>
-  >([]);
-
-  const canonicalUrl =
-    typeof window !== "undefined"
-      ? window.location.href
-      : `/${locale || "en"}/blogs/view?slug=${slug || ""}`;
-
-  React.useEffect(() => {
-    if (!slug) return;
-
-    const ac = new AbortController();
-    const run = async () => {
-      setLoading(true);
-      try {
-        const [detailRes] = await Promise.all([
-          fetch(`${BLOG_ENDPOINT}/${encodeURIComponent(slug as string)}`, {
-            signal: ac.signal,
-          }),
-          fetch(`${BLOG_ENDPOINT}?limit=6&page=1&status=1`, {
-            signal: ac.signal,
-          }),
-        ]);
-
-        if (!detailRes.ok)
-          throw new Error(`Failed to load blog (${detailRes.status})`);
-        const detailJson = await detailRes.json();
-        if (!detailJson?.result?.status)
-          throw new Error("This post is not published.");
-
-        setBlog(detailJson.result);
-        setRelatedPosts(detailJson.relatedPosts);
-      } catch (err: any) {
-        const msg = err?.message || "Failed to load blog";
-        toast.error(msg);
-        setBlog(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    run();
-    return () => ac.abort();
-  }, [slug]);
-
-  const title = pickByLocale(blog?.title, (locale as SupportedLocale) || "en");
-  const summary = pickByLocale(
-    blog?.summary,
-    (locale as SupportedLocale) || "en"
-  );
-  const description = pickByLocale(
-    blog?.description,
-    (locale as SupportedLocale) || "en"
-  );
+export default function BlogDetailsSSR({
+  locale,
+  slug,
+  blog,
+  relatedPosts,
+  canonicalUrl,
+}: Props) {
+  const title = pickByLocale(blog?.title, locale);
+  const summary = pickByLocale(blog?.summary, locale);
+  const description = pickByLocale(blog?.description, locale);
 
   return (
     <>
       <HeadComponent
         title={
           locale === "bn"
-            ? blog?.title.bangla
+            ? blog?.title?.bangla
             : locale === "banglish"
-            ? blog?.title.banglish
-            : blog?.title.english || "Bnlang Blog"
+            ? blog?.title?.banglish
+            : blog?.title?.english || "Bnlang Blog"
         }
         description={
           locale === "bn"
-            ? blog?.summary.bangla
+            ? blog?.summary?.bangla
             : locale === "banglish"
-            ? blog?.summary.banglish
-            : blog?.summary.english || "Bnlang Blog"
+            ? blog?.summary?.banglish
+            : blog?.summary?.english || "Bnlang Blog"
         }
         locale={locale}
-        pathname={
-          slug ? `/${locale}/blogs/view?slug=${slug}` : `/${locale}/blogs`
-        }
-        ogImage={`${process.env.NEXT_PUBLIC_CDN_URL}/uploads/blogs/${blog?.thumbnail}`}
+        pathname={`/${locale}/blogs/${slug}`}
+        ogImage={`${process.env.NEXT_PUBLIC_CDN_URL || ""}/uploads/blogs/${
+          blog?.thumbnail || ""
+        }`}
         type="article"
       />
 
       <div className="min-h-screen">
         <Header />
-
-        {loading ? (
-          <PageSkeleton />
-        ) : !blog ? (
-          <div className="mx-auto max-w-7xl px-4 py-16">
-            <Card>
-              <CardContent className="py-10 text-center">
-                <p className="text-muted-foreground">
-                  Could not load this blog.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        ) : (
-          <div className="mx-auto max-w-7xl px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <article className="lg:col-span-8">
-              <div className="space-y-3">
-                <h1 className="text-3xl font-semibold tracking-tight">
-                  {title}
-                </h1>
-                <p className="text-muted-foreground">{summary}</p>
-                <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-                  <span>
-                    Updated {formatReadableDate(blog.updatedAt || new Date())}
-                  </span>
-                  <span>•</span>
-                  <span className="capitalize">Category: {blog.category}</span>
-                </div>
+        <div className="mx-auto max-w-7xl px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <article className="lg:col-span-8">
+            <div className="space-y-3">
+              <h1 className="text-3xl font-semibold tracking-tight">{title}</h1>
+              <p className="text-muted-foreground">{summary}</p>
+              <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                <span>
+                  Updated {formatReadableDate(blog.updatedAt || new Date())}
+                </span>
+                <span>•</span>
+                <span className="capitalize">Category: {blog.category}</span>
               </div>
+            </div>
 
-              <Separator className="my-6" />
+            <Separator className="my-6" />
 
-              <div className="prose prose-neutral dark:prose-invert max-w-none">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {description}
-                </ReactMarkdown>
-              </div>
-            </article>
-            <aside className="lg:col-span-4 space-y-6">
-              <SocialShare url={canonicalUrl} title={title || ""} />
-              <RelatedPosts
-                relatedPosts={relatedPosts}
-                locale={(locale as SupportedLocale) || "en"}
-              />
-            </aside>
-          </div>
-        )}
-        <Footer locale={(locale as SupportedLocale) || "en"} />
+            <div className="prose prose-neutral dark:prose-invert max-w-none">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {description}
+              </ReactMarkdown>
+            </div>
+          </article>
+
+          <aside className="lg:col-span-4 space-y-6">
+            <SocialShare url={canonicalUrl} title={title || ""} />
+            <RelatedPosts relatedPosts={relatedPosts} locale={locale} />
+          </aside>
+        </div>
+        <Footer locale={locale} />
       </div>
     </>
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const locales: SupportedLocale[] = ["en", "bn", "banglish"];
-  return {
-    paths: locales.map((l) => ({ params: { locale: l } })),
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
+  const { params, query } = ctx;
   const rawLocale = (params as any)?.locale as string | undefined;
   const normalized = normalizeLocale(rawLocale);
   const locale: SupportedLocale =
     rawLocale === "banglish" ? "banglish" : (normalized as SupportedLocale);
-  return { props: { locale } };
+
+  const slug = (query?.slug as string | undefined)?.trim();
+  if (!slug) return { notFound: true };
+
+  const detailRes = await fetch(
+    `${BLOG_ENDPOINT}/${encodeURIComponent(slug)}`,
+    {
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+
+  if (!detailRes.ok) return { notFound: true };
+  const data = await detailRes.json();
+
+  if (!data?.result?.status) return { notFound: true };
+
+  const canonicalUrl = `${
+    process.env.NEXT_PUBLIC_SITE_URL
+  }/${locale}/blogs/${encodeURIComponent(slug)}`;
+
+  return {
+    props: {
+      locale,
+      slug,
+      blog: data.result as Blog,
+      relatedPosts: (data.relatedPosts || []) as Array<
+        Pick<Blog, "_id" | "slug" | "title" | "createdAt" | "category">
+      >,
+      canonicalUrl,
+    },
+  };
 };

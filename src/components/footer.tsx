@@ -169,7 +169,7 @@ export function Footer({
             </p>
             <ul className="flex gap-5 mt-4">
               <li>
-                <Link href={`${locale}/download`}>
+                <Link href={`/${locale}/download`}>
                   <svg
                     width="28"
                     height="28"
@@ -185,7 +185,7 @@ export function Footer({
                 </Link>
               </li>
               <li>
-                <Link href={`${locale}/download`}>
+                <Link href={`/${locale}/download`}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="28"
@@ -218,7 +218,7 @@ export function Footer({
                 </Link>
               </li>
               <li>
-                <Link href={`${locale}/download`}>
+                <Link href={`/${locale}/download`}>
                   <img src="/images/linux.png" width={28} alt="Linux" />
                 </Link>
               </li>

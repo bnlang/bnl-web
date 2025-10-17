@@ -524,6 +524,13 @@ export default function TutorialsPage({ locale }: Props) {
                             className="absolute inset-0 z-10"
                             aria-label={title}
                           />
+                          <div className="h-56 overflow-hidden">
+                            <img
+                              src={`${process.env.NEXT_PUBLIC_STATIC_CDN_URL}/uploads/tutorials/${tut.thumbnail}`}
+                              width="100%"
+                              alt={title}
+                            />
+                          </div>
                           <CardHeader className="pb-2">
                             <CardTitle className="line-clamp-1 group-hover:underline">
                               {title}

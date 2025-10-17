@@ -5,6 +5,7 @@ export type Tutorial = {
   description: { english: string; bangla: string; banglish: string };
   slug: string;
   category: string;
+  thumbnail: string;
   tags?: string[];
   status: boolean;
   createdAt: string;

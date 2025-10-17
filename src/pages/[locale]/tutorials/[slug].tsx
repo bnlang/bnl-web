@@ -217,6 +217,9 @@ export default function TutorialDetailsSSR({
         }
         locale={locale}
         pathname={`/${locale}/tutorials/${slug}`}
+        ogImage={`${process.env.NEXT_PUBLIC_STATIC_CDN_URL || ""}/uploads/tutorials/${
+          tutorial?.thumbnail || ""
+        }`}
         type="article"
       />
 

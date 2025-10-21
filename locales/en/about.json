@@ -137,7 +137,7 @@
         "lead": "The parser accepts three surface forms; the compiler treats them equally. You teach and work in the language you think in—without a 'special mode' of code.",
         "cards": [
             {
-                "title": "Trilingual Keywords & APIs",
+                "title": "Dual Keywords & APIs",
                 "body": "Control flow and declarations exist in Bangla/English; tooling normalizes for analysis and output."
             },
             {

@@ -5,7 +5,7 @@
 <h1 align="center">Bnlang – Bangla Programming Language</h1>
 
 <p align="center">
-  A modern, trilingual programming language designed for <b>Bangla</b>, and <b>English</b>.  
+  A modern, dual-language programming language designed for <b>Bangla</b> and <b>English</b>.
   Built for Bangladesh, open to the world.
 </p>
 

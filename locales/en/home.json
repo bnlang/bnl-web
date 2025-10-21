@@ -15,7 +15,7 @@
         "signals": {
             "stableCore": "Stable core",
             "versionedReleases": "Versioned releases",
-            "trilingual": "Trilingual by design"
+            "trilingual": "Dual by design"
         }
     },
     "stats": {
@@ -56,7 +56,7 @@
         ],
         "kickers": {
             "languageFirst": "Language-first",
-            "trilingual": "Trilingual Syntax",
+            "trilingual": "Dual Syntax",
             "tooling": "Modern Toolchain",
             "runtime": "Familiar Async Model",
             "prod": "Production Ready",
@@ -78,8 +78,8 @@
             },
             {
                 "icon": "Languages",
-                "kicker": "Trilingual Syntax",
-                "title": "Trilingual Syntax",
+                "kicker": "Dual Syntax",
+                "title": "Dual Syntax",
                 "body": "Switch between English and বাংলা without losing clarity or tooling support. Teach beginners or work with pros in the language that feels natural.",
                 "points": [
                     "Mixed-language identifiers & keywords",
@@ -174,7 +174,7 @@
         "cta_secondary": "See details",
         "blocks": {
             "trilingual": {
-                "title": "Trilingual Syntax",
+                "title": "Dual Syntax",
                 "body": "Write in বাংলা or English—whichever feels most natural—while the compiler and tooling treat it as one predictable language.",
                 "labels": {
                     "bn": "বাংলা",

@@ -1,4 +1,4 @@
-const LOCALES = ['en', 'bn', 'banglish'];
+const LOCALES = ['en', 'bn'];
 const STATIC_PAGES = ['/', '/about', '/download', '/tutorials'];
 
 /** @type {import('next-sitemap').IConfig} */

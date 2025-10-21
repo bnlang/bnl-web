@@ -3,8 +3,6 @@ title: How Bnlang Works Internally
 description: A detailed explanation of the internal architecture of Bnlang, including parsing, translation, execution, and native bindings.
 bnTitle: ভেতরে Bnlang কিভাবে কাজ করে
 bnDescription: Bnlang এর অভ্যন্তরীণ আর্কিটেকচার, পার্সিং, ট্রান্সলেশন, এক্সিকিউশন ও নেটিভ বাইন্ডিং।
-banglishTitle: How Bnlang Works Internally
-banglishDescription: Bnlang vitor theke kivabe kaj kore — parsing, translation, execution ar native binding.
 ---
 
 # <I18nEnglish>How Bnlang Works Internally</I18nEnglish>
@@ -13,7 +11,7 @@ banglishDescription: Bnlang vitor theke kivabe kaj kore — parsing, translation
 
 <I18nEnglish>
 **Bnlang** is built on top of a modern JavaScript runtime, but extends it with multilingual syntax and system bindings.  
-Its goal is to allow developers to write programs in Bangla, Banglish, or English while still running efficiently on the underlying JavaScript engine.  
+Its goal is to allow developers to write programs in Bangla, or English while still running efficiently on the underlying JavaScript engine.  
 
 The process of execution goes through several stages: parsing, translation, execution, and system-level bindings.  
 This layered design makes Bnlang flexible, accessible, and still compatible with JavaScript projects.
@@ -34,8 +32,8 @@ This layered design makes Bnlang flexible, accessible, and still compatible with
 ## Internal Workflow
 
 <I18nEnglish>
-1. **Parsing** → The Bnlang parser reads the source code written in Bangla, Banglish, or English.  
-2. **Translation** → Bangla and Banglish keywords are mapped and converted into equivalent JavaScript syntax.  
+1. **Parsing** → The Bnlang parser reads the source code written in Bangla, or English.  
+2. **Translation** → Bangla keywords are mapped and converted into equivalent JavaScript syntax.  
 3. **Execution** → The translated code is executed by the underlying engine, ensuring high performance.  
 4. **Native Bindings** → Bnlang provides extra bindings for tasks like file handling, networking, and OS operations through C++ integrations.
 </I18nEnglish>
@@ -111,7 +109,7 @@ if (x > 10) {
 
 <I18nEnglish>
 Bnlang’s architecture shows how a programming language can remain compatible with modern runtimes while enabling inclusivity through multilingual syntax.  
-This makes it suitable not just for developers who are comfortable with English, but also for those who prefer coding in Bangla or Banglish.
+This makes it suitable not just for developers who are comfortable with English, but also for those who prefer coding in Bangla.
 </I18nEnglish>
 
 <I18nBangla>

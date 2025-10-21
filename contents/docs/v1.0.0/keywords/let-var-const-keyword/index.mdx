@@ -3,8 +3,6 @@ title: let · var · const
 description: Variables in Bnlang — differences between block scope (let/const) and function scope (var), reassignment, redeclaration, hoisting/TDZ, and best practices.
 bnTitle: ধরি · চলক · ধ्रুবক
 bnDescription: Bnlang এ ধরি/ধ্রুবক (block scope) বনাম চলক (function scope), পুনঃনিয়োগ, পুনঃঘোষণা, hoisting/TDZ এবং সেরা চর্চা।
-banglishTitle: let · var · const
-banglishDescription: Bnlang e let/const vs var — scope, reassignment, redeclaration, hoisting/TDZ, best practices.
 ---
 
 # <I18nEnglish>let · var · const</I18nEnglish>
@@ -163,7 +161,7 @@ for (var j = 0; j < 3; j++) {
 - `let`/`const` are subject to the **Temporal Dead Zone (TDZ)** from the start of the scope until their declaration line executes.  
 - `const` prevents **rebinding**; it does **not** make objects immutable — use `Object.freeze` for shallow immutability.  
 - Shadowing is allowed in nested blocks, but keep variable naming clear to avoid confusion.  
-- Keep one language style (English/Bangla/Banglish) per file for readability.
+- Keep one language style (English/Bangla) per file for readability.
 </I18nEnglish>
 
 <I18nBangla>

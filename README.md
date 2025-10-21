@@ -5,7 +5,7 @@
 <h1 align="center">Bnlang – Bangla Programming Language</h1>
 
 <p align="center">
-  A modern, trilingual programming language designed for <b>Bangla</b>, <b>Banglish</b>, and <b>English</b>.  
+  A modern, trilingual programming language designed for <b>Bangla</b>, and <b>English</b>.  
   Built for Bangladesh, open to the world.
 </p>
 
@@ -14,9 +14,9 @@
 ## 🌐 About Bnlang
 
 **Bnlang** is a **production-ready programming language and runtime** that makes coding accessible in  
-Bangla (বাংলা), Banglish (Bangla in Latin script), and English.  
+Bangla (বাংলা), and English.  
 
-- ✍️ **Write in your language** — code in Bangla, Banglish, or English.  
+- ✍️ **Write in your language** — code in Bangla or English.  
 - 🎓 **Made for learners** — perfect for students learning Computer Science in their native language.  
 - ⚡ **Modern runtime** — efficient, expressive, and ready for real-world projects.  
 - 🌍 **Cross-platform** — works on Windows, macOS, and Linux.  
@@ -29,7 +29,7 @@ This is the **official website of Bnlang**.
 It is built with modern web technologies and serves as the central hub for:  
 
 - 📖 **Documentation** — Learn how to use Bnlang from beginner to advanced.  
-- 🎓 **Learning resources** — Tutorials, guides, and educational material in Bangla, Banglish, and English.  
+- 🎓 **Learning resources** — Tutorials, guides, and educational material in Bangla, and English.  
 - 📰 **Project updates** — News, announcements, and release information.  
 - 👩‍💻 **Community contributions** — Developers can submit improvements to docs, tutorials, and the website itself.  
 

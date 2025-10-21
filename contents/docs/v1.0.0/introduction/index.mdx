@@ -5,8 +5,6 @@ description: Learn what Bnlang is, its goals, design, ecosystem, and how to get 
 bnTitle: ভূমিকা
 bnDescription: Bnlang কী, লক্ষ্য, নকশা দর্শন, ইকোসিস্টেম, এবং শুরু করার উপায়।
 
-banglishTitle: Vumika
-banglishDescription: Bnlang ki, tar golpo, design philosophy, ecosystem, ebong kivabe shuru korben.
 ---
 
 # <I18nEnglish>Introduction</I18nEnglish>
@@ -17,7 +15,7 @@ banglishDescription: Bnlang ki, tar golpo, design philosophy, ecosystem, ebong k
 Welcome to the **Introduction** of Bnlang.
 
 ## What is Bnlang?
-**Bnlang** is the Bangla Programming Language that lets you write code in **Bangla**, **English**, or **Banglish**—side by side.  
+**Bnlang** is the Bangla Programming Language that lets you write code in **Bangla**, **English**—side by side.  
 It’s designed for learners and professionals who want the comfort of native script while staying compatible with mainstream tooling.
 
 ### Design goals
@@ -32,7 +30,7 @@ It’s designed for learners and professionals who want the comfort of native sc
 - **Progressive disclosure**: basics first; advanced features when you need them.
 
 ## How Bnlang works
-Bnlang code is parsed and executed by a runtime that understands multiple keyword sets (Bangla/English/Banglish) but maps them to the same semantics.  
+Bnlang code is parsed and executed by a runtime that understands multiple keyword sets (Bangla/English) but maps them to the same semantics.  
 Core libraries expose OS features, I/O, networking, buffers, child processes, and timers—modeled after proven designs.
 
 ### Interoperability
@@ -55,12 +53,12 @@ Core libraries expose OS features, I/O, networking, buffers, child processes, an
 ## Example keywords (aligned sets)
 The language provides aligned keywords across three sets. You can pick one style per file or mix sparingly.
 
-| Concept | English | Bangla | Banglish |
-|---|---|---|---|
-| if | `if` | `যদি` | `jodi` |
-| else | `else` | `নাহলে` | `nahole` |
-| function | `function` | `ফাংশন` | `function` |
-| return | `return` | `ফেরত` | `ferot` |
+| Concept | English | Bangla |
+|---|---|---|
+| if | `if` | `যদি` |
+| else | `else` | `নাহলে` |
+| function | `function` | `ফাংশন` |
+| return | `return` | `ফেরত` |
 
 > Tip: keep a consistent style within a file for readability.
 
@@ -76,13 +74,6 @@ function main() {
 // Bangla
 ফাংশন মেইন() {
   লিখুন("হ্যালো, Bnlang!");
-}
-```
-<br/>
-```bnl
-// Banglish
-function main() {
-  likhun("Hello, Bnlang!");
 }
 ```
 
@@ -103,7 +94,7 @@ my-app/
 
 ## Versioning and docs
 - Versions follow `vMAJOR.MINOR.PATCH`.
-- Docs are versioned: `/docs/v1.0.0/...` with locale segments for English, Bangla, and Banglish.
+- Docs are versioned: `/docs/v1.0.0/...` with locale segments for Bangla and English.
 
 ## Contributing
 We welcome contributions to language design, standard library, docs, and editor tooling.  

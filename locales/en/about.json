@@ -1,12 +1,12 @@
 {
     "meta": {
         "title": "About Bnlang — Mother-tongue programming for Bangladesh",
-        "description": "Bnlang is a multilingual programming language and runtime built for Bangladesh. Write in Bangla, Banglish, or English with a modern toolchain, accessible learning path, and production-grade interop."
+        "description": "Bnlang is a multilingual programming language and runtime built for Bangladesh. Write in Bangla, or English with a modern toolchain, accessible learning path, and production-grade interop."
     },
     "hero": {
         "badge": "Bnlang · Programming Language",
         "title": "About Bnlang",
-        "lead": "Bnlang is a multilingual programming language and runtime created primarily for Bangladesh. It lets developers think and learn in their mother tongue—বাংলা—collaborate in Banglish, and ship in English without changing semantics, tooling, or production readiness.",
+        "lead": "Bnlang is a multilingual programming language and runtime created primarily for Bangladesh. It lets developers think and learn in their mother tongue—বাংলা—collaborate, and ship in English without changing semantics, tooling, or production readiness.",
         "cta": {
             "docs": "Read Documentation",
             "github": "GitHub"
@@ -31,11 +31,11 @@
     },
     "why": {
         "title": "Why Bnlang (for Bangladesh)",
-        "description": "People think and work across languages—learn in Bangla, discuss in Banglish, search and ship in English. Traditional languages force one surface form; Bnlang adapts to you. Teach, learn, prototype, and run in production using the script you’re most comfortable with—without forking the ecosystem or sacrificing engineering rigor.",
+        "description": "People think and work across languages—learn in Bangla, search and ship in English. Traditional languages force one surface form; Bnlang adapts to you. Teach, learn, prototype, and run in production using the script you’re most comfortable with—without forking the ecosystem or sacrificing engineering rigor.",
         "bullets": [
             {
                 "strong": "Onboarding speed:",
-                "text": "the same example exists in three surface forms with identical behavior—English, বাংলা, and Banglish."
+                "text": "the same example exists in three surface forms with identical behavior—English, বাংলা."
             },
             {
                 "strong": "Review clarity:",
@@ -54,7 +54,7 @@
     "missionVision": {
         "mission": {
             "title": "Mission (why this matters)",
-            "body": "Make professional software development approachable in Bangladesh—without dumbing anything down. Learn and think in Bangla/Banglish while producing software that meets global engineering standards."
+            "body": "Make professional software development approachable in Bangladesh—without dumbing anything down. Learn and think in Bangla while producing software that meets global engineering standards."
         },
         "vision": {
             "title": "Vision (what success looks like)",
@@ -67,7 +67,7 @@
         "frontend": {
             "title": "Frontend: Lexer, Parser, Checker",
             "points": [
-                "Trilingual tokens normalized (Bangla/Banglish/English) → language-agnostic IR.",
+                "Trilingual tokens normalized (Bangla/English) → language-agnostic IR.",
                 "Static checks for scope, arity, and optional type hints.",
                 "Formatter ensures deterministic layout across scripts."
             ]
@@ -138,7 +138,7 @@
         "cards": [
             {
                 "title": "Trilingual Keywords & APIs",
-                "body": "Control flow and declarations exist in Bangla/Banglish/English; tooling normalizes for analysis and output."
+                "body": "Control flow and declarations exist in Bangla/English; tooling normalizes for analysis and output."
             },
             {
                 "title": "Safety & Clarity",
@@ -155,7 +155,7 @@
         "cards": [
             {
                 "title": "Language Reality",
-                "body": "Learn in Bangla, discuss in Banglish, search in English. Bnlang meets all three without 'mode switching'."
+                "body": "Learn in Bangla, search in English. Bnlang meets all three without 'mode switching'."
             },
             {
                 "title": "Fonts & Unicode",

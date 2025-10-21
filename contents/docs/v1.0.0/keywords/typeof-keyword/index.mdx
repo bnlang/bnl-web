@@ -3,8 +3,6 @@ title: typeof Operator
 description: The typeof operator in Bnlang for runtime type checks — primitives, functions, objects, arrays, null, symbol, bigint, undeclared safety, and common pitfalls.
 bnTitle: ধরন অপারেটর
 bnDescription: Bnlang এ ধরন (typeof) অপারেটর—রানটাইম টাইপ চেক, প্রিমিটিভ/ফাংশন/অবজেক্ট/অ্যারেসহ, undeclared নিরাপত্তা ও বিশেষ কেস।
-banglishTitle: typeof Operator
-banglishDescription: Bnlang e dhoron (typeof) operator — runtime type checks, quirks (null/object), and best practices.
 ---
 
 # <I18nEnglish>typeof Operator</I18nEnglish>
@@ -150,7 +148,7 @@ console.log((/re/) instanceof RegExp);       // true
 - Safe for **undeclared** variables: `typeof notDeclared === "undefined"`. Directly reading `notDeclared` would throw `ReferenceError`.  
 - Classes are functions: `typeof class X {} === "function"`. Instances: `"object"`.  
 - `NaN` is a number; check with `Number.isNaN`.  
-- Keep one language style (English/Bangla/Banglish) per file for clarity.
+- Keep one language style (English/Bangla) per file for clarity.
 </I18nEnglish>
 
 <I18nBangla>

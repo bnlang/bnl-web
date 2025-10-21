@@ -14,7 +14,7 @@ We welcome contributions in the form of bug reports, feature requests, documenta
 
 ### 2. Requesting Features
 - Open a GitHub issue with the label `feature-request`.  
-- Explain why the feature is useful and how it aligns with Bnlang’s goals (Bangla, Banglish, and English programming).
+- Explain why the feature is useful and how it aligns with Bnlang’s goals (Bangla, and English programming).
 
 ### 3. Improving Documentation
 - Documentation lives in the `contents/` folder (MDX files).  
@@ -40,7 +40,7 @@ We welcome contributions in the form of bug reports, feature requests, documenta
 
 ## ✅ Code Guidelines
 - Follow existing code style (JavaScript/TypeScript, `"use strict"` enabled).  
-- Add comments where necessary, especially for Bangla/Banglish alias definitions.  
+- Add comments where necessary, especially for Bangla alias definitions.  
 - Keep functions small and focused.  
 - Run tests before submitting your PR.
 
@@ -57,7 +57,7 @@ We welcome contributions in the form of bug reports, feature requests, documenta
 ---
 
 ## 🌐 Internationalization (I18n)
-Bnlang supports **Bangla**, **Banglish**, and **English**.  
+Bnlang supports **Bangla**, and **English**.  
 When contributing:
 - Always add aliases in all three forms.  
 - Update relevant documentation (`.mdx` files) to include examples in three languages.

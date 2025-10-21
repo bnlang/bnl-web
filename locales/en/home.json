@@ -1,7 +1,7 @@
 {
     "meta": {
-        "title": "Bnlang — Code in Bangla, English, or Banglish",
-        "description": "Bnlang is a practical, expressive programming language and runtime built for Bangladesh. Write in Bangla, English, or Banglish and ship fast with a modern toolchain and a welcoming community."
+        "title": "Bnlang — Code in Bangla or English",
+        "description": "Bnlang is a practical, expressive programming language and runtime built for Bangladesh. Write in Bangla or English and ship fast with a modern toolchain and a welcoming community."
     },
     "hero": {
         "badge": "Bnlang · Programming Language",
@@ -80,7 +80,7 @@
                 "icon": "Languages",
                 "kicker": "Trilingual Syntax",
                 "title": "Trilingual Syntax",
-                "body": "Switch between English, বাংলা, and Banglish without losing clarity or tooling support. Teach beginners or work with pros in the language that feels natural.",
+                "body": "Switch between English and বাংলা without losing clarity or tooling support. Teach beginners or work with pros in the language that feels natural.",
                 "points": [
                     "Mixed-language identifiers & keywords",
                     "Same AST → same tooling",
@@ -175,10 +175,9 @@
         "blocks": {
             "trilingual": {
                 "title": "Trilingual Syntax",
-                "body": "Write in বাংলা, Banglish, or English—whichever feels most natural—while the compiler and tooling treat it as one predictable language.",
+                "body": "Write in বাংলা or English—whichever feels most natural—while the compiler and tooling treat it as one predictable language.",
                 "labels": {
                     "bn": "বাংলা",
-                    "banglish": "Banglish",
                     "en": "English"
                 },
                 "points": [

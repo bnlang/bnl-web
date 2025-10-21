@@ -9,14 +9,9 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: "/",
-        destination: "/en",
-        permanent: false,
-      },
-      {
         source:
-          "/:path((?!en|bn|api|_next|favicon\\.ico|favicon\\.png|robots\\.txt|sitemap\\.xml|sitemap-0\\.xml|sitemap-1\\.xml|sitemap-2\\.xml|static|images|fonts).*)",
-        destination: "/en/:path",
+          "/:path((?!en|bn|api|_next|favicon\\.ico|favicon\\.png|robots\\.txt|sitemap\\.xml|sitemap-0\\.xml|sitemap-1\\.xml|sitemap-2\\.xml|static|images|fonts).+)",
+        destination: "/en/:path*",
         permanent: false,
       },
     ];

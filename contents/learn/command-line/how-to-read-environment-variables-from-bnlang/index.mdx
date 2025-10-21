@@ -9,7 +9,7 @@ banglishDescription: Bnlang e environment variable porar udahoron English, Bangl
 
 # <I18nEnglish>How to Read Environment Variables from Bnlang</I18nEnglish>
 # <I18nBangla>Bnlang এ পরিবেশ ভেরিয়েবল পড়া</I18nBangla>
-# <I18nBanglish>How to Read Environment Variables from Bnlang</I18nBanglish>
+
 
 <I18nEnglish>
 In **Bnlang**, you can read environment variables using the built‑in **`process.env`** object.  
@@ -21,10 +21,7 @@ It stores key–value pairs provided by the operating system or set manually bef
 এতে অপারেটিং সিস্টেম দ্বারা দেওয়া বা প্রোগ্রাম চালানোর আগে সেট করা key–value জোড়া থাকে।
 </I18nBangla>
 
-<I18nBanglish>
-**Bnlang** e **`process.env`** object diye environment variable pora jay.  
-Ete operating system theke deya ba program run korar age set kora key–value pair thake.
-</I18nBanglish>
+
 
 ---
 
@@ -34,7 +31,7 @@ Ete operating system theke deya ba program run korar age set kora key–value pa
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -67,20 +64,7 @@ USER=আলিস bnl env.bnl
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// file: env.bnl
-const byaboharkari = process.env.USER || "Guest";
-
-console.log("Bartoman byaboharkari:", byaboharkari);
-```
-
-```sh
-USER=Alis bnl env.bnl
-# Output: Bartoman byaboharkari: Alis
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -91,7 +75,7 @@ USER=Alis bnl env.bnl
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -126,21 +110,7 @@ HOST=127.0.0.1 PORT=8080 bnl config.bnl
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// file: config.bnl
-const host = process.env.HOST || "localhost";
-const port = process.env.PORT || 3000;
-
-console.log(`Server cholche http://${host}:${port}`);
-```
-
-```sh
-HOST=127.0.0.1 PORT=8080 bnl config.bnl
-# Output: Server cholche http://127.0.0.1:8080
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -161,9 +131,4 @@ HOST=127.0.0.1 PORT=8080 bnl config.bnl
 - প্রতিটি প্রজেক্টের জন্য প্রয়োজনীয় ভেরিয়েবল ডকুমেন্ট করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- Environment variable er jonno sobshomoy default value din.  
-- Local development e `.env` file use korun.  
-- Sensitive man (jemon API key) secret rakhen.  
-- Protiti project er jonno required variable document korun.
-</I18nBanglish>
+

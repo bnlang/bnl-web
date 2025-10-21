@@ -9,7 +9,7 @@ banglishDescription: Bnlang e class, constructor, methods, fields, getter/setter
 
 # <I18nEnglish>class Keyword</I18nEnglish>
 # <I18nBangla>শ্রেণী কীওয়ার্ড</I18nBangla>
-# <I18nBanglish>class Keyword</I18nBanglish>
+
 
 <I18nEnglish>
 Use **`class`** to define blueprints for objects.  
@@ -21,10 +21,7 @@ Classes can have a **constructor**, **methods**, **fields** (including **private
 এতে থাকতে পারে **নির্মাতা** (constructor), **মেথড**, **ফিল্ড** (প্রাইভেট `#ফিল্ড` সহ), **গেটার/সেটার**, **স্থির** সদস্য এবং **`প্রসারিত`**/ **`অভিভাবক`** দিয়ে ইনহেরিটেন্স।
 </I18nBangla>
 
-<I18nBanglish>
-**`shreni`** (class) diye object er blueprint toiri hoy.  
-Constructor, methods, fields (private `#field` সহ), getter/setter, **sthir** (static) member, ebong **`prosarito`**/**`obhibhabok`** diye inheritance support kore.
-</I18nBanglish>
+
 
 ---
 
@@ -116,48 +113,7 @@ class Savings extends Account {         // inheritance
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-shreni Hisab {
-  #balance = 0;
-  mudra = "BDT";
-
-  constructor(malik, prarombho = 0) {
-    eti.malik = malik;
-    eti.joma(prarombho);
-  }
-
-  joma(poriman) {
-    #balance += poriman;
-  }
-
-  get balance() {
-    ferot #balance;
-  }
-
-  set balance(v) {
-    jodi (v < 0) nikkhep new Error("negative");
-    #balance = v;
-  }
-
-  sthir bank = "BNL Bank";
-  sthir from(byaboharkari) {
-    ferot notun Hisab(byaboharkari, 0);
-  }
-}
-
-shreni Sonchoy prosarito Hisab {
-  constructor(malik, prarombho, har = 0.05) {
-    obhibhabok(malik, prarombho);
-    eti.har = har;
-  }
-  accrue() {
-    #balance = eti.balance * (1 + eti.har);
-  }
-}
-```
-</I18nBanglish>
 
 ---
 
@@ -166,7 +122,7 @@ shreni Sonchoy prosarito Hisab {
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -183,17 +139,7 @@ const c = হিসাব.from("Rafi");        // স্থির ফ্যা�
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const a = notun Hisab("Mamun", 1000);
-a.joma(500);
-dekhao("balance:", a.balance);
-
-const c = Hisab.from("Rafi");
-console.log(Hisab.bank);
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -228,10 +174,4 @@ console.log(Account.bank);
 - প্রতি ফাইলে একই ভাষা স্টাইল অনুসরণ করা শ্রেয়: `শ্রেণী`, `প্রসারিত`, `অভিভাবক`, `স্থির`, `নতুন` ইত্যাদি।
 </I18nBangla>
 
-<I18nBanglish>
-- Class body te **field** gulo instance‑wise set hoy; **`sthir`** field class er sathe thake.  
-- Subclass e `eti` use korar **age** **`obhibhabok(...)`** call korte hobe.  
-- **Private field** `#name` asolei private — bracket diye pawa jay na; eta lexical.  
-- Method prototype e thake; arrow‑field dile protiti instance e notun function (this binding er jonno upokari, kintu memory baray).  
-- Ek file e ekta language style e thakun: `shreni`, `prosarito`, `obhibhabok`, `sthir`, `notun`.
-</I18nBanglish>
+

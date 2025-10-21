@@ -9,7 +9,7 @@ banglishDescription: Bnlang e while (jotokkhon) loop—condition-based repetitio
 
 # <I18nEnglish>while Loop</I18nEnglish>
 # <I18nBangla>যতক্ষণ লুপ</I18nBangla>
-# <I18nBanglish>while Loop</I18nBanglish>
+
 
 <I18nEnglish>
 The **`while`** loop repeats a block **as long as** its condition evaluates to **true**.  
@@ -21,10 +21,7 @@ The condition is checked **before** each iteration. Use **`break`** to exit earl
 প্রতিটি ইটারেশনের **আগে** শর্ত পরীক্ষা করা হয়। আগেভাগে বের হতে **`থামুন`** এবং বর্তমান ধাপ স্কিপ করতে **`চলুন`** ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-**`jotokkhon`** loop condition **true** thaka porjonto code bar bar chalaye।  
-Protiti iteration er **age** condition check hoy. Early exit er jonno **`thamun`**, current step skip er jonno **`colun`** use korun.
-</I18nBanglish>
+
 
 ---
 
@@ -48,14 +45,7 @@ while (condition) {
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-jotokkhon (condition) {
-  // body
-}
-```
-</I18nBanglish>
 
 ---
 
@@ -64,7 +54,7 @@ jotokkhon (condition) {
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -124,33 +114,7 @@ const কিউ = ["A", "B", "C"];
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) Counting with jotokkhon
-let i = 0;
-jotokkhon (i < 5) {
-  console.log("i =", i);
-  i++; // state update korte hobe
-}
-
-// 2) Skip evens, stop after threshold
-let n = 0;
-jotokkhon (n < 10) {
-  n++;
-  jodi (n % 2 === 0) colun; // skip even
-  jodi (n > 7) thamun;       // exit early
-  chapao("odd:", n);
-}
-
-// 3) Consume a queue
-const queue = ["A", "B", "C"];
-jotokkhon (queue.length > 0) {
-  const item = queue.shift();
-  console.info("processing", item);
-}
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -171,9 +135,4 @@ jotokkhon (queue.length > 0) {
 - অন্তত একবার চালাতে চাইলে `করো ... যতক্ষণ` (do...while) ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- Loop er **state change** na hole condition false hobe na — infinite loop hoye jete pare.  
-- Iteration count jodi jana thake, `proti` (for) valo; array/iterable er jonno `for...of`.  
-- Pattern `jotokkhon (true) { ... jodi (stop) thamun; }` onek jaygay upokari.  
-- Ekbar to chalatei hobe jodi, tahole `korun ... jotokkhon` (do...while) bhebe dekhun.
-</I18nBanglish>
+

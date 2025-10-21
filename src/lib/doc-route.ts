@@ -16,7 +16,6 @@ function flattenWithDepth(
     slug: string;
     title: string;
     titleBn: string;
-    titleBanglish?: string;
     depth: number;
   }[] = [],
   base = "",
@@ -28,7 +27,6 @@ function flattenWithDepth(
       slug: full,
       title: n.title,
       titleBn: n.titleBn,
-      titleBanglish: n.titleBanglish,
       depth,
     });
     if (n.children?.length) flattenWithDepth(n.children, out, full, depth + 1);

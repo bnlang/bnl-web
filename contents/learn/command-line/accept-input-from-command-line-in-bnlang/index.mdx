@@ -9,7 +9,7 @@ banglishDescription: Bnlang e command line theke user input newar udahoron Engli
 
 # <I18nEnglish>Accept Input from Command Line in Bnlang</I18nEnglish>
 # <I18nBangla>Bnlang এ কমান্ড লাইন থেকে ইনপুট নেওয়া</I18nBangla>
-# <I18nBanglish>Accept Input from Command Line in Bnlang</I18nBanglish>
+
 
 <I18nEnglish>
 In **Bnlang**, you can accept input from the command line using the built‑in **`process.argv`** array.  
@@ -21,10 +21,7 @@ It contains all arguments passed when running the program. The first two element
 এতে প্রোগ্রাম চালানোর সময় দেওয়া সব আর্গুমেন্ট থাকে। প্রথম দুটি মান হলো রানটাইম এবং স্ক্রিপ্ট পাথ, বাকি গুলো ইউজার ইনপুট।
 </I18nBangla>
 
-<I18nBanglish>
-**Bnlang** e **`process.argv`** array diye command line theke input newa jay.  
-Ete program run korar shomoy deya shob argument thake. Prothom duita holo runtime ar script path, baki gulo user input.
-</I18nBanglish>
+
 
 ---
 
@@ -34,7 +31,7 @@ Ete program run korar shomoy deya shob argument thake. Prothom duita holo runtim
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -69,21 +66,7 @@ bnl greet.bnl আলিস
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// file: greet.bnl
-const argument = process.argv.slice(2);
-const nam = argument[0] || "Guest";
-
-console.log("Hello,", nam);
-```
-
-```sh
-bnl greet.bnl Alis
-# Output: Hello, Alis
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -94,7 +77,7 @@ bnl greet.bnl Alis
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -131,22 +114,7 @@ bnl sum.bnl 5 7
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// file: sum.bnl
-const arg = process.argv.slice(2);
-const a = Number(arg[0]);
-const b = Number(arg[1]);
-
-console.log("Jogfol:", a + b);
-```
-
-```sh
-bnl sum.bnl 5 7
-# Output: Jogfol: 12
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -167,9 +135,4 @@ bnl sum.bnl 5 7
 - ভুল ইনপুট এলে হেল্প মেসেজ দেখান।
 </I18nBangla>
 
-<I18nBanglish>
-- Input always validate ar sanitize korun.  
-- Argument na thakle default value din.  
-- Advanced parsing er jonno library use korun (option, flag).  
-- Wrong input dile usage help print korun.
-</I18nBanglish>
+

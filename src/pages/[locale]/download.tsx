@@ -651,7 +651,7 @@ export default function DownloadPage({ locale }: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const locales: SupportedLocale[] = ["en", "bn", "banglish"];
+  const locales: SupportedLocale[] = ["en", "bn"];
   const paths = locales.map((l) => ({ params: { locale: l } }));
   return { paths, fallback: false };
 };
@@ -659,7 +659,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const rawLocale = (params as any)?.locale as string | undefined;
   const normalized = normalizeLocale(rawLocale);
-  const locale: SupportedLocale =
-    rawLocale === "banglish" ? "banglish" : (normalized as any);
+  const locale: SupportedLocale = normalized as SupportedLocale;
   return { props: { locale } };
 };

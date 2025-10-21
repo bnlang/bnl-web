@@ -11,7 +11,7 @@ banglishDescription: Bnlang er Usage o Example
 
 # <I18nEnglish>Usage and Examples</I18nEnglish>
 # <I18nBangla>ব্যবহার ও উদাহরণ</I18nBangla>
-# <I18nBanglish>Byabohar o Udahoron</I18nBanglish>
+
 
 <I18nEnglish>
 Welcome to the **Usage and Examples** page of Bnlang.
@@ -159,75 +159,4 @@ let data = fs.readFileSync("notes.txt");
 ---
 </I18nBangla>
 
-<I18nBanglish>
-Welcome to **Byabohar o Udahoron** of Bnlang.
 
-## Prothom program
-
-```bnl
-function main() {
-  likhun("Hello, Bishsho!");
-}
-```
-
-Run korte:
-
-```bash
-bnl main.bnl
-```
-
-## Variable ar type
-
-```bnl
-dhori nam = "Mamun";
-dhori boyosh = 25;
-dhori developer = true;
-
-likhun("Nam:", nam);
-likhun("Boyosh:", boyosh);
-likhun("Developer?", developer);
-```
-
-## Condition / Control flow
-
-```bnl
-dhori number = 85;
-
-jodi (number >= 80) {
-  likhun("Grade: A+");
-} nahole jodi (number >= 70) {
-  likhun("Grade: A");
-} nahole {
-  likhun("Grade: Below A");
-}
-```
-
-## Loop
-
-```bnl
-proti (dhori i = 1; i <= 5; i++) {
-  likhun("Shongkha:", i);
-}
-```
-
-## Function
-
-```bnl
-function greet(user) {
-  return "Hello, " + user + "!";
-}
-
-likhun(greet("Mamun"));
-```
-
-## Module use
-
-```bnl
-dhrubok fs = likhun("fs");
-
-dhori data = fs.readFileSync("notes.txt");
-likhun("File content:", data);
-```
-
----
-</I18nBanglish>

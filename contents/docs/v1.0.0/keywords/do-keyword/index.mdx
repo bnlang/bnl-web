@@ -9,7 +9,7 @@ banglishDescription: Bnlang e korun...jotokkhon (do...while) loop — body minim
 
 # <I18nEnglish>do...while Loop</I18nEnglish>
 # <I18nBangla>করুন...যতক্ষণ লুপ</I18nBangla>
-# <I18nBanglish>do...while Loop</I18nBanglish>
+
 
 <I18nEnglish>
 The **`do...while`** loop runs the block **at least once**, then repeats while the condition remains **true**.  
@@ -21,10 +21,7 @@ The condition is checked **after** each iteration. Use **`break`** to exit early
 প্রতিটি ইটারেশনের **পরে** শর্ত পরীক্ষা করা হয়। আগেভাগে বের হতে **`থামুন`** এবং চলতি ধাপ স্কিপ করতে **`চলুন`** ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-**`korun...jotokkhon`** loop body **ekom bar** chalaye, tarpor condition **true** thakle abar cholay.  
-Protiti iteration er **por** condition check hoy. Early exit er jonno **`thamun`**, skip er jonno **`colun`** use korun.
-</I18nBanglish>
+
 
 ---
 
@@ -48,14 +45,7 @@ do {
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-korun {
-  // body
-} jotokkhon (condition);
-```
-</I18nBanglish>
 
 ---
 
@@ -64,7 +54,7 @@ korun {
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -97,34 +87,7 @@ let n = 0;
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) At least once
-let i = 10;
-korun {
-  console.log("i =", i); // jodi i < 5 na hoy, tobuo prothom bar cholbe
-  i++;
-} jotokkhon (i < 5);
-
-// 2) Iterate array with index
-const shonkha = [2, 4, 6];
-let idx = 0;
-korun {
-  chapao(shonkha[idx]);
-  idx++;
-} jotokkhon (idx < shonkha.length);
-
-// 3) continue / break
-let n = 0;
-korun {
-  n++;
-  jodi (n % 2 === 0) colun; // even skip
-  dekhao("odd:", n);
-  jodi (n >= 7) thamun;      // exit early
-} jotokkhon (n < 10);
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -174,9 +137,4 @@ do {
 - “একবার চালাও, তারপর চেক করুন”—এই প্রয়োজন না হলে `যতক্ষণ`/`প্রতি` (while/for) যথেষ্ট।
 </I18nBangla>
 
-<I18nBanglish>
-- Body **condition check er age** run hoy — tai ekbar na holeo cholbei.  
-- Closing **`jotokkhon (condition)`** er por **semicolon** (`;`) dite hobe.  
-- **`colun`** condition check e jump kore; **`thamun`** loop theke bere ashe.  
-- Ekti bar age run korte holei `korun...jotokkhon`; onnothay `jotokkhon`/`proti` e thakun.
-</I18nBanglish>
+

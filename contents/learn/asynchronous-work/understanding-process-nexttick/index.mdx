@@ -3,13 +3,10 @@ title: Understanding process.nextTick
 description: Learn how process.nextTick works in Bnlang with explanations and examples in English, Bangla, and Banglish.
 bnTitle: process.nextTick বোঝা
 bnDescription: Bnlang এ process.nextTick এর কাজের পদ্ধতি এবং উদাহরণ।
-banglishTitle: Understanding process.nextTick
-banglishDescription: Bnlang e process.nextTick er kajer poddhoti o udahoron English, Bangla ar Banglish e.
 ---
 
 # <I18nEnglish>Understanding process.nextTick</I18nEnglish>
 # <I18nBangla>process.nextTick বোঝা</I18nBangla>
-# <I18nBanglish>Understanding process.nextTick</I18nBanglish>
 
 <I18nEnglish>
 In **Bnlang**, `process.nextTick` is a special function that schedules a callback to run **immediately after the current operation**, before the event loop continues.  
@@ -23,12 +20,6 @@ Think of it as *microtask scheduling*, ensuring the function runs as soon as pos
 এটি *microtask scheduling* এর মত কাজ করে, যাতে বর্তমান স্ট্যাক শেষ হবার সাথে সাথেই ফাংশন চালানো হয়।
 </I18nBangla>
 
-<I18nBanglish>
-**Bnlang** e `process.nextTick` holo ekta function, ja current operation sesh howar shathe shathe callback run kore, event loop er porer phase er agei.  
-Eta code defer korte dey, kintu deri na kore.  
-Eta *microtask scheduling* er moto, mane stack khali hole sathe sathe function run hobe.
-</I18nBanglish>
-
 ---
 
 ## Basic Example
@@ -37,7 +28,6 @@ Eta *microtask scheduling* er moto, mane stack khali hole sathe sathe function r
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
   </TabsList>
 
   <TabsContent value="english">
@@ -76,23 +66,7 @@ process.nextTick(() => {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-console.log("Shuru");
-
-process.nextTick(() => {
-  console.log("NextTick callback");
-});
-
-console.log("Shesh");
-
-// Output:
-// Shuru
-// Shesh
-// NextTick callback
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -111,12 +85,6 @@ console.log("Shesh");
 - `setTimeout` → ন্যূনতম ডিলে শেষে **timers phase** এ চলে।
 </I18nBangla>
 
-<I18nBanglish>
-- `process.nextTick` → Event loop cholur agei run hoy (highest priority microtask).  
-- `setImmediate` → Event loop er **check phase** e run hoy (I/O er pore).  
-- `setTimeout` → Minimum delay er pore **timers phase** e run hoy.
-</I18nBanglish>
-
 ---
 
 ## Example: nextTick vs setImmediate
@@ -125,7 +93,6 @@ console.log("Shesh");
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
   </TabsList>
 
   <TabsContent value="english">
@@ -158,20 +125,7 @@ setImmediate(() => কনসোল.লগ("সেটইমিডিয়েট"
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-process.nextTick(() => console.log("nextTick"));
-setImmediate(() => console.log("setImmediate"));
-
-console.log("Shesh");
-
-// Output:
-// Shesh
-// nextTick
-// setImmediate
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -189,9 +143,3 @@ console.log("Shesh");
 - ভারী লজিক `nextTick` এ দেবেন না, এতে অন্য মাইক্রোটাস্ক ব্লক হবে।  
 - সম্ভব হলে পরিষ্কার কোডের জন্য প্রতিশ্রুতি (`Promise.resolve().then(...)`) ব্যবহার করুন।
 </I18nBangla>
-
-<I18nBanglish>
-- I/O er age run korte hole `process.nextTick` use korun.  
-- Heavy logic nextTick e debena, onno microtask block hobe.  
-- Possible hole clear code er jonno promise (`Promise.resolve().then(...)`) use korun.
-</I18nBanglish>

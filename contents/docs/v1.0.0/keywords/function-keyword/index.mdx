@@ -9,7 +9,7 @@ banglishDescription: Bnlang e function define & use — declaration, expression,
 
 # <I18nEnglish>function Keyword</I18nEnglish>
 # <I18nBangla>ফাংশন কীওয়ার্ড</I18nBangla>
-# <I18nBanglish>function Keyword</I18nBanglish>
+
 
 <I18nEnglish>
 Functions are reusable blocks of code.  
@@ -23,11 +23,7 @@ They can take parameters, return values, and be **async**.
 প্যারামিটার নিতে পারে, **ফেরত** দিতে পারে, এবং **অসমলয়**ও হতে পারে।
 </I18nBangla>
 
-<I18nBanglish>
-Function mane reuse‑kora jay emon code er block.  
-**`function`** diye declaration/expression ba **arrow** `() => ...` o use kora jay.  
-Parameter nite pare, value **ferot** dite pare, ebong **osomoloy** hote pare.
-</I18nBanglish>
+
 
 ---
 
@@ -93,35 +89,7 @@ const বিয়োগ = (ক, খ) => ক - খ;
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-// Declaration (hoisted)
-function jog(a, b) {
-  ferot a + b;
-}
-
-// Function expression
-const gun = function (a, b) {
-  ferot a * b;
-};
-
-// Arrow function
-const biyog = (a, b) => a - b;
-
-// Default & rest
-function greet(nam = "Guest", ...tags) {
-  console.log("Hello", nam, tags);
-}
-
-// Async function
-osomoloy function load(url) {
-  const res = opekkha fetch(url);
-  jodi (!res.ok) nikkhep new Error("Bad response");
-  ferot opekkha res.text();
-}
-```
-</I18nBanglish>
 
 ---
 
@@ -130,7 +98,7 @@ osomoloy function load(url) {
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -173,44 +141,7 @@ const বর্গ = সংখ্যা.map(n => n * n);
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) Params & ferot
-function grade(shonkha) {
-  jodi (shonkha >= 80) ferot "A+";
-  nahole jodi (shonkha >= 70) ferot "A";
-  nahole ferot "Below A";
-}
-chapao(grade(85));
-
-// 2) Default & rest parameters
-function log(level = "info", ...msg) {
-  console.log("[", level, "]", ...msg);
-}
-log();
-log("warn", "caution", 42);
-
-// 3) Object destructuring param
-function user({ nam, shohor = "Dhaka" }) {
-  ferot `${nam} @ ${shohor}`;
-}
-dekhao(user({ nam: "Mamun" }));
-
-// 4) Higher‑order (map/filter)
-const shonkha = [1, 2, 3, 4, 5];
-const jor = shonkha.filter(n => n % 2 === 0);
-const borgo = shonkha.map(n => n * n);
-console.log(jor, borgo);
-
-// 5) Recursion
-function factorial(n) {
-  jodi (n <= 1) ferot 1;
-  ferot n * factorial(n - 1);
-}
-console.log(factorial(5));
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -274,11 +205,4 @@ console.log(factorial(5));
 - প্রতি ফাইলে একটিই ভাষা স্টাইল অনুসরণ করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- **Declaration** hoisted, **expression/arrow** na (let/const hole **TDZ** thake).  
-- **Arrow** e nijer `this`/`arguments` nai; constructor ba dynamic `this` method e use na kora bhalo.  
-- **Default** call time e eval hoy; **rest** baki args array te ney.  
-- Nesting komate **early ferot** din; function er **nam** dile stack trace clear hoy.  
-- Deep recursion e stack overflow hote pare — loop/use stack.  
-- File e ekta language style e thakun.
-</I18nBanglish>
+

@@ -3,13 +3,10 @@ title: Overview of Blocking vs Non-Blocking
 description: A detailed guide to blocking and non-blocking operations in Bnlang with examples in English, Bangla, and Banglish.
 bnTitle: ব্লকিং বনাম নন-ব্লকিং এর ওভারভিউ
 bnDescription: Bnlang এ ব্লকিং এবং নন-ব্লকিং অপারেশন এর ব্যাখ্যা ও উদাহরণ।
-banglishTitle: Overview of Blocking vs Non-Blocking
-banglishDescription: Bnlang e blocking vs non-blocking operation er bistarito udahoron English, Bangla ar Banglish e.
 ---
 
 # <I18nEnglish>Overview of Blocking vs Non-Blocking</I18nEnglish>
 # <I18nBangla>ব্লকিং বনাম নন-ব্লকিং এর ওভারভিউ</I18nBangla>
-# <I18nBanglish>Overview of Blocking vs Non-Blocking</I18nBanglish>
 
 <I18nEnglish>
 In **Bnlang**, operations can be **blocking** or **non-blocking**.  
@@ -27,14 +24,6 @@ Understanding this difference is key to writing efficient and responsive program
 এটি বোঝা জরুরি যাতে দক্ষ এবং রেসপন্সিভ প্রোগ্রাম লেখা যায়।
 </I18nBangla>
 
-<I18nBanglish>
-**Bnlang** e operation duto dhoroner hote pare: **blocking** ar **non-blocking**.  
-- **Blocking** mane holo program wait kore kaj sesh howar jonno.  
-- **Non-blocking** mane holo program onno kaj cholate thake, kaj background e cholte thake.  
-
-Eta bujhle efficient ar responsive program banano jay.
-</I18nBanglish>
-
 ---
 
 ## Blocking Example
@@ -42,7 +31,6 @@ Eta bujhle efficient ar responsive program banano jay.
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -76,20 +64,7 @@ function ঘুমাও(ms) {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// Blocking function er udahoron
-function ghumao(ms) {
-  const shesh = Date.now() + ms;
-  jotokkhon (Date.now() < shesh) {}
-}
-
-console.log("Shuru");
-ghumao(2000); // 2 second block kore
-console.log("Shesh");
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -99,7 +74,7 @@ console.log("Shesh");
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -129,18 +104,7 @@ console.log("End"); // Printed immediately
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-console.log("Shuru");
-
-somoysimaNirdharon(() => {
-  console.log("Timeout er vitore");
-}, 2000);
-
-console.log("Shesh"); // Shathe shathe print hoy
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -159,12 +123,6 @@ console.log("Shesh"); // Shathe shathe print hoy
 - ফাইল পড়া, নেটওয়ার্ক রিকোয়েস্ট, এবং ডাটাবেস কোয়েরির জন্য উপযোগী।
 </I18nBangla>
 
-<I18nBanglish>
-- Program ke **responsive** rakhe.  
-- Ekadik kaj ekshathe cholte pare.  
-- File read, network request, database query er moto I/O operation er jonno valo.
-</I18nBanglish>
-
 ---
 
 ## Best Practices
@@ -181,8 +139,3 @@ console.log("Shesh"); // Shathe shathe print hoy
 - ভারী কম্পিউটেশন ছোট অংশে ভাগ করুন অথবা আলাদা ওয়ার্কারে চালান।
 </I18nBangla>
 
-<I18nBanglish>
-- Main thread e blocking operation avoid korun.  
-- I/O kaj er jonno async API use korun.  
-- Heavy computation ke chhoto vag e vag korun ba worker e chalun.
-</I18nBanglish>

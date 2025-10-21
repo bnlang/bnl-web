@@ -2,7 +2,6 @@ export type DocItem = {
   slug: string;
   title: string;
   titleBn: string;
-  titleBanglish?: string;
   children?: DocItem[];
 };
 

@@ -9,7 +9,7 @@ banglishDescription: Bnlang e file stats pete shikha, jemon size, type ar timest
 
 # <I18nEnglish>Bnlang File Stats</I18nEnglish>
 # <I18nBangla>Bnlang ফাইল স্ট্যাটস</I18nBangla>
-# <I18nBanglish>Bnlang File Stats</I18nBanglish>
+
 
 <I18nEnglish>
 File statistics (or **file stats**) provide detailed information about a file, such as its size, type, creation date, and last modification date.  
@@ -21,10 +21,7 @@ In Bnlang, you can use built-in modules to get these details and make decisions 
 Bnlang এ আপনি বিল্ট-ইন মডিউল ব্যবহার করে এই তথ্যগুলি পেতে পারেন এবং আপনার প্রোগ্রামে সিদ্ধান্ত নিতে পারেন, যেমন একটি পাথ ফাইল না ডিরেক্টরি তা যাচাই করা।
 </I18nBangla>
 
-<I18nBanglish>
-File statistics (**file stats**) ekta file er detail information dey, jemon size, type, creation date, ar last modification date.  
-Bnlang e apni built-in module use kore ei info pete parben, ar program e decision nite parben, jemon ekta path file naki directory sheta check kora.
-</I18nBanglish>
+
 
 ---
 
@@ -33,7 +30,7 @@ Bnlang e apni built-in module use kore ei info pete parben, ar program e decisio
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -75,24 +72,7 @@ fs.stat("example.txt", (ত্রুটি, পরিসংখ্যান) => {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const fs = require("fs");
-
-fs.stat("example.txt", (truti, porisonkhan) => {
-  jodi (truti) {
-    console.error("Samossha:", truti);
-    return;
-  }
-  console.log("File?", porisonkhan.isFile());
-  console.log("Directory?", porisonkhan.isDirectory());
-  console.log("Size:", porisonkhan.size);
-  console.log("Toiri:", porisonkhan.birthtime);
-  console.log("Poriborton:", porisonkhan.mtime);
-});
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -115,13 +95,7 @@ fs.stat("example.txt", (truti, porisonkhan) => {
 - **mtime** → ফাইলটি সর্বশেষ কখন পরিবর্তিত হয়েছে তা জানায়।
 </I18nBangla>
 
-<I18nBanglish>
-- **isFile()** → Path file kina check kore.  
-- **isDirectory()** → Path directory kina check kore.  
-- **size** → File size byte e dey.  
-- **birthtime** → File kobe toiri hoyeche shetar date dey.  
-- **mtime** → File last kobe poriborton hoyeche sheta dey.
-</I18nBanglish>
+
 
 ---
 
@@ -141,9 +115,4 @@ fs.stat("example.txt", (truti, porisonkhan) => {
 - ক্যাশিং বা ভার্সনিং লজিকের জন্য সর্বশেষ পরিবর্তনের তারিখ যাচাই করতে স্ট্যাটস ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- File stats porar shomoy always error handle korun.  
-- Operation korar age `isFile()` ar `isDirectory()` use korun.  
-- File size byte e thake, proyojon hole convert korun (KB, MB).  
-- Caching ba versioning logic er jonno last modification date check korte stats use korun.
-</I18nBanglish>
+

@@ -9,7 +9,7 @@ banglishDescription: Bnlang e Atomics namespace o method er example.
 
 # <I18nEnglish>Atomics</I18nEnglish>
 # <I18nBangla>অ্যাটোমিকস</I18nBangla>
-# <I18nBanglish>Atomics</I18nBanglish>
+
 
 <I18nEnglish>
 `Atomics` in Bnlang works like in JavaScript.  
@@ -23,11 +23,7 @@ Bnlang এ `অ্যাটোমিকস` JavaScript এর মত কাজ �
 **`Atomics`**, **`অ্যাটোমিকস`** অথবা Banglish নাম দিয়েও ব্যবহার করা যায়।
 </I18nBangla>
 
-<I18nBanglish>
-Bnlang e `Atomics` JavaScript er moto kaj kore.  
-Eta `SharedArrayBuffer` er upor low-level atomic operation kore.  
-Use korte parben **`Atomics`**, **`অ্যাটোমিকস`**, ba Banglish method nam diye.
-</I18nBanglish>
+
 
 ---
 
@@ -53,15 +49,7 @@ Use korte parben **`Atomics`**, **`অ্যাটোমিকস`**, ba Banglis
 - লক ফ্রি পরীক্ষা → `অ্যাটোমিকস.লক_ফ্রি_কি()`
 </I18nBangla>
 
-<I18nBanglish>
-- Jog/Biyog → `Atomics.jog()`, `Atomics.up()`  
-- Bitwise → `Atomics.and()`, `Atomics.or()`, `Atomics.xor()`  
-- Binimoy → `Atomics.binimoy()`  
-- Tulona binimoy → `Atomics.tulonaBinimoy()`  
-- Load/Store → `Atomics.load()`, `Atomics.store()`  
-- Opekkha/Obohito → `Atomics.opekkha()`, `Atomics.asomloyOpekkha()`, `Atomics.obohito()`  
-- Lock free check → `Atomics.lockFreeKi()`
-</I18nBanglish>
+
 
 ---
 
@@ -70,7 +58,7 @@ Use korte parben **`Atomics`**, **`অ্যাটোমিকস`**, ba Banglis
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -102,17 +90,5 @@ const view = new Int32Array(sab);
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const sab = new SharedArrayBuffer(4);
-const view = new Int32Array(sab);
-
-Atomics.store(view, 0, 10);
-console.log(Atomics.load(view, 0)); // 10
-
-Atomics.jog(view, 0, 5);
-console.log(Atomics.load(view, 0)); // 15
-```
-  </TabsContent>
+  
 </Tabs>

@@ -9,7 +9,7 @@ banglishDescription: Bnlang e faka (void) — expression execute kore, kintu und
 
 # <I18nEnglish>void Operator</I18nEnglish>
 # <I18nBangla>ফাঁকা অপারেটর</I18nBangla>
-# <I18nBanglish>void Operator</I18nBanglish>
+
 
 <I18nEnglish>
 The **`void`** operator **evaluates** an expression and **always returns `undefined`**.  
@@ -21,10 +21,7 @@ Use it when you need side‑effects but want to **discard** the value (`void exp
 সাইড‑ইফেক্ট দরকার কিন্তু মান দরকার নেই—এমন ক্ষেত্রে ব্যবহার করুন (`ফাঁকা অভিব্যক্তি`).
 </I18nBangla>
 
-<I18nBanglish>
-**`faka`** operator expression **execute** kore kintu **protibar `undefined`** ferot dey.  
-Side‑effect thakle result **ignore** korte `faka expr` use korun.
-</I18nBanglish>
+
 
 ---
 
@@ -46,13 +43,7 @@ void (expression)   // parentheses optional
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-faka expression
-faka (expression)   // parenthesis optional
-```
-</I18nBanglish>
 
 ---
 
@@ -61,7 +52,7 @@ faka (expression)   // parenthesis optional
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -95,35 +86,7 @@ let r = ফাঁকা (কনসোল.লগ("চলছে..."), 99);
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) Discard the value, keep side‑effects
-let r = faka (console.log("running..."), 99);
-console.log(r);              // undefined
-
-// 2) Fire‑and‑forget call
-faka kichu_korun();           // runs, result ignored (undefined)
-
-// 3) IIFE style
-faka function () {
-  dekhao("immediate start");
-}();
-
-// 4) Async fire‑and‑forget
-faka (osomoloy () => {
-  ceshta {
-    const res = opekkha fetch("/data");
-    console.log("download:", res.status);
-  } obosheshe {
-    console.info("done");
-  }
-})();
-
-// 5) Historical: `faka 0` always undefined
-console.log(faka 0);         // undefined
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -176,10 +139,4 @@ console.log(void 0);         // undefined
 - পড়ার সুবিধায় প্রতিটি ফাইলে এক ভাষা স্টাইল বজায় রাখুন।
 </I18nBangla>
 
-<I18nBanglish>
-- `faka` execution **bondho kore na**; sudhu `undefined` dey — `ferot` er cheye onno.  
-- Itihasik vabe `faka 0` mane shobshomoy `undefined`; ajkal `undefined` read‑only, tobuo eta procholito.  
-- `href="javascript:void 0"` diye navigation thama jaye — kintu **na korai bhalo**; **button**/`event.preventDefault()` use korun.  
-- Result **ignore** korar signal dite `faka` upokari (especially async start), kintu beshi use korben na.  
-- Ek file e ekta language style rakhun.
-</I18nBanglish>
+

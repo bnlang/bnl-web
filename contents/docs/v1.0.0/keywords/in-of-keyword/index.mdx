@@ -9,7 +9,7 @@ banglishDescription: Bnlang e `modhye` (in) operator ebong `proti...er` (for...o
 
 # <I18nEnglish>in · of</I18nEnglish>
 # <I18nBangla>মধ্যে · এর</I18nBangla>
-# <I18nBanglish>in · of</I18nBanglish>
+
 
 <I18nEnglish>
 - **`in`** checks whether a **property key/index exists** on an object (including its prototype chain).  
@@ -21,10 +21,7 @@ banglishDescription: Bnlang e `modhye` (in) operator ebong `proti...er` (for...o
 - **`এর (of)`** ব্যবহৃত হয় **`প্রতি...এর (for...of)`** বা **`প্রতি অপেক্ষা...এর (for await...of)`**‑এ—যা ইটারেবল থেকে **ভ্যালু** দেয়।
 </I18nBangla>
 
-<I18nBanglish>
-- **`modhye (in)`** diye object e (prototype chain soho) **property/index ache kina** check kora hoy.  
-- **`er (of)`** use hoy **`proti...er (for...of)`**/`for await...of` e — iterable theke **value** iterate korte.
-</I18nBanglish>
+
 
 ---
 
@@ -58,19 +55,7 @@ for await (const value of asyncIterable) { /* ... */ }
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-// modhye operator
-key modhye object
-
-// proti...er (values)
-proti (const man er iterable) { /* ... */ }
-
-// for await...of
-proti opekkha (const man er asyncIterable) { /* ... */ }
-```
-</I18nBanglish>
 
 ---
 
@@ -79,7 +64,7 @@ proti opekkha (const man er asyncIterable) { /* ... */ }
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -131,53 +116,7 @@ const অবজ = { a: 1, b: 2 };
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) 'modhye' to check property
-const byaboharkari = { nam: "Mamun", shohor: "Dhaka" };
-
-console.log("nam" modhye byaboharkari);   // true
-console.log("desh" modhye byaboharkari);  // false
-
-// includes prototype chain
-console.log("toString" modhye byaboharkari); // true
-
-// own‑only
-console.log(Object.hasOwn(byaboharkari, "nam")); // true
-
-// Array index existence (holes count)
-const A = [10, , 30];
-console.log(1 modhye A);              // true (hole)
-console.log(A[1] === undefined);      // true (no value)
-
-// 2) 'proti...er' — iterate values
-const shonkha = [2, 4, 6];
-proti (const n er shonkha) {
-  print(n * n);
-}
-
-// String
-proti (const ch er "Bn") {
-  console.log(ch);
-}
-
-// Map/Set
-const map = new Map([["a", 1], ["b", 2]]);
-proti (const [k, v] er map) {
-  dekhao(k, v);
-}
-const set = new Set([1, 2, 2, 3]);
-proti (const v er set) console.log(v);
-
-// 3) 'proti...modhye' (for...in) — keys
-const obj = { a: 1, b: 2 };
-proti (const key modhye obj) {
-  console.log(key, "=>", obj[key]);
-}
-// Avoid for...in on arrays (order/holes).
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -250,11 +189,4 @@ for (const key in obj) {
 - পড়ার সুবিধায় প্রতিটি ফাইলে এক ভাষা স্টাইল বজায় রাখুন।
 </I18nBangla>
 
-<I18nBanglish>
-- **`modhye`** prototype chain o check kore; own‑only check er jonno **`Object.hasOwn(obj, key)`** bhalo.  
-- Array te **`index modhye arr`** mane **slot ache kina** — hole thakleo `true` dite pare; value `undefined` hote pare.  
-- **`proti...er`** iterable theke **value** iterate kore; **`proti...modhye`** **key** iterate kore — array te poriharonjoggo.  
-- `er` kono standalone operator na; sudhu loop syntax er ongsho.  
-- Array te `proti...er` ba `map/filter/forEach` ; object e key lagle `Object.keys/entries` bhabun.  
-- Ek file e ekta language style rakhun.
-</I18nBanglish>
+

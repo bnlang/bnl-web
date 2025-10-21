@@ -9,7 +9,7 @@ banglishDescription: Bnlang e colun (continue) diye current iteration skip kore 
 
 # <I18nEnglish>continue Keyword</I18nEnglish>
 # <I18nBangla>চলুন কীওয়ার্ড</I18nBangla>
-# <I18nBanglish>continue Keyword</I18nBanglish>
+
 
 <I18nEnglish>
 The **`continue`** statement skips the rest of the **current** iteration of a loop and moves to the next check/iteration.  
@@ -21,10 +21,7 @@ Use it in `for`, `while`, and `do...while` loops to ignore certain cases without
 `প্রতি` (for), `যতক্ষণ` (while), এবং `করো...যতক্ষণ` (do...while) লুপে কিছু কেস বাদ দিতে এটি ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-**`colun`** current iteration er baki code **skip** kore, next iteration e chole jay.  
-`proti` (for), `jotokkhon` (while), ebong `korun...jotokkhon` (do...while) loop e nirbachito case gulo ignore korte paren.
-</I18nBanglish>
+
 
 ---
 
@@ -44,12 +41,7 @@ continue;
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-colun;
-```
-</I18nBanglish>
 
 ---
 
@@ -58,7 +50,7 @@ colun;
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -90,33 +82,7 @@ const শব্দসমূহ = ["Hi", "", "Bnlang", " ", "OK"];
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) Skip even numbers
-let sum = 0;
-proti (let i = 1; i <= 10; i++) {
-  jodi (i % 2 === 0) colun; // even skip
-  sum += i;
-}
-console.log("Odd sum =", sum);
-
-// 2) while input validation
-let n = 0;
-jotokkhon (n < 8) {
-  n++;
-  jodi (n < 3) colun;       // skip 1,2
-  chapao("processing:", n);
-}
-
-// 3) for...of — skip empty strings
-const shobdo = ["Hi", "", "Bnlang", " ", "OK"];
-proti (const w er shobdo) {
-  jodi (w.trim().length === 0) colun;
-  dekhao("=>", w);
-}
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -163,8 +129,4 @@ for (const w of words) {
 - পড়তে সহজ রাখতে অযথা `চলুন` ব্যবহার করবেন না; প্রয়োজনে ফিল্টারিং (`.filter`) ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- **`colun`** loop theke ber kore na; sudhu next iteration e niye jay.  
-- `jotokkhon`/`korun...jotokkhon` e state update **age** korte hobe, na hole infinite loop hote pare.  
-- Readability er jonno excessive `colun` poriharon korun; proyojone filtering (`.filter`) use korun.
-</I18nBanglish>
+

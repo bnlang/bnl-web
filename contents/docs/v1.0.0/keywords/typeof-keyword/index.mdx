@@ -9,7 +9,7 @@ banglishDescription: Bnlang e dhoron (typeof) operator — runtime type checks, 
 
 # <I18nEnglish>typeof Operator</I18nEnglish>
 # <I18nBangla>ধরন অপারেটর</I18nBangla>
-# <I18nBanglish>typeof Operator</I18nBanglish>
+
 
 <I18nEnglish>
 The **`typeof`** operator returns a string describing the type of a value at **runtime**.  
@@ -21,10 +21,7 @@ It is safe to use on **undeclared identifiers** (returns `"undefined"` instead o
 এটি **ঘোষিত নয়** এমন ভেরিয়েবলেও নিরাপদ—ত্রুটি না দিয়ে `"undefined"` ফেরত দেয়।
 </I18nBangla>
 
-<I18nBanglish>
-**`dhoron`** (typeof) operator runtime e kono value‑r type **string** hisebe dey.  
-**Undeclared** identifier e'o safe — error na diye `"undefined"` phire dey.
-</I18nBanglish>
+
 
 ---
 
@@ -46,13 +43,7 @@ typeof (expression)  // parentheses optional
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-dhoron expression
-dhoron (expression)  // parenthesis optional
-```
-</I18nBanglish>
 
 ---
 
@@ -61,7 +52,7 @@ dhoron (expression)  // parenthesis optional
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -106,45 +97,7 @@ function লগ(x) {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) Primitives & quirks
-console.log(dhoron 42);            // "number"
-console.log(dhoron NaN);           // "number"
-console.log(dhoron "Hi");          // "string"
-console.log(dhoron true);          // "boolean"
-console.log(dhoron undefined);     // "undefined"
-console.log(dhoron 10n);           // "bigint"
-console.log(dhoron Symbol("s"));   // "symbol"
-
-// 2) function/array/object/null
-function f() {}
-console.log(dhoron f);             // "function"
-console.log(dhoron []);            // "object"  ← array but "object"
-console.log(dhoron {});            // "object"
-console.log(dhoron null);          // "object"  ← historical quirk
-
-// 3) undeclared — safe
-console.log(dhoron ajana_cholok);  // "undefined" (no ReferenceError)
-
-// 4) typeof guard
-function log(x) {
-  jodi (dhoron x === "string" || dhoron x === "number") {
-    dekhao("print:", x);
-  } nahole jodi (dhoron x === "function") {
-    likho("function:", x.name);
-  } nahole {
-    console.warn("unsupported type:", dhoron x);
-  }
-}
-
-// 5) Distinguish arrays/dates/regex
-console.log(Array.isArray([]));          // true
-console.log((new Date()) instanceof Date); // true
-console.log((/re/) instanceof RegExp);     // true
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -209,11 +162,4 @@ console.log((/re/) instanceof RegExp);       // true
 - পড়ার সুবিধায় একটি ভাষা স্টাইল বজায় রাখুন।
 </I18nBangla>
 
-<I18nBanglish>
-- `dhoron` er possible result gulo: `"undefined"`, `"boolean"`, `"number"`, `"bigint"`, `"string"`, `"symbol"`, `"function"`, `"object"`.  
-- Quirk: **`dhoron null === "object"`**. Array/Date/RegExp o `"object"` — alada korte **`Array.isArray`**/`instanceof`.  
-- **Undeclared** variable e safe: `dhoron notDeclared === "undefined"`; kintu direct `notDeclared` read korle `ReferenceError`.  
-- Class hocche function: `dhoron class X {} === "function"`; instance hole `"object"`.  
-- `NaN` number; check korun `Number.isNaN`.  
-- Readability er jonno ek file e ekta language style rakhun.
-</I18nBanglish>
+

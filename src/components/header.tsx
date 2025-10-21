@@ -11,13 +11,12 @@ import { ModeToggle } from "./mode-toggle";
 import { LangSwitcher } from "./lang-switcher";
 import { HeaderSearch } from "./header-search";
 import { getLatestVersionString } from "@/lib/routes";
+import { SupportedLocale } from "@/types/locale.types";
 
 interface HeaderProps {
   isFullWidth?: boolean;
   locale?: string;
 }
-
-type SupportedLocale = "en" | "bn" | "banglish";
 
 export function Header({ isFullWidth, locale = "en" }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

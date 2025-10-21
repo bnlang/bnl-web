@@ -9,7 +9,7 @@ banglishDescription: Bnlang e nikkhep (throw) diye error raise kora—examples &
 
 # <I18nEnglish>throw Keyword</I18nEnglish>
 # <I18nBangla>নিক্ষেপ কীওয়ার্ড</I18nBangla>
-# <I18nBanglish>throw Keyword</I18nBanglish>
+
 
 <I18nEnglish>
 Use **`throw`** to signal an exceptional condition. It stops normal execution and jumps to the nearest matching `catch`.  
@@ -21,10 +21,7 @@ Prefer throwing **`Error`** objects (or subclasses) so stack traces and metadata
 স্ট্যাক‑ট্রেস ও তথ্য ধরে রাখতে **`Error`** অবজেক্ট (বা তার সাবক্লাস) নিক্ষেপ করা উত্তম।
 </I18nBangla>
 
-<I18nBanglish>
-**`nikkhep`** diye exceptional obostha signal korun. Normal execution bondho hoye nearest `dhorun` e chole jay.  
-Stack trace thakar jonno **`Error`** object (ba subclass) throw kora bhalo.
-</I18nBanglish>
+
 
 ---
 
@@ -50,15 +47,7 @@ class ValidationError extends Error {}
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-nikkhep expression;                 // usually an Error
-nikkhep new Error("Message");       // recommended
-class ValidationError extends Error {}
-nikkhep new ValidationError("Bad input");
-```
-</I18nBanglish>
 
 ---
 
@@ -67,7 +56,7 @@ nikkhep new ValidationError("Bad input");
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -122,56 +111,7 @@ function পার্স(json) {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) Basic nikkhep/dhorun
-ceshta {
-  const boyosh = -2;
-  jodi (boyosh < 0) nikkhep new Error("Obaidho boyosh");
-  console.log("OK");
-} dhorun (err) {
-  console.error("Error:", err.message);
-} obosheshe {
-  console.info("Always runs finally");
-}
-
-// 2) Custom Error subclass
-class InputError extends Error {
-  constructor(msg) {
-    super(msg);
-    this.name = "InputError";
-  }
-}
-function mulloyon(x) {
-  jodi (typeof x !== "number") nikkhep new InputError("Number dorkar");
-  ferot x * 2;
-}
-
-// 3) Wrap with cause
-function parse(json) {
-  ceshta {
-    ferot JSON.parse(json);
-  } dhorun (root) {
-    nikkhep new Error("JSON parse failed", { cause: root });
-  }
-}
-
-ceshta {
-  parse("{bad json}");
-} dhorun (err) {
-  console.error(err.message);
-  jodi (err.cause) console.info("cause:", err.cause.message);
-}
-
-// 4) Async function — throwing rejects the Promise
-osomoloy function download(url) {
-  const res = opekkha fetch(url);
-  jodi (!res.ok) nikkhep new Error("Bad response");
-  ferot opekkha res.text();
-}
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -245,10 +185,4 @@ async function download(url) {
 - ত্রুটি রূপান্তর করলে `{ cause: মূল }` দিন, বা মূল ত্রুটিই **পুনরায় নিক্ষেপ** করুন (`নিক্ষেপ ত্রু`) যাতে স্ট্যাক থাকে।
 </I18nBangla>
 
-<I18nBanglish>
-- Jekono value throw kora jaye, kintu `Error`/subclass best — stack & `cause` pai.  
-- `nikkhep` hole stack unwind hote thake, match kora `dhorun` paowa porjonto.  
-- `obosheshe` always run kore jodi throw o hoy.  
-- Normal control flow e exception chara chalun; sudhu exceptional case e use korun.  
-- Error convert korle `{ cause: original }` set korun, ba original‑i **rethrow** korun (`throw err`) stack rakhte.
-</I18nBanglish>
+

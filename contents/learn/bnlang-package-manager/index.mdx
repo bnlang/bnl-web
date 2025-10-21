@@ -3,13 +3,10 @@ title: Bnlang Package Manager (BPM)
 description: Learn about the Bnlang Package Manager (BPM), how it works, and how to use it effectively.
 bnTitle: Bnlang প্যাকেজ ম্যানেজার (BPM)
 bnDescription: Bnlang প্যাকেজ ম্যানেজার (BPM) এর ধারণা, কাজ করার নিয়ম এবং ব্যবহার পদ্ধতি।
-banglishTitle: Bnlang Package Manager (BPM)
-banglishDescription: Bnlang Package Manager (BPM) er dharona, kajer poddhoti ar bebohar poddhoti English, Bangla ar Banglish e.
 ---
 
 # <I18nEnglish>Bnlang Package Manager (BPM)</I18nEnglish>
 # <I18nBangla>Bnlang প্যাকেজ ম্যানেজার (BPM)</I18nBangla>
-# <I18nBanglish>Bnlang Package Manager (BPM)</I18nBanglish>
 
 <I18nEnglish>
 The **Bnlang Package Manager (BPM)** is the official package manager for the Bnlang programming language.  
@@ -24,13 +21,6 @@ BPM simplifies sharing code and ensures a consistent workflow across projects.
 BPM কোড শেয়ারিং সহজ করে এবং সব প্রজেক্টে একসাথে কাজ করার অভিজ্ঞতা দেয়।
 </I18nBangla>
 
-<I18nBanglish>
-**Bnlang Package Manager (BPM)** holo Bnlang programming language er official package manager.  
-Eta diye developer ra easy vabe **library khuje**, **install kore**, ar **manage korte** pare.  
-Ete ecosystem aro strong hoy ar productivity baray.  
-BPM code sharing ke easy kore, ar project gulo te ekshathe kaj kora easier hoy.
-</I18nBanglish>
-
 ---
 
 ## Installing BPM
@@ -43,10 +33,6 @@ BPM comes bundled with Bnlang. You can verify installation by running:
 BPM Bnlang এর সাথে অন্তর্ভুক্ত থাকে। নিচের কমান্ড দিয়ে ইনস্টলেশন যাচাই করতে পারেন:
 </I18nBangla>
 
-<I18nBanglish>
-BPM Bnlang er shathe ase. Nicher command diye check korte parben:
-</I18nBanglish>
-
 ```sh
 bpm --version
 ```
@@ -58,7 +44,6 @@ bpm --version
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -69,16 +54,6 @@ bpm --version
       <li><code>bpm remove &lt;প্যাকেজ&gt;</code> → ইনস্টল করা প্যাকেজ সরিয়ে দেয়।</li>
       <li><code>bpm update &lt;প্যাকেজ&gt;</code> → প্যাকেজ সর্বশেষ সংস্করণে আপডেট করে।</li>
       <li><code>bpm publish</code> → প্যাকেজ BPM রেজিস্ট্রিতে প্রকাশ করে।</li>
-    </ul>
-  </TabsContent>
-
-  <TabsContent value="banglish">
-    <ul>
-      <li><code>bpm init</code> → Notun project start kore, ar <code>bnl_package.json</code> file create kore.</li>
-      <li><code>bpm install &lt;package&gt;</code> → Registry theke ekta package install kore.</li>
-      <li><code>bpm remove &lt;package&gt;</code> → Installed package remove kore.</li>
-      <li><code>bpm update &lt;package&gt;</code> → Package ke latest version e update kore.</li>
-      <li><code>bpm publish</code> → Package ke BPM registry te publish kore.</li>
     </ul>
   </TabsContent>
 
@@ -134,26 +109,6 @@ bpm publish
 ```
 </I18nBangla>
 
-<I18nBanglish>
-
-```sh
-# Notun project start
-bpm init
-
-# Ekta library install
-bpm install lodash
-
-# Pore update korun
-bpm update lodash
-
-# Dorkar na hole remove korun
-bpm remove lodash
-
-# Nijer library publish korun
-bpm publish
-```
-</I18nBanglish>
-
 ---
 
 ## Best Practices
@@ -171,9 +126,3 @@ bpm publish
 - নিরাপত্তা সমস্যা চেক করার জন্য সবসময় <code>bpm audit</code> চালান।  
 - প্যাকেজ অর্থপূর্ণ নাম এবং ডকুমেন্টেশন সহ শেয়ার করুন।
 </I18nBangla>
-
-<I18nBanglish>
-- Nijer <code>bnl_package.json</code> file ke version control e rakhen।  
-- Predictable update er jonno semantic versioning (<code>^1.2.3</code>) use korun.  
-- Package ke meaningful name ar documentation shathe share korun.
-</I18nBanglish>

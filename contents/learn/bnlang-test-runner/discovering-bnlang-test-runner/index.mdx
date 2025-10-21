@@ -3,13 +3,10 @@ title: Discovering the Bnlang Test Runner
 description: Learn about the Bnlang Test Runner, its features, and usage with examples in English, Bangla, and Banglish.
 bnTitle: Bnlang টেস্ট রানার আবিষ্কার
 bnDescription: Bnlang টেস্ট রানার, এর ফিচার এবং ব্যবহার উদাহরণসহ।
-banglishTitle: Discovering the Bnlang Test Runner
-banglishDescription: Bnlang Test Runner er feature ar bebohar English, Bangla ar Banglish e.
 ---
 
 # <I18nEnglish>Discovering the Bnlang Test Runner</I18nEnglish>
 # <I18nBangla>Bnlang টেস্ট রানার আবিষ্কার</I18nBangla>
-# <I18nBanglish>Discovering the Bnlang Test Runner</I18nBanglish>
 
 <I18nEnglish>
 The **Bnlang Test Runner** is the official tool for writing and running tests in the Bnlang ecosystem.  
@@ -23,12 +20,6 @@ With the test runner, you can automate quality checks and confidently refactor p
 টেস্ট রানার দিয়ে কোডের মান যাচাই অটোমেট করা যায় এবং নিশ্চিন্তে প্রজেক্ট রিফ্যাক্টর করা যায়।
 </I18nBangla>
 
-<I18nBanglish>
-**Bnlang Test Runner** holo Bnlang ecosystem e test lekhar ar chalano official tool.  
-Eta test, assertion ar hook define korar easy API dey, ja code ke reliable ar maintainable rakhe.  
-Test runner diye code er quality check automate kora jay ar project confidently refactor kora jay.
-</I18nBanglish>
-
 ---
 
 ## Writing a Simple Test
@@ -37,7 +28,7 @@ Test runner diye code er quality check automate kora jay ar project confidently 
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -62,16 +53,7 @@ test("যোগফল কাজ করছে", (t) => {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const { test } = require("bnl_test");
-
-test("jogfol kaj korche", (t) => {
-  t.equal(2 + 2, 4);
-});
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -87,11 +69,6 @@ Common methods include `t.equal`, `t.notEqual`, `t.ok`, and `t.fail`.
 অ্যাসারশন মানে হলো প্রত্যাশিত ফলাফল যাচাই করা।  
 সাধারণ মেথডগুলোর মধ্যে আছে: `t.equal`, `t.notEqual`, `t.ok`, এবং `t.fail`।
 </I18nBangla>
-
-<I18nBanglish>
-Assertion mane holo prottashito folafol check kora.  
-Common method holo: `t.equal`, `t.notEqual`, `t.ok`, ar `t.fail`.
-</I18nBanglish>
 
 ---
 
@@ -113,14 +90,6 @@ The runner supports lifecycle hooks:
 - `afterEach` → প্রতিটি টেস্টের পরে চলে।
 </I18nBangla>
 
-<I18nBanglish>
-Runner lifecycle hook support kore:  
-- `before` → Shob test er age ekbar run hoy.  
-- `after` → Shob test er pore ekbar run hoy.  
-- `beforeEach` → Protiti test er age run hoy.  
-- `afterEach` → Protiti test er pore run hoy.
-</I18nBanglish>
-
 ---
 
 ## Example with Hooks
@@ -129,7 +98,7 @@ Runner lifecycle hook support kore:
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -162,20 +131,7 @@ test("মান যাচাই", (t) => {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const { test } = require("bnl_test");
-
-test.before(() => console.log("Setup"));
-test.after(() => console.log("Teardown"));
-
-test("man jachai", (t) => {
-  const x = 10;
-  t.ok(x > 5);
-});
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -195,10 +151,3 @@ test("man jachai", (t) => {
 - সেটআপ/টিয়ারডাউন লজিকের জন্য হুক ব্যবহার করুন।  
 - নির্ভরযোগ্যতার জন্য টেস্ট CI/CD তে অটোমেট করুন।
 </I18nBangla>
-
-<I18nBanglish>
-- Related test gulo ekshathe likhun.  
-- Test function chhoto ar specific rakhun.  
-- Setup/teardown logic er jonno hook use korun.  
-- Reliability er jonno test ke CI/CD te automate korun.
-</I18nBanglish>

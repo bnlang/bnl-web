@@ -9,7 +9,7 @@ banglishDescription: Bnlang e DurbolSomoshti—object-only, weak reference; jog/
 
 # <I18nEnglish>WeakSet</I18nEnglish>
 # <I18nBangla>দুর্বল_সমষ্টি</I18nBangla>
-# <I18nBanglish>WeakSet</I18nBanglish>
+
 
 <I18nEnglish>
 Use **`WeakSet`**, **`দুর্বল_সমষ্টি`**, or **`DurbolSomoshti`** to keep a set of **objects only** held weakly (eligible for GC). It supports just **`add`**, **`has`**, and **`delete`**. It is **not iterable** and has **no `size`**.
@@ -19,9 +19,7 @@ Use **`WeakSet`**, **`দুর্বল_সমষ্টি`**, or **`DurbolSomo
 **`দুর্বল_সমষ্টি`** অবজেক্ট-শুধু সংগ্রহ; মানগুলো দুর্বলভাবে ধরা থাকে, তাই অন্য রেফারেন্স না থাকলে GC হতে পারে। এখানে কেবল **`যোগ`**, **`আছে_কি`**, **`মুছুন`** আছে; এটি **ইটারেবল নয়** এবং **`size` নেই**।
 </I18nBangla>
 
-<I18nBanglish>
-**`DurbolSomoshti`** holo object-only collection; values weak vabe dhora thake (GC hote pare). Shudhu **`jog`**, **`hasVal`**, **`deleteVal`** ache; **iterable na** ebong **`size` nai**.
-</I18nBanglish>
+
 
 ---
 
@@ -35,9 +33,7 @@ Use **`WeakSet`**, **`দুর্বল_সমষ্টি`**, or **`DurbolSomo
 - `যোগ(obj)` &nbsp;·&nbsp; `আছে_কি(obj)` &nbsp;·&nbsp; `মুছুন(obj)`
 </I18nBangla>
 
-<I18nBanglish>
-- `jog(obj)` &nbsp;·&nbsp; `hasVal(obj)` &nbsp;·&nbsp; `deleteVal(obj)`
-</I18nBanglish>
+
 
 ---
 
@@ -46,7 +42,7 @@ Use **`WeakSet`**, **`দুর্বল_সমষ্টি`**, or **`DurbolSomo
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -74,17 +70,7 @@ ws.মুছুন(obj);
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const ws = new DurbolSomoshti();
-const obj = {};
-ws.jog(obj);
-console.log(ws.has(obj));   // true
-ws.delete(obj);
-console.log(ws.has(obj));   // false
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -101,7 +87,4 @@ console.log(ws.has(obj));   // false
 - **ইটারেবল নয়**: `size`, `keys()`, `values()`, `entries()`, `forEach()` নেই।
 </I18nBangla>
 
-<I18nBanglish>
-- Shudhu **object** rakhte paren; primitive (number, string, etc.) allowed na.
-- **Enumerable na**: `size`, `keys()`, `values()`, `entries()`, `forEach()` nei.
-</I18nBanglish>
+

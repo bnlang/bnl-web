@@ -9,7 +9,7 @@ banglishDescription: Bnlang e switch (bikolpo), case (obostha), default (onnotha
 
 # <I18nEnglish>switch & case Keywords</I18nEnglish>
 # <I18nBangla>বিকল্প ও অবস্থা কীওয়ার্ড</I18nBangla>
-# <I18nBanglish>switch & case Keywords</I18nBanglish>
+
 
 <I18nEnglish>
 Use **`switch`** to select one of many branches based on a single expression.  
@@ -21,10 +21,7 @@ Each **`case`** is a label to match; use **`break`** to stop execution, and **`d
 প্রতিটি **`অবস্থা`** একটি লেবেল; **`থামুন`** দিয়ে ব্লক শেষ করুন, আর কোনো অবস্থা না মিললে **`অন্যথায়`** চলবে।
 </I18nBangla>
 
-<I18nBanglish>
-**`bikolpo`** diye ekta expression er value onujayi onekgulo path er modhye ekta choose hoy.  
-Protiti **`obostha`** label; cholte thaka bondho korte **`thamun`**, ebong kono case match na korle **`onnothay`**.
-</I18nBanglish>
+
 
 ---
 
@@ -111,45 +108,7 @@ switch (code) {
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-bikolpo (expression) {
-  obostha man1:
-    // statements
-    thamun;
-  obostha man2:
-    // statements
-    thamun;
-  onnothay:
-    // fallback
-}
-```
-
-```bnl
-// Multiple case grouping
-bikolpo (x) {
-  obostha 1:
-  obostha 2:
-  obostha 3:
-    // handle 1,2,3
-    thamun;
-  onnothay:
-    // ...
-}
-```
-
-```bnl
-// default agey dile (thamun na thakle) fall-through hobe
-bikolpo (kod) {
-  onnothay:
-    console.log("Unknown");
-  obostha "A":
-    console.log("Handled A");
-    thamun;
-}
-```
-</I18nBanglish>
 
 ---
 
@@ -158,7 +117,7 @@ bikolpo (kod) {
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -218,61 +177,7 @@ const n = 10;
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) Grade message
-let grade = "B";
-
-bikolpo (grade) {
-  obostha "A":
-    console.log("Excellent!");
-    thamun;
-  obostha "B":
-    console.log("Good job!");
-    thamun;
-  obostha "C":
-    console.warn("Average");
-    thamun;
-  onnothay:
-    console.error("Invalid grade");
-}
-
-// 2) Weekday/weekend grouping
-const din = 6;
-bikolpo (din) {
-  obostha 1:
-  obostha 2:
-  obostha 3:
-  obostha 4:
-  obostha 5:
-    chapao("Weekday");
-    thamun;
-  obostha 6:
-  obostha 7:
-    dekhao("Weekend");
-    thamun;
-  onnothay:
-    likho("Unknown day");
-}
-
-// 3) Range check with `bikolpo (true)`
-const n = 10;
-bikolpo (true) {
-  obostha n < 0:
-    console.warn("Negative");
-    thamun;
-  obostha n === 0:
-    console.log("Zero");
-    thamun;
-  obostha n > 0 && n % 2 === 0:
-    console.log("Positive even");
-    thamun;
-  onnothay:
-    console.log("Positive odd");
-}
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -349,9 +254,4 @@ switch (true) {
 - সরল মান‑থেকে‑ফলাফল ম্যাপিং হলে দীর্ঘ `বিকল্প`‑এর বদলে **অবজেক্ট ম্যাপ** ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- Protiti `obostha` por **`thamun`** din, na hole **fall‑through** hote pare.  
-- Protiti `bikolpo` te sudhu ekta **`onnothay`** thake, ebong seta block er je kono jaygai thakte pare.  
-- Range logic e `bikolpo (true)` upokari; onek complex condition e `jodi...nahole` sohoj.  
-- Shohoj value→result map hole long switch er cheye **object map** porishkar.
-</I18nBanglish>
+

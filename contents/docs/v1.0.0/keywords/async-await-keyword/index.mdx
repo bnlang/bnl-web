@@ -9,7 +9,7 @@ banglishDescription: Bnlang e osomoloy function & opekkha — sequential vs para
 
 # <I18nEnglish>async · await</I18nEnglish>
 # <I18nBangla>অসমলয় · অপেক্ষা</I18nBangla>
-# <I18nBanglish>async · await</I18nBanglish>
+
 
 <I18nEnglish>
 Use **`async`** to declare a function that returns a **Promise**. Inside it, use **`await`** to pause until a Promise settles and extract its value.  
@@ -21,10 +21,7 @@ Use **`async`** to declare a function that returns a **Promise**. Inside it, use
 ত্রুটি হ্যান্ডলিং ও ক্লিন‑আপের জন্য `চেষ্টা/ধরুন/অবশেষে` — `try/catch/finally`—ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-**`osomoloy`** function ekta **Promise** ferot dey. Vitor e **`opekkha`** dile promise resolve na howa porjonto thame thake ebong value pawa jay.  
-Error handle & cleanup er jonno `ceshta/dhorun/obosheshe` use korun.
-</I18nBanglish>
+
 
 ---
 
@@ -66,23 +63,7 @@ const লোডজসন = অসমলয় (url) => {
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-// Declaration
-osomoloy function load(url) {
-  const res = opekkha fetch(url);
-  jodi (!res.ok) nikkhep new Error("Bad response");
-  ferot opekkha res.text();
-}
-
-// Arrow
-const loadJSON = osomoloy (url) => {
-  const res = opekkha fetch(url);
-  ferot opekkha res.json();
-};
-```
-</I18nBanglish>
 
 ---
 
@@ -91,7 +72,7 @@ const loadJSON = osomoloy (url) => {
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -144,54 +125,7 @@ const loadJSON = osomoloy (url) => {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) Sequential
-osomoloy function dataAno() {
-  ceshta {
-    const a = opekkha fetch("/a");
-    const b = opekkha fetch("/b"); // /a shesh na hole shuru hobe na
-    const c = opekkha fetch("/c");
-    ferot [opekkha a.text(), opekkha b.text(), opekkha c.text()];
-  } dhorun (err) {
-    console.error("load failed:", err.message);
-    ferot [];
-  } obosheshe {
-    console.info("done");
-  }
-}
-
-// 2) Parallel with Promise.all
-osomoloy function drutoAno() {
-  ceshta {
-    const [a, b, c] = opekkha Promise.all([
-      fetch("/a"),
-      fetch("/b"),
-      fetch("/c"),
-    ]);
-    ferot opekkha Promise.all([a.text(), b.text(), c.text()]);
-  } dhorun (err) {
-    console.error("failed:", err);
-    ferot [];
-  }
-}
-
-// 3) for‑await‑of on async iterable
-osomoloy function poro(stream) {
-  ceshta {
-    jonno opekkha (const chunk er stream) {   // for await...of
-      console.log("chunk:", chunk);
-    }
-  } obosheshe {
-    console.info("stream closed");
-  }
-}
-
-// 4) Top‑level await (ES module)
-// const config = opekkha fetch("/cfg.json").then(r => r.json());
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -265,11 +199,4 @@ async function read(stream) {
 - একই ফাইলে একই ভাষা স্টাইল বজায় রাখুন।
 </I18nBangla>
 
-<I18nBanglish>
-- `opekkha` default e **serial** kore; parallel korte hole age promise start korun, pore `Promise.all` ba alada kore `opekkha`.  
-- Reject handle korte `ceshta/dhorun` use korun; cleanup er jonno `obosheshe`.  
-- Independent task hole loop er vitor ek‑ek kore `opekkha` na kore batch + `Promise.all`.  
-- `for opekkha...er` (for‑await‑of) **async iterable** e kaj kore.  
-- **Top‑level `opekkha`** sudhu ES module e valid.  
-- Ek file e ekta language style maintain korun.
-</I18nBanglish>
+

@@ -9,7 +9,7 @@ banglishDescription: TLS/SSL API — secure communication, create server & clien
 
 # <I18nEnglish>tls</I18nEnglish>
 # <I18nBangla>tls</I18nBangla>
-# <I18nBanglish>tls</I18nBanglish>
+
 
 <I18nEnglish>
 The **`tls`** module provides Transport Layer Security (TLS) and Secure Socket Layer (SSL) communication support. It is the foundation for **https**.
@@ -19,9 +19,7 @@ The **`tls`** module provides Transport Layer Security (TLS) and Secure Socket L
 **`tls`** মডিউল Transport Layer Security (TLS) ও Secure Socket Layer (SSL) সাপোর্ট দেয়। **https** এর ভিত্তি এটি।
 </I18nBangla>
 
-<I18nBanglish>
-**`tls`** module Transport Layer Security (TLS) & Secure Socket Layer (SSL) support dey. Eta **https** er base.
-</I18nBanglish>
+
 
 ---
 
@@ -65,20 +63,7 @@ The **`tls`** module provides Transport Layer Security (TLS) and Secure Socket L
 - মেথড: `.getPeerCertificate()`, `.getProtocol()`।
 </I18nBangla>
 
-<I18nBanglish>
-### Server
-- **`createServer`** TLS server banay. Options: `key`, `cert`, `ca`.
-- Events: `'secureConnection'`, `'tlsClientError'`.
 
-### Client
-- **`connect`** TLS server e connect kore. Options: `ca`, `cert`, `key`, `rejectUnauthorized`.
-- Return: **TLSSocket**.
-
-### TLSSocket
-- Extends `net.Socket`.  
-- Properties: `.authorized`, `.authorizationError`.  
-- Methods: `.getPeerCertificate()`, `.getProtocol()`.
-</I18nBanglish>
 
 ---
 
@@ -147,9 +132,4 @@ client.on("data", (data) => {
 - **TLSSocket** সাধারণ সকেটের মত কিন্তু এনক্রিপ্টেড।  
 </I18nBangla>
 
-<I18nBanglish>
-- TLS communication encrypt & authenticate kore.  
-- Self-signed certificate test e use kora jay, production e noy.  
-- Secure thakar jonno certificate CA diye verify korun.  
-- **TLSSocket** normal socket er moto kintu encrypted.  
-</I18nBanglish>
+

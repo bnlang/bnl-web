@@ -69,7 +69,6 @@ export async function loadMdxWithFallback(
   const wanted = {
     en: "I18nEnglish",
     bn: "I18nBangla",
-    banglish: "I18nBanglish",
   }[locale];
 
   const mdx = await serialize(content, {
@@ -90,7 +89,7 @@ export async function loadMdxWithFallback(
             const wrapper = ancestors
               .reverse()
               .find((a) =>
-                ["I18nEnglish", "I18nBangla", "I18nBanglish"].includes(a?.name)
+                ["I18nEnglish", "I18nBangla"].includes(a?.name)
               );
 
             if (wrapper && wrapper.name !== wanted) return;

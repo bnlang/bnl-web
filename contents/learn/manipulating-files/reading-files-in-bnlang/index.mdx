@@ -9,7 +9,7 @@ banglishDescription: Bnlang e file read kora shikha, synchronous ar asynchronous
 
 # <I18nEnglish>Reading Files in Bnlang</I18nEnglish>
 # <I18nBangla>Bnlang এ ফাইল পড়া</I18nBangla>
-# <I18nBanglish>Reading Files in Bnlang</I18nBanglish>
+
 
 <I18nEnglish>
 Reading files is a core operation in most applications.  
@@ -23,11 +23,7 @@ Bnlang ফাইল পড়ার জন্য **সিঙ্ক্রোন�
 সিঙ্ক্রোনাস পদ্ধতিতে ফাইল পড়া শেষ না হওয়া পর্যন্ত প্রোগ্রাম ব্লক থাকে, আর অ্যাসিঙ্ক্রোনাস পদ্ধতিতে ফাইল প্রসেসিং চলার সময়ও প্রোগ্রাম চালু থাকে।
 </I18nBangla>
 
-<I18nBanglish>
-File read kora onek application er ekta core operation.  
-Bnlang file read korar jonno **synchronous** ar **asynchronous** duitai method dey.  
-Synchronous method e file read complete na howa porjonto program block thake, kintu asynchronous method e file process hote thakleo program run korte thake.
-</I18nBanglish>
+
 
 ---
 
@@ -36,7 +32,7 @@ Synchronous method e file read complete na howa porjonto program block thake, ki
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -60,15 +56,7 @@ const তথ্য = fs.readFileSync("example.txt", "utf-8");
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const fs = require("fs");
-
-const totho = fs.readFileSync("example.txt", "utf-8");
-console.log("File content:", totho);
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -78,7 +66,7 @@ console.log("File content:", totho);
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -112,20 +100,7 @@ fs.readFile("example.txt", "utf-8", (ত্রুটি, তথ্য) => {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const fs = require("fs");
-
-fs.readFile("example.txt", "utf-8", (truti, totho) => {
-  jodi (truti) {
-    console.error("File porar error:", truti);
-    return;
-  }
-  console.log("File content:", totho);
-});
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -146,9 +121,4 @@ fs.readFile("example.txt", "utf-8", (truti, totho) => {
 - টেক্সট ফাইলের জন্য `utf-8` এনকোডিং ব্যবহার করুন, যদি না বাইনারি ডেটা প্রয়োজন হয়।
 </I18nBangla>
 
-<I18nBanglish>
-- Production e scalability er jonno asynchronous method use korun.  
-- Choto script ba utility er jonno sudhu synchronous method use korun.  
-- File read korar shomoy always error properly handle korun.  
-- Text file er jonno `utf-8` encoding use korun, jodi binary data na lage.
-</I18nBanglish>
+

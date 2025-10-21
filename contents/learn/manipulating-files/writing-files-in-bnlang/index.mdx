@@ -9,7 +9,7 @@ banglishDescription: Bnlang e file likha shikha, synchronous ar asynchronous met
 
 # <I18nEnglish>Writing Files in Bnlang</I18nEnglish>
 # <I18nBangla>Bnlang এ ফাইল লেখা</I18nBangla>
-# <I18nBanglish>Writing Files in Bnlang</I18nBanglish>
+
 
 <I18nEnglish>
 Writing files is a common task when working with file systems.  
@@ -23,11 +23,7 @@ Bnlang ফাইল লেখার জন্য **সিঙ্ক্রোন�
 সিঙ্ক্রোনাস মেথডে অপারেশন শেষ না হওয়া পর্যন্ত প্রোগ্রাম ব্লক থাকে, আর অ্যাসিঙ্ক্রোনাস মেথডে প্রোগ্রাম ব্যাকগ্রাউন্ডে চালু থাকে।
 </I18nBangla>
 
-<I18nBanglish>
-File likha file system e kaj korar somoy ekta common task.  
-Bnlang file likhar jonno **synchronous** ar **asynchronous** method duita provide kore.  
-Synchronous method e operation sesh na howa porjonto program block thake, kintu asynchronous method e program background e run korte thake.
-</I18nBanglish>
+
 
 ---
 
@@ -36,7 +32,7 @@ Synchronous method e operation sesh na howa porjonto program block thake, kintu 
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -60,15 +56,7 @@ fs.writeFileSync("example.txt", "Bnlang থেকে হ্যালো!");
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const fs = require("fs");
-
-fs.writeFileSync("example.txt", "Bnlang theke Hello!");
-console.log("File successfully likha hoyeche!");
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -78,7 +66,7 @@ console.log("File successfully likha hoyeche!");
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -112,20 +100,7 @@ fs.writeFile("example.txt", "হ্যালো বিশ্ব!", (ত্রু
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const fs = require("fs");
-
-fs.writeFile("example.txt", "Hello Bishsho!", (truti) => {
-  jodi (truti) {
-    console.error("File likhar somossa:", truti);
-    return;
-  }
-  console.log("File asynchronously likha hoyeche!");
-});
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -148,10 +123,4 @@ fs.writeFile("example.txt", "Hello Bishsho!", (truti) => {
 - ফাইল ওভাররাইট করার সময় সতর্ক থাকুন; প্রয়োজন হলে আগে যাচাই করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- Production e better performance jonno asynchronous method use korun.  
-- Choto script ba setup task er jonno synchronous method use kora valo.  
-- File likhar shomoy always error handle korun.  
-- Text file er jonno proper encoding (jemon `utf-8`) use korun.  
-- File overwrite korar age careful thakun; proyojon hole check korun.
-</I18nBanglish>
+

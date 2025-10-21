@@ -9,7 +9,7 @@ banglishDescription: Networking API — create TCP server & client, handle socke
 
 # <I18nEnglish>net</I18nEnglish>
 # <I18nBangla>net</I18nBangla>
-# <I18nBanglish>net</I18nBanglish>
+
 
 <I18nEnglish>
 The **`net`** module provides an asynchronous network API for creating TCP servers and clients. Communication uses **sockets** which are stream-based.
@@ -19,9 +19,7 @@ The **`net`** module provides an asynchronous network API for creating TCP serve
 **`net`** মডিউল অ্যাসিঙ্ক নেটওয়ার্ক API দেয়, TCP সার্ভার ও ক্লায়েন্ট তৈরি করতে। যোগাযোগ হয় **সকেট** দিয়ে, যা স্ট্রিম-ভিত্তিক।
 </I18nBangla>
 
-<I18nBanglish>
-**`net`** module async network API dey TCP server & client banate. Communication hoy **socket** diye, jeta stream-based.
-</I18nBanglish>
+
 
 ---
 
@@ -63,17 +61,7 @@ The **`net`** module provides an asynchronous network API for creating TCP serve
 - ইভেন্ট: **`data`**, **`end`**, **`error`**, **`close`**।
 </I18nBangla>
 
-<I18nBanglish>
-### Server
-- **`createServer`**, **`listen`**, **`close`** — TCP server create & control.
-- Events: **`connection`**, **`listening`**, **`close`**, **`error`**.
 
-### Socket
-- Represent connection.
-- Methods: **`connect`**, **`write`**, **`end`**.
-- Properties: `remoteAddress`, `remotePort`.
-- Events: **`data`**, **`end`**, **`error`**, **`close`**.
-</I18nBanglish>
 
 ---
 
@@ -135,9 +123,4 @@ client.on("data", (data) => {
 - সকেট সুন্দরভাবে বন্ধ করতে **`end`**, জোর করে বন্ধে **`destroy`**।  
 </I18nBangla>
 
-<I18nBanglish>
-- TCP stream-oriented, `'data'` event diye data accumulate or parse korun.  
-- Server & client dujonei **error** handle korte hobe.  
-- Server multiple client ekshathe handle korte pare.  
-- Socket graceful close korte **`end`**, force korte **`destroy`**.  
-</I18nBanglish>
+

@@ -9,7 +9,7 @@ banglishDescription: Bnlang e if keyword er example English, Bangla ar Banglish 
 
 # <I18nEnglish>if Keyword</I18nEnglish>
 # <I18nBangla>যদি কীওয়ার্ড</I18nBangla>
-# <I18nBanglish>if Keyword</I18nBanglish>
+
 
 <I18nEnglish>
 The **`if`** keyword performs conditional branching in Bnlang.  
@@ -23,11 +23,7 @@ Chain with **`else if`** and **`else`** to handle multiple paths.
 একাধিক শর্তের জন্য **`নাহলে যদি`** এবং শেষ বিকল্প হিসেবে **`নাহলে`** ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-**`jodi`** diye conditional branching kora hoy.  
-Condition **true** hole block er code run hoy.  
-Multiple condition er jonno **`nahole jodi`** ebong fallback hisebe **`nahole`** use korun.
-</I18nBanglish>
+
 
 ---
 
@@ -59,18 +55,7 @@ if (<condition>) {
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-jodi (<condition>) {
-  // true hole
-} nahole jodi (<onno condition>) {
-  // alternative
-} nahole {
-  // otherwise
-}
-```
-</I18nBanglish>
 
 ---
 
@@ -79,7 +64,7 @@ jodi (<condition>) {
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -149,38 +134,7 @@ function pay(amount) {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// Grade checker
-dhori number = 85;
-
-jodi (number >= 80) {
-  chapao("Grade: A+");
-} nahole jodi (number >= 70) {
-  dekhao("Grade: A");
-} nahole {
-  likho("Grade: Below A");
-}
-
-// String match
-dhrubok byaboharkari = "admin";
-jodi (byaboharkari === "admin") {
-  print("Welcome, admin!");
-} nahole {
-  console.error("Access denied");
-}
-
-// Function guard
-function porishodh(amount) {
-  jodi (amount <= 0) {
-    console.error("Amount must be positive");
-    return;
-  }
-  console.log("Processing payment:", amount);
-}
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -199,11 +153,7 @@ Bnlang এ JavaScript-এর মত truthiness কাজ করে। **Falsy** 
 এর বাইরে বাকি সব **truthy**।
 </I18nBangla>
 
-<I18nBanglish>
-Bnlang e JS moto truthiness kaj kore. **Falsy** man gulo hoilo:
-`false`, `0`, `-0`, `0n`, `""`, `null`, `undefined`, `NaN`.  
-Onno sob **truthy** dhora hoy.
-</I18nBanglish>
+
 
 ---
 
@@ -213,7 +163,7 @@ Onno sob **truthy** dhora hoy.
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
     <TabsTrigger value="english">English</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -256,25 +206,7 @@ const সক্রিয় = true;
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const bhumika = "editor";
-const sokriyo = true;
-
-jodi (sokriyo) {
-  jodi (bhumika === "admin") {
-    console.log("Full access");
-  } nahole jodi (bhumika === "editor") {
-    console.log("Edit access");
-  } nahole {
-    console.log("Read only");
-  }
-} nahole {
-  console.warn("Account inactive");
-}
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -297,12 +229,6 @@ jodi (sokriyo) {
 - গভীর নেস্টিং এড়াতে ফাংশনে আগেভাগে `return/ফেরত` দিন।
 </I18nBangla>
 
-<I18nBanglish>
 
-- Readability er jonno protiti file e ekta style e thakun.
-- Strict comparison `===`/`!==` prefer korun.
-- Complex condition gula variable/function e ber kore nin.
-- Deep nesting komate early `return` use korun.
-</I18nBanglish>
 
 ---

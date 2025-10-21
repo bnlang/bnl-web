@@ -14,13 +14,12 @@ import {
 } from "@/components/ui/command";
 import { DOC_ROUTES, getLatestVersionString, LEARN_ROUTE } from "@/lib/routes";
 
-type SupportedLocale = "en" | "bn" | "banglish";
+type SupportedLocale = "en" | "bn";
 
 type RouteNode = {
   slug: string;
   title: string;
   titleBn?: string;
-  titleBanglish?: string;
   children?: RouteNode[];
 };
 
@@ -30,7 +29,6 @@ function joinSlug(parts: string[]) {
 
 function labelForLocale(node: RouteNode, locale: SupportedLocale) {
   if (locale === "bn") return node.titleBn || node.title;
-  if (locale === "banglish") return node.titleBanglish || node.title;
   return node.title;
 }
 
@@ -57,7 +55,6 @@ function flattenTree(
       label,
       n.title,
       n.titleBn,
-      n.titleBanglish,
       joinSlug(fullSlugs),
     ]
       .filter(Boolean)

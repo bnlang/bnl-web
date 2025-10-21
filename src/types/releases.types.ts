@@ -18,7 +18,6 @@ export type ApiRelease = {
     channel?: string;
     noteEnglish?: string;
     noteBangla?: string;
-    noteBanglish?: string;
     files: ApiFile[];
 };
 

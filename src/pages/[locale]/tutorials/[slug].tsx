@@ -20,7 +20,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 const TUTORIAL_ENDPOINT = `${API_URL}/tutorials`;
 
-type LocaleText = { english?: string; bangla?: string; banglish?: string };
+type LocaleText = { english?: string; bangla?: string; };
 
 type Props = {
   locale: SupportedLocale;
@@ -38,7 +38,6 @@ type Props = {
 function pickByLocale(obj: LocaleText | undefined, locale: SupportedLocale) {
   if (!obj) return "";
   if (locale === "bn") return obj.bangla ?? obj.english ?? "";
-  if (locale === "banglish") return obj.banglish ?? obj.english ?? "";
   return obj.english ?? "";
 }
 
@@ -204,15 +203,11 @@ export default function TutorialDetailsSSR({
         title={
           locale === "bn"
             ? tutorial?.title?.bangla
-            : locale === "banglish"
-            ? tutorial?.title?.banglish
             : tutorial?.title?.english || "Bnlang Tutorials"
         }
         description={
           locale === "bn"
             ? tutorial?.summary?.bangla
-            : locale === "banglish"
-            ? tutorial?.summary?.banglish
             : tutorial?.summary?.english || "Bnlang Tutorials"
         }
         locale={locale}
@@ -310,8 +305,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
 
   const rawLocale = (params as any)?.locale as string | undefined;
   const normalized = normalizeLocale(rawLocale);
-  const locale: SupportedLocale =
-    rawLocale === "banglish" ? "banglish" : (normalized as SupportedLocale);
+  const locale: SupportedLocale = normalized as SupportedLocale;
 
   const slug = (query?.slug as string | undefined)?.trim();
   if (!slug) return { notFound: true };
@@ -333,8 +327,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   const loaded = await loadMdxWithRawContent(
     locale === "bn"
       ? data.result.description.bangla
-      : locale === "banglish"
-      ? data.result.description.banglish
       : data.result.description.english
   );
 

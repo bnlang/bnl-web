@@ -56,17 +56,6 @@ function localizedMeta(
       description: fm.bnDescription || fm.description || undefined,
     };
   }
-  if (locale === "banglish") {
-    return {
-      title:
-        fm.banglishTitle || fm.bnLatnTitle || fallbackTitle || fm.title || "",
-      description:
-        fm.banglishDescription ||
-        fm.bnLatnDescription ||
-        fm.description ||
-        undefined,
-    };
-  }
   return {
     title: fm.title || fallbackTitle || "",
     description: fm.description || undefined,
@@ -304,7 +293,6 @@ export default function DocPage(props: Props) {
 
   const I18nEnglish = makeShowIf(locale, "en");
   const I18nBangla = makeShowIf(locale, "bn");
-  const I18nBanglish = makeShowIf(locale, "banglish");
 
   const tree = React.useMemo(() => buildSidebarTree(sidebar), [sidebar]);
 
@@ -460,7 +448,6 @@ export default function DocPage(props: Props) {
                   components={{
                     I18nEnglish,
                     I18nBangla,
-                    I18nBanglish,
                     Tabs,
                     TabsContent,
                     TabsList,
@@ -521,7 +508,7 @@ export default function DocPage(props: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const localesForPaths: SupportedLocale[] = ["en", "bn", "banglish"];
+  const localesForPaths: SupportedLocale[] = ["en", "bn"];
   const paths: {
     params: { locale: string; version: string; slug: string[] };
   }[] = [];
@@ -538,8 +525,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const rawLocale = (params as any)?.locale as string | undefined;
   const normalized = normalizeLocale(rawLocale);
-  const locale: SupportedLocale =
-    (rawLocale === "banglish" ? "banglish" : (normalized as any)) || "en";
+  const locale: SupportedLocale = normalized as any || "en";
 
   const { version, slug } = params as { version: string; slug: string[] };
   const loaded = await loadMdxWithFallback(locale, slug, version);
@@ -554,8 +540,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     label:
       locale === "bn"
         ? it.titleBn ?? it.title
-        : locale === "banglish"
-        ? it.titleBanglish ?? it.title
         : it.title,
     depth: it.depth,
     active: it.slug === activePath || activePath.startsWith(it.slug + "/"),

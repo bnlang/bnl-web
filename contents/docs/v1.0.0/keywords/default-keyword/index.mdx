@@ -9,7 +9,7 @@ banglishDescription: Bnlang e switch e default (onnothay) beboharer udahoron Eng
 
 # <I18nEnglish>default Keyword</I18nEnglish>
 # <I18nBangla>অন্যথায় কীওয়ার্ড</I18nBangla>
-# <I18nBanglish>default Keyword</I18nBanglish>
+
 
 <I18nEnglish>
 The **`default`** branch in a `switch` runs when none of the `case` labels match.  
@@ -21,10 +21,7 @@ It is optional but recommended to handle unexpected values.
 এটি ঐচ্ছিক, তবে অপ্রত্যাশিত মান হ্যান্ডল করতে ব্যবহার করা ভালো।
 </I18nBangla>
 
-<I18nBanglish>
-`bikolpo` (switch) e **`onnothay`** cholbe jokhon kono **`obostha`** (case) match kore na.  
-Eta optional, kintu unexpected value handle korte dewa ucit.
-</I18nBanglish>
+
 
 ---
 
@@ -58,19 +55,7 @@ switch (expr) {
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-bikolpo (expression) {
-  obostha man1:
-    // ...
-    thamun;
-  // ...
-  onnothay:
-    // fallback logic
-}
-```
-</I18nBanglish>
 
 ---
 
@@ -79,7 +64,7 @@ bikolpo (expression) {
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -143,35 +128,7 @@ const কোড = "X";
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// Temperature band
-const tap = 37;
-
-bikolpo (true) {
-  obostha tap < 0:
-    console.warn("Freezing");
-    thamun;
-  obostha tap >= 0 && tap < 30:
-    console.log("Cool/Normal");
-    thamun;
-  onnothay:
-    console.log("Hot or unhandled");
-}
-
-// Default can be placed earlier (falls through without break)
-const kod = "X";
-bikolpo (kod) {
-  onnothay:
-    console.log("Unknown code");
-    // no 'thamun' -> falls into next case
-  obostha "A":
-    console.log("Handled A");
-    thamun;
-}
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -190,8 +147,4 @@ bikolpo (kod) {
 - **`অন্যথায়`** এর পরে `থামুন` না দিলে পরের `অবস্থা`তে **fall-through** ঘটবে।
 </I18nBangla>
 
-<I18nBanglish>
-- Protiti `bikolpo` te sudhu ekta **`onnothay`** thake.  
-- **`onnothay`** je kono jaygay thakte pare; kono `obostha` match na korle tokhon cholbe.  
-- `onnothay` er pore `thamun` na dile porer `obostha` te **fall-through** hobe.
-</I18nBanglish>
+

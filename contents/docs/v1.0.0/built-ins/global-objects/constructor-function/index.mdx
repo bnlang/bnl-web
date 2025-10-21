@@ -9,7 +9,7 @@ banglishDescription: Bnlang e Function constructor (NirmataFunction, নির�
 
 # <I18nEnglish>Function (Constructor)</I18nEnglish>
 # <I18nBangla>নির্মাতা_ফাংশন</I18nBangla>
-# <I18nBanglish>Function (Constructor)</I18nBanglish>
+
 
 <I18nEnglish>
 You can build functions dynamically using the constructor: **`Function`**, **`নির্মাতা_ফাংশন`**, or **`NirmataFunction`**.
@@ -21,10 +21,7 @@ Bnlang এ ডায়নামিক ফাংশন তৈরি করতে
 এটি আর্গুমেন্ট নাম ও বডি স্ট্রিং নেয় এবং একটি নতুন ফাংশন অবজেক্ট ফেরত দেয়।
 </I18nBangla>
 
-<I18nBanglish>
-Bnlang e dynamic function banate use kora jay **`Function`**, **`নির্মাতা_ফাংশন`**, ba **`NirmataFunction`**.
-Eta parameter nam ar body string ney, ar ekta notun function object return kore.
-</I18nBanglish>
+
 
 ---
 
@@ -46,13 +43,7 @@ Eta parameter nam ar body string ney, ar ekta notun function object return kore.
 - প্রোপার্টি: `নাম`, `দৈর্ঘ্য`
 </I18nBangla>
 
-<I18nBanglish>
-- Call: `NirmataFunction.dakun`
-- Apply: `NirmataFunction.proyog`
-- Bind: `NirmataFunction.badho`
-- To string: `NirmataFunction.okkhoromalayRupantor`
-- Properties: `nam`, `doirghyo`
-</I18nBanglish>
+
 
 ---
 
@@ -61,7 +52,7 @@ Eta parameter nam ar body string ney, ar ekta notun function object return kore.
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -89,15 +80,5 @@ const f1 = new নির্মাতা_ফাংশন("ক", "খ", "return �
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const f1 = new NirmataFunction("a", "b", "return a + b;");
-console.log(f1(2, 3)); // 5
-
-console.log(NirmataFunction.dakun.call(f1, null, 4, 6)); // 10
-console.log(f1.nam);        // "anonymous"
-console.log(f1.doirghyo);   // 2
-```
-  </TabsContent>
+  
 </Tabs>

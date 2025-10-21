@@ -78,12 +78,7 @@ function flattenLearn(
 ): SidebarFlat[] {
   for (const it of items) {
     const href = base ? `${base}/${it.slug}` : it.slug;
-    const label =
-      locale === "bn"
-        ? it.titleBn ?? it.title
-        : locale === "banglish"
-        ? it.titleBanglish ?? it.title
-        : it.title;
+    const label = locale === "bn" ? it.titleBn ?? it.title : it.title;
 
     out.push({ href, label, depth, active: false });
 
@@ -218,7 +213,6 @@ export default function LearnPage(props: Props) {
 
   const I18nEnglish = makeI18nBlock(locale, "en", "I18nEnglish");
   const I18nBangla = makeI18nBlock(locale, "bn", "I18nBangla");
-  const I18nBanglish = makeI18nBlock(locale, "banglish", "I18nBanglish");
 
   const tree = React.useMemo(() => buildSidebarTree(sidebar), [sidebar]);
 
@@ -358,7 +352,6 @@ export default function LearnPage(props: Props) {
                   components={{
                     I18nEnglish,
                     I18nBangla,
-                    I18nBanglish,
                     Tabs,
                     TabsContent,
                     TabsList,
@@ -453,7 +446,7 @@ export default function LearnPage(props: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const locales: SupportedLocale[] = ["en", "bn", "banglish"];
+  const locales: SupportedLocale[] = ["en", "bn"];
   const slugs = getAllLearnSlugsFromFS();
 
   const paths: { params: { locale: string; slug: string[] } }[] = [];
@@ -467,9 +460,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const rawLocale = (params as any)?.locale as string | undefined;
-  const locale = (
-    rawLocale === "banglish" ? "banglish" : normalizeLocale(rawLocale)
-  ) as SupportedLocale;
+  const locale = normalizeLocale(rawLocale) as SupportedLocale;
   const { slug } = params as { slug: string[] };
 
   // const loaded = await loadLearnMdx(slug, locale);
@@ -495,19 +486,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 
   const fm = loaded.frontmatter || {};
-  const localizedTitle =
-    locale === "bn"
-      ? fm.bnTitle || fm.title
-      : locale === "banglish"
-      ? fm.banglishTitle || fm.bnLatnTitle || fm.title
-      : fm.title;
+  const localizedTitle = locale === "bn" ? fm.bnTitle || fm.title : fm.title;
 
   const localizedDescription =
-    locale === "bn"
-      ? fm.bnDescription || fm.description
-      : locale === "banglish"
-      ? fm.banglishDescription || fm.bnLatnDescription || fm.description
-      : fm.description;
+    locale === "bn" ? fm.bnDescription || fm.description : fm.description;
 
   return {
     props: {

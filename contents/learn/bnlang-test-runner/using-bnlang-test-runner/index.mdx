@@ -9,7 +9,7 @@ banglishDescription: Bnlang Test Runner beboharer proyogik guide, udahoron Engli
 
 # <I18nEnglish>Using the Bnlang Test Runner</I18nEnglish>
 # <I18nBangla>Bnlang টেস্ট রানার ব্যবহার</I18nBangla>
-# <I18nBanglish>Using the Bnlang Test Runner</I18nBanglish>
+
 
 <I18nEnglish>
 The **Bnlang Test Runner** helps you run and manage tests for your Bnlang applications.  
@@ -23,11 +23,7 @@ This guide explains how to run tests effectively.
 এই গাইডে টেস্ট সঠিকভাবে চালানোর নিয়ম দেখানো হয়েছে।
 </I18nBangla>
 
-<I18nBanglish>
-**Bnlang Test Runner** use kore easy vabe Bnlang application er test run kora jay.  
-Eta individual file run, poriborton monitor kora, ar CI/CD system er shathe integrate korte support kore.  
-Ei guide e test kibhabe properly run korte hoy sheta dekhano holo.
-</I18nBanglish>
+
 
 ---
 
@@ -37,7 +33,7 @@ Ei guide e test kibhabe properly run korte hoy sheta dekhano holo.
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -62,16 +58,7 @@ bnl --test tests/math.test.bnl
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```sh
-# Project er shob test run korun
-bnl --test
-
-# Specific test file run korun
-bnl --test tests/math.test.bnl
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -86,9 +73,7 @@ You can run the test runner in **watch mode**, which automatically reruns tests 
 আপনি টেস্ট রানারকে **watch mode** এ চালাতে পারেন, যা ফাইল পরিবর্তন হলে স্বয়ংক্রিয়ভাবে টেস্ট চালায়।
 </I18nBangla>
 
-<I18nBanglish>
-Apni test runner ke **watch mode** e run korte paren, ja file change hole automatic test chalaye.
-</I18nBanglish>
+
 
 ---
 
@@ -104,10 +89,7 @@ Mark tests with `.skip` to temporarily disable them.
 `.skip` ব্যবহার করলে টেস্ট সাময়িকভাবে এড়ানো যায়।
 </I18nBangla>
 
-<I18nBanglish>
-`--only` flag ba test definition e `.only` use kore specific test run korte parben.  
-`.skip` use korle test temporarily skip kora jay.
-</I18nBanglish>
+
 
 ---
 
@@ -117,7 +99,7 @@ Mark tests with `.skip` to temporarily disable them.
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -150,20 +132,7 @@ test.skip("এই টেস্ট এড়ানো হবে", (t) => {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-import test from "bnlang:test";
-
-test.only("shudhu ei test cholbe", (t) => {
-  t.ok(true);
-});
-
-test.skip("ei test skip hobe", (t) => {
-  t.ok(false);
-});
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -180,7 +149,4 @@ test.skip("ei test skip hobe", (t) => {
 - CI/CD পাইপলাইনে টেস্ট অন্তর্ভুক্ত করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- Test file gulo `tests/` directory te rakhun.  
-- CI/CD pipeline e test integrate korun.
-</I18nBanglish>
+

@@ -9,7 +9,7 @@ banglishDescription: Bnlang e muchun (delete) — object property remove, return
 
 # <I18nEnglish>delete Operator</I18nEnglish>
 # <I18nBangla>মুছুন অপারেটর</I18nBangla>
-# <I18nBanglish>delete Operator</I18nBanglish>
+
 
 <I18nEnglish>
 The **`delete`** operator removes a **property** from an object.  
@@ -23,11 +23,7 @@ In **strict mode**, attempting to delete a non‑configurable property or an unq
 **strict mode**‑এ non‑configurable বা সরাসরি আইডেন্টিফায়ার মুছতে গেলে **`TypeError`/`SyntaxError`** হয়।
 </I18nBangla>
 
-<I18nBanglish>
-**`muchun`** (delete) object er **property** tule dey.  
-Delete safol hole (ba property thakleo na) **`true`**, **non‑configurable** hole non‑strict e **`false`**.  
-**Strict mode** e non‑configurable ba direct identifier delete korle **`TypeError`/`SyntaxError`** hoy.
-</I18nBanglish>
+
 
 ---
 
@@ -51,14 +47,7 @@ delete array[index]
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-muchun object.property
-muchun object["property"]
-muchun array[index]
-```
-</I18nBanglish>
 
 ---
 
@@ -67,7 +56,7 @@ muchun array[index]
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -120,54 +109,7 @@ const ম্যাপ = new Map([["a", 1]]);
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) Basic property delete
-const byaboharkari = { nam: "Mamun", shohor: "Dhaka" };
-console.log("nam" modhye byaboharkari);  // true
-console.log(muchun byaboharkari.shohor);  // true
-console.log("shohor" modhye byaboharkari); // false
-
-// 2) Deleting non‑existent returns true
-console.log(muchun byaboharkari.desh);    // true
-
-// 3) non‑configurable
-const obj = {};
-Object.defineProperty(obj, "x", { value: 1, configurable: false });
-console.log(muchun obj.x);                // false (non‑strict)
-
-// 4) strict mode error
-"use strict";
-ceshta {
-  Object.defineProperty(obj, "y", { value: 2, configurable: false });
-  muchun obj.y;                           // TypeError
-} dhorun (err) {
-  console.warn("strict:", err.message);
-}
-
-// 5) Arrays — creates a hole, length unchanged
-const A = [10, 20, 30];
-console.log(A.length);         // 3
-muchun A[1];
-console.log(A.length);         // 3
-console.log(1 modhye A);       // false
-console.log(A[1]);             // undefined
-
-// 6) Cannot delete variables/bindings
-var v = 1; let l = 2; const c = 3;
-console.log(muchun v);          // false
-console.log(muchun l);          // false
-console.log(muchun c);          // false
-// In strict mode, deleting identifiers is a SyntaxError
-
-// 7) Map/Set need .delete(...)
-const map = new Map([["a", 1]]);
-muchun map["a"];                // does nothing
-console.log(map.has("a"));     // true
-map.delete("a");               // correct
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -241,11 +183,4 @@ map.delete("a");          // correct
 - প্রতি ফাইলে এক ভাষা স্টাইল রাখুন।
 </I18nBangla>
 
-<I18nBanglish>
-- `muchun` sudhu **property** tule; array te **slot** faka hoye **hole** thake — index shift lagle **`.splice`** use korun.  
-- Property na thakleo `true`; non‑strict e **non‑configurable** hole `false`.  
-- **Strict mode** e non‑configurable delete → error; **identifier** delete (`muchun x`) → **SyntaxError**.  
-- Global `var`/function non‑configurable — delete na; `let/const` **lexical**, konodin deletable na.  
-- **Map/Set** er jonno `.delete(key)`.  
-- Ek file e ekta language style maintain korun.
-</I18nBanglish>
+

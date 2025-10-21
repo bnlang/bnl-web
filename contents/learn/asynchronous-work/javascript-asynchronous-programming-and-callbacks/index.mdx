@@ -3,13 +3,10 @@ title: JavaScript Asynchronous Programming & Callbacks
 description: A self-contained guide to asynchronous programming and callbacks in Bnlang with English, Bangla, and Banglish examples.
 bnTitle: জাভাস্ক্রিপ্ট অ্যাসিঙ্ক্রোনাস প্রোগ্রামিং ও কলব্যাক
 bnDescription: Bnlang এ অ্যাসিঙ্ক্রোনাস প্রোগ্রামিং ও কলব্যাকের ব্যবহার, সমস্যা এবং সমাধানসহ উদাহরণ।
-banglishTitle: JavaScript Asynchronous Programming & Callbacks
-banglishDescription: Bnlang e asynchronous programming ar callback er upor self-contained guide English, Bangla, Banglish e.
 ---
 
 # <I18nEnglish>JavaScript Asynchronous Programming & Callbacks</I18nEnglish>
 # <I18nBangla>জাভাস্ক্রিপ্ট অ্যাসিঙ্ক্রোনাস প্রোগ্রামিং ও কলব্যাক</I18nBangla>
-# <I18nBanglish>JavaScript Asynchronous Programming & Callbacks</I18nBanglish>
 
 <I18nEnglish>
 In **Bnlang**, asynchronous programming lets your program start tasks (like network requests, file access, or timers) and continue running without waiting.  
@@ -23,12 +20,6 @@ This page explains the callback pattern, error-first callbacks, common pitfalls 
 এখানে কলব্যাক প্যাটার্ন, এরর-ফার্স্ট কলব্যাক, সাধারণ সমস্যা (কোলব্যাক হেল) এবং বিকল্প সমাধান নিয়ে আলোচনা করা হয়েছে।
 </I18nBangla>
 
-<I18nBanglish>
-**Bnlang** e asynchronous programming mane holo — network/file/timer er moto kaj shuru koreo onno code cholte thake.  
-**Callback** mane holo ekta function ke arek function e pass kora, kaj shesh hole pore oita ke call kora.  
-Eikhane callback pattern, error-first callback, common problem (callback hell), ar bhalo alternative gulo dekhano holo.
-</I18nBanglish>
-
 ---
 
 ## The Event Loop in One Minute
@@ -41,10 +32,6 @@ Bnlang runs an event loop that manages queues of tasks. When an asynchronous ope
 Bnlang একটি ইভেন্ট লুপ চালায় যা টাস্কের কিউ ম্যানেজ করে। অ্যাসিঙ্ক কাজ শেষ হলে তার কলব্যাক কিউতে যোগ হয় এবং কল স্ট্যাক ফাঁকা হলে চালানো হয়। এতে প্রোগ্রাম রেসপন্সিভ থাকে।
 </I18nBangla>
 
-<I18nBanglish>
-Bnlang ekta event loop chalaye, ja task queue manage kore. Async kaj shesh hole callback queue te jay, stack khali hole execute hoy — eita program ke responsive rakhe.
-</I18nBanglish>
-
 ---
 
 ## Basic Callback Pattern
@@ -52,7 +39,6 @@ Bnlang ekta event loop chalaye, ja task queue manage kore. Async kaj shesh hole 
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -94,24 +80,7 @@ function পরে_পড়ো(কলব্যাক) {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-function porePoro(callback) {
-  somoysimaNirdharon(() => {
-    callback(null, "Pora shesh!");
-  }, 500);
-}
-
-porePoro((error, data) => {
-  jodi (error) {
-    console.error("Byartho:", error);
-  } nahole {
-    console.log("Folafol:", data);
-  }
-});
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -126,14 +95,10 @@ A common convention is **error‑first** callbacks: the first argument is an err
 প্রচলিত নিয়ম হলো **এরর‑ফার্স্ট** কলব্যাক: প্রথম আর্গুমেন্টে এরর (থাকলে), দ্বিতীয়টিতে রেজাল্ট। `err` `null` না হলে এরর হ্যান্ডল করুন এবং রেজাল্ট ব্যবহার করবেন না।
 </I18nBangla>
 
-<I18nBanglish>
-Procholito **error‑first** convention e prothom argument error (thakle), ditiyo result. `err` `null` na hole error handle korun, result ar use korben na.
-</I18nBanglish>
-
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -165,19 +130,7 @@ function কাজ_করো(কলব্যাক) {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-function kajKoro(cb) {
-  somoysimaNirdharon(() => cb(null, 42), 300);
-}
-
-kajKoro((err, man) => {
-  jodi (err) return console.error(err);
-  console.log("Man:", man);
-});
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -196,12 +149,6 @@ kajKoro((err, man) => {
 - সাধারণ এরর হ্যান্ডলার পুনঃব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- Boro function ke chhoto named function e vag kore compose korun.  
-- Sequential flow te **Promise** ba **async/await** prefer korun.  
-- Common error handler reuse korun.
-</I18nBanglish>
-
 ---
 
 ## From Callback to Promise (Promisify)
@@ -209,7 +156,7 @@ kajKoro((err, man) => {
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -253,25 +200,7 @@ function প্রতিশ্রুতি_সহ(a, b) {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-function withCallback(a, b, cb) {
-  somoysimaNirdharon(() => cb(null, a + b), 200);
-}
-
-function withPromise(a, b) {
-  return notun promise((resolve, reject) => {
-    withCallback(a, b, (err, sum) => {
-      jodi (err) reject(err);
-      nahole resolve(sum);
-    });
-  });
-}
-
-withPromise(3, 4).tarpor(console.log); // 7
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -281,7 +210,7 @@ withPromise(3, 4).tarpor(console.log); // 7
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -313,19 +242,7 @@ function প্রস্তুত_হওয়া_পর্যন্ত_পো�
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-function pollHoyaPorjonto(isReady, shesh) {
-  const id = interval(() => {
-    jodi (isReady()) {
-      clearInterval(id);
-      shesh(null, "Ready!");
-    }
-  }, 100);
-}
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -346,9 +263,3 @@ function pollHoyaPorjonto(isReady, shesh) {
 - নিজে শুরু করা টাইমার অবশ্যই ক্লিয়ার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- Error‑first pattern maintain korun.  
-- Callback chhoto, side‑effect kom rakhun.  
-- Complex flow te promise/async‑await prefer korun.  
-- Jekono timer start korle clear korte vulben na.
-</I18nBanglish>

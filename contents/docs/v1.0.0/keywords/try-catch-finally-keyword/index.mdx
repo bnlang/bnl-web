@@ -9,7 +9,7 @@ banglishDescription: Bnlang e ceshta (try), dhorun (catch), obosheshe (finally),
 
 # <I18nEnglish>try–catch–finally</I18nEnglish>
 # <I18nBangla>চেষ্টা–ধরুন–অবশেষে</I18nBangla>
-# <I18nBanglish>try–catch–finally</I18nBanglish>
+
 
 <I18nEnglish>
 Use **`try`** for code that might throw. Handle failures in **`catch (err)`**.  
@@ -23,11 +23,7 @@ Throw errors with **`throw`** to signal exceptional conditions.
 অসাধারণ পরিস্থিতি জানাতে **`নিক্ষেপ`** দিয়ে ত্রুটি ছুঁড়ুন।
 </I18nBangla>
 
-<I18nBanglish>
-Error ashar shomvabona thaka code **`ceshta`** block e rakhun. Fail hole **`dhorun (err)`** e handle korun.  
-Success/Failure jekhanei hok, **`obosheshe`** cleanup **must** run.  
-Exceptional case signal dite **`nikkhep`** diye error throw korun.
-</I18nBanglish>
+
 
 ---
 
@@ -79,28 +75,7 @@ throw new Error("message");
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-ceshta {
-  // risky kaj
-} dhorun (err) {
-  // handle
-} obosheshe {
-  // cleanup (always)
-}
-
-// dhorun chara chalbe, obosheshe thakte hobe
-ceshta {
-  // ...
-} obosheshe {
-  // cleanup
-}
-
-// nikkhep
-nikkhep new Error("message");
-```
-</I18nBanglish>
 
 ---
 
@@ -109,7 +84,7 @@ nikkhep new Error("message");
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -169,61 +144,7 @@ function ভাগ(a, b) {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) JSON parse
-ceshta {
-  const data = '{"name":"Bnlang"}';
-  const obj = JSON.parse(data);
-  console.log("name:", obj.name);
-} dhorun (err) {
-  console.error("parse failed:", err.message);
-} obosheshe {
-  console.info("parse attempt done");
-}
-
-// 2) Input validate + rethrow
-function byaboharkariLoad(id) {
-  ceshta {
-    jodi (id == null) nikkhep new Error("ID lagbe");
-    // ... read from DB
-    ferot { id: id, nam: "Mamun" };
-  } dhorun (err) {
-    console.error("load failed:", err.message);
-    nikkhep err; // rethrow
-  } obosheshe {
-    console.log("resource cleanup");
-  }
-}
-
-// 3) finally runs even after return
-function vag(a, b) {
-  ceshta {
-    jodi (b === 0) nikkhep new Error("Division by zero");
-    ferot a / b;
-  } dhorun (err) {
-    ferot NaN;
-  } obosheshe {
-    console.info("division done");
-  }
-}
-
-// 4) await/async
-osomoloy function download(url) {
-  ceshta {
-    const res = opekkha fetch(url);
-    jodi (!res.ok) nikkhep new Error("Bad response");
-    ferot opekkha res.text();
-  } dhorun (err) {
-    console.error("download failed:", err.message);
-    ferot null;
-  } obosheshe {
-    console.log("network cleanup");
-  }
-}
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -302,10 +223,4 @@ async function download(url) {
 - ত্রুটি চুপচাপ গিলে ফেলা এড়িয়ে চলুন—প্রয়োজনে লগ করে **পুনরায় নিক্ষেপ** করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- `ceshta` sathe **`dhorun`** ba **`obosheshe`** (ba duita) thaka dorkar; duitao na thakle invalid.  
-- `obosheshe` cholbe jodi `return`/`break`/`continue`/`nikkhep` thake o.  
-- Same error object **abr nikkhep** korle original stack thake (`throw err`).  
-- **async** code e `await` er sathe try/catch kaj kore; bare Promise e `.catch(...)` korben.  
-- Error chupchep na khete; proyojone log kore **rethrow** korun.
-</I18nBanglish>
+

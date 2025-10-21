@@ -9,7 +9,7 @@ banglishDescription: Bnlang e file path niye kaj kora, relative ar absolute path
 
 # <I18nEnglish>Bnlang File Paths</I18nEnglish>
 # <I18nBangla>Bnlang ফাইল পাথ</I18nBangla>
-# <I18nBanglish>Bnlang File Paths</I18nBanglish>
+
 
 <I18nEnglish>
 Working with **file paths** is an important part of file system operations in Bnlang.  
@@ -23,11 +23,7 @@ Bnlang এ **ফাইল পাথ** নিয়ে কাজ করা ফা
 Bnlang ক্রস-প্ল্যাটফর্ম উপায়ে ফাইল পাথ হ্যান্ডল করার জন্য বিল্ট-ইন মডিউল সরবরাহ করে, যাতে আপনার প্রোগ্রাম Windows, Linux এবং macOS এ কাজ করে।
 </I18nBangla>
 
-<I18nBanglish>
-Bnlang e **file path** niye kaj kora file system operation er ekta important part.  
-File path hote pare **absolute** (file system er root theke start) othoba **relative** (current working directory theke start).  
-Bnlang cross-platform way te file path handle korar jonno built-in module dey, jate program Windows, Linux, ar macOS e run kore.
-</I18nBanglish>
+
 
 ---
 
@@ -45,11 +41,7 @@ Bnlang cross-platform way te file path handle korar jonno built-in module dey, j
 - **ক্রস-প্ল্যাটফর্ম পাথ** → আলাদা সিস্টেমের সেপারেটর (যেমন Linux এ `/`, Windows এ `\`) হ্যান্ডল করার জন্য হেল্পার ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- **Absolute Path** → File system er root theke full path bole dey.  
-- **Relative Path** → Current working directory theke path bole dey.  
-- **Cross-Platform Path** → Different system separator (Linux e `/`, Windows e `\`) handle korar jonno helper use korun.
-</I18nBanglish>
+
 
 ---
 
@@ -58,7 +50,7 @@ Bnlang cross-platform way te file path handle korar jonno built-in module dey, j
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -92,20 +84,7 @@ const আপেক্ষিক = path.join("docs", "file.txt");
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const path = require("path");
-
-// Absolute path
-const fullPath = path.resolve("/user/docs/file.txt");
-console.log("Purno:", fullPath);
-
-// Relative path
-const aprekhik = path.join("docs", "file.txt");
-console.log("Aprekshik:", aprekhik);
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -126,9 +105,4 @@ console.log("Aprekshik:", aprekhik);
 - যদি আপনার প্রজেক্ট ক্রস-প্ল্যাটফর্ম হয় তবে একাধিক প্ল্যাটফর্মে ফাইল অপারেশন টেস্ট করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- Portability rakhte always `path` module use korun.  
-- Code e separator (`/` or `\`) hardcode kora avoid korun.  
-- Absolute path er jonno `path.resolve()` ar relative path er jonno `path.join()` use korun.  
-- Jodi project cross-platform target kore, tahole multiple platform e file operation test korun.
-</I18nBanglish>
+

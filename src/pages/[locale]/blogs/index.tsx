@@ -179,7 +179,6 @@ function SidebarFilters({
               id: 0,
               name_en: "All",
               name_bn: "সব",
-              name_banglish: "Shob",
               slug: "",
             },
             ...blogCategories,
@@ -193,9 +192,7 @@ function SidebarFilters({
               }`}
               onClick={() => setCategory(c.slug)}
             >
-              {locale === "banglish"
-                ? c.name_banglish
-                : locale === "bn"
+              {locale === "bn"
                 ? c.name_bn
                 : c.name_en}
             </button>
@@ -427,15 +424,10 @@ export default function BlogsPage({ locale }: Props) {
                   <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-4">
                     {data.records.map((tut) => {
                       const title =
-                        locale === "banglish"
-                          ? tut.title.banglish
-                          : locale === "bn"
+                          locale === "bn"
                           ? tut.title.bangla
                           : tut.title.english;
-                      const summary =
-                        locale === "banglish"
-                          ? tut.summary.banglish
-                          : locale === "bn"
+                      const summary = locale === "bn"
                           ? tut.summary.bangla
                           : tut.summary.english;
 
@@ -510,7 +502,7 @@ export default function BlogsPage({ locale }: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const locales: SupportedLocale[] = ["en", "bn", "banglish"];
+  const locales: SupportedLocale[] = ["en", "bn"];
   return {
     paths: locales.map((l) => ({ params: { locale: l } })),
     fallback: false,
@@ -520,7 +512,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const rawLocale = (params as any)?.locale as string | undefined;
   const normalized = normalizeLocale(rawLocale);
-  const locale: SupportedLocale =
-    rawLocale === "banglish" ? "banglish" : (normalized as SupportedLocale);
+  const locale: SupportedLocale = normalized as SupportedLocale;
   return { props: { locale } };
 };

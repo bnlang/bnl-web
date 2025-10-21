@@ -9,7 +9,7 @@ banglishDescription: Bnlang e this, obhibhabok, prosarito, notun — usage & bes
 
 # <I18nEnglish>this · super · extends · new</I18nEnglish>
 # <I18nBangla>এটি · অভিভাবক · প্রসারিত · নতুন</I18nBangla>
-# <I18nBanglish>this · super · extends · new</I18nBanglish>
+
 
 <I18nEnglish>
 - **`this`** — references the current instance or call‑site receiver.  
@@ -25,12 +25,7 @@ banglishDescription: Bnlang e this, obhibhabok, prosarito, notun — usage & bes
 - **`নতুন (new)`** — কন্সট্রাক্টর চালিয়ে প্রোটোটাইপ সেট করে ইনস্ট্যান্স তৈরি করে।
 </I18nBangla>
 
-<I18nBanglish>
-- **`this`** — current instance/call‑site receiver ke refer kore.  
-- **`prosarito (extends)`** — base class theke subclass toyri kore.  
-- **`obhibhabok (super)`** — subclass theke base constructor/method call korte.  
-- **`notun (new)`** — constructor chalaye prototype wire kore instance create kore.
-</I18nBanglish>
+
 
 ---
 
@@ -92,33 +87,7 @@ u.hello();
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-// this/notun
-shreni Byaboharkari {
-  constructor(nam) {
-    eti.nam = nam;
-  }
-  hello() { console.log("Hi", eti.nam); }
-}
-
-// prosarito/obhibhabok
-shreni Proshashok prosarito Byaboharkari {
-  constructor(nam, level) {
-    obhibhabok(nam);          // age call dorkar
-    eti.level = level;
-  }
-  hello() {
-    obhibhabok.hello();       // base method
-    console.log("Level:", eti.level);
-  }
-}
-
-const u = notun Byaboharkari("Mamun");
-u.hello();
-```
-</I18nBanglish>
 
 ---
 
@@ -127,7 +96,7 @@ u.hello();
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -172,45 +141,7 @@ const y = নতুন কাউন্ট(5); // ✅
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) this — method vs arrow
-shreni Button {
-  constructor(label) { eti.label = label; }
-  press() { console.log("press:", eti.label); }      // dynamic this
-  kriya = () => console.log("kriya:", eti.label);    // lexical this
-}
-
-const b = notun Button("Save");
-const press = b.press;
-press.call({ label: "Hack" });      // "press: Hack" — call‑site
-b.kriya.call({ label: "Hack" });    // "kriya: Save" — arrow keeps this
-
-// 2) prosarito/obhibhabok — override + super.method
-shreni Logger {
-  log(msg) { console.log("[LOG]", msg); }
-}
-shreni FileLogger prosarito Logger {
-  log(msg) {
-    obhibhabok.log(msg);
-    console.info("write to file:", msg);
-  }
-}
-
-// 3) notun — missing 'notun' causes error
-shreni Count {
-  constructor(n = 0) { eti.n = n; }
-}
-ceshta {
-  const x = Count(5); // ❌ without notun
-} dhorun (err) {
-  console.warn("notun dorkar:", err.message);
-}
-const y = notun Count(5); // ✅
-console.log("y.n =", y.n);
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -275,11 +206,4 @@ console.log("y.n =", y.n);
 - পড়ার সুবিধায় প্রতি ফাইলে একটিই ভাষা স্টাইল বজায় রাখুন।
 </I18nBangla>
 
-<I18nBanglish>
-- Subclass constructor e **`obhibhabok(...)`** er **age** `eti` use kora jabe na.  
-- `obhibhabok.method()` base prototype method ke call kore; **sthir** method er vitor `obhibhabok` base constructor ke refer kore (`obhibhabok.someStatic()`).  
-- **Arrow field** `this` ke lexical bhabe dhore; prototype share ba `obhibhabok` dorkar hole normal method use korun.  
-- `notun` prototype link toiri kore, constructor chalaye, object return kore (jodi onno object return na hoy).  
-- Method repeatedly `bind` na kore, dorkar holei arrow‑field use korun (event handler, etc.).  
-- Ek file e ekta language style rakhun.
-</I18nBanglish>
+

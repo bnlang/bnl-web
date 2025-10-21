@@ -36,9 +36,6 @@ function HeroCodeBox() {
           <TabsTrigger value="bn" className="hero-code-tab-items">
             বাংলা
           </TabsTrigger>
-          <TabsTrigger value="banglish" className="hero-code-tab-items">
-            Banglish
-          </TabsTrigger>
           <TabsTrigger value="en" className="hero-code-tab-items">
             English
           </TabsTrigger>
@@ -138,57 +135,6 @@ try {
   নিক্ষেপ "উদাহরণ ত্রুটি!";
 } ধরুন (e) {
   লিখুন("ধরা পড়া ত্রুটি:", e);
-}`}
-                language="bnl"
-                showLineNumbers={true}
-              />
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="banglish" className="mt-0">
-          <Card className="rounded-none shadow-none border-0">
-            <CardContent className="p-0">
-              <SingleCodeBlock
-                className="rounded-none max-h-80 overflow-auto scrollbar-dark"
-                mode="dark"
-                code={`// Banglish vashay likha ekti programer udahoron
-likhun("Hello, bishsho!");
-likhun("Amar sonar Bangla. Ami tomay bhalobashi.");
-
-dhori number = 75;
-
-jodi (number >= 80) {
-  likhun("Grade: A+");
-} nahole {
-  likhun("Grade: A+ er niche");
-}
-
-bikolpo (number / 10) {
-  obostha 7:
-    likhun("Grade: B");
-    thamun;
-  obostha 6:
-    likhun("Grade: C");
-    thamun;
-  onnothay:
-    likhun("Onno grade");
-}
-
-proti (dhori i = 1; i <= 3; i++) {
-  likhun("proti loop:", i);
-}
-
-dhori gonona = 3;
-jotokkhon (gonona > 0) {
-  likhun("jotokkhon loop:", gonona);
-  gonona--;
-}
-
-ceshta {
-  nikkhep "Udahoron truti!";
-} dhorun (e) {
-  likhun("Dhara pora truti:", e);
 }`}
                 language="bnl"
                 showLineNumbers={true}
@@ -309,21 +255,21 @@ export function HomeComponent({ locale }: HomeProps) {
                 <h1 className="text-4xl font-extrabold">
                   <span className="text-bd-green">Write code in</span>{" "}
                   <span className="text-bd-red">
-                    বাংলা, English, & Banglish
+                    বাংলা এবং English
                   </span>
                 </h1>
               ) : locale === "bn" ? (
                 <h1 className="text-4xl font-extrabold">
                   <span className="text-bd-green font-bn">কোড লিখুন</span>{" "}
                   <span className="text-bd-red">
-                    <span className="font-bn">বাংলা</span>, Banglish, <span className="font-bn">এবং</span> English <span className="font-bn">ভাষায়</span>
+                    <span className="font-bn">বাংলা</span>,<span className="font-bn">এবং</span> English <span className="font-bn">ভাষায়</span>
                   </span>
                 </h1>
               ) : (
                 <h1 className="text-4xl font-extrabold">
                   <span className="text-bd-green">Write code in</span>{" "}
                   <span className="text-bd-red">
-                    বাংলা, English, & Banglish
+                    বাংলা এবং English
                   </span>
                 </h1>
               )}

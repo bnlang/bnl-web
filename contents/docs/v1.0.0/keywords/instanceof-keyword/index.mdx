@@ -9,7 +9,7 @@ banglishDescription: Bnlang e udahoron_hisebe (instanceof) — prototype chain c
 
 # <I18nEnglish>instanceof Operator</I18nEnglish>
 # <I18nBangla>উদাহরণ_হিসেবে অপারেটর</I18nBangla>
-# <I18nBanglish>instanceof Operator</I18nBanglish>
+
 
 <I18nEnglish>
 **`instanceof`** tests whether the **prototype chain** of a value contains the `prototype` of a given **constructor** (function or class).  
@@ -21,10 +21,7 @@ It returns **true/false** and works only for **objects** (not primitives), unles
 এটি **সত্য/মিথ্যা** দেয় এবং কেবল **অবজেক্ট**‑এর জন্য নির্ভরযোগ্য (প্রিমিটিভে নয়), তবে **`Symbol.hasInstance`** দিয়ে কাস্টম নিয়ম দেওয়া যায়।
 </I18nBangla>
 
-<I18nBanglish>
-**`udahoron_hisebe`** diye dekha hoy value‑r **prototype chain** e deya **constructor**‑er `prototype` ache kina.  
-**true/false** dey; **object** e kaj kore (primitive e na), kintu **`Symbol.hasInstance`** diye custom rule deya jay.
-</I18nBanglish>
+
 
 ---
 
@@ -44,12 +41,7 @@ expression instanceof Constructor
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-expression udahoron_hisebe Constructor
-```
-</I18nBanglish>
 
 ---
 
@@ -58,7 +50,7 @@ expression udahoron_hisebe Constructor
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -101,44 +93,7 @@ const u = নতুন User();
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) Class/inheritance
-shreni Prani {}
-shreni Kukur prosarito Prani {}
-const d = notun Kukur();
-console.log(d udahoron_hisebe Kukur);   // true
-console.log(d udahoron_hisebe Prani);   // true
-console.log(d udahoron_hisebe Object);  // true
-
-// 2) Function constructor
-function User() {}
-const u = notun User();
-console.log(u udahoron_hisebe User);    // true
-
-// 3) Built‑ins
-console.log([] udahoron_hisebe Array);        // true
-console.log((new Date()) udahoron_hisebe Date); // true
-console.log(/re/ udahoron_hisebe RegExp);     // true
-
-// 4) Primitives do not work
-console.log(("hi") udahoron_hisebe String);   // false
-console.log((42) udahoron_hisebe Number);     // false
-console.log((true) udahoron_hisebe Boolean);  // false
-console.log((null) udahoron_hisebe Object);   // false
-console.log((undefined) udahoron_hisebe Object); // false
-
-// 5) Custom rule — Symbol.hasInstance
-shreni JorShonkha {
-  sthir [Symbol.hasInstance](x) {
-    ferot (dhoron x === "number") && x % 2 === 0;
-  }
-}
-console.log(42 udahoron_hisebe JorShonkha); // true
-console.log(7 udahoron_hisebe JorShonkha);  // false
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -200,10 +155,4 @@ console.log(7 instanceof Even);  // false
 - কাঠামোগত যাচাইয়ের জন্য `instanceof`‑এর বদলে **ডাক টাইপিং/স্কিমা ভ্যালিডেশন** ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- `udahoron_hisebe` prototype chain ghure dekhe; constructor direct compare kore na.  
-- Sudhu **object** e reliable; primitive er jonno `dhoron` (typeof) use korun; wrapper object (`new String`) avoid korun.  
-- **Cross‑realm** e (iframe/vm) constructor alada thakte pare — tai `x udahoron_hisebe Array` false hote pare; array check e **`Array.isArray(x)`** bhalo.  
-- Constructor e `static [Symbol.hasInstance](value)` diye behavior customize kora jay.  
-- Structural check er jonno **duck typing/schema validation** beshi upojogi.
-</I18nBanglish>
+

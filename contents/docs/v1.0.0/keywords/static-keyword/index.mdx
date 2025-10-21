@@ -9,7 +9,7 @@ banglishDescription: Bnlang e sthir (static) — class-level fields/methods, inh
 
 # <I18nEnglish>static Keyword</I18nEnglish>
 # <I18nBangla>স্থির কীওয়ার্ড</I18nBangla>
-# <I18nBanglish>static Keyword</I18nBanglish>
+
 
 <I18nEnglish>
 The **`static`** keyword defines **class-level** fields and methods.  
@@ -21,10 +21,7 @@ Static members belong to the **class**, not to its instances, and are accessed v
 স্থির সদস্যরা **ক্লাসের** সাথে যুক্ত থাকে—ইনস্ট্যান্সের সাথে নয়; এগুলো **ক্লাস‑নেম** দিয়ে অ্যাক্সেস করতে হয় (অথবা স্থির মেথডের ভেতরে `এটি` দ্বারা ক্লাসকে নির্দেশ করে)।
 </I18nBangla>
 
-<I18nBanglish>
-**`sthir`** diye **class‑level** field/method define kora hoy.  
-Static member **class** er sathe thake, instance er sathe na; access korte hoy **class name** diye (ba static method er vitor `eti`/`this`).
-</I18nBanglish>
+
 
 ---
 
@@ -60,20 +57,7 @@ C.x; C.method();
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-shreni C {
-  sthir x = 1;                   // static field
-  sthir method() { /* ... */ }   // static method
-  sthir #gopon = 0;              // private static field
-  sthir {                        // static initialization block
-    eti.x += 1;
-  }
-}
-C.x; C.method();
-```
-</I18nBanglish>
 
 ---
 
@@ -82,7 +66,7 @@ C.x; C.method();
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -135,48 +119,7 @@ const x = নতুন কনফিগ();
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) Basic: static counter
-shreni Counter {
-  sthir gonona = 0;
-  constructor() { Counter.gonona++; }
-  sthir reset() { Counter.gonona = 0; }
-}
-const a = notun Counter();
-const b = notun Counter();
-console.log(Counter.gonona); // 2
-Counter.reset();
-console.log(Counter.gonona); // 0
-
-// 2) Inheritance
-shreni Base {
-  sthir ke = "Base";
-  sthir bolo() { console.log("who:", eti.ke); } // 'eti' points to class
-}
-shreni Sub prosarito Base {
-  sthir ke = "Sub";
-}
-Base.bolo(); // who: Base
-Sub.bolo();  // who: Sub
-
-// 3) Private static + static block
-shreni Config {
-  sthir #gopon = "key";
-  sthir man = 0;
-  sthir { eti.man = eti.#gopon.length; } // run once
-  sthir nao() { ferot eti.#gopon; }
-}
-console.log(Config.man); // 3
-console.log(Config.nao()); // "key"
-
-// 4) Not on instances
-const x = notun Config();
-console.log(x.man);   // undefined
-// x.nao();          // TypeError
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -244,11 +187,4 @@ console.log(x.size);   // undefined
 - পড়ার সুবিধায় প্রতি ফাইলে একটি ভাষা স্টাইল বজায় রাখুন।
 </I18nBangla>
 
-<I18nBanglish>
-- Static member **class** diye access korte hoy — instance diye na.  
-- Static method er vitor **`eti`** class ke refer kore, tai inheritance e naturally kaj kore (`Sub.bolo()` te `eti` = `Sub`).  
-- **Private static** (`sthir #x`) sudhu oi shreni r jonno — **inherit** hoy na.  
-- **Static init block** class evaluate howar somoy **ekbar** run hoy — private static use kore setup korar jonno upokari.  
-- Alternative construction e static **factory** (`from(...)`, `of(...)`) shohoj.  
-- Ek file e ekta language style rakhun.
-</I18nBanglish>
+

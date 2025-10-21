@@ -16,7 +16,7 @@ import { MDXRemote } from "next-mdx-remote";
 import CodeBlock from "@/components/CodeBlock";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-type LocaleText = { english?: string; bangla?: string; banglish?: string };
+type LocaleText = { english?: string; bangla?: string; };
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 const BLOG_ENDPOINT = `${API_URL}/blogs`;
@@ -37,7 +37,6 @@ type Props = {
 function pickByLocale(obj: LocaleText | undefined, locale: SupportedLocale) {
   if (!obj) return "";
   if (locale === "bn") return obj.bangla ?? obj.english ?? "";
-  if (locale === "banglish") return obj.banglish ?? obj.english ?? "";
   return obj.english ?? "";
 }
 
@@ -194,22 +193,18 @@ export default function BlogDetailsSSR({
         title={
           locale === "bn"
             ? blog?.title?.bangla
-            : locale === "banglish"
-            ? blog?.title?.banglish
             : blog?.title?.english || "Bnlang Blog"
         }
         description={
           locale === "bn"
             ? blog?.summary?.bangla
-            : locale === "banglish"
-            ? blog?.summary?.banglish
             : blog?.summary?.english || "Bnlang Blog"
         }
         locale={locale}
         pathname={`/${locale}/blogs/${slug}`}
-        ogImage={`${process.env.NEXT_PUBLIC_STATIC_CDN_URL || ""}/uploads/blogs/${
-          blog?.thumbnail || ""
-        }`}
+        ogImage={`${
+          process.env.NEXT_PUBLIC_STATIC_CDN_URL || ""
+        }/uploads/blogs/${blog?.thumbnail || ""}`}
         type="article"
       />
 
@@ -285,8 +280,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   const { params, query } = ctx;
   const rawLocale = (params as any)?.locale as string | undefined;
   const normalized = normalizeLocale(rawLocale);
-  const locale: SupportedLocale =
-    rawLocale === "banglish" ? "banglish" : (normalized as SupportedLocale);
+  const locale: SupportedLocale = normalized as SupportedLocale;
 
   const slug = (query?.slug as string | undefined)?.trim();
   if (!slug) return { notFound: true };
@@ -310,8 +304,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   const loaded = await loadMdxWithRawContent(
     locale === "bn"
       ? data.result.description.bangla
-      : locale === "banglish"
-      ? data.result.description.banglish
       : data.result.description.english
   );
 

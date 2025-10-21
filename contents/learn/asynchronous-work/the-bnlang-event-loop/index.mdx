@@ -3,13 +3,10 @@ title: The Bnlang Event Loop
 description: Learn how the event loop works in Bnlang with examples in English, Bangla, and Banglish.
 bnTitle: Bnlang ইভেন্ট লুপ
 bnDescription: Bnlang এ ইভেন্ট লুপ এর ধারণা ও কাজের পদ্ধতি উদাহরণসহ।
-banglishTitle: The Bnlang Event Loop
-banglishDescription: Bnlang e event loop er dharona o kajer poddhoti English, Bangla ar Banglish e.
 ---
 
 # <I18nEnglish>The Bnlang Event Loop</I18nEnglish>
 # <I18nBangla>Bnlang ইভেন্ট লুপ</I18nBangla>
-# <I18nBanglish>The Bnlang Event Loop</I18nBanglish>
 
 <I18nEnglish>
 The **event loop** in **Bnlang** is the core mechanism that makes asynchronous programming possible.  
@@ -22,12 +19,6 @@ The event loop continuously checks for pending tasks and executes them in phases
 এটি I/O, টাইমার এবং ইভেন্ট চালাতে পারে মূল থ্রেড ব্লক না করে।  
 ইভেন্ট লুপ সারাক্ষণ কিউ চেক করে এবং ধাপে ধাপে টাস্ক চালায়, ফলে প্রোগ্রাম রেসপন্সিভ থাকে।
 </I18nBangla>
-
-<I18nBanglish>
-**Bnlang** e **event loop** holo core system ja async programming possible kore.  
-Eta I/O, timer, event handle kore main thread block na kore.  
-Event loop shobshomoy queue check kore, phase onujayi task execute kore, program ke responsive rakhe.
-</I18nBanglish>
 
 ---
 
@@ -49,14 +40,6 @@ Event loop shobshomoy queue check kore, phase onujayi task execute kore, program
 ৫. এই চক্র অনন্তকাল ধরে চলতে থাকে।
 </I18nBangla>
 
-<I18nBanglish>
-1. Task gulo queue te thake (macrotask, microtask).  
-2. Event loop call stack check kore. Jodi empty hoy, ager porer task run kore.  
-3. Timer, I/O callback, event handler run hoy.  
-4. Microtask (jemon promise callback) shobshomoy porer macrotask er age run hoy.  
-5. Ei cycle shobshomoy cholte thake.
-</I18nBanglish>
-
 ---
 
 ## Example with Timers and Promises
@@ -65,7 +48,6 @@ Event loop shobshomoy queue check kore, phase onujayi task execute kore, program
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
   </TabsList>
 
   <TabsContent value="english">
@@ -106,24 +88,7 @@ console.log("End");
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-console.log("Shuru");
-
-somoysimaNirdharon(() => console.log("Timeout"), 0);
-
-promise.resolve().tarpor(() => console.log("Promise"));
-
-console.log("Shesh");
-
-// Output:
-// Shuru
-// Shesh
-// Promise
-// Timeout
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -148,15 +113,6 @@ Between each phase, microtasks (like promises) are executed before moving on.
 প্রতিটি ধাপের মাঝে মাইক্রোটাস্ক চালানো হয়।
 </I18nBangla>
 
-<I18nBanglish>
-Event loop ke onek gulo phase e vag kora hoy:  
-- **Timer phase** → `setTimeout` ar `setInterval` callback run hoy.  
-- **I/O callback phase** → pending I/O callback run hoy.  
-- **Check phase** → `setImmediate` callback run hoy.  
-- **Close callback phase** → socket close er moto event run hoy.  
-Protiti phase er majhe microtask (promise) run hoy.
-</I18nBanglish>
-
 ---
 
 ## Best Practices
@@ -175,9 +131,3 @@ Protiti phase er majhe microtask (promise) run hoy.
 - I/O দক্ষভাবে চালানোর জন্য ইভেন্ট লুপ ফ্রি রাখুন।
 </I18nBangla>
 
-<I18nBanglish>
-- Heavy computation diye event loop block korben na.  
-- Clear code er jonno promise ar async/await use korun.  
-- Boro task ke chhoto microtask e vag korun.  
-- I/O efficiently run korar jonno event loop free rakha dorkar.
-</I18nBanglish>

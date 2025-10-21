@@ -3,13 +3,10 @@ title: Discover Promises in Bnlang
 description: Learn how Promises work in Bnlang with examples in English, Bangla, and Banglish.
 bnTitle: Bnlang এ প্রতিশ্রুতি আবিষ্কার
 bnDescription: প্রতিশ্রুতি কীভাবে কাজ করে এবং উদাহরণ সহ Bnlang এ ব্যাখ্যা।
-banglishTitle: Discover Promises in Bnlang
-banglishDescription: Bnlang e Promise kivabe kaj kore o example English, Bangla ar Banglish e.
 ---
 
 # <I18nEnglish>Discover Promises in Bnlang</I18nEnglish>
 # <I18nBangla>Bnlang এ প্রতিশ্রুতি আবিষ্কার</I18nBangla>
-# <I18nBanglish>Discover Promises in Bnlang</I18nBanglish>
 
 <I18nEnglish>
 A **Promise** in **Bnlang** represents a value that may be available now, later, or never.  
@@ -23,12 +20,6 @@ A promise has three states: **pending**, **fulfilled**, and **rejected**.
 একটি প্রতিশ্রুতিের তিনটি অবস্থা আছে: **pending**, **fulfilled**, এবং **rejected**।
 </I18nBangla>
 
-<I18nBanglish>
-**Bnlang** e **Promise** holo ekta object jeta ekhon, pore, ba kokhono value dite pare.  
-Eta callback er jotojhamela chara async kaj handle korte dey.  
-Promise er tin ta state ase: **pending**, **fulfilled**, ar **rejected**.
-</I18nBanglish>
-
 ---
 
 ## Creating a Promise
@@ -37,7 +28,7 @@ Promise er tin ta state ase: **pending**, **fulfilled**, ar **rejected**.
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -74,22 +65,7 @@ const আমার_প্রতিশ্রুতি = নতুন প্রত
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const amarPromise = notun promise((resolve, reject) => {
-  const sofol = true;
-  jodi (sofol) {
-    resolve("Operation sofol!");
-  } nahole {
-    reject("Operation byartho!");
-  }
-});
-
-amarPromise.tarpor((barta) => console.log(barta))
-           .dhor((error) => console.error(error));
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -104,15 +80,10 @@ Promises can be chained using `.then()` to handle sequences of asynchronous task
 একাধিক অ্যাসিঙ্ক্রোনাস টাস্ক সিকোয়েন্স আকারে চালাতে `.then()` ব্যবহার করা যায়।
 </I18nBangla>
 
-<I18nBanglish>
-Multiple async task sequence e run korte `.then()` chain kora jay.
-</I18nBanglish>
-
 <Tabs defaultValue="english" className="w-full">
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
   </TabsList>
 
   <TabsContent value="english">
@@ -135,15 +106,7 @@ new Promise((resolve) => resolve(2))
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-notun promise((resolve) => resolve(2))
-  .tarpor((n) => n * 2)
-  .tarpor((n) => n * 3)
-  .tarpor((folafol) => console.log(folafol)); // 12
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -160,16 +123,11 @@ If any fail, the whole promise rejects.
 একটি ব্যর্থ হলে পুরো প্রতিশ্রুতি রিজেক্ট হয়।
 </I18nBangla>
 
-<I18nBanglish>
-`Promise.all` diye ekadik promise ekshathe run hoy, sob fulfill hole resolve hoy.  
-Kono ekta fail hole shob reject hoy.
-</I18nBanglish>
-
 <Tabs defaultValue="english" className="w-full">
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -194,16 +152,7 @@ Promise.all([
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-promise.shob([
-  promise.resolve(1),
-  promise.resolve(2),
-  promise.resolve(3),
-]).tarpor((man) => console.log(man)); // [1,2,3]
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -221,9 +170,3 @@ promise.shob([
 - একাধিক কাজ চালাতে `Promise.all` বা `Promise.race` ব্যবহার করুন।  
 - পড়ার সহজতার জন্য প্রতিশ্রুতি ছোট ও নির্দিষ্ট রাখুন।
 </I18nBangla>
-
-<I18nBanglish>
-- Unhandled rejection avoid korte `.catch()` use koro.  
-- Ekadik kaj run korte `Promise.all` ba `Promise.race` use koro.  
-- Readability er jonno promise chhoto ar specific rakho.
-</I18nBanglish>

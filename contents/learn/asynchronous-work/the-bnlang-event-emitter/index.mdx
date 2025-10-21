@@ -3,13 +3,10 @@ title: The Bnlang Event Emitter
 description: Learn how the Event Emitter works in Bnlang with examples in English, Bangla, and Banglish.
 bnTitle: Bnlang ইভেন্ট এমিটার
 bnDescription: Bnlang এ ইভেন্ট এমিটার এর ব্যবহার ও উদাহরণ।
-banglishTitle: The Bnlang Event Emitter
-banglishDescription: Bnlang e event emitter er bebohar o udahoron English, Bangla ar Banglish e.
 ---
 
 # <I18nEnglish>The Bnlang Event Emitter</I18nEnglish>
 # <I18nBangla>Bnlang ইভেন্ট এমিটার</I18nBangla>
-# <I18nBanglish>The Bnlang Event Emitter</I18nBanglish>
 
 <I18nEnglish>
 The **Event Emitter** in **Bnlang** is a powerful pattern for handling asynchronous events.  
@@ -23,12 +20,6 @@ This decouples event producers from consumers, making code modular and flexible.
 এতে প্রডিউসার ও কনজিউমার আলাদা থাকে, ফলে কোড হয় মডুলার ও ফ্লেক্সিবল।
 </I18nBangla>
 
-<I18nBanglish>
-**Bnlang** e **event emitter** holo async event handle korar ekta powerful pattern.  
-Object gulo **emit** korte pare event, onno jaygay handler diye **listen** kora jay.  
-Ete producer ar consumer alada thake, code modular ar flexible hoy.
-</I18nBanglish>
-
 ---
 
 ## Basic Usage
@@ -37,7 +28,7 @@ Ete producer ar consumer alada thake, code modular ar flexible hoy.
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -74,22 +65,7 @@ const এমিটার = নতুন ইভেন্টএমিটার();
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-import { EventEmitter } from "bnlang:events";
-
-const emittar = notun EventEmitter();
-
-// Listener
-emittar.on("greet", (nam) => {
-  console.log("Hello,", nam);
-});
-
-// Emit event
-emittar.emit("greet", "Alis");
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -104,15 +80,10 @@ An event can have multiple listeners. All of them will be called in the order th
 একটি ইভেন্টে একাধিক লিসেনার থাকতে পারে। তারা নিবন্ধিত ক্রমে ডাকা হবে।
 </I18nBangla>
 
-<I18nBanglish>
-Ekta event e onek gulo listener thakte pare. Tara register korar order e call hobe.
-</I18nBanglish>
-
 <Tabs defaultValue="english" className="w-full">
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
   </TabsList>
 
   <TabsContent value="english">
@@ -141,18 +112,7 @@ emitter.emit("data", "Message here");
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-emittar.on("data", (msg) => console.log("Listener 1:", msg));
-emittar.on("data", (msg) => console.log("Listener 2:", msg));
-
-emittar.emit("data", "Barta ekhane");
-// Output:
-// Listener 1: Barta ekhane
-// Listener 2: Barta ekhane
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -169,11 +129,6 @@ This is useful when a listener is no longer needed.
 যখন কোনো লিসেনারের আর দরকার নেই তখন এটি কাজে আসে।
 </I18nBangla>
 
-<I18nBanglish>
-`.off` ba `.removeListener` diye listener remove kora jay.  
-Listener proyojon na thakle eta use kora hoy.
-</I18nBanglish>
-
 ---
 
 ## Once Listeners
@@ -186,15 +141,11 @@ Use `.once` to register a listener that runs only the first time the event is em
 `.once` ব্যবহার করলে লিসেনার শুধু একবার চালানো হবে।
 </I18nBangla>
 
-<I18nBanglish>
-`.once` diye ekbar matro listener run hobe.
-</I18nBanglish>
-
 <Tabs defaultValue="english" className="w-full">
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -217,15 +168,7 @@ emitter.emit("ping"); // Ignored
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-emittar.ekbar("ping", () => console.log("Ping received!"));
-
-emittar.emit("ping"); // Runs
-emittar.emit("ping"); // Ignore
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -245,10 +188,3 @@ emittar.emit("ping"); // Ignore
 - লিসেনার ফাংশন ছোট এবং নির্দিষ্ট রাখুন।  
 - বর্ণনামূলক ইভেন্ট নাম ব্যবহার করুন।
 </I18nBangla>
-
-<I18nBanglish>
-- Memory leak avoid korte proyojonhin listener remove korun.  
-- Ekbar ghotbe emon event er jonno `.once` use korun.  
-- Listener chhoto ar focused rakhun.  
-- Spashto event name use korun.
-</I18nBanglish>

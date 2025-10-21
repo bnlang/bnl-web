@@ -9,7 +9,7 @@ banglishDescription: Bnlang e utponno_korun (yield) — generators, send/receive
 
 # <I18nEnglish>yield Operator</I18nEnglish>
 # <I18nBangla>উৎপন্ন_করুন অপারেটর</I18nBangla>
-# <I18nBanglish>yield Operator</I18nBanglish>
+
 
 <I18nEnglish>
 Use **`yield`** inside a **generator function** (`function*`) to **produce a value** and **pause** execution.  
@@ -23,11 +23,7 @@ Use **`yield*`** to **delegate** to another iterable or generator.
 অন্য কোনো ইটারেবল/জেনারেটরে **ডেলিগেট** করতে **`উৎপন্ন_করুন*`** ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-**`utponno_korun`** sudhu **generator function** (`function*`) er vitore use kora jay. Eta **man produce** kore ebong execution **pause** kore.  
-`iterator.next(value)` dile abar resume hoy; oi `utponno_korun` expression er result hobe `next(...)`‑e deya value.  
-Onno iterable/generator e **delegate** korte **`utponno_korun*`** use korun.
-</I18nBanglish>
+
 
 ---
 
@@ -71,24 +67,7 @@ async function* stream() {
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-function* utpadok() {
-  utponno_korun man;
-  const x = utponno_korun proshno; // next(value) → x = value
-  utponno_korun* iterable;
-  ferot shesh;
-}
-
-// Async generator
-osomoloy function* dhara() {
-  utponno_korun 1;
-  opekkha delay(10);
-  utponno_korun 2;
-}
-```
-</I18nBanglish>
 
 ---
 
@@ -97,7 +76,7 @@ osomoloy function* dhara() {
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -162,66 +141,7 @@ const বিলম্ব = (ms) => new Promise(r => setTimeout(r, ms));
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) Basic generator
-function* gonona() {
-  utponno_korun 1;
-  utponno_korun 2;
-  utponno_korun 3;
-}
-proti (const x er gonona()) {
-  console.log(x);
-}
-
-// 2) Sending values via next(...)
-function* proshno() {
-  const nam = utponno_korun "Your name?";
-  console.log("Welcome", nam);
-}
-const g1 = proshno();
-g1.next();
-g1.next("Mamun");
-
-// 3) Delegation with utponno_korun*
-function* mix() {
-  utponno_korun* [1, 2];
-  utponno_korun* (function* () { utponno_korun 7; utponno_korun 8; })();
-  utponno_korun 99;
-}
-proti (const v er mix()) console.log(v);
-
-// 4) Injecting errors
-function* kaj() {
-  ceshta {
-    utponno_korun "ready";
-    console.log("won't run if thrown");
-  } dhorun (err) {
-    console.warn("caught:", err.message);
-  } obosheshe {
-    console.info("done");
-  }
-}
-const g2 = kaj();
-g2.next();
-g2.throw(new Error("fail"));
-
-// 5) Async generator + for‑await‑of
-const delay = (ms) => new Promise(r => setTimeout(r, ms));
-osomoloy function* dhara() {
-  utponno_korun 1;
-  opekkha delay(10);
-  utponno_korun 2;
-}
-osomoloy function chalaw() {
-  jonno opekkha (const v er dhara()) {
-    console.log(v);
-  }
-}
-chalaw();
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -310,13 +230,4 @@ async function* stream() {
 - ভাষা উপনাম: `উৎপন্ন_করুন` / `utponno_korun`.
 </I18nBangla>
 
-<I18nBanglish>
-- `utponno_korun` sudhu **`function*`** er vitore valid.  
-- `const x = utponno_korun expr;` — `next(value)` er value‑tai `x`.  
-- `utponno_korun* iterable` onno iterable/generator e delegate kore; generator hole tar **`return` value**i `utponno_korun*` er result.  
-- `iter.return(value)` diye early finish; `{ value, done: true }` pawa jaye, kintu **`for...of` ignore kore**.  
-- `iter.throw(err)` generator er vitore exception tule — `ceshta/dhorun` diye `utponno_korun` wrap korun.  
-- **Async generator** (`osomoloy function*`) **`for await...of`** diye consume korun.  
-- `utponno_korun`‑r **precedence kom** — mix korle parenthesis din.  
-- Alias: `উৎপন্ন_করুন` / `utponno_korun`.
-</I18nBanglish>
+

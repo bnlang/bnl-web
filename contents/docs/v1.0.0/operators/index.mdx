@@ -9,7 +9,7 @@ banglishDescription: JavaScript/Bnlang er shob operator — overview, category t
 
 # <I18nEnglish>Operators</I18nEnglish>
 # <I18nBangla>অপারেটরসমূহ</I18nBangla>
-# <I18nBanglish>Operators</I18nBanglish>
+
 
 <I18nEnglish>
 JavaScript operators are the **symbols/keywords** that perform actions on values: arithmetic, comparisons, logical flow, assignment, bitwise ops, and more.  
@@ -21,10 +21,7 @@ JavaScript অপারেটর হলো এমন **চিহ্ন/কীও
 Bnlang‑এ **সব ভাষায় অপারেটর টোকেন একই** থাকে (যেমন `+`, `===`, `&&`, `??`, `instanceof`, `in`, `typeof`, `delete`, `new`, `await`, `yield`, `void`)।
 </I18nBangla>
 
-<I18nBanglish>
-JavaScript operator hocche **symbol/keyword** ja value‑te action chalaye — arithmetic, comparison, logical, assignment, bitwise etc.  
-Bnlang e **operator token shob language e same** (e.g., `+`, `===`, `&&`, `??`, `instanceof`, `in`, `typeof`, `delete`, `new`, `await`, `yield`, `void`).
-</I18nBanglish>
+
 
 ---
 
@@ -48,14 +45,7 @@ Bnlang e **operator token shob language e same** (e.g., `+`, `===`, `&&`, `??`, 
 - Optional chaining `?.` ও spread/rest `...` প্রায়শই “operator” বলা হয়—এখানে সুবিধার্থে যুক্ত করা হয়েছে।
 </I18nBangla>
 
-<I18nBanglish>
-- `+` holo **addition** + **string concat**; unary `+x` number‑e cast kore.  
-- `==` **coercive**; **`===`** prefer korun.  
-- `??` sudhu left **null/undefined** hole right ney; `||` onek falsy e right ney.  
-- `&&=`, `||=`, `??=` = **logical assignment**.  
-- `yield`/`await` **context‑specific**.  
-- `?.` and `...` keo besh shomoy “operator” bola hoy — ekhane include kora holo.
-</I18nBanglish>
+
 
 ---
 
@@ -64,7 +54,7 @@ Bnlang e **operator token shob language e same** (e.g., `+`, `===`, `&&`, `??`, 
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -158,80 +148,7 @@ if (a > 0 && b > 0) print("both positive");
 
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-### Arithmetic
-| Operator | Name | Example | Notes |
-|---|---|---|---|
-| `+` | addition / string concat | `1 + 2`, `"a" + "b"` | also concatenates strings |
-| `-`, `*`, `/`, `%`, `**` | subtract, multiply, divide, remainder, power | `7 / 2`, `2 ** 3` |  |
-| `+x`, `-x` | unary plus/minus | `+"42"`, `-"5"` | number coercion / negation |
-
-### Inc/Dec
-| Operator | Name | Example | Notes |
-|---|---|---|---|
-| `++x`, `x++` | increment | `++i`, `i++` | prefix returns new; postfix returns old |
-| `--x`, `x--` | decrement | `--i`, `i--` |  |
-
-### Comparison
-| Operator | Name | Example | Notes |
-|---|---|---|---|
-| `===`, `!==` | strict eq/neq | `a === b` | no coercion |
-| `==`, `!=` | loose eq/neq | `"5" == 5` | coerces — avoid |
-| `<`, `<=`, `>`, `>=` | relational | `a < b` | string compare is lexicographic |
-
-### Logical & Nullish
-| Operator | Name | Example | Notes |
-|---|---|---|---|
-| `&&`, `||`, `!` | and, or, not | `a && b` | short‑circuit |
-| `??` | nullish coalescing | `x ?? y` | only null/undefined |
-| `&&=`, `||=`, `??=` | logical assignment | `x ||= 1` | short‑circuit assign |
-
-### Assignment
-| Operator | Name | Example |
-|---|---|---|
-| `=`, `+=`, `-=`, `*=`, `/=`, `%=` | assign & arithmetic assign | `x += 2` |
-| `**=` | exponent assign | `x **= 2` |
-| `<<=`, `>>=`, `>>>=` | shift assign | `x <<= 1` |
-| `&=`, `^=`, `|=` | bitwise assign | `x &= 0xff` |
-
-### Bitwise
-| Operator | Name | Example |
-|---|---|---|
-| `&`, `|`, `^`, `~` | and, or, xor, not | `a & b`, `~x` |
-| `<<`, `>>`, `>>>` | shifts | `x << 2` |
-
-### Relational/Type/Other
-| Operator | Name | Example | Notes |
-|---|---|---|---|
-| `typeof` | type | `typeof x` | returns string |
-| `instanceof` | prototype test | `x instanceof C` | walks chain |
-| `in` | property exists | `"name" in obj` | includes prototype |
-| `delete` | remove prop | `delete obj.x` |  |
-| `void` | discard value | `void expr` | yields undefined |
-| `new` | construct | `new C()` |  |
-| `await` | await promise | `await p` | async only |
-| `yield`, `yield*` | generator | `yield x` | gen only |
-
-### Conditional, Comma, Optional/Spread
-| Operator | Name | Example | Notes |
-|---|---|---|---|
-| `?:` | ternary | `cond ? a : b` | inline if |
-| `,` | comma | `(a=1, b=2)` | returns last |
-| `?.` | optional chaining | `obj?.prop()` | punctuator |
-| `...` | spread/rest | `[...xs]`, `(...a)` | punctuator |
-
-**Example:**
-
-```bnl
-const user = { name: "Mamun" };
-const label = user?.name ?? "Guest";
-let x = 2; x **= 3;
-const more = [...[1,2], 3];
-if (a > 0 && b > 0) console.log("both positive");
-```
-
-  </TabsContent>
+  
 
   <TabsContent value="english">
 

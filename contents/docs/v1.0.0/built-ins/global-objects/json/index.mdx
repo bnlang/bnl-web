@@ -9,7 +9,7 @@ banglishDescription: Bnlang e JSON use kora—bisleshon (parse) ar okkhorayan (s
 
 # <I18nEnglish>JSON</I18nEnglish>
 # <I18nBangla>জেসন</I18nBangla>
-# <I18nBanglish>JSON</I18nBanglish>
+
 
 <I18nEnglish>
 Bnlang provides the JSON object in three forms: **`JSON`**, **`জেসন`**, **`Jeson`**.  
@@ -21,10 +21,7 @@ Bnlang এ JSON পাওয়া যায় **`JSON`**, **`জেসন`**, 
 এটি ব্যবহার করে JSON টেক্সট থেকে অবজেক্ট বানানো যায় এবং অবজেক্টকে JSON টেক্সটে রূপান্তর করা যায়।
 </I18nBangla>
 
-<I18nBanglish>
-Bnlang e JSON ache **`JSON`**, **`জেসন`**, **`Jeson`** name.  
-Eta diye JSON text ke object e rupantor kora jay, ar object ke abar JSON text e okkhorayan kora jay.
-</I18nBanglish>
+
 
 ---
 
@@ -40,10 +37,7 @@ Eta diye JSON text ke object e rupantor kora jay, ar object ke abar JSON text e 
 - অবজেক্টকে JSON টেক্সটে রূপান্তর: `জেসন.অক্ষরায়ন(obj)` / `JSON.stringify(obj)` / `Jeson.okkhorayan(obj)`
 </I18nBangla>
 
-<I18nBanglish>
-- JSON string parse: `Jeson.bisleshon(text)` / `JSON.parse(text)` / `জেসন.বিশ্লেষণ(text)`  
-- Object stringify: `Jeson.okkhorayan(obj)` / `JSON.stringify(obj)` / `জেসন.অক্ষরায়ন(obj)`
-</I18nBanglish>
+
 
 ---
 
@@ -52,7 +46,7 @@ Eta diye JSON text ke object e rupantor kora jay, ar object ke abar JSON text e 
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -72,11 +66,5 @@ const obj = জেসন.বিশ্লেষণ('{"a":1}');
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const obj = Jeson.bisleshon('{"a":1}');
-console.log(Jeson.okkhorayan(obj)); // {"a":1}
-```
-  </TabsContent>
+  
 </Tabs>

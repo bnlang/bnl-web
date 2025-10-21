@@ -3,13 +3,10 @@ title: Discover JavaScript Timers
 description: Learn how timers like setTimeout and setInterval work in Bnlang with examples in English, Bangla, and Banglish.
 bnTitle: জাভাস্ক্রিপ্ট টাইমার আবিষ্কার
 bnDescription: Bnlang এ setTimeout এবং setInterval টাইমার এর ধারণা ও উদাহরণ।
-banglishTitle: Discover JavaScript Timers
-banglishDescription: Bnlang e setTimeout ar setInterval timer er dharona o example English, Bangla ar Banglish e.
 ---
 
 # <I18nEnglish>Discover JavaScript Timers</I18nEnglish>
 # <I18nBangla>জাভাস্ক্রিপ্ট টাইমার আবিষ্কার</I18nBangla>
-# <I18nBanglish>Discover JavaScript Timers</I18nBanglish>
 
 <I18nEnglish>
 Timers in **Bnlang** allow scheduling code to run later or repeatedly.  
@@ -22,13 +19,6 @@ Timers are essential for animations, retries, scheduled updates, and asynchronou
 সবচেয়ে বেশি ব্যবহৃত দুটি ফাংশন হলো **`setTimeout`** (একবার চালায়) এবং **`setInterval`** (বারবার চালায়)।  
 অ্যানিমেশন, পুনরায় চেষ্টা, শিডিউল আপডেট এবং অ্যাসিঙ্ক্রোনাস কাজের জন্য টাইমার অত্যন্ত গুরুত্বপূর্ণ।
 </I18nBangla>
-
-<I18nBanglish>
-**Bnlang** e timer diye onek shomoy pore ba fixed interval e code run kora jay.  
-Duto common function holo **`setTimeout`** (ekbar run kore) ar **`setInterval`** (repeat kore).  
-Animation, retry, scheduled update ar async kaj er jonno timer onek important.
-</I18nBanglish>
-
 ---
 
 ## setTimeout
@@ -41,15 +31,11 @@ Animation, retry, scheduled update ar async kaj er jonno timer onek important.
 `setTimeout` নির্দিষ্ট সময় পরে (মিলিসেকেন্ডে) একবার কোড চালায়।
 </I18nBangla>
 
-<I18nBanglish>
-`setTimeout` ekta delay (millisecond e) pore ekbar code run kore.
-</I18nBanglish>
-
 <Tabs defaultValue="english" className="w-full">
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -70,14 +56,7 @@ setTimeout(() => {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-somoysimaNirdharon(() => {
-  console.log("2 second pore hello");
-}, 2000);
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -92,15 +71,11 @@ somoysimaNirdharon(() => {
 `setInterval` নির্দিষ্ট বিরতিতে (মিলিসেকেন্ডে) কোড বারবার চালায়। এটি থামাতে `clearInterval` ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-`setInterval` diye ekta fixed interval e bar bar code run hoy. Stop korte `clearInterval` use koro.
-</I18nBanglish>
-
 <Tabs defaultValue="english" className="w-full">
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -127,17 +102,7 @@ const টাইমার = ইন্টারভ্যাল(() => {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-let gonona = 0;
-const timer = interval(() => {
-  gonona++;
-  console.log("Tick", gonona);
-  jodi (gonona === 5) clearInterval(timer);
-}, 1000);
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -156,12 +121,6 @@ Always clear timers when they are no longer needed to avoid memory leaks.
 প্রয়োজন শেষ হলে টাইমার ক্লিয়ার করুন যাতে মেমোরি লিক না হয়।
 </I18nBangla>
 
-<I18nBanglish>
-- `clearTimeout(timerId)` diye timeout stop koro.  
-- `clearInterval(intervalId)` diye interval stop koro.  
-Proyojon sesh hole timer clear koro memory leak avoid korte.
-</I18nBanglish>
-
 ---
 
 ## Best Practices
@@ -177,9 +136,3 @@ Proyojon sesh hole timer clear koro memory leak avoid korte.
 - সেট করা সময়সীমা_নির্ধারণ বা ইন্টারভ্যাল অবশ্যই ক্লিয়ার করুন।  
 - ব্যাকগ্রাউন্ড টাস্কে দীর্ঘ টাইমার ব্যবহার করার সময় সতর্ক থাকুন।
 </I18nBangla>
-
-<I18nBanglish>
-- Jothesta timer use koro na; possible hole event-driven code use koro.  
-- Set kora timeout/interval obosshoi clear koro.  
-- Background task e long timer use korar shomoy careful thako.
-</I18nBanglish>

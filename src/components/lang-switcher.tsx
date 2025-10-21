@@ -38,9 +38,6 @@ export function LangSwitcher({}: { locale?: string }) {
           <Link href={switchTo("bn")}>বাংলা (Bangla)</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={switchTo("banglish")}>Banglish (Bangla)</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
           <Link href={switchTo("en")}>English</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>

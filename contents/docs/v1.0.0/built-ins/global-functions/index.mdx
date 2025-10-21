@@ -9,7 +9,7 @@ banglishDescription: Bnlang e built-in global function jemon mullayon, soshimKi,
 
 # <I18nEnglish>Global Functions</I18nEnglish>
 # <I18nBangla>গ্লোবাল ফাংশন</I18nBangla>
-# <I18nBanglish>Global Functions</I18nBanglish>
+
 
 <I18nEnglish>
 Bnlang provides built-in global functions similar to JavaScript:
@@ -41,20 +41,7 @@ Bnlang এ কিছু বিল্ট-ইন গ্লোবাল ফাং�
 - **`প্রয়োজন`** → `require`
 </I18nBangla>
 
-<I18nBanglish>
-Bnlang e kichu built-in global function ache:
-- **`mullayon`** → `eval`  
-- **`soshimKi`** → `isFinite`  
-- **`sonkhaNoyKi`** → `isNaN`  
-- **`purnoshonkhaTeRupantor`** → `parseInt`  
-- **`voghnangsheRupantor`** → `parseFloat`  
-- **`uriEncode`** → `encodeURI`  
-- **`uriDecode`** → `decodeURI`  
-- **`uriUpadanEncode`** → `encodeURIComponent`  
-- **`uriUpadanDecode`** → `decodeURIComponent`  
-- **`khudroKajerSari`** → `queueMicrotask`
-- **`proyojon`** → `require`
-</I18nBanglish>
+
 
 ---
 
@@ -63,7 +50,7 @@ Bnlang e kichu built-in global function ache:
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -155,47 +142,5 @@ console.log(path.basename("/x/y/z.txt")); // z.txt
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// mullayon (eval)
-console.log(mullayon("2 + 3 * 4")); // 14
-
-// soshimKi (isFinite)
-console.log(soshimKi(10));         // true
-console.log(soshimKi(Infinity));   // false
-
-// sonkhaNoyKi (isNaN)
-console.log(sonkhaNoyKi("abc"));   // true
-console.log(sonkhaNoyKi(42));      // false
-
-// purnoshonkhaTeRupantor (parseInt)
-console.log(purnoshonkhaTeRupantor("42"));     // 42
-console.log(purnoshonkhaTeRupantor("101", 2)); // 5
-
-// voghnangsheRupantor (parseFloat)
-console.log(voghnangsheRupantor("3.1416")); // 3.1416
-
-// uriEncode / uriDecode
-const url = "https://example.com/a b?x=1 2";
-const enc = uriEncode(url);
-console.log(enc);                 // encoded URL
-console.log(uriDecode(enc));      // original URL
-
-// uriUpadanEncode / uriUpadanDecode
-const q = "a b&=bangla";
-const eq = uriUpadanEncode(q);
-console.log(eq);                   // encoded component
-console.log(uriUpadanDecode(eq));  // original component
-
-// khudroKajerSari (queueMicrotask)
-console.log("shuru");
-khudroKajerSari(() => console.log("microtask"));
-console.log("shesh");              // order: shuru, shesh, microtask
-
-// proyojon (require)
-const path = proyojon("path");
-console.log(path.basename("/x/y/z.txt")); // z.txt
-```
-  </TabsContent>
+  
 </Tabs>

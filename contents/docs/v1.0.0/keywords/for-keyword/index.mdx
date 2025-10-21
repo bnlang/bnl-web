@@ -9,7 +9,7 @@ banglishDescription: Bnlang e for (proti) loop—counting, for...of, for...in, b
 
 # <I18nEnglish>for Loop</I18nEnglish>
 # <I18nBangla>প্রতি লুপ</I18nBangla>
-# <I18nBanglish>for Loop</I18nBanglish>
+
 
 <I18nEnglish>
 The **`for`** loop repeats a block of code a specific number of times, or iterates over collections with **`for...of`** and **`for...in`**.  
@@ -21,10 +21,7 @@ Use **`break`** to exit early and **`continue`** to skip the current iteration.
 আগেভাগে বের হতে **`থামুন`** এবং চলতি ধাপ স্কিপ করতে **`চলুন`** ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-**`proti`** (for) loop diye nirdishto bar code chalano jay; **`for...of`** diye iterable gulo iterate kora jay, ar **`for...in`** diye object er key gulo.  
-Early exit er jonno **`thamun`**, current iteration skip er jonno **`colun`** use korun.
-</I18nBanglish>
+
 
 ---
 
@@ -70,25 +67,7 @@ for (const key in object) {
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-// Counting loop
-proti (let i = start; i < end; i++) {
-  // body
-}
-
-// Iterate values from iterable
-proti (const item er iterable) {
-  // use item
-}
-
-// Iterate keys from object
-proti (const key modhye object) {
-  // use key, object[key]
-}
-```
-</I18nBanglish>
 
 ---
 
@@ -97,7 +76,7 @@ proti (const key modhye object) {
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -161,35 +140,7 @@ const ব্যবহারকারী = { নাম: "রাফি", শহর
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) break / continue
-let sum = 0;
-proti (let i = 1; i <= 10; i++) {
-  jodi (i === 5) colun;   // skip 5
-  jodi (i > 8) thamun;     // stop at 9
-  sum += i;
-}
-console.log("sum =", sum);
-
-// 2) for...of over arrays & strings
-const shonkha = [2, 4, 6];
-proti (const n er shonkha) {
-  print(n * n);
-}
-
-proti (const ch er "ABC") {
-  console.log(ch);
-}
-
-// 3) for...in over object keys
-const byaboharkari = { nam: "Rafi", shohor: "Dhaka" };
-proti (const key modhye byaboharkari) {
-  console.info(key, "=>", byaboharkari[key]);
-}
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -210,9 +161,4 @@ proti (const key modhye byaboharkari) {
 - প্রয়োজনে **`থামুন`** (break) ও **`চলুন`** (continue) ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- Loop header e `let` use korle index block‑scoped thake.  
-- Array/iterable er jonno **`for...of`**, object key er jonno **`for...in`**.  
-- Array te **`for...in`** chara chalun (order guarantee thake na).  
-- Dorkar hole **`thamun`** ebong **`colun`** use korun.
-</I18nBanglish>
+

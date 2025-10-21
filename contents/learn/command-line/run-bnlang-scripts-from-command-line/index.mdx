@@ -9,7 +9,7 @@ banglishDescription: Command line theke Bnlang script run korar udahoron English
 
 # <I18nEnglish>Run Bnlang Scripts from Command Line</I18nEnglish>
 # <I18nBangla>কমান্ড লাইন থেকে Bnlang স্ক্রিপ্ট চালানো</I18nBangla>
-# <I18nBanglish>Run Bnlang Scripts from Command Line</I18nBanglish>
+
 
 <I18nEnglish>
 Bnlang programs can be executed directly from the command line using the **`bnl`** command.  
@@ -21,10 +21,7 @@ This allows developers to quickly test, debug, and run scripts without extra set
 এর মাধ্যমে ডেভেলপাররা দ্রুত টেস্ট, ডিবাগ এবং স্ক্রিপ্ট চালাতে পারে।
 </I18nBangla>
 
-<I18nBanglish>
-Bnlang program command line theke **`bnl`** command diye directly run kora jay.  
-Eta diye developer ra fast vabe test, debug, ar script run korte pare.
-</I18nBanglish>
+
 
 ---
 
@@ -34,7 +31,7 @@ Eta diye developer ra fast vabe test, debug, ar script run korte pare.
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -53,13 +50,7 @@ bnl hello.bnl
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```sh
-# Ekta script run korun
-bnl hello.bnl
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -70,7 +61,7 @@ bnl hello.bnl
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -89,13 +80,7 @@ console.log("Hello, World!");
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// file: hello.bnl
-console.log("Hello, Bishsho!");
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -110,15 +95,13 @@ You can pass command-line arguments to Bnlang scripts using `process.argv`.
 `process.argv` ব্যবহার করে Bnlang স্ক্রিপ্টে কমান্ড লাইন আর্গুমেন্ট পাঠানো যায়।
 </I18nBangla>
 
-<I18nBanglish>
-`process.argv` use kore Bnlang script e command line argument pathano jay.
-</I18nBanglish>
+
 
 <Tabs defaultValue="english" className="w-full">
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
   </TabsList>
 
   <TabsContent value="english">
@@ -149,19 +132,7 @@ bnl greet.bnl আলিস
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// file: greet.bnl
-const nam = process.argv[2] || "Guest";
-console.log("Hello,", nam);
-```
-
-```sh
-bnl greet.bnl Alis
-# Output: Hello, Alis
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -182,9 +153,4 @@ bnl greet.bnl Alis
 - স্ক্রিপ্টগুলো `scripts/` ডিরেক্টরিতে রাখুন।
 </I18nBangla>
 
-<I18nBanglish>
-- Script chhoto ar modular rakhun.  
-- Meaningful file name use korun.  
-- Argument use korle input validate korun.  
-- Script gulo `scripts/` directory te rakhun.
-</I18nBanglish>
+

@@ -9,7 +9,7 @@ banglishDescription: Bnlang e else keyword er example English, Bangla ar Banglis
 
 # <I18nEnglish>else Keyword</I18nEnglish>
 # <I18nBangla>নাহলে কীওয়ার্ড</I18nBangla>
-# <I18nBanglish>else Keyword</I18nBanglish>
+
 
 <I18nEnglish>
 The **`else`** keyword provides an alternative path when an `if` condition is **false**.  
@@ -21,10 +21,7 @@ It is always attached after an `if` or `else if` block.
 এটি সর্বদা **যদি** বা **নাহলে যদি**-এর পরে বসানো হয়।
 </I18nBangla>
 
-<I18nBanglish>
-**`nahole`** keyword use hoy jokhon **`jodi`** condition false hoy.  
-Eta always thake **jodi** ba **nahole jodi** er porer block e.  
-</I18nBanglish>
+
 
 ---
 
@@ -52,16 +49,7 @@ if (condition) {
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-jodi (condition) {
-  // true hole
-} nahole {
-  // false hole
-}
-```
-</I18nBanglish>
 
 ---
 
@@ -70,7 +58,7 @@ jodi (condition) {
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -116,26 +104,7 @@ let সংখ্যা = 7;
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-let loggedIn = false;
-
-jodi (loggedIn) {
-  console.log("Welcome back!");
-} nahole {
-  console.warn("Please log in first.");
-}
-
-// Even-Odd check
-let shonkha = 7;
-jodi (shonkha % 2 === 0) {
-  chapao("Even number");
-} nahole {
-  likho("Odd number");
-}
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -154,8 +123,4 @@ jodi (shonkha % 2 === 0) {
 - জটিল লজিকের জন্য **যদি + নাহলে** ব্লক নেস্ট করতে পারেন।
 </I18nBangla>
 
-<I18nBanglish>
-- **`nahole`** block e kono condition thake na; sob ager condition fail hole run hoy.  
-- Dui er beshi branch hole **`nahole jodi`** use korun.  
-- Complex logic e **jodi + nahole** nested korte paren.
-</I18nBanglish>
+

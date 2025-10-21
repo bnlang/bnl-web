@@ -526,7 +526,7 @@ export default function AboutPage({ locale }: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const locales: SupportedLocale[] = ["en", "bn", "banglish"];
+  const locales: SupportedLocale[] = ["en", "bn"];
   return {
     paths: locales.map((l) => ({ params: { locale: l } })),
     fallback: false,
@@ -536,7 +536,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const rawLocale = (params as any)?.locale as string | undefined;
   const normalized = normalizeLocale(rawLocale);
-  const locale: SupportedLocale =
-    rawLocale === "banglish" ? "banglish" : (normalized as SupportedLocale);
+  const locale: SupportedLocale = normalized as SupportedLocale;
   return { props: { locale } };
 };

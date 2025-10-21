@@ -10,4 +10,3 @@ function makeI18n(localeCode: string) {
 
 export const I18nEnglish = makeI18n("en");
 export const I18nBangla = makeI18n("bn");
-export const I18nBanglish = makeI18n("banglish");

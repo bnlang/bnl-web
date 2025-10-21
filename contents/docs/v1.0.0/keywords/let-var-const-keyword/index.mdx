@@ -9,7 +9,7 @@ banglishDescription: Bnlang e let/const vs var — scope, reassignment, redeclar
 
 # <I18nEnglish>let · var · const</I18nEnglish>
 # <I18nBangla>ধরি · চলক · ধ্রুবক</I18nBangla>
-# <I18nBanglish>let · var · const</I18nBanglish>
+
 
 <I18nEnglish>
 - **`let`** — block‑scoped, reassignable, no redeclaration in the same scope.  
@@ -23,11 +23,7 @@ banglishDescription: Bnlang e let/const vs var — scope, reassignment, redeclar
 - **`চলক (var)`** — **ফাংশন‑স্কোপড** (বা গ্লোবাল), পুনঃঘোষণা সম্ভব, hoisted হলে `undefined` হয়। আধুনিক কোডে পরিহার্য।
 </I18nBangla>
 
-<I18nBanglish>
-- **`let`** — block‑scoped, value change kora jay; same scope e redeclare kora jay na.  
-- **`const`** — block‑scoped, value **reassign kora jay na**; kintu object er property change kora jay.  
-- **`var`** — function‑scoped/global, redeclarable, hoist hole `undefined`. Modern code e **avoid**.
-</I18nBanglish>
+
 
 ---
 
@@ -51,14 +47,7 @@ var legacy = "old";
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-let gonona = 0;
-const PI = 3.1416;
-var purono = "old";
-```
-</I18nBanglish>
 
 ---
 
@@ -67,7 +56,7 @@ var purono = "old";
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -117,50 +106,7 @@ for (চলক j = 0; j < 3; j++) {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) Block vs function scope
-function udahoron() {
-  jodi (true) {
-    let ek = "A";
-    const dui = "B";
-    var tin = "C";
-  }
-  // console.log(ek, dui); // ReferenceError (block scope)
-  console.log(tin);        // "C" (var function‑scoped)
-}
-udahoron();
-
-// 2) Redeclare & reassign
-let x = 1;
-x = 2;                 // OK
-// let x = 3;          // Error: same scope redeclare
-
-const cfg = { nam: "Bnlang" };
-// cfg = {};          // Error
-cfg.nam = "BPM";       // OK (mutate property)
-
-var y = 10;
-var y = 20;            // OK (redeclare)
-
-// 3) hoisting/TDZ
-// console.log(a);     // ReferenceError (TDZ)
-let a = 5;
-// console.log(b);     // ReferenceError (TDZ)
-const b = 6;
-console.log(c);        // undefined (var hoisted)
-var c = 7;
-
-// 4) Loop closure
-for (let i = 0; i < 3; i++) {
-  setTimeout(() => console.log("let i:", i), 0);
-}
-for (var j = 0; j < 3; j++) {
-  setTimeout(() => console.log("var j:", j), 0); // prints 3,3,3
-}
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -228,10 +174,4 @@ for (var j = 0; j < 3; j++) {
 - পড়ার সুবিধায় প্রতি ফাইলে একটি ভাষা স্টাইল বজায় রাখুন।
 </I18nBangla>
 
-<I18nBanglish>
-- By default **`const`** use korun, reassign dorkar hole **`let`** nin; **`var`** avoid korun.  
-- `let/const` e **TDZ** thake — scope er start theke declaration porjonto access korle ReferenceError.  
-- `const` rebind bondho kore; object immutable korte `Object.freeze` lage.  
-- Nested block e shadowing possible — naming clear rakhun.  
-- Readability er jonno ek file e ekta language style.
-</I18nBanglish>
+

@@ -9,7 +9,7 @@ banglishDescription: Bnlang e return (ferot) diye function theke ber howa ebong 
 
 # <I18nEnglish>return Keyword</I18nEnglish>
 # <I18nBangla>ফেরত কীওয়ার্ড</I18nBangla>
-# <I18nBanglish>return Keyword</I18nBanglish>
+
 
 <I18nEnglish>
 The **`return`** statement **exits the current function** and optionally supplies a value to the caller.  
@@ -21,10 +21,7 @@ Statements after `return` in the same block do **not** run.
 `ফেরত`-এর পরের স্টেটমেন্টগুলো আর **চালানো হয় না**।
 </I18nBangla>
 
-<I18nBanglish>
-**`ferot`** diye **current function theke ber** hoy, chaile caller ke ekta value dewa jay.  
-Ekbar `ferot` hole tar porer line gulo **run hoy na**.
-</I18nBanglish>
+
 
 ---
 
@@ -46,13 +43,7 @@ return value;    // with value
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-ferot;           // no value
-ferot man;       // with value
-```
-</I18nBanglish>
 
 ---
 
@@ -61,7 +52,7 @@ ferot man;       // with value
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -96,36 +87,7 @@ function পরিসংখ্যান(সংখ্যা) {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) Grade — early ferot
-function grade(shonkha) {
-  jodi (shonkha < 0 || shonkha > 100) {
-    console.error("Invalid score");
-    ferot;                   // no value
-  }
-  jodi (shonkha >= 80) ferot "A+";
-  nahole jodi (shonkha >= 70) ferot "A";
-  nahole ferot "Below A";
-}
-
-// 2) Find first even
-function firstEven(arr) {
-  proti (const n er arr) {
-    jodi (n % 2 === 0) ferot n;
-  }
-  ferot null;
-}
-
-// 3) Return object/array
-function stats(nums) {
-  let total = 0;
-  proti (const n er nums) total += n;
-  ferot { total: total, avg: total / nums.length };
-}
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -179,10 +141,4 @@ function stats(nums) {
 - `চেষ্টা { ... } অবশেষে { ... }` ব্লকে, `চেষ্টা`র ভেতরে `ফেরত` থাকলেও **অবশেষে** অংশটি চলবে।
 </I18nBangla>
 
-<I18nBanglish>
-- Value ছাড়া `ferot;` dile **`undefined`** ashe.  
-- `ferot` sudhu **current function** thekei ber kore; baire loop/block ke na.  
-- Nesting komate validation e **early ferot** bhalo.  
-- Concise arrow e object ferate parenthesis din: `() => ({ ok: true })`.  
-- `ceshta { ... } obosheshe { ... }` type e, `ceshta` vitor `ferot` thakleo **obosheshe** cholbe.
-</I18nBanglish>
+

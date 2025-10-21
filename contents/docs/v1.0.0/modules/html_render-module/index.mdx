@@ -9,7 +9,7 @@ banglishDescription: Minimal template renderer — EJS-like tags, include, layou
 
 # <I18nEnglish>html_render</I18nEnglish>
 # <I18nBangla>html_render</I18nBangla>
-# <I18nBanglish>html_render</I18nBanglish>
+
 
 <I18nEnglish>
 The **`html_render`** module is a lightweight server-side template engine. It compiles templates with EJS‑style tags, supports **includes**, **layouts**, **helpers**, and safe **HTML escaping**.
@@ -19,9 +19,7 @@ The **`html_render`** module is a lightweight server-side template engine. It co
 **`html_render`** একটি হালকা সার্ভার‑সাইড টেমপ্লেট ইঞ্জিন। এটি EJS‑স্টাইল ট্যাগ, **include**, **layout**, **helper** এবং নিরাপদ **HTML escaping** সমর্থন করে।
 </I18nBangla>
 
-<I18nBanglish>
-**`html_render`** ekta lightweight server‑side template engine. EJS‑style tag, **include**, **layout**, **helper**, safe **HTML escaping** support kore.
-</I18nBanglish>
+
 
 ---
 
@@ -52,14 +50,7 @@ The **`html_render`** module is a lightweight server-side template engine. It co
 - টেমপ্লেটে `include`, `layout`, `print`, সহায়তাকারী `helpers` ও `data` সরাসরি পাওয়া যায়।
 </I18nBangla>
 
-<I18nBanglish>
-- **Code**: `<% code %>` — run only.  
-- **Escaped**: `<%= expr %>` — HTML‑escape kore output.  
-- **Raw**: `<%- expr %>` — no escape (careful).  
-- **Comment**: `<%# ... %>`.  
-- **Trim**: `-%>` next newline remove.  
-- Template e `include`, `layout`, `print`, `helpers` & `data` directly pawa jay.
-</I18nBanglish>
+
 
 ---
 
@@ -94,10 +85,7 @@ Express‑style adapter suitable for `app.engine('html', __bnl_html_render)`. It
 কম্পাইল/রেন্ডার ফাংশনগুলি ওপরে বর্ণিত অপশন সমর্থন করে। `renderFile` কেশিং ও ভিউস ডিরেক্টরি মানে চলতে পারে। এক্সপ্রেস‑শৈলী অ্যাডাপ্টার `settings.views` ইত্যাদি পড়ে।
 </I18nBangla>
 
-<I18nBanglish>
-### `compile`, `render`, `renderFile`, `__bnl_html_render`
-Option gulo support kore; `renderFile` cache & views mene chole. Express‑style adapter `settings.views` etc read kore.
-</I18nBanglish>
+
 
 ---
 
@@ -118,9 +106,7 @@ If not found, it throws `VIEW_NOT_FOUND` with a list of tried paths.
 রেজলভ অর্ডার: অ্যাবসোলিউট → বর্তমান ফাইলের ডিরেক্টরি → `views` ডিরেক্টরি → `cwd`। না পেলে `VIEW_NOT_FOUND` ছোড়ে।
 </I18nBangla>
 
-<I18nBanglish>
-Resolve order: absolute → current file dir → `views` dirs → `cwd`. Na pele `VIEW_NOT_FOUND` throw kore.
-</I18nBanglish>
+
 
 ---
 
@@ -134,9 +120,7 @@ By default, `<%= %>` uses a tiny HTML escaper to encode **`& < > " '`**. Use `<%
 ডিফল্টে `<%= %>` HTML‑escape করে। কেবল নিরাপদ কনটেন্ট হলে `<%- %>` ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-Default e `<%= %>` HTML‑escape kore. Safe content holei `<%- %>` use korun.
-</I18nBanglish>
+
 
 ---
 
@@ -239,10 +223,4 @@ console.log(page);
 - **স্কোপ**: `helpers` ও `data` একত্রে `with` ব্লকে রান হয়।  
 </I18nBangla>
 
-<I18nBanglish>
-- **Caching**: `cache: true` hole compiled function cache hoy.  
-- **Layout**: shesher `layout()` apply hoy; content `body` name pass hoy.  
-- **Security**: `<%= %>` prefer korun; `<%- %>` trusted content e.  
-- **Whitespace**: `-%>` next newline trim kore.  
-- **Scope**: template `helpers` + `data` merge kore `with` block e run hoy.  
-</I18nBanglish>
+

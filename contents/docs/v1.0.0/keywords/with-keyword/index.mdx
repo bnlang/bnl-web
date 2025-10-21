@@ -9,7 +9,7 @@ banglishDescription: Bnlang e sathe (with) diye object er property scope e ana �
 
 # <I18nEnglish>with Statement</I18nEnglish>
 # <I18nBangla>সাথে বিবৃতি</I18nBangla>
-# <I18nBanglish>with Statement</I18nBanglish>
+
 
 <I18nEnglish>
 **`with (obj) { ... }`** temporarily treats the object's properties as if they were in the local scope.  
@@ -21,10 +21,7 @@ Its use is **strongly discouraged** because it makes code **ambiguous**, **slowe
 এটি ব্যবহার **নিরুৎসাহিত**—কোড **অস্পষ্ট** হয়, **ধীর** হতে পারে, এবং **strict mode**/**ES module**‑এ **নিষিদ্ধ**।
 </I18nBangla>
 
-<I18nBanglish>
-**`sathe (object) { ... }`** block er vitore oi object er property‑gulo **local scope** er moto access kora jay.  
-Eta **use na korai bhalo** — code **ambiguity** baray, **slow** korte pare, ar **strict mode**/**ES module**‑e **allowed na**.
-</I18nBanglish>
+
 
 ---
 
@@ -48,14 +45,7 @@ with (object) {
 ```
 </I18nBangla>
 
-<I18nBanglish>
 
-```bnl
-sathe (object) {
-  // statements (sloppy mode only)
-}
-```
-</I18nBanglish>
 
 ---
 
@@ -64,7 +54,7 @@ sathe (object) {
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -100,35 +90,7 @@ const o = order.customer;
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-// 1) Basic
-const byaboharkari = { nam: "Mamun", shohor: "Dhaka" };
-
-sathe (byaboharkari) {
-  console.log(nam, shohor); // byaboharkari.nam, byaboharkari.shohor
-}
-
-// 2) Ambiguity — assignment danger
-const profile = { nam: "Rafi" };
-sathe (profile) {
-  nam = "Zara"; // thakle profile.nam change; na thakle sloppy‑mode global! 👎
-}
-
-// 3) Strict/module — not allowed
-"use strict";
-// sathe ({ a: 1 }) { console.log(a); } // ❌ SyntaxError
-
-// 4) Alternatives — destructuring / alias
-const order = { id: 10, total: 999, customer: { name: "Alice" } };
-const { id, total, customer: { name } } = order;
-console.log(id, total, name);
-
-const o = order.customer;
-console.info(o.name);
-```
-  </TabsContent>
+  
 
   <TabsContent value="english">
 
@@ -183,10 +145,4 @@ console.log(o.name);
 - পড়ার সুবিধায় প্রতি ফাইলে এক ভাষা স্টাইল রাখুন।
 </I18nBangla>
 
-<I18nBanglish>
-- **`sathe` use na korun** — name resolve **ambiguous** hoy, engine optimize‑e problem hoy.  
-- **strict mode**/**ES module**‑e **allowed na**.  
-- `sathe` vitor **assignment risky** — object e likhte pare, ba sloppy‑mode e global baniye felte pare.  
-- **destructuring**, **local alias**, ba direct `object.property` bhalo.  
-- Ek file e ekta language style maintain korun.
-</I18nBanglish>
+

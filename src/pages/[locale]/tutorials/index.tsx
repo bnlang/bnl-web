@@ -188,7 +188,6 @@ function SidebarFilters({
               id: 0,
               name_en: "All",
               name_bn: "সব",
-              name_banglish: "Shob",
               slug: "",
             },
             ...tutorialCategories,
@@ -202,11 +201,7 @@ function SidebarFilters({
               }`}
               onClick={() => setCategory(c.slug)}
             >
-              {locale === "banglish"
-                ? c.name_banglish
-                : locale === "bn"
-                ? c.name_bn
-                : c.name_en}
+              {locale === "bn" ? c.name_bn : c.name_en}
             </button>
           ))}
         </CardContent>
@@ -488,7 +483,10 @@ export default function TutorialsPage({ locale }: Props) {
                 <Card>
                   <CardContent className="py-12 text-center">
                     <div className="mb-5">
-                      <Info size={60} className="mx-auto mb-2 text-muted-foreground" />
+                      <Info
+                        size={60}
+                        className="mx-auto mb-2 text-muted-foreground"
+                      />
                     </div>
                     <p className="text-muted-foreground">
                       No tutorials matched your filters.
@@ -500,15 +498,9 @@ export default function TutorialsPage({ locale }: Props) {
                   <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-4">
                     {data.records.map((tut) => {
                       const title =
-                        locale === "banglish"
-                          ? tut.title.banglish
-                          : locale === "bn"
-                          ? tut.title.bangla
-                          : tut.title.english;
+                        locale === "bn" ? tut.title.bangla : tut.title.english;
                       const summary =
-                        locale === "banglish"
-                          ? tut.summary.banglish
-                          : locale === "bn"
+                        locale === "bn"
                           ? tut.summary.bangla
                           : tut.summary.english;
 
@@ -592,7 +584,7 @@ export default function TutorialsPage({ locale }: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const locales: SupportedLocale[] = ["en", "bn", "banglish"];
+  const locales: SupportedLocale[] = ["en", "bn"];
   return {
     paths: locales.map((l) => ({ params: { locale: l } })),
     fallback: false,
@@ -602,7 +594,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const rawLocale = (params as any)?.locale as string | undefined;
   const normalized = normalizeLocale(rawLocale);
-  const locale: SupportedLocale =
-    rawLocale === "banglish" ? "banglish" : (normalized as SupportedLocale);
+  const locale: SupportedLocale = normalized as SupportedLocale;
   return { props: { locale } };
 };

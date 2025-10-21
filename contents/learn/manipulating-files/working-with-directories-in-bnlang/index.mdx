@@ -9,7 +9,7 @@ banglishDescription: Bnlang e directory create, read ar manage korar example sho
 
 # <I18nEnglish>Working with Directories in Bnlang</I18nEnglish>
 # <I18nBangla>Bnlang এ ডিরেক্টরি নিয়ে কাজ</I18nBangla>
-# <I18nBanglish>Working with Directories in Bnlang</I18nBanglish>
+
 
 <I18nEnglish>
 Directories (or folders) are essential for organizing files in a file system.  
@@ -23,11 +23,7 @@ Bnlang **তৈরি**, **পড়া**, এবং **ম্যানেজ** �
 আপনি একটি পাথ ডিরেক্টরি নাকি ফাইল তা যাচাই করতে পারেন, যা নমনীয় ফাইল সিস্টেম ইউটিলিটি লেখায় সাহায্য করে।
 </I18nBangla>
 
-<I18nBanglish>
-Directory (ba folder) file system e file organize korar jonno essential.  
-Bnlang built-in function dey directory **create**, **read**, ar **manage** korar jonno.  
-Apni ekta path directory naki file sheta check korte paren, ja flexible file system utility likhte help kore.
-</I18nBanglish>
+
 
 ---
 
@@ -36,7 +32,7 @@ Apni ekta path directory naki file sheta check korte paren, ja flexible file sys
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -70,20 +66,7 @@ fs.mkdir("আমারফোল্ডার", (ত্রুটি) => {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const fs = require("fs");
-
-fs.mkdir("amarFolder", (truti) => {
-  jodi (truti) {
-    console.error("Directory create error:", truti);
-    return;
-  }
-  console.log("Directory create hoye geche!");
-});
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -93,7 +76,7 @@ fs.mkdir("amarFolder", (truti) => {
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -127,20 +110,7 @@ fs.readdir(".", (ত্রুটি, ফাইলসমূহ) => {
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const fs = require("fs");
-
-fs.readdir(".", (truti, filegulo) => {
-  jodi (truti) {
-    console.error("Directory read error:", truti);
-    return;
-  }
-  console.log("Files:", filegulo);
-});
-```
-  </TabsContent>
+  
 </Tabs>
 
 ---
@@ -161,9 +131,4 @@ fs.readdir(".", (truti, filegulo) => {
 - কোনো অপারেশন করার আগে একটি পাথ ডিরেক্টরি কিনা যাচাই করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- Directory create ba read korar shomoy always error handle korun.  
-- Relative path careful vabe use korun; consistency jonno absolute path prefer korun.  
-- Recursive directory create korar jonno `fs.mkdir()` e `{ recursive: true }` use korun.  
-- Operation korar age path directory kina check korun.
-</I18nBanglish>
+

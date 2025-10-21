@@ -9,7 +9,7 @@ banglishDescription: Bnlang e Reflect (Protifolon, প্রতিফলন) diy
 
 # <I18nEnglish>Reflect</I18nEnglish>
 # <I18nBangla>প্রতিফলন</I18nBangla>
-# <I18nBanglish>Reflect</I18nBanglish>
+
 
 <I18nEnglish>
 **`Reflect`** provides functions for object meta-operations.  
@@ -21,10 +21,7 @@ Available namespaces: **`Reflect`**, **`প্রতিফলন`**, **`Protifol
 নেমস্পেস: **`Reflect`**, **`প্রতিফলন`**, **`Protifolon`**।
 </I18nBangla>
 
-<I18nBanglish>
-**`Protifolon`** object meta-operation er jonne use hoy.  
-Namespaces: **`Reflect`**, **`প্রতিফলন`**, **`Protifolon`**.
-</I18nBanglish>
+
 
 ---
 
@@ -44,12 +41,7 @@ Namespaces: **`Reflect`**, **`প্রতিফলন`**, **`Protifolon`**.
 - `প্রতিফলন.নির্মাণ(Ctor, args)` → নতুন অবজেক্ট তৈরি  
 </I18nBangla>
 
-<I18nBanglish>
-- `Protifolon.grohon(obj, key)` → object theke man newa  
-- `Protifolon.sthapan(obj, key, value)` → object e man boshano  
-- `Protifolon.proyog(fn, thisArg, args)` → function call kora  
-- `Protifolon.nirman(Ctor, args)` → notun object toiri  
-</I18nBanglish>
+
 
 ---
 
@@ -58,7 +50,7 @@ Namespaces: **`Reflect`**, **`প্রতিফলন`**, **`Protifolon`**.
 <Tabs defaultValue="bangla" className="w-full">
   <TabsList>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="banglish">Banglish</TabsTrigger>
+    
     <TabsTrigger value="english">English</TabsTrigger>
   </TabsList>
 
@@ -96,20 +88,5 @@ const p = প্রতিফলন.নির্মাণ(বিন্দু, [1,
 ```
   </TabsContent>
 
-  <TabsContent value="banglish">
-
-```bnl
-const obj = { x: 10 };
-
-// grohon & sthapan
-console.log(Protifolon.grohon(obj, "x")); // 10
-Protifolon.sthapan(obj, "y", 20);
-console.log(obj.y); // 20
-
-// nirman
-function Bindu(x, y) { this.x = x; this.y = y; }
-const p = Protifolon.nirman(Bindu, [1, 2]);
-console.log(p); // { x: 1, y: 2 }
-```
-  </TabsContent>
+  
 </Tabs>

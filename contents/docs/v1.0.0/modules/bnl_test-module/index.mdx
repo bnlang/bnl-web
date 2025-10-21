@@ -9,7 +9,7 @@ banglishDescription: Minimal test runner — tests/suites, hooks, timeouts, skip
 
 # <I18nEnglish>bnl_test</I18nEnglish>
 # <I18nBangla>bnl_test</I18nBangla>
-# <I18nBanglish>bnl_test</I18nBanglish>
+
 
 <I18nEnglish>
 The **`bnl_test`** module is a tiny test framework with a familiar API. It supports **suites** (`describe`), **tests** (`test`/`it`), **hooks** (`before/after/beforeEach/afterEach`), **timeouts**, **skip/todo/only**, and a programmatic **`run()`**. It also **auto‑runs** collected tests on process drain unless disabled.
@@ -19,9 +19,7 @@ The **`bnl_test`** module is a tiny test framework with a familiar API. It suppo
 **`bnl_test`** একটি ছোট টেস্ট ফ্রেমওয়ার্ক—`describe`, `test`/`it`, `before/after/beforeEach/afterEach`, টাইমআউট, `skip/todo/only` ও `run()` সাপোর্ট করে। প্রসেস শেষের আগে অটো‑রান হয় (নিষ্ক্রিয় করা যায়)।
 </I18nBangla>
 
-<I18nBanglish>
-**`bnl_test`** chhoto test framework — `describe`, `test`/`it`, `before/after/beforeEach/afterEach`, timeout, `skip/todo/only`, `run()` support kore. Process drain e auto‑run hoy (disable kora jay).
-</I18nBanglish>
+
 
 ---
 
@@ -66,14 +64,7 @@ The **`bnl_test`** module is a tiny test framework with a familiar API. It suppo
 - কনটেক্সট: `t.diagnostic`, `t.cleanup`, `t.setTimeout`, `t.test`, `t.skip`।
 </I18nBangla>
 
-<I18nBanglish>
-### Define/Hook/Run
-- **`describe`**, **`test/it`**, variants **`skip/todo/only`**.  
-- Hooks: **`before/after`**, **`beforeEach/afterEach`**.  
-- **`run()`** returns summary; **auto‑run** on by default.  
-- Options: `timeout`, `only`, `skip`, `todo`, `done`.  
-- Context: `t.diagnostic`, `t.cleanup`, `t.setTimeout`, `t.test`, `t.skip`.  
-</I18nBanglish>
+
 
 ---
 
@@ -95,13 +86,7 @@ The **`bnl_test`** module is a tiny test framework with a familiar API. It suppo
 - ত্রুটি হলেও **cleanup** চলে।  
 </I18nBangla>
 
-<I18nBanglish>
-- **Only** thakle sudhu oigulai run.  
-- **Skip/Todo** alada report.  
-- **Timeout** e fail with `TestTimeoutError`.  
-- **Order**: depth‑first, serial.  
-- Error holeo **cleanup** cholbe.  
-</I18nBanglish>
+
 
 ---
 
@@ -182,9 +167,4 @@ test("parent", async (t) => {
 - টেস্ট ছোট ও ডিটারমিনিস্টিক রাখুন।  
 </I18nBangla>
 
-<I18nBanglish>
-- **Autorun** off korte `BNL_TEST_AUTORUN=0` set korun.  
-- **Exit code** fail hole 1 set hoy.  
-- **Reporter** diagnostics dekhay.  
-- Test chhoto & deterministic rakhun.  
-</I18nBanglish>
+

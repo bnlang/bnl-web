@@ -9,7 +9,7 @@ banglishDescription: Runtime process API—PID, argv, env, cwd, chdir, uptime, m
 
 # <I18nEnglish>process</I18nEnglish>
 # <I18nBangla>প্রসেস</I18nBangla>
-# <I18nBanglish>process</I18nBanglish>
+
 
 <I18nEnglish>
 The **`process`** module exposes information and utilities about the current running program:
@@ -20,9 +20,7 @@ IDs, arguments, environment variables, working directory, performance/memory, ex
 **`process`** মডিউলটি চলমান প্রোগ্রাম সম্পর্কে তথ্য ও ইউটিলিটি দেয়—আইডি, আর্গুমেন্ট, পরিবেশ ভেরিয়েবল, ওয়ার্কিং ডিরেক্টরি, কর্মক্ষমতা/মেমরি, এক্সিট কোড, **সিগন্যাল**, এবং লাইফসাইকেল **ইভেন্ট**।
 </I18nBangla>
 
-<I18nBanglish>
-**`process`** module choloman program somporke totho & utility dey—ID, argument, environment variable, working directory, performance/memory, exit code, **signal**, ebong lifecycle **event**.
-</I18nBanglish>
+
 
 ---
 
@@ -111,36 +109,7 @@ IDs, arguments, environment variables, working directory, performance/memory, ex
 
 </I18nBangla>
 
-<I18nBanglish>
 
-### Properties
-- **`process.pid`**: choloman process ID (number)。
-- **`process.ppid`**: parent process ID。
-- **`process.argv`**: command‑line argument array (`argv[0]` runtime, `argv[1]` script)。
-- **`process.execPath`**: runtime executable er absolute path。
-- **`process.cwd()`**: current working directory。
-- **`process.env`**: environment variable map (string), change kora jay。
-- **`process.platform`**: OS identifier。
-- **`process.arch`**: CPU architecture。
-- **`process.uptime()`**: start theke koto second gelo。
-- **`process.hrtime.bigint()`**: high‑res time in ns as `bigint`。
-- **`process.memoryUsage()`**: memory stats object。
-- **`process.exitCode`**: exit hole je code return hobe (default `0`)。
-
-### Methods
-- **`process.chdir(path)`**: working directory change kore。
-- **`process.exit([code])`**: sathe sathe exit (carefully use)。
-- **`process.kill(pid[, signal])`**: PID‑e signal pathay。
-- **`process.nextTick(fn)`**: microtask queue‑te dey—very early run hoy。
-- **`setImmediate(fn)`**: I/O er pore run korar jonno schedule kore。
-
-### Events
-- **`'beforeExit'`**, **`'exit'`**, **`'uncaughtException'`**, **`'unhandledRejection'`**, **`'warning'`**, signal events (`'SIGINT'`, `'SIGTERM'`, `'SIGHUP'`)।
-
-### Exit Codes
-- **`0`** success, **`1`** generic error, onno gula app/OS defined—document korun।
-
-</I18nBanglish>
 
 ---
 
@@ -200,9 +169,4 @@ process.exitCode = 1;
 - মাইক্রোটাস্কের জন্য **`nextTick`**, I/O‑র পরে ডিফার করতে **`setImmediate`** ব্যবহার করুন।
 </I18nBangla>
 
-<I18nBanglish>
-- Library te direct `process.exit()` na diye **`process.exitCode`** set korun—event loop ke finish korte din.
-- Config er jonno `process.env` randomly change korben na; ekbar read kore option hisebe pass korun.
-- **Signal** handle kore resource gulo graceful vabe bondho korun.
-- Microtask er jonno **`nextTick`**, I/O er pore defer korte **`setImmediate`** use korun.
-</I18nBanglish>
+

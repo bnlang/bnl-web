@@ -606,12 +606,12 @@ export function HomeComponent({ locale }: HomeProps) {
 
             <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Button asChild variant="bdGreen" size="lg">
-                <Link href="/docs/get-started">
+                <Link href={`/${locale}/docs/${getLatestVersionString()}/introduction`}>
                   {t("home.features.cta_primary")}
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link href="/docs/examples">
+                <Link href={`/${locale}/learn/get-started`}>
                   {t("home.features.cta_secondary")}
                 </Link>
               </Button>

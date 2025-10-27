@@ -516,7 +516,7 @@ export default function TutorialsPage({ locale }: Props) {
                             className="absolute inset-0 z-10"
                             aria-label={title}
                           />
-                          <div className="h-56 overflow-hidden">
+                          <div className="h-60 overflow-hidden">
                             <img
                               src={`${process.env.NEXT_PUBLIC_STATIC_CDN_URL}/uploads/tutorials/${tut.thumbnail}`}
                               width="100%"

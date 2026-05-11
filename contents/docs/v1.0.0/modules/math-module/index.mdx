@@ -1,0 +1,128 @@
+---
+title: math module
+description: Math functions — trig, logs, powers, rounding, abs, plus list aggregations.
+bnTitle: math মডিউল
+bnDescription: গাণিতিক ফাংশন।
+---
+
+# <I18nEnglish>`math` module</I18nEnglish>
+# <I18nBangla>`math` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Floating-point math. Trig, exponentials, rounding, min/max/clamp, and a couple of list aggregations (`sum`, `mean`, `product`).
+
+```bnl
+import "math" as math;
+
+print(math.sqrt(2));         // 1.4142...
+print(math.pi);              // 3.1415926...
+print(math.clamp(150, 0, 100));   // 100
+print(math.sum([1, 2, 3]));  // 6
+```
+
+## Powers & exponentials
+
+| Function | Description |
+|---|---|
+| `math.sqrt(x)`, `math.pow(x, y)` | |
+| `math.exp(x)` | e^x |
+| `math.log(x)`, `math.log2(x)`, `math.log10(x)` | |
+
+## Trig
+
+| Function | Description |
+|---|---|
+| `math.sin(x)`, `math.cos(x)`, `math.tan(x)` | Argument in radians. |
+| `math.asin(x)`, `math.acos(x)`, `math.atan(x)`, `math.atan2(y, x)` | |
+| `math.to_radians(deg)`, `math.to_degrees(rad)` | |
+
+## Rounding & abs
+
+| Function | Description |
+|---|---|
+| `math.floor(x)`, `math.ceil(x)`, `math.round(x)`, `math.trunc(x)` | |
+| `math.abs(x)` | Absolute value. |
+| `math.sign(x)` | `-1`, `0`, or `1`. |
+
+## min / max / clamp / lerp
+
+| Function | Description |
+|---|---|
+| `math.min(a, b)`, `math.max(a, b)` | |
+| `math.clamp(x, lo, hi)` | |
+| `math.lerp(a, b, t)` | Linear interpolation. |
+| `math.mod(a, b)` | Non-negative modulo (`%` follows sign of `a`). |
+
+## List aggregations
+
+| Function | Description |
+|---|---|
+| `math.sum(xs)`, `math.product(xs)`, `math.mean(xs)` | |
+
+## Predicates & constants
+
+| Item | Description |
+|---|---|
+| `math.is_nan(x)`, `math.is_finite(x)` | |
+| `math.pi`, `math.e` | Constants. |
+</I18nEnglish>
+
+<I18nBangla>
+Floating-point গণিত। Trig, exponential, rounding, min/max/clamp, এবং কিছু list aggregation (`sum`, `mean`, `product`)।
+
+```bnl
+import "math" as math;
+
+print(math.sqrt(2));         // 1.4142...
+print(math.pi);              // 3.1415926...
+print(math.clamp(150, 0, 100));   // 100
+print(math.sum([1, 2, 3]));  // 6
+```
+
+## Powers ও exponentials
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `math.sqrt(x)`, `math.pow(x, y)` | |
+| `math.exp(x)` | e^x |
+| `math.log(x)`, `math.log2(x)`, `math.log10(x)` | |
+
+## Trig
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `math.sin(x)`, `math.cos(x)`, `math.tan(x)` | Radian-এ। |
+| `math.asin(x)`, `math.acos(x)`, `math.atan(x)`, `math.atan2(y, x)` | |
+| `math.to_radians(deg)`, `math.to_degrees(rad)` | |
+
+## Rounding ও abs
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `math.floor(x)`, `math.ceil(x)`, `math.round(x)`, `math.trunc(x)` | |
+| `math.abs(x)` | |
+| `math.sign(x)` | `-1`, `0`, `1`। |
+
+## min / max / clamp / lerp
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `math.min(a, b)`, `math.max(a, b)` | |
+| `math.clamp(x, lo, hi)` | |
+| `math.lerp(a, b, t)` | Linear interpolation। |
+| `math.mod(a, b)` | Non-negative modulo। |
+
+## List aggregations
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `math.sum(xs)`, `math.product(xs)`, `math.mean(xs)` | |
+
+## Predicate ও constant
+
+| | বর্ণনা |
+|---|---|
+| `math.is_nan(x)`, `math.is_finite(x)` | |
+| `math.pi`, `math.e` | |
+</I18nBangla>

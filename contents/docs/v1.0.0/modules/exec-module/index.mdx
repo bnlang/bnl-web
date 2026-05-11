@@ -1,0 +1,88 @@
+---
+title: exec module
+description: Spawn child processes — run a command, stream stdout/stderr, or wait for output.
+bnTitle: exec মডিউল
+bnDescription: চাইল্ড প্রসেস spawn।
+---
+
+# <I18nEnglish>`exec` module</I18nEnglish>
+# <I18nBangla>`exec` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Spawn child processes. Use the high-level `run` / `run_with_input` for one-shot commands; reach for `spawn` when you need full streaming control over stdin / stdout / stderr.
+
+```bnl
+import "exec" as exec;
+
+exec.run("git", ["rev-parse", "HEAD"], function (err, result) {
+    if (err != null) { print("git failed:", err); return; }
+    print("HEAD:", result.stdout);
+});
+```
+
+## High-level
+
+| Function | Description |
+|---|---|
+| `exec.run(cmd, args, cb)` | Run to completion; `cb(err, { code, stdout, stderr })`. |
+| `exec.run_with_input(cmd, args, input, cb)` | Same, but feeds `input` to the child's stdin. |
+
+## Low-level
+
+| Function | Description |
+|---|---|
+| `exec.spawn(cmd, args, opts, on_exit)` → proc | Start a child. `opts`: `{cwd?, env?}` or `null`. `on_exit(code, signal)`. |
+
+## Process object (from `spawn`)
+
+- `proc.pid` — child PID (number).
+- `proc.stdin.write(data, cb?)` — push bytes to stdin.
+- `proc.stdin.close()` — send EOF.
+- `proc.stdout.on_data(fn)` — receive stdout chunks.
+- `proc.stdout.on_end(fn)` — fires when the child closes stdout.
+- `proc.stderr.on_data(fn)` / `proc.stderr.on_end(fn)` — same for stderr.
+- `proc.kill(sig?)` — defaults to `SIGTERM`.
+
+## See also
+- [`cli`](/en/docs/v1.0.0/modules/cli-module) — parse your own program's arguments.
+- [`sys`](/en/docs/v1.0.0/modules/sys-module) — env vars, cwd, etc.
+</I18nEnglish>
+
+<I18nBangla>
+চাইল্ড প্রসেস spawn। One-shot কমান্ডের জন্য `run` / `run_with_input`; stdin/stdout/stderr stream control দরকার হলে `spawn`।
+
+```bnl
+import "exec" as exec;
+
+exec.run("git", ["rev-parse", "HEAD"], function (err, result) {
+    if (err != null) { print("git failed:", err); return; }
+    print("HEAD:", result.stdout);
+});
+```
+
+## High-level
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `exec.run(cmd, args, cb)` | Complete হওয়া পর্যন্ত run; `cb(err, { code, stdout, stderr })`। |
+| `exec.run_with_input(cmd, args, input, cb)` | চাইল্ডের stdin-এ `input` feed। |
+
+## Low-level
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `exec.spawn(cmd, args, opts, on_exit)` → proc | চাইল্ড start। `opts`: `{cwd?, env?}` বা `null`। `on_exit(code, signal)`। |
+
+## Process object
+
+- `proc.pid` — চাইল্ড PID।
+- `proc.stdin.write(data, cb?)`, `proc.stdin.close()`।
+- `proc.stdout.on_data(fn)`, `proc.stdout.on_end(fn)`।
+- `proc.stderr.on_data(fn)`, `proc.stderr.on_end(fn)`।
+- `proc.kill(sig?)` — ডিফল্ট `SIGTERM`।
+
+## আরও দেখুন
+- [`cli`](/bn/docs/v1.0.0/modules/cli-module)।
+- [`sys`](/bn/docs/v1.0.0/modules/sys-module)।
+</I18nBangla>

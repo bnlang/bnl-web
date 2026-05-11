@@ -1,0 +1,107 @@
+---
+title: Timers in Bnlang
+description: Use the timers module to defer work, schedule callbacks after a delay, or run a function on an interval.
+bnTitle: Bnlang এ টাইমার
+bnDescription: "timers মডিউল দিয়ে কাজ ডিফার করুন, ডিলের পরে কলব্যাক শিডিউল করুন, বা ইন্টারভ্যালে ফাংশন চালান।"
+---
+
+# <I18nEnglish>Timers in Bnlang</I18nEnglish>
+# <I18nBangla>Bnlang এ টাইমার</I18nBangla>
+
+<I18nEnglish>
+The built-in `timers` module schedules callbacks to fire from the event loop after a delay (in milliseconds), or repeatedly on an interval.
+There are only two functions to learn: `timers.set` and `timers.interval`.
+</I18nEnglish>
+
+<I18nBangla>
+বিল্ট-ইন `timers` মডিউল ইভেন্ট লুপ থেকে কলব্যাক শিডিউল করে — একটি ডিলে (মিলিসেকেন্ডে) পরে, অথবা ইন্টারভ্যালে বারবার।
+শেখার জন্য মাত্র দু'টা ফাংশন: `timers.set` এবং `timers.interval`।
+</I18nBangla>
+
+---
+
+## timers.set — Fire Once After a Delay
+
+<I18nEnglish>
+`timers.set(delay_ms, fn)` schedules `fn` to run once, `delay_ms` milliseconds from now.
+Passing `0` defers the call until after the current synchronous code finishes — useful for breaking up work.
+</I18nEnglish>
+
+<I18nBangla>
+`timers.set(delay_ms, fn)` `fn` কে একবার চালানোর জন্য শিডিউল করে, এখন থেকে `delay_ms` মিলিসেকেন্ড পরে।
+`0` পাঠালে কারেন্ট সিঙ্ক্রোনাস কোড শেষ হওয়ার পরে কল ডিফার হয় — কাজ ভাগ করার জন্য উপযোগী।
+</I18nBangla>
+
+```bnl
+import "timers" as timers;
+
+print("a");
+timers.set(0,    function () { print("c — next tick"); });
+timers.set(1000, function () { print("d — one second later"); });
+print("b");
+
+// Output:
+// a
+// b
+// c — next tick
+// d — one second later
+```
+
+---
+
+## timers.interval — Fire Repeatedly
+
+<I18nEnglish>
+`timers.interval(delay_ms, fn)` returns a **cancel function**. Call it to stop the interval.
+</I18nEnglish>
+
+<I18nBangla>
+`timers.interval(delay_ms, fn)` একটি **ক্যান্সেল ফাংশন** ফেরত দেয়। ইন্টারভ্যাল থামাতে সেটিকে কল করুন।
+</I18nBangla>
+
+```bnl
+import "timers" as timers;
+
+var count  = 0;
+var cancel = null;
+
+function step() {
+    count = count + 1;
+    print("tick", count);
+    if (count >= 3) {
+        cancel();
+        print("cancelled");
+    }
+}
+
+cancel = timers.interval(1000, step);
+print("scheduled");
+```
+
+---
+
+## What About setImmediate / process.nextTick?
+
+<I18nEnglish>
+Bnlang does not ship `setImmediate` or `process.nextTick`. Use `timers.set(0, fn)` for both use cases — the callback fires after the current tick finishes, in registration order.
+</I18nEnglish>
+
+<I18nBangla>
+Bnlang `setImmediate` বা `process.nextTick` দেয় না। দু'টা ক্ষেত্রেই `timers.set(0, fn)` ব্যবহার করুন — কারেন্ট টিক শেষ হওয়ার পরে কলব্যাক ফায়ার হয়, রেজিস্ট্রেশন অর্ডারে।
+</I18nBangla>
+
+---
+
+## Best Practices
+
+<I18nEnglish>
+- Keep timer callbacks short — they share the event loop with every other in-flight request.
+- Always hold onto the cancel handle returned by `interval` so you can stop it; otherwise it will keep your program alive forever.
+- Don't poll with tight `interval(1, ...)` calls when an event-driven design would do — high-frequency intervals burn CPU.
+</I18nEnglish>
+
+<I18nBangla>
+- টাইমার কলব্যাক ছোট রাখুন — এরা প্রতিটা অন্য ইন-ফ্লাইট রিকোয়েস্টের সাথে ইভেন্ট লুপ শেয়ার করে।
+- `interval` যে ক্যান্সেল হ্যান্ডেল ফেরত দেয়, সেটি সবসময় ধরে রাখুন যাতে থামাতে পারেন; না থামালে এটি আপনার প্রোগ্রামকে চিরকাল জীবিত রাখবে।
+- ইভেন্ট-ড্রিভেন ডিজাইন কাজ করলে টাইট `interval(1, ...)` দিয়ে পোল করবেন না — উচ্চ-ফ্রিকোয়েন্সি ইন্টারভ্যাল CPU পোড়ায়।
+</I18nBangla>

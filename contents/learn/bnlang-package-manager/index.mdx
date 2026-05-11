@@ -1,24 +1,29 @@
 ---
 title: Bnlang Package Manager (BPM)
-description: Learn about the Bnlang Package Manager (BPM), how it works, and how to use it effectively.
+description: Use the Bnlang Package Manager (BPM) to discover, install, and publish packages.
 bnTitle: Bnlang প্যাকেজ ম্যানেজার (BPM)
-bnDescription: Bnlang প্যাকেজ ম্যানেজার (BPM) এর ধারণা, কাজ করার নিয়ম এবং ব্যবহার পদ্ধতি।
+bnDescription: প্যাকেজ আবিষ্কার, ইনস্টল ও প্রকাশের জন্য Bnlang প্যাকেজ ম্যানেজার (BPM) ব্যবহার।
 ---
 
 # <I18nEnglish>Bnlang Package Manager (BPM)</I18nEnglish>
 # <I18nBangla>Bnlang প্যাকেজ ম্যানেজার (BPM)</I18nBangla>
 
 <I18nEnglish>
-The **Bnlang Package Manager (BPM)** is the official package manager for the Bnlang programming language.  
-It allows developers to **discover**, **install**, and **manage** libraries and tools, making the ecosystem richer and more productive.  
-BPM simplifies sharing code and ensures a consistent workflow across projects.
+**BPM** is the official package manager for Bnlang. It manages two files in your project:
+
+- **`bnl.json`** — the project manifest: name, version, dependencies, main entry point.
+- **`bnl.lock`** — a generated lockfile pinning every direct and transitive dependency to a concrete version + integrity hash.
+
+Packages install into a local `./deps/` folder by default (or `~/.bnl/deps` with `-g`).
 </I18nEnglish>
 
 <I18nBangla>
-**Bnlang প্যাকেজ ম্যানেজার (BPM)** হলো Bnlang প্রোগ্রামিং ভাষার অফিসিয়াল প্যাকেজ ম্যানেজার।  
-এটি ব্যবহার করে ডেভেলপাররা সহজেই **লাইব্রেরি খুঁজে**, **ইনস্টল করে** এবং **ম্যানেজ করতে** পারে।  
-এর ফলে ইকোসিস্টেম আরও শক্তিশালী হয় এবং কাজ হয় দ্রুত।  
-BPM কোড শেয়ারিং সহজ করে এবং সব প্রজেক্টে একসাথে কাজ করার অভিজ্ঞতা দেয়।
+**BPM** Bnlang-এর অফিসিয়াল প্যাকেজ ম্যানেজার। এটি আপনার প্রজেক্টে দু'টি ফাইল ম্যানেজ করে:
+
+- **`bnl.json`** — প্রজেক্ট ম্যানিফেস্ট: নাম, সংস্করণ, ডিপেন্ডেন্সি, মেইন এন্ট্রি পয়েন্ট।
+- **`bnl.lock`** — জেনারেটেড লকফাইল, যা প্রতিটি ডাইরেক্ট ও ট্রানজিটিভ ডিপেন্ডেন্সিকে একটি কংক্রিট সংস্করণ + integrity হ্যাশে পিন করে।
+
+প্যাকেজ ডিফল্টভাবে লোকাল `./deps/` ফোল্ডারে ইনস্টল হয় (অথবা `-g` দিয়ে `~/.bnl/deps`-এ)।
 </I18nBangla>
 
 ---
@@ -26,11 +31,11 @@ BPM কোড শেয়ারিং সহজ করে এবং সব প�
 ## Installing BPM
 
 <I18nEnglish>
-BPM comes bundled with Bnlang. You can verify installation by running:
+BPM ships alongside Bnlang. Confirm with:
 </I18nEnglish>
 
 <I18nBangla>
-BPM Bnlang এর সাথে অন্তর্ভুক্ত থাকে। নিচের কমান্ড দিয়ে ইনস্টলেশন যাচাই করতে পারেন:
+BPM Bnlang-এর সাথে শিপ হয়। নিচের কমান্ড দিয়ে যাচাই করুন:
 </I18nBangla>
 
 ```sh
@@ -39,31 +44,37 @@ bpm --version
 
 ---
 
-## Basic Commands
+## Common Commands
 
-<Tabs defaultValue="bangla" className="w-full">
+<Tabs defaultValue="english" className="w-full">
   <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
     <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
   </TabsList>
-
-  <TabsContent value="bangla">
-    <ul>
-      <li><code>bpm init</code> → নতুন প্রজেক্ট শুরু করে এবং <code>bnl_package.json</code> ফাইল তৈরি করে।</li>
-      <li><code>bpm install &lt;প্যাকেজ&gt;</code> → রেজিস্ট্রি থেকে একটি প্যাকেজ ইনস্টল করে।</li>
-      <li><code>bpm remove &lt;প্যাকেজ&gt;</code> → ইনস্টল করা প্যাকেজ সরিয়ে দেয়।</li>
-      <li><code>bpm update &lt;প্যাকেজ&gt;</code> → প্যাকেজ সর্বশেষ সংস্করণে আপডেট করে।</li>
-      <li><code>bpm publish</code> → প্যাকেজ BPM রেজিস্ট্রিতে প্রকাশ করে।</li>
-    </ul>
-  </TabsContent>
 
   <TabsContent value="english">
     <ul>
-      <li><code>bpm init</code> → Initialize a new project with a <code>bnl_package.json</code> file.</li>
-      <li><code>bpm install &lt;package&gt;</code> → Install a package from the registry.</li>
-      <li><code>bpm remove &lt;package&gt;</code> → Remove an installed package.</li>
-      <li><code>bpm update &lt;package&gt;</code> → Update a package to the latest version.</li>
-      <li><code>bpm publish</code> → Publish a package to the BPM registry.</li>
+      <li><code>bpm init</code> → Create a starter <code>bnl.json</code> in the current directory.</li>
+      <li><code>bpm install</code> → Install every dependency declared in <code>bnl.json</code>.</li>
+      <li><code>bpm install &lt;name&gt;[@version]</code> → Add and install one package.</li>
+      <li><code>bpm install -g &lt;name&gt;</code> → Install globally into <code>~/.bnl/deps</code>.</li>
+      <li><code>bpm uninstall &lt;name&gt;</code> → Remove an installed dependency.</li>
+      <li><code>bpm list</code> → Show installed packages.</li>
+      <li><code>bpm login</code> → Authenticate with the registry.</li>
+      <li><code>bpm publish</code> → Publish the current package to the registry.</li>
+    </ul>
+  </TabsContent>
+
+  <TabsContent value="bangla">
+    <ul>
+      <li><code>bpm init</code> → কারেন্ট ডিরেক্টরিতে স্টার্টার <code>bnl.json</code> তৈরি করে।</li>
+      <li><code>bpm install</code> → <code>bnl.json</code>-এ ডিক্লেয়ার করা প্রতিটি ডিপেন্ডেন্সি ইনস্টল করে।</li>
+      <li><code>bpm install &lt;name&gt;[@version]</code> → একটি প্যাকেজ যোগ ও ইনস্টল করে।</li>
+      <li><code>bpm install -g &lt;name&gt;</code> → <code>~/.bnl/deps</code>-এ গ্লোবালি ইনস্টল করে।</li>
+      <li><code>bpm uninstall &lt;name&gt;</code> → একটি ইনস্টল করা ডিপেন্ডেন্সি সরায়।</li>
+      <li><code>bpm list</code> → ইনস্টল করা প্যাকেজ দেখায়।</li>
+      <li><code>bpm login</code> → রেজিস্ট্রির সাথে authenticate করে।</li>
+      <li><code>bpm publish</code> → কারেন্ট প্যাকেজকে রেজিস্ট্রিতে প্রকাশ করে।</li>
     </ul>
   </TabsContent>
 </Tabs>
@@ -72,57 +83,57 @@ bpm --version
 
 ## Example Workflow
 
-<I18nEnglish>
-
 ```sh
-# Initialize a new project
+# Start a new project
+mkdir my-app && cd my-app
 bpm init
 
-# Install a library
-bpm install my-package
+# Add a dependency
+bpm install some-package
 
-# Remove it if no longer needed
-bpm uninstall my-package
+# Or install everything from bnl.json (e.g. on a fresh checkout)
+bpm install
 
-# Publish your own library
+# Remove what you don't need anymore
+bpm uninstall some-package
+
+# Publish your own package
+bpm login
 bpm publish
 ```
+
+---
+
+## Using an Installed Package
+
+<I18nEnglish>
+Installed packages live under `./deps/`. Import them by name — the import resolver knows where to look.
 </I18nEnglish>
 
 <I18nBangla>
-
-```sh
-# নতুন প্রজেক্ট শুরু
-bpm init
-
-# একটি লাইব্রেরি ইনস্টল
-bpm install lodash
-
-# পরে আপডেট করুন
-bpm update lodash
-
-# প্রয়োজন না হলে সরিয়ে দিন
-bpm remove lodash
-
-# নিজের লাইব্রেরি প্রকাশ করুন
-bpm publish
-```
+ইনস্টল করা প্যাকেজ `./deps/`-এ থাকে। নাম দিয়ে ইমপোর্ট করুন — ইমপোর্ট রিজলভার জানে কোথায় খুঁজতে হবে।
 </I18nBangla>
+
+```bnl
+import "some-package" as pkg;
+
+print(pkg.hello());
+```
 
 ---
 
 ## Best Practices
 
 <I18nEnglish>
-- Keep your <code>bnl_package.json</code> file under version control.  
-- Use semantic versioning (<code>^1.2.3</code>) for predictable updates.  
-- Always run <code>bpm audit</code> to check for security issues.  
-- Share your packages with meaningful names and documentation.
+- Commit both <code>bnl.json</code> and <code>bnl.lock</code>. The lockfile is what makes other people's installs reproduce yours.
+- Use semantic version ranges (<code>^1.2.3</code>) in <code>bnl.json</code> for direct deps so patch releases flow in naturally.
+- Use <code>-g</code> sparingly — global installs are great for CLIs you want on PATH, less great for app dependencies.
+- Give packages clear, lowercase names and document the public API in a README.
 </I18nEnglish>
 
 <I18nBangla>
-- আপনার <code>bnl_package.json</code> ফাইল version control এ রাখুন।  
-- পূর্বাভাসযোগ্য আপডেটের জন্য semantic versioning (<code>^1.2.3</code>) ব্যবহার করুন।  
-- নিরাপত্তা সমস্যা চেক করার জন্য সবসময় <code>bpm audit</code> চালান।  
-- প্যাকেজ অর্থপূর্ণ নাম এবং ডকুমেন্টেশন সহ শেয়ার করুন।
+- <code>bnl.json</code> এবং <code>bnl.lock</code> দু'টোই কমিট করুন। লকফাইলই অন্যদের ইনস্টলকে আপনার সাথে রিপ্রোডিউস করায়।
+- ডাইরেক্ট ডিপের জন্য <code>bnl.json</code>-এ সেমান্টিক সংস্করণ রেঞ্জ (<code>^1.2.3</code>) ব্যবহার করুন, যাতে patch রিলিজ স্বাভাবিকভাবে আসে।
+- <code>-g</code> পরিমিত ব্যবহার করুন — গ্লোবাল ইনস্টল PATH-এ থাকা CLI-এর জন্য ভালো, অ্যাপ ডিপেন্ডেন্সির জন্য তেমন না।
+- প্যাকেজকে পরিষ্কার, ছোট-হাতের নাম দিন এবং README-তে পাবলিক API ডকুমেন্ট করুন।
 </I18nBangla>

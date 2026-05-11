@@ -1,116 +1,97 @@
 ---
 title: The Bnlang Event Loop
-description: Learn how the event loop works in Bnlang with examples in Bangla and English.
+description: How Bnlang's libuv-powered event loop drives async I/O, timers, and network callbacks.
 bnTitle: Bnlang ইভেন্ট লুপ
-bnDescription: Bnlang এ ইভেন্ট লুপ এর ধারণা ও কাজের পদ্ধতি উদাহরণসহ।
+bnDescription: libuv-চালিত ইভেন্ট লুপ কীভাবে Bnlang-এ async I/O, টাইমার ও নেটওয়ার্ক কলব্যাক চালায়।
 ---
 
 # <I18nEnglish>The Bnlang Event Loop</I18nEnglish>
 # <I18nBangla>Bnlang ইভেন্ট লুপ</I18nBangla>
 
 <I18nEnglish>
-The **event loop** in **Bnlang** is the core mechanism that makes asynchronous programming possible.  
-It allows tasks like I/O, timers, and events to run without blocking the main thread.  
-The event loop continuously checks for pending tasks and executes them in phases, ensuring programs remain responsive.
+Every Bnlang program runs on a single **event loop**, provided by **libuv**.
+The loop is what makes async I/O work: while one request is waiting on disk or the network, the loop keeps spinning and runs other callbacks that are ready.
 </I18nEnglish>
 
 <I18nBangla>
-**Bnlang** এ **ইভেন্ট লুপ** হলো এমন একটি মূল ব্যবস্থা যা অ্যাসিঙ্ক্রোনাস প্রোগ্রামিং সম্ভব করে।  
-এটি I/O, টাইমার এবং ইভেন্ট চালাতে পারে মূল থ্রেড ব্লক না করে।  
-ইভেন্ট লুপ সারাক্ষণ কিউ চেক করে এবং ধাপে ধাপে টাস্ক চালায়, ফলে প্রোগ্রাম রেসপন্সিভ থাকে।
+প্রতিটি Bnlang প্রোগ্রাম একটি **ইভেন্ট লুপ**-এ চলে, যা **libuv** দ্বারা সরবরাহ করা।
+এই লুপই async I/O চালায়: যখন একটি রিকোয়েস্ট ডিস্ক বা নেটওয়ার্কের জন্য অপেক্ষমাণ, লুপ ঘুরতে থাকে এবং প্রস্তুত অন্য কলব্যাকগুলো চালায়।
 </I18nBangla>
 
 ---
 
-## How the Event Loop Works
+## How It Works
 
 <I18nEnglish>
-1. Tasks are placed into queues (macrotasks, microtasks).  
-2. The event loop checks the call stack. If empty, it processes the next task.  
-3. Timers, I/O callbacks, and event handlers are executed.  
-4. Microtasks (like promise callbacks) are always executed before the next macrotask.  
-5. This cycle continues indefinitely.
+1. Your script runs top to bottom. Synchronous statements execute immediately.
+2. Async calls (e.g. `io.read_file_async`, `timers.set`, network ops) hand work off to libuv and return without waiting.
+3. When your script finishes its top-level code, the runtime hands control to the event loop.
+4. As each operation completes, libuv queues the matching callback. The loop picks them up one at a time and runs them on the main thread.
+5. The process exits when there is no more pending work — no live timers, no open streams, no in-flight requests.
 </I18nEnglish>
 
 <I18nBangla>
-১. টাস্কগুলো কিউতে রাখা হয় (ম্যাক্রোটাস্ক, মাইক্রোটাস্ক)।  
-২. ইভেন্ট লুপ কল স্ট্যাক পরীক্ষা করে। ফাঁকা থাকলে পরবর্তী টাস্ক চালায়।  
-৩. টাইমার, I/O কলব্যাক এবং ইভেন্ট হ্যান্ডলার চালানো হয়।  
-৪. মাইক্রোটাস্ক (যেমন প্রতিশ্রুতি কলব্যাক) সবসময় পরবর্তী ম্যাক্রোটাস্কের আগে চালানো হয়।  
-৫. এই চক্র অনন্তকাল ধরে চলতে থাকে।
+১. আপনার স্ক্রিপ্ট উপর থেকে নিচে চলে। সিঙ্ক্রোনাস স্টেটমেন্ট সাথে সাথে এক্সিকিউট হয়।
+২. Async কল (যেমন `io.read_file_async`, `timers.set`, নেটওয়ার্ক অপ) libuv-এ কাজ হস্তান্তর করে অপেক্ষা না করেই ফেরত আসে।
+৩. টপ-লেভেল কোড শেষ হলে রানটাইম কন্ট্রোল ইভেন্ট লুপকে দেয়।
+৪. প্রতিটি অপারেশন কমপ্লিট হলে libuv সংশ্লিষ্ট কলব্যাক কিউতে রাখে। লুপ এক একটা করে তুলে মেইন থ্রেডে চালায়।
+৫. কোনো লাইভ টাইমার, খোলা স্ট্রিম, বা ইন-ফ্লাইট রিকোয়েস্ট না থাকলে প্রসেস এক্সিট করে।
 </I18nBangla>
 
 ---
 
-## Example with Timers and Promises
+## Example: Timers and Async I/O
 
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-  </TabsList>
+<I18nEnglish>
+The output below shows the loop in action. Notice that the synchronous `print` calls run first, and then the loop drains the scheduled callbacks.
+</I18nEnglish>
 
-  <TabsContent value="english">
-
-```js
-console.log("Start");
-
-setTimeout(() => console.log("Timeout"), 0);
-
-Promise.resolve().then(() => console.log("Promise"));
-
-console.log("End");
-
-// Output:
-// Start
-// End
-// Promise
-// Timeout
-```
-  </TabsContent>
-
-  <TabsContent value="bangla">
+<I18nBangla>
+নিচের আউটপুটে লুপ দেখানো হলো কাজ করতে। লক্ষ্য করুন, সিঙ্ক্রোনাস `print` কল আগে চলে, তারপর লুপ শিডিউলড কলব্যাকগুলো ড্রেইন করে।
+</I18nBangla>
 
 ```bnl
-কনসোল.লগ("শুরু");
+import "timers" as timers;
+import "io"     as io;
 
-সময়সীমা_নির্ধারণ(() => কনসোল.লগ("সময়সীমা_নির্ধারণ"), 0);
+print("a");
 
-প্রতিশ্রুতি.রিজলভ().তারপর(() => কনসোল.লগ("প্রতিশ্রুতি"));
+timers.set(0, function () {
+    print("timer fired");
+});
 
-কনসোল.লগ("শেষ");
+io.read_file_async("greeting.txt", function (err, data) {
+    if (err != null) { print("read err:", err); return; }
+    print("file:", data);
+});
 
-// আউটপুট:
-// শুরু
-// শেষ
-// প্রতিশ্রুতি
-// সময়সীমা_নির্ধারণ
+print("b");
+
+// Output (file order depends on disk timing):
+// a
+// b
+// timer fired
+// file: ...
 ```
-  </TabsContent>
-
-  
-</Tabs>
 
 ---
 
-## Phases of the Event Loop
+## What's *Not* Here
 
 <I18nEnglish>
-The event loop is divided into phases:  
-- **Timers Phase** → Executes callbacks from `setTimeout` and `setInterval`.  
-- **I/O Callbacks Phase** → Executes deferred I/O callbacks.  
-- **Check Phase** → Executes `setImmediate` callbacks.  
-- **Close Callbacks Phase** → Executes close events like socket close.  
-Between each phase, microtasks (like promises) are executed before moving on.
+Bnlang's event loop is deliberately simple. A few things you might expect from other runtimes don't exist:
+
+- **No microtask queue** — there are no Promises, so there is no `then`/`await` microtask ordering. Callbacks run in the order their I/O completes.
+- **No `process.nextTick` or `setImmediate`** — use `timers.set(0, fn)` to defer until the next loop turn.
+- **No background threads visible to scripts** — heavy I/O uses libuv's thread pool internally, but your script always runs on the main thread.
 </I18nEnglish>
 
 <I18nBangla>
-ইভেন্ট লুপ কয়েকটি ধাপে বিভক্ত:  
-- **টাইমার ধাপ** → `setTimeout` এবং `setInterval` এর কলব্যাক চালানো হয়।  
-- **I/O কলব্যাক ধাপ** → স্থগিত I/O কলব্যাক চালানো হয়।  
-- **চেক ধাপ** → `setImmediate` কলব্যাক চালানো হয়।  
-- **ক্লোজ কলব্যাক ধাপ** → সকেট ক্লোজের মত ক্লোজ ইভেন্ট চালানো হয়।  
-প্রতিটি ধাপের মাঝে মাইক্রোটাস্ক চালানো হয়।
+Bnlang এর ইভেন্ট লুপ ইচ্ছাকৃতভাবে সরল। অন্য রানটাইম থেকে আপনি যেসব আশা করতে পারেন, এর কিছু এখানে নেই:
+
+- **কোনো মাইক্রোটাস্ক কিউ নেই** — কোনো Promise নেই, তাই `then`/`await` মাইক্রোটাস্ক অর্ডারিং নেই। কলব্যাক তাদের I/O যে ক্রমে কমপ্লিট হয় সেই ক্রমে চলে।
+- **`process.nextTick` বা `setImmediate` নেই** — পরের লুপ-টার্ন পর্যন্ত ডিফার করতে `timers.set(0, fn)` ব্যবহার করুন।
+- **স্ক্রিপ্টের কাছে দৃশ্যমান কোনো ব্যাকগ্রাউন্ড থ্রেড নেই** — ভারী I/O ভিতরে libuv এর থ্রেড পুল ব্যবহার করে, কিন্তু আপনার স্ক্রিপ্ট সবসময় মেইন থ্রেডে চলে।
 </I18nBangla>
 
 ---
@@ -118,16 +99,13 @@ Between each phase, microtasks (like promises) are executed before moving on.
 ## Best Practices
 
 <I18nEnglish>
-- Do not block the event loop with heavy computations.  
-- Use promises and async/await for clarity.  
-- Break large tasks into smaller microtasks.  
-- Keep the event loop free for handling I/O efficiently.
+- Keep callbacks short. They share the loop with every other in-flight request.
+- For CPU-heavy work, slice it into chunks separated by `timers.set(0, ...)` so other callbacks get a turn.
+- Always close streams and clear interval timers you no longer need — they will keep the loop (and your process) alive.
 </I18nEnglish>
 
 <I18nBangla>
-- ভারী কম্পিউটেশনে ইভেন্ট লুপ ব্লক করবেন না।  
-- পরিষ্কার কোডের জন্য প্রতিশ্রুতি এবং async/await ব্যবহার করুন।  
-- বড় টাস্ককে ছোট মাইক্রোটাস্কে ভাগ করুন।  
-- I/O দক্ষভাবে চালানোর জন্য ইভেন্ট লুপ ফ্রি রাখুন।
+- কলব্যাক ছোট রাখুন। এরা প্রতিটা অন্য ইন-ফ্লাইট রিকোয়েস্টের সাথে লুপ শেয়ার করে।
+- CPU-ভারী কাজকে `timers.set(0, ...)` দিয়ে আলাদা চাঙ্কে ভাগ করুন, যাতে অন্য কলব্যাক টার্ন পায়।
+- যেসব স্ট্রিম ও ইন্টারভ্যাল টাইমার আপনার আর প্রয়োজন নেই, ক্লোজ/ক্লিয়ার করুন — না করলে লুপ (এবং আপনার প্রসেস) জীবিত থাকবে।
 </I18nBangla>
-

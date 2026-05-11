@@ -1,0 +1,122 @@
+---
+title: io module
+description: File I/O — sync, async, and streaming reads/writes; directory operations; file metadata.
+bnTitle: io মডিউল
+bnDescription: ফাইল I/O — sync, async, এবং streaming; ডিরেক্টরি অপারেশন; ফাইল মেটাডেটা।
+---
+
+# <I18nEnglish>`io` module</I18nEnglish>
+# <I18nBangla>`io` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+File and directory primitives. Every blocking call has an async counterpart (`*_async`); for very large files use the streaming `open_read` / `open_write`.
+
+```bnl
+import "io" as io;
+
+io.write_file("greeting.txt", "Hello!");
+print(io.read_file("greeting.txt"));
+```
+
+## Sync file I/O
+
+| Function | Description |
+|---|---|
+| `io.read_file(path)` → string | Read the whole file into a string. |
+| `io.write_file(path, data)` | Overwrite the file with `data`. |
+| `io.append_file(path, data)` | Append `data`; creates the file if missing. |
+
+## Async file I/O
+
+| Function | Description |
+|---|---|
+| `io.read_file_async(path, cb)` | Callback `cb(err, data)`. |
+| `io.write_file_async(path, data, cb)` | Callback `cb(err)`. |
+
+## Streaming
+
+| Function | Description |
+|---|---|
+| `io.open_read(path)` → stream | Returns `{read(size, cb), close()}`. `cb(err, chunk)`; `chunk == null` means EOF. |
+| `io.open_write(path)` → stream | Returns `{write(data, cb), close(cb)}`. Always `close()` to flush. |
+
+## Metadata
+
+| Function | Description |
+|---|---|
+| `io.exists(path)` → bool | True if the path exists. |
+| `io.is_file(path)` → bool | |
+| `io.is_dir(path)` → bool | |
+| `io.stat(path)` → map | `{bytes, mtime, is_file, is_dir}`. Throws if missing. |
+
+## Directories
+
+| Function | Description |
+|---|---|
+| `io.mkdir(path)` | Creates intermediate parents automatically. |
+| `io.list_dir(path)` → list | Entry names (no `.` / `..`). |
+| `io.remove(path)` | File or directory; **recursive** for directories. |
+| `io.rename(from, to)` | |
+| `io.copy_file(from, to)` | |
+
+## See also
+- [`path`](/en/docs/v1.0.0/modules/path-module) — build and split paths portably.
+- [Manipulating Files](/en/learn/manipulating-files) tutorial.
+</I18nEnglish>
+
+<I18nBangla>
+ফাইল ও ডিরেক্টরি প্রিমিটিভ। প্রতিটি blocking কলের একটি async counterpart (`*_async`) আছে; খুব বড় ফাইলের জন্য streaming `open_read` / `open_write` ব্যবহার করুন।
+
+```bnl
+import "io" as io;
+
+io.write_file("greeting.txt", "Hello!");
+print(io.read_file("greeting.txt"));
+```
+
+## Sync ফাইল I/O
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `io.read_file(path)` → string | পুরো ফাইল একটি স্ট্রিং-এ পড়ুন। |
+| `io.write_file(path, data)` | ফাইল `data` দিয়ে ওভাররাইট করুন। |
+| `io.append_file(path, data)` | `data` অ্যাপেন্ড; না থাকলে তৈরি। |
+
+## Async ফাইল I/O
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `io.read_file_async(path, cb)` | কলব্যাক `cb(err, data)`। |
+| `io.write_file_async(path, data, cb)` | কলব্যাক `cb(err)`। |
+
+## Streaming
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `io.open_read(path)` → stream | `{read(size, cb), close()}`। `chunk == null` মানে EOF। |
+| `io.open_write(path)` → stream | `{write(data, cb), close(cb)}`। ফ্লাশ করতে সবসময় `close()`। |
+
+## মেটাডেটা
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `io.exists(path)` → bool | পাথ থাকলে true। |
+| `io.is_file(path)` → bool | |
+| `io.is_dir(path)` → bool | |
+| `io.stat(path)` → map | `{bytes, mtime, is_file, is_dir}`। অনুপস্থিত হলে throw। |
+
+## ডিরেক্টরি
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `io.mkdir(path)` | মধ্যবর্তী parents স্বয়ংক্রিয়ভাবে তৈরি। |
+| `io.list_dir(path)` → list | এন্ট্রি নাম (কোনো `.` / `..` নেই)। |
+| `io.remove(path)` | ফাইল বা ডিরেক্টরি; ডিরেক্টরির জন্য **recursive**। |
+| `io.rename(from, to)` | |
+| `io.copy_file(from, to)` | |
+
+## আরও দেখুন
+- [`path`](/bn/docs/v1.0.0/modules/path-module) — ক্রস-প্ল্যাটফর্ম পাথ বানানো।
+- [ফাইল ম্যানিপুলেশন](/bn/learn/manipulating-files) টিউটোরিয়াল।
+</I18nBangla>

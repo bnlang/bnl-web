@@ -12,39 +12,41 @@ bnDescription: শুরু করুন পেজ
 
 
 <I18nEnglish>
-Welcome to the **Get Started** guide for the Bangla Programming Language (BNL).  
-This page will help you install BNL, run your first program, and understand the basics of working with the language.
+Welcome to the **Get Started** guide for the Bangla Programming Language (Bnlang).
+This page walks you through installing Bnlang, running your first program, and getting a feel for the toolchain.
 
 ---
 
 ## Introduction
 
-BNL is a **bilingual programming language** that supports **Bangla** and **English** keywords.  
-It’s designed for learners, educators, and developers who want to explore programming in their own language while keeping global compatibility.
+Bnlang is a **dual-language programming language** with **Bangla** and **English** keywords mapped to the same syntax tree.
+It's a native programming language with its own interpreter — there is no transpilation step and no dependency on a JavaScript engine.
+The language is designed for learners, educators, and working developers who want a clean, readable language with a modern standard library.
 
 ---
 
-## Why BNL?
+## Why Bnlang?
 
-- 🌐 **Multilingual** — write code in Bangla, English.  
-- 📚 **Educational** — built for students learning Computer Science in their native language.  
-- ⚡ **Simple & Familiar** — syntax inspired by C and JavaScript.  
-- 🔗 **Interoperable** — works smoothly with existing ecosystems and libraries.  
+- 🌐 **Dual-language** — write code in Bangla or English; the parser treats both the same.
+- 📚 **Educational** — built so students can pick up programming concepts in their native language.
+- ⚡ **Predictable** — small, regular syntax. Fixed-arity functions, no surprising overloads.
+- 🛠 **Batteries included** — file I/O, HTTP, WebSocket, SQLite/PostgreSQL/MySQL/MongoDB, templating, crypto, and more in the standard library.
+- 🧩 **Embeddable** — `bnl_core` is a C++ library you can embed directly into a host application, and native plugins extend the runtime without any transpile step.
 
 ---
 
 ## Installation
 
-To install BNL:
+To install Bnlang:
 
-1. Go to the [Releases page](/en/releases).  
-2. Download the latest package for your platform:  
-   - **Windows** (`.exe` installer or `.zip`)  
-   - **Linux** (`.tar.gz`)  
-   - **macOS** (`.pkg` or `.tar.gz`)  
-3. Follow the platform-specific installation instructions provided with the release.  
+1. Go to the [Releases page](/en/releases).
+2. Download the latest package for your platform:
+   - **Windows** (`.exe` installer or `.zip`)
+   - **Linux** (`.tar.gz`)
+   - **macOS** (`.pkg` or `.tar.gz`)
+3. Follow the platform-specific installation instructions in the release notes.
 
-After installation, check if it’s working:
+After installation, check that it works:
 
 ```bash
 bnl --version
@@ -57,7 +59,7 @@ bnl --version
 Create a file named `hello.bnl`:
 
 ```bnl
-print("Hello, world!")
+print("Hello, world!");
 ```
 
 Run it:
@@ -68,49 +70,51 @@ bnl hello.bnl
 
 ---
 
-## What’s Next?
+## What's Next?
 
-In this documentation, you’ll find:
+Across the documentation you'll find:
 
-- **Get Started**: Installation and first program.  
-- **Language Basics**: Variables, types, operators, control flow.  
-- **Built-in Modules**: Utilities included in BNL.  
-- **Advanced Topics**: Threading, networking, and interoperability.  
+- **Get Started** — installation, your first program, and how the language is put together.
+- **Language Basics** — variables, types, operators, control flow.
+- **Standard Library** — file I/O, HTTP, sockets, databases, templating, and more.
+- **Tooling** — BPM (the package manager) and the built-in test framework.
 </I18nEnglish>
 
 <I18nBangla>
-**শুরু করুন** গাইডে স্বাগতম।  
-এই পেজ আপনাকে **BNL** (Bangla Programming Language) ইন্সটল করা, প্রথম প্রোগ্রাম চালানো এবং বেসিক ধারণা নিতে সাহায্য করবে।
+**শুরু করুন** গাইডে স্বাগতম।
+এই পেজ আপনাকে **Bnlang** (Bangla Programming Language) ইনস্টল করতে, প্রথম প্রোগ্রাম চালাতে এবং টুলচেইনের সাথে পরিচিত হতে সাহায্য করবে।
 
 ---
 
 ## পরিচিতি
 
-BNL একটি **দ্বিভাষিক প্রোগ্রামিং ল্যাঙ্গুয়েজ**। এখানে **বাংলা**, **ইংরেজি**, একসাথে ব্যবহার করা যায়।  
-এটি তৈরি হয়েছে শিক্ষার্থী, শিক্ষক এবং ডেভেলপারদের জন্য যারা মাতৃভাষায় প্রোগ্রামিং শিখতে বা শেখাতে চান, কিন্তু আন্তর্জাতিক মানও বজায় রাখতে চান।
+Bnlang একটি **দ্বিভাষিক প্রোগ্রামিং ল্যাঙ্গুয়েজ**, যেখানে **বাংলা** এবং **ইংরেজি** কীওয়ার্ড একই সিনট্যাক্স ট্রি-তে ম্যাপ হয়।
+এটি একটি নেটিভ ভাষা — নিজস্ব ইন্টারপ্রেটার দিয়ে চলে, কোনো ট্রান্সপাইলেশন স্টেপ নেই, কোনো জাভাস্ক্রিপ্ট ইঞ্জিনের উপর নির্ভরতাও নেই।
+ভাষাটি ডিজাইন করা হয়েছে শিক্ষার্থী, শিক্ষক, এবং কর্মরত ডেভেলপারদের জন্য, যারা পরিষ্কার পাঠযোগ্য সিনট্যাক্স এবং আধুনিক স্ট্যান্ডার্ড লাইব্রেরি চান।
 
 ---
 
-## কেন BNL?
+## কেন Bnlang?
 
-- 🌐 **দ্বিভাষিক** — বাংলা, ইংরেজি এ কোড লিখুন।  
-- 📚 **শিক্ষামূলক** — মাতৃভাষায় কম্পিউটার সায়েন্স শেখার জন্য উপযোগী।  
-- ⚡ **সহজ ও পরিচিত** — C ও JavaScript স্টাইল সিনট্যাক্স।  
-- 🔗 **ইন্টারঅপারেবল** — বিদ্যমান লাইব্রেরি ও টুলচেইনের সাথে সহজে কাজ করে।  
+- 🌐 **দ্বিভাষিক** — বাংলা বা ইংরেজি, যে কোনো ভাষায় কোড লিখুন; পার্সার দু'টাকেই একই ভাবে দেখে।
+- 📚 **শিক্ষামূলক** — মাতৃভাষায় প্রোগ্রামিং কনসেপ্ট শেখার জন্য তৈরি।
+- ⚡ **পূর্বানুমানযোগ্য** — ছোট, নিয়মিত সিনট্যাক্স। ফিক্সড-অ্যারিটি ফাংশন, কোনো বিভ্রান্তিকর ওভারলোড নেই।
+- 🛠 **ব্যাটারি ইনক্লুডেড** — ফাইল I/O, HTTP, WebSocket, SQLite/PostgreSQL/MySQL/MongoDB, টেমপ্লেটিং, ক্রিপ্টো — সবই স্ট্যান্ডার্ড লাইব্রেরিতে।
+- 🧩 **এমবেডেবল** — `bnl_core` একটি C++ লাইব্রেরি, যা সরাসরি হোস্ট অ্যাপ্লিকেশনে এমবেড করা যায়; নেটিভ প্লাগইন দিয়ে রানটাইম এক্সটেন্ড করুন কোনো ট্রান্সপাইল ছাড়াই।
 
 ---
 
-## ইন্সটলেশন
+## ইনস্টলেশন
 
-BNL ইন্সটল করতে:
+Bnlang ইনস্টল করতে:
 
-1. [Releases পেজ](/bn/releases) থেকে সর্বশেষ প্যাকেজ ডাউনলোড করুন।  
-   - **Windows** (`.exe` বা `.zip`)  
-   - **Linux** (`.tar.gz`)  
-   - **macOS** (`.pkg` বা `.tar.gz`)  
-2. রিলিজ ফাইলে দেওয়া নির্দেশনা অনুসরণ করে ইন্সটল করুন।  
+1. [Releases পেজ](/bn/releases) থেকে সর্বশেষ প্যাকেজ ডাউনলোড করুন।
+   - **Windows** (`.exe` বা `.zip`)
+   - **Linux** (`.tar.gz`)
+   - **macOS** (`.pkg` বা `.tar.gz`)
+2. রিলিজ নোটে দেওয়া প্ল্যাটফর্ম-নির্দেশনা অনুসরণ করে ইনস্টল করুন।
 
-ইন্সটল ঠিকমতো হয়েছে কিনা যাচাই করুন:
+ইনস্টলেশন ঠিক মতো হয়েছে কিনা যাচাই করুন:
 
 ```bash
 bnl --version
@@ -123,7 +127,7 @@ bnl --version
 `hello.bnl` নামে একটি ফাইল তৈরি করুন:
 
 ```bnl
-print("হ্যালো, বিশ্ব!")
+print("হ্যালো, বিশ্ব!");
 ```
 
 চালান:
@@ -138,10 +142,10 @@ bnl hello.bnl
 
 ডকুমেন্টেশনে আপনি পাবেন:
 
-- **শুরু করুন**: ইন্সটলেশন ও প্রথম প্রোগ্রাম।  
-- **ভাষার বেসিকস**: ভ্যারিয়েবল, টাইপ, অপারেটর, কন্ট্রোল ফ্লো।  
-- **বিল্ট-ইন মডিউলস**: BNL এ অন্তর্ভুক্ত টুলস।  
-- **অ্যাডভান্সড টপিকস**: থ্রেডিং, নেটওয়ার্কিং, ইন্টারঅপারেবিলিটি।  
+- **শুরু করুন** — ইনস্টলেশন, প্রথম প্রোগ্রাম, এবং ভাষার অভ্যন্তরীণ গঠন।
+- **ভাষার বেসিকস** — ভ্যারিয়েবল, টাইপ, অপারেটর, কন্ট্রোল ফ্লো।
+- **স্ট্যান্ডার্ড লাইব্রেরি** — ফাইল I/O, HTTP, সকেট, ডাটাবেস, টেমপ্লেটিং এবং আরও অনেক কিছু।
+- **টুলিং** — BPM (প্যাকেজ ম্যানেজার) এবং বিল্ট-ইন টেস্ট ফ্রেমওয়ার্ক।
 </I18nBangla>
 
 

@@ -154,8 +154,8 @@
             },
             {
                 "icon": "Code2",
-                "title": "JavaScript Interop",
-                "body": "Leverage existing JavaScript libraries when needed, while enjoying Bnlang’s readable syntax and predictable semantics."
+                "title": "C++ Interop & FFI",
+                "body": "Embed `bnl_core` directly into a C++ host application, or drop a native `.dll`/`.so`/`.dylib` plugin next to a `bnl.json` manifest to extend the runtime — no transpilation, no shim layer."
             }
         ]
     },

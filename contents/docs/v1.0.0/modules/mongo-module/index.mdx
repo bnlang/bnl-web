@@ -1,0 +1,110 @@
+---
+title: mongo module
+description: MongoDB client — connect, pick a database and collection, CRUD.
+bnTitle: mongo মডিউল
+bnDescription: MongoDB ক্লায়েন্ট।
+---
+
+# <I18nEnglish>`mongo` module</I18nEnglish>
+# <I18nBangla>`mongo` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+MongoDB client backed by mongo-c-driver. Connect with a URI, drill down to `db.collection`, and CRUD with plain maps.
+
+```bnl
+import "mongo" as mongo;
+
+var client = mongo.connect("mongodb://localhost:27017");
+var coll   = client.db("myapp").collection("users");
+
+coll.insert_one({ name: "Alice", roles: ["admin"] });
+var alice = coll.find_one({ name: "Alice" });
+print(alice.roles[0]);                 // admin
+
+coll.update_one({ name: "Alice" }, { roles: ["admin", "editor"] });
+coll.delete_one({ name: "Alice" });
+
+client.close();
+```
+
+## Module API
+
+| Function | Description |
+|---|---|
+| `mongo.connect(uri)` → client | Parse and connect. URI like `mongodb://user:pass@host:port/?authSource=...`. |
+| `mongo.version()` → string | mongo-c-driver client version. |
+
+## Client / db / collection
+
+| Step | Description |
+|---|---|
+| `client.db(name)` | Pick a database. Returns `{collection(name), drop(), ...}`. |
+| `client.collection(db_name, coll_name)` | Shortcut for `client.db(d).collection(c)`. |
+| `client.close()` | Drop the connection. |
+| `db.collection(name)` | Pick a collection. |
+| `db.drop()` | Drop the whole database. |
+
+## Collection methods
+
+| Method | Description |
+|---|---|
+| `coll.insert_one(doc)` | Insert. |
+| `coll.find_one(filter)` → map \| null | First matching doc. |
+| `coll.update_one(filter, update)` | Apply `$set`-style update. |
+| `coll.delete_one(filter)` | |
+| `coll.drop()` | Drop the collection. |
+
+## See also
+- [`sqlite`](/en/docs/v1.0.0/modules/sqlite-module), [`pg`](/en/docs/v1.0.0/modules/pg-module), [`mysql`](/en/docs/v1.0.0/modules/mysql-module).
+</I18nEnglish>
+
+<I18nBangla>
+mongo-c-driver-চালিত MongoDB ক্লায়েন্ট। URI দিয়ে connect, `db.collection`-এ drill down, plain map দিয়ে CRUD।
+
+```bnl
+import "mongo" as mongo;
+
+var client = mongo.connect("mongodb://localhost:27017");
+var coll   = client.db("myapp").collection("users");
+
+coll.insert_one({ name: "Alice", roles: ["admin"] });
+var alice = coll.find_one({ name: "Alice" });
+print(alice.roles[0]);                 // admin
+
+coll.update_one({ name: "Alice" }, { roles: ["admin", "editor"] });
+coll.delete_one({ name: "Alice" });
+
+client.close();
+```
+
+## Module API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `mongo.connect(uri)` → client | URI parse ও connect। |
+| `mongo.version()` → string | Client version। |
+
+## Client / db / collection
+
+| ধাপ | বর্ণনা |
+|---|---|
+| `client.db(name)` | একটি database বেছে নিন। |
+| `client.collection(db_name, coll_name)` | শর্টকাট। |
+| `client.close()` | Connection ড্রপ। |
+| `db.collection(name)` | একটি collection। |
+| `db.drop()` | পুরো database ড্রপ। |
+
+## Collection মেথড
+
+| মেথড | বর্ণনা |
+|---|---|
+| `coll.insert_one(doc)` | Insert। |
+| `coll.find_one(filter)` → map \| null | প্রথম match। |
+| `coll.update_one(filter, update)` | `$set`-স্টাইল update। |
+| `coll.delete_one(filter)` | |
+| `coll.drop()` | Collection drop। |
+
+## আরও দেখুন
+- [`sqlite`](/bn/docs/v1.0.0/modules/sqlite-module), [`pg`](/bn/docs/v1.0.0/modules/pg-module), [`mysql`](/bn/docs/v1.0.0/modules/mysql-module)।
+</I18nBangla>

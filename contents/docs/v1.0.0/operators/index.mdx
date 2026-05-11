@@ -1,8 +1,9 @@
 ---
 title: Operators
-description: A comprehensive reference to JavaScript operators in Bnlang — overview, categories, and concise examples. (Operator tokens are the same across English and Bangla.)
+description: All operators in Bnlang — arithmetic, comparison, logical word operators, assignment, member access. Operator tokens are identical in English and Bangla code.
+
 bnTitle: অপারেটরসমূহ
-bnDescription: JavaScript/Bnlang এর সব অপারেটর — সারাংশ, বিভাগভিত্তিক টেবিল, উদাহরণ। (সব ভাষায় অপারেটর টোকেন এক।)
+bnDescription: Bnlang-এর সব অপারেটর — গাণিতিক, তুলনা, লজিক্যাল শব্দ অপারেটর, অ্যাসাইনমেন্ট, মেম্বার অ্যাক্সেস।
 ---
 
 # <I18nEnglish>Operators</I18nEnglish>
@@ -10,230 +11,221 @@ bnDescription: JavaScript/Bnlang এর সব অপারেটর — সা�
 
 
 <I18nEnglish>
-JavaScript operators are the **symbols/keywords** that perform actions on values: arithmetic, comparisons, logical flow, assignment, bitwise ops, and more.  
-In Bnlang, the **operator tokens are identical** across English and Bangla (e.g., `+`, `===`, `&&`, `??`, `instanceof`, `in`, `typeof`, `delete`, `new`, `await`, `yield`, `void`).
+Bnlang has a deliberately small operator set. Symbolic operators (`+`, `==`, `<`, …) are identical in English and Bangla code; the only operators that have a Bangla form are the **logical word operators** (`and`/`এবং`, `or`/`অথবা`, `not`/`না`).
+
+## Quick reference
+
+| Category | Operators |
+|---|---|
+| Arithmetic | `+` `-` `*` `/` `%` |
+| Comparison | `==` `!=` `<` `<=` `>` `>=` |
+| Logical (word) | `and` / `এবং`, `or` / `অথবা`, `not` / `না` |
+| Assignment | `=` |
+| Member / index / call | `.`  `[ ]`  `( )` |
+| String concat | `+` |
+
+## Arithmetic
+
+```bnl
+print(2 + 3);     // 5
+print(10 - 4);    // 6
+print(3 * 4);     // 12
+print(10 / 3);    // 3.333...
+print(10 % 3);    // 1
+print(-5);        // -5  (unary minus)
+```
+
+There are **no** `++` / `--` operators. Write `i = i + 1` instead.
+
+There are **no** compound-assignment operators (`+=`, `-=`, `*=`, etc.). Write the full form: `x = x + 1`.
+
+## Comparison
+
+```bnl
+print(2 == 2);    // true
+print(2 != 3);    // true
+print(2 < 3);     // true
+print(2 <= 2);    // true
+```
+
+There is **no** `===` / `!==`. Equality is `==`, and it does **not** implicitly coerce types — `1 == "1"` is `false`. Use the comparison that fits your data.
+
+## Logical word operators
+
+Logical operators are spelled out as words. Both English and Bangla forms parse to the same token.
+
+```bnl
+var a = true;
+var b = false;
+
+print(a and b);    // false
+print(a or  b);    // true
+print(not a);      // false
+
+// Bangla forms — same meaning, same parsing
+print(a এবং b);    // false
+print(a অথবা b);   // true
+print(না a);       // false
+```
+
+There are **no** `&&`, `||`, `!` symbolic logical operators. Use the words.
+
+There are **no** bitwise operators (`&`, `|`, `^`, `~`, `<<`, `>>`). If you need bit manipulation, do the arithmetic explicitly (`(x / 2) % 2` for "bit 1 set", etc.).
+
+## Assignment
+
+```bnl
+var x = 10;
+x = x + 1;     // ordinary assignment
+print(x);      // 11
+```
+
+Just `=`. No compound forms.
+
+## Member access, index, call
+
+```bnl
+var user = { name: "Alice", roles: ["admin", "editor"] };
+
+print(user.name);          // member access
+print(user["name"]);       // map index (same as .name)
+print(user.roles[0]);      // list index
+print(user.roles.length);  // intrinsic property
+
+var greet = function (n) { return "hi " + n; };
+print(greet("Alice"));     // function call
+```
+
+## String concatenation
+
+`+` doubles as string concatenation when at least one side is a string:
+
+```bnl
+print("hello, " + "world");       // "hello, world"
+print("count: " + 42);            // "count: 42"
+```
+
+There is no string-interpolation syntax (no backtick template strings). Use `+` or pass multiple args to `print(...)`.
+
+## What's *not* here
+
+If you're coming from JavaScript or Python, here's what Bnlang **doesn't** ship:
+
+- `===` / `!==` — only `==` / `!=`.
+- `&&`, `||`, `!` — use `and`, `or`, `not`.
+- `??`, `?.`, `?:` (ternary) — use `if`/`else`.
+- `++`, `--`, `+=`, `-=`, etc. — write the full assignment.
+- `&`, `|`, `^`, `~`, `<<`, `>>` — no bitwise ops.
+- `typeof`, `instanceof`, `in`, `delete`, `void`, `new` — not operators (no operator-keywords beyond `and`/`or`/`not`). Use the `type()` built-in instead of `typeof`.
+- Backtick template strings — use `+`.
 </I18nEnglish>
 
 <I18nBangla>
-JavaScript অপারেটর হলো এমন **চিহ্ন/কীওয়ার্ড** যা মানের উপর অপারেশন চালায়—যেমন গাণিতিক, তুলনা, লজিক্যাল, অ্যাসাইনমেন্ট, বিটওয়াইজ ইত্যাদি।  
-Bnlang‑এ **সব ভাষায় অপারেটর টোকেন একই** থাকে (যেমন `+`, `===`, `&&`, `??`, `instanceof`, `in`, `typeof`, `delete`, `new`, `await`, `yield`, `void`)।
-</I18nBangla>
+Bnlang-এর অপারেটর সেট ইচ্ছাকৃতভাবে ছোট। সিম্বলিক অপারেটর (`+`, `==`, `<`, …) ইংরেজি ও বাংলা কোডে একই; শুধুমাত্র **লজিক্যাল শব্দ অপারেটর** (`and`/`এবং`, `or`/`অথবা`, `not`/`না`) এর বাংলা রূপ আছে।
 
+## দ্রুত রেফারেন্স
 
+| ক্যাটেগরি | অপারেটর |
+|---|---|
+| গাণিতিক | `+` `-` `*` `/` `%` |
+| তুলনা | `==` `!=` `<` `<=` `>` `>=` |
+| লজিক্যাল (শব্দ) | `and` / `এবং`, `or` / `অথবা`, `not` / `না` |
+| অ্যাসাইনমেন্ট | `=` |
+| মেম্বার / ইনডেক্স / কল | `.`  `[ ]`  `( )` |
+| স্ট্রিং কনক্যাট | `+` |
 
----
-
-## Quick Notes
-
-<I18nEnglish>
-- `+` is **addition** and also **string concatenation**; unary `+x` **coerces to number**.  
-- `==` does **coercive** equality; **prefer `===`** for strict equality.  
-- `??` returns right side only if left is **`null` or `undefined`** (unlike `||` which treats many falsy values).  
-- `&&=`, `||=`, `??=` are **logical assignment** operators.  
-- `yield` (generator) and `await` (async) are **contextual**.  
-- Optional chaining `?.` and spread/rest `...` are **punctuators** often called “operators.” Included here for completeness.
-</I18nEnglish>
-
-<I18nBangla>
-- `+` গাণিতিক **যোগ** এবং **স্ট্রিং জোড়া** দুই কাজই করে; unary `+x` মানকে **number** বানায়।  
-- `==` **coercion** করে; **`===`** ব্যবহার করাই শ্রেয়।  
-- `??` কেবল বাম পাশ **`null`/`undefined`** হলে ডান পাশ নেয়; `||` অনেক falsy মানে নেয়।  
-- `&&=`, `||=`, `??=` হলো **logical assignment**।  
-- `yield` (generator) ও `await` (async) **প্রাসঙ্গিক** জায়গায় কাজ করে।  
-- Optional chaining `?.` ও spread/rest `...` প্রায়শই “operator” বলা হয়—এখানে সুবিধার্থে যুক্ত করা হয়েছে।
-</I18nBangla>
-
-
-
----
-
-## Operator Tables by Category
-
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="bangla">
-
-### গাণিতিক (Arithmetic)
-| অপারেটর | নাম | উদাহরণ | নোট |
-|---|---|---|---|
-| `+` | যোগ / স্ট্রিং জোড়া | `1 + 2`, `"a" + "b"` | সংখ্যা যোগ বা স্ট্রিং concat |
-| `-` | বিয়োগ | `7 - 3` |  |
-| `*` | গুণ | `4 * 2` |  |
-| `/` | ভাগ | `7 / 2` | ফ্লোট ফল; `Math.floor` ব্যবহার করে নামানো যায় |
-| `%` | ভাগশেষ | `7 % 3` | remainder |
-| `**` | ঘাত | `2 ** 3` | exponentiation |
-| `+x` | ইউনারি প্লাস | `+"42"` | number‑e coercion |
-| `-x` | ইউনারি মাইনাস | `-"5"` | negation/coercion |
-
-### ইনক্রিমেন্ট/ডিক্রিমেন্ট
-| অপারেটর | নাম | উদাহরণ | নোট |
-|---|---|---|---|
-| `++x` | প্রিফিক্স ইনক্রিমেন্ট | `++i` | বাড়িয়ে **নতুন মান** ফেরত |
-| `x++` | পোস্টফিক্স ইনক্রিমেন্ট | `i++` | **পুরনো মান** ফেরত, পরে বাড়ে |
-| `--x` | প্রিফিক্স ডিক্রিমেন্ট | `--i` |  |
-| `x--` | পোস্টফিক্স ডিক্রিমেন্ট | `i--` |  |
-
-### তুলনা (Comparison)
-| অপারেটর | নাম | উদাহরণ | নোট |
-|---|---|---|---|
-| `===` / `!==` | কঠোর সমতা/অসমতা | `a === b` | coercion নেই |
-| `==` / `!=` | শিথিল সমতা/অসমতা | `"5" == 5` | coercion হয়—এড়ানো ভালো |
-| `<`, `<=`, `>`, `>=` | সম্পর্ক অপারেটর | `a < b` | স্ট্রিং তুলনায় lexicographic |
-
-### লজিক্যাল ও নালিশ (Logical & Nullish)
-| অপারেটর | নাম | উদাহরণ | নোট |
-|---|---|---|---|
-| `&&` | AND | `a && b` | short‑circuit |
-| `||` | OR | `a || b` | falsy তে ডান পাশ |
-| `!` | NOT | `!x` | booleanize |
-| `??` | Nullish coalescing | `x ?? y` | কেবল `null`/`undefined` হলে `y` |
-| `&&=`, `||=`, `??=` | Logical assignment | `x ||= 1` | শর্ট‑সার্কিট নিয়মে অ্যাসাইন |
-
-### অ্যাসাইনমেন্ট (Assignment)
-| অপারেটর | নাম | উদাহরণ |
-|---|---|---|
-| `=` | অ্যাসাইন | `x = 5` |
-| `+=`, `-=`, `*=`, `/=`, `%=` | গাণিতিক অ্যাসাইন | `x += 2` |
-| `**=` | ঘাত অ্যাসাইন | `x **= 2` |
-| `<<=`, `>>=`, `>>>=` | শিফট অ্যাসাইন | `x <<= 1` |
-| `&=`, `^=`, `|=` | বিটওয়াইজ অ্যাসাইন | `x &= 0xff` |
-
-### বিটওয়াইজ (Bitwise)
-| অপারেটর | নাম | উদাহরণ |
-|---|---|---|
-| `&` | AND | `a & b` |
-| `|` | OR | `a | b` |
-| `^` | XOR | `a ^ b` |
-| `~` | NOT | `~x` |
-| `<<` | বাম শিফট | `x << 2` |
-| `>>` | ডান শিফট (sign‑prop) | `x >> 1` |
-| `>>>` | জিরো‑ফিল ডান শিফট | `x >>> 1` |
-
-### রিলেশনাল/টাইপ (Relational/Type/Other)
-| অপারেটর | নাম | উদাহরণ | নোট |
-|---|---|---|---|
-| `typeof` | টাইপ নির্ণয় | `typeof x` | ফল স্ট্রিং |
-| `instanceof` | কন্সট্রাক্টর সম্পর্ক | `x instanceof C` | প্রোটোটাইপ‑চেইন |
-| `in` | প্রপার্টি আছে? | `"name" in obj` | প্রোটোটাইপসহ |
-| `delete` | প্রপার্টি মুছুন | `delete obj.x` |  |
-| `void` | undefined করুন | `void expr` | মান ফেলে দেয় |
-| `new` | কন্সট্রাক্ট ইনস্ট্যান্স | `new C()` |  |
-| `await` | প্রমিস অপেক্ষা | `await p` | async‑এ |
-| `yield`, `yield*` | জেনারেটর ফলানো | `yield x` | gen‑এ |
-
-### কন্ডিশনাল, কমা, অপশনাল/স্প্রেড
-| অপারেটর | নাম | উদাহরণ | নোট |
-|---|---|---|---|
-| `?:` | টার্নারি | `cond ? a : b` | এক্সপ্রেশন‑লেভেল `if` |
-| `,` | কমা | `(a = 1, b = 2)` | বাম চালিয়ে **ডান ফল** |
-| `?.` | অপশনাল চেইন | `obj?.prop()` | **পাংচুয়েটর** |
-| `...` | স্প্রেড/রেস্ট | `[...xs]`, `function f(...a){}` | **পাংচুয়েটর** |
-
-**উদাহরণ:**
+## গাণিতিক
 
 ```bnl
-const user = { name: "Mamun" };
-const label = user?.name ?? "Guest";
-let x = 2; x **= 3;           // 8
-const list = [1, 2]; const more = [...list, 3]; // [1,2,3]
-if (a > 0 && b > 0) print("both positive");
+print(2 + 3);     // 5
+print(10 - 4);    // 6
+print(3 * 4);     // 12
+print(10 / 3);    // 3.333...
+print(10 % 3);    // 1
+print(-5);        // -5  (unary minus)
 ```
 
-  </TabsContent>
+কোনো `++` / `--` অপারেটর **নেই**। `i = i + 1` লিখুন।
 
-  
+কোনো compound-assignment অপারেটর (`+=`, `-=`, `*=`, ইত্যাদি) **নেই**। পূর্ণ রূপ লিখুন: `x = x + 1`।
 
-  <TabsContent value="english">
-
-### Arithmetic
-| Operator | Name | Example | Notes |
-|---|---|---|---|
-| `+` | addition / string concat | `1 + 2`, `"a" + "b"` | concatenates strings |
-| `-`, `*`, `/`, `%`, `**` | subtract, multiply, divide, remainder, power | `7 / 2`, `2 ** 3` |  |
-| `+x`, `-x` | unary plus/minus | `+"42"`, `-"5"` | numeric coercion / negation |
-
-### Inc/Dec
-| Operator | Name | Example | Notes |
-|---|---|---|---|
-| `++x`, `x++` | increment | `++i`, `i++` | prefix returns new; postfix returns old |
-| `--x`, `x--` | decrement | `--i`, `i--` |  |
-
-### Comparison
-| Operator | Name | Example | Notes |
-|---|---|---|---|
-| `===`, `!==` | strict equality/inequality | `a === b` | no coercion |
-| `==`, `!=` | loose equality/inequality | `"5" == 5` | coerces — avoid |
-| `<`, `<=`, `>`, `>=` | relational | `a < b` | string compare is lexicographic |
-
-### Logical & Nullish
-| Operator | Name | Example | Notes |
-|---|---|---|---|
-| `&&`, `||`, `!` | logical and/or/not | `a && b` | short‑circuit |
-| `??` | nullish coalescing | `x ?? y` | only null/undefined |
-| `&&=`, `||=`, `??=` | logical assignment | `x ||= 1` | short‑circuit assign |
-
-### Assignment
-| Operator | Name | Example |
-|---|---|---|
-| `=`, `+=`, `-=`, `*=`, `/=`, `%=` | assignment & compound | `x += 2` |
-| `**=` | exponentiation assignment | `x **= 2` |
-| `<<=`, `>>=`, `>>>=` | shift assignment | `x <<= 1` |
-| `&=`, `^=`, `|=` | bitwise assignment | `x &= 0xff` |
-
-### Bitwise
-| Operator | Name | Example |
-|---|---|---|
-| `&`, `|`, `^`, `~` | and, or, xor, not | `a & b`, `~x` |
-| `<<`, `>>`, `>>>` | shifts | `x << 2` |
-
-### Relational/Type/Other
-| Operator | Name | Example | Notes |
-|---|---|---|---|
-| `typeof` | typeof | `typeof x` | returns a string |
-| `instanceof` | instanceof | `x instanceof C` | prototype chain |
-| `in` | property test | `"name" in obj` | includes prototype |
-| `delete` | delete property | `delete obj.x` |  |
-| `void` | void | `void expr` | returns undefined |
-| `new` | object construction | `new C()` |  |
-| `await` | await | `await p` | async only |
-| `yield`, `yield*` | yield | `yield x` | generator only |
-
-### Conditional, Comma, Optional/Spread
-| Operator | Name | Example | Notes |
-|---|---|---|---|
-| `?:` | conditional (ternary) | `cond ? a : b` | expression‑level if |
-| `,` | comma | `(a=1, b=2)` | evaluates L→R, returns last |
-| `?.` | optional chaining | `obj?.prop()` | punctuator |
-| `...` | spread/rest | `[...xs]`, `(...args)` | punctuator |
-
-**Example:**
+## তুলনা
 
 ```bnl
-const user = { name: "Mamun" };
-const label = user?.name ?? "Guest";
-let x = 2; x **= 3;
-const more = [...[1,2], 3];
-if (a > 0 && b > 0) console.log("both positive");
+print(2 == 2);    // true
+print(2 != 3);    // true
+print(2 < 3);     // true
+print(2 <= 2);    // true
 ```
-  </TabsContent>
-</Tabs>
 
----
+কোনো `===` / `!==` **নেই**। সমতা `==`, এবং এটি ইমপ্লিসিটলি টাইপ coerce **করে না** — `1 == "1"` হলো `false`। আপনার ডাটার সাথে মানানসই তুলনা ব্যবহার করুন।
 
-## Precedence (Common Highlights)
+## লজিক্যাল শব্দ অপারেটর
 
-- Highest → lowest (selected): `()` call/member → `new` → `**` → unary (`! ~ + - typeof void delete await`) → `* / %` → `+ -` → shifts (`<< >> >>>`) → comparisons (`< <= > >= in instanceof`) → equality (`== != === !==`) → logical AND `&&` → logical OR `||` → nullish `??` → conditional `?:` → assignment (`=`, `+=`, … `&&= ||= ??=`) → comma `,`.
-- `**` is **right‑associative**; most arithmetic is left‑associative. Ternary `?:` is right‑associative.
-- Mixing `??` with `||`/`&&` needs parentheses.
+লজিক্যাল অপারেটর শব্দ আকারে লেখা। ইংরেজি ও বাংলা — দু'টোই একই টোকেনে পার্স হয়।
 
-## Notes
+```bnl
+var a = true;
+var b = false;
 
-- BigInt works with most arithmetic/bitwise ops but **cannot mix** with Number (e.g., `1n + 1` → TypeError).  
-- `typeof null === "object"` (historical quirk). Arrays/dates/regex show `"object"`.  
-- `in` checks across the **prototype chain**; for own‑props use `Object.hasOwn(obj, key)`.  
-- Spread `...` and optional chaining `?.` are punctuators commonly treated as operators.
+print(a and b);    // false
+print(a or  b);    // true
+print(not a);      // false
+
+// বাংলা রূপ — একই অর্থ, একই পার্সিং
+print(a এবং b);    // false
+print(a অথবা b);   // true
+print(না a);       // false
+```
+
+কোনো `&&`, `||`, `!` সিম্বলিক লজিক্যাল অপারেটর **নেই**। শব্দ ব্যবহার করুন।
+
+কোনো বিটওয়াইজ অপারেটর (`&`, `|`, `^`, `~`, `<<`, `>>`) **নেই**। বিট ম্যানিপুলেশন দরকার হলে গণিতে স্পষ্টভাবে লিখুন।
+
+## অ্যাসাইনমেন্ট
+
+```bnl
+var x = 10;
+x = x + 1;     // সাধারণ অ্যাসাইনমেন্ট
+print(x);      // 11
+```
+
+শুধু `=`। কোনো compound রূপ নেই।
+
+## মেম্বার অ্যাক্সেস, ইনডেক্স, কল
+
+```bnl
+var user = { name: "আলিস", roles: ["admin", "editor"] };
+
+print(user.name);          // মেম্বার অ্যাক্সেস
+print(user["name"]);       // ম্যাপ ইনডেক্স (.name এর সমান)
+print(user.roles[0]);      // লিস্ট ইনডেক্স
+print(user.roles.length);  // intrinsic property
+
+var greet = function (n) { return "hi " + n; };
+print(greet("Alice"));     // ফাংশন কল
+```
+
+## স্ট্রিং কনক্যাটেনেশন
+
+কমপক্ষে এক পাশে স্ট্রিং থাকলে `+` স্ট্রিং কনক্যাটেনেশন হিসেবে কাজ করে:
+
+```bnl
+print("hello, " + "world");       // "hello, world"
+print("count: " + 42);            // "count: 42"
+```
+
+কোনো স্ট্রিং-ইন্টারপোলেশন সিনট্যাক্স নেই (কোনো backtick template string নেই)। `+` ব্যবহার করুন অথবা `print(...)` এ একাধিক আর্গুমেন্ট পাঠান।
+
+## যা *এখানে নেই*
+
+JavaScript বা Python থেকে আসলে, Bnlang যা **শিপ করে না**:
+
+- `===` / `!==` — শুধু `==` / `!=`।
+- `&&`, `||`, `!` — `and`, `or`, `not` ব্যবহার করুন।
+- `??`, `?.`, `?:` (টারনারি) — `if`/`else` ব্যবহার করুন।
+- `++`, `--`, `+=`, `-=`, ইত্যাদি — পূর্ণ অ্যাসাইনমেন্ট লিখুন।
+- `&`, `|`, `^`, `~`, `<<`, `>>` — কোনো বিটওয়াইজ অপ নেই।
+- `typeof`, `instanceof`, `in`, `delete`, `void`, `new` — অপারেটর নয় (`and`/`or`/`not` বাইরে কোনো অপারেটর-কীওয়ার্ড নেই)। `typeof`-এর বদলে `type()` বিল্ট-ইন ব্যবহার করুন।
+- Backtick template string — `+` ব্যবহার করুন।
+</I18nBangla>

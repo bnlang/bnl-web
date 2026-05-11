@@ -1,0 +1,64 @@
+---
+title: multipart module
+description: "Encode and decode multipart/form-data bodies."
+bnTitle: multipart মডিউল
+bnDescription: "multipart/form-data body।"
+---
+
+# <I18nEnglish>`multipart` module</I18nEnglish>
+# <I18nBangla>`multipart` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Build and parse `multipart/form-data` bodies. Mostly you'll use this through `request.upload` / `web.parse_form`, but the primitives are here when you need them.
+
+```bnl
+import "multipart" as multipart;
+
+var boundary = multipart.generate_boundary();
+var body = multipart.encode([
+    { name: "user", value: "alice" },
+    { name: "avatar", filename: "a.png", content_type: "image/png", data: bytes }
+], boundary);
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `multipart.generate_boundary()` → string | A fresh random boundary token. |
+| `multipart.encode(parts, boundary)` → string | Serialize a list of parts. Each part: `{name, value}` or `{name, filename, content_type, data}`. |
+| `multipart.decode(body, boundary)` → list | Parse a complete body into a list of parts. |
+| `multipart.streaming_decode(boundary, on_part_start, on_part_chunk, on_part_end)` | Push-style parser for huge uploads — feed chunks as they arrive. |
+
+## See also
+- [`request`](/en/docs/v1.0.0/modules/request-module) — `req.upload` / `req.upload_with` use this.
+- [`web`](/en/docs/v1.0.0/modules/web-module) — incoming multipart is parsed into `req.parts`.
+</I18nEnglish>
+
+<I18nBangla>
+`multipart/form-data` body বানান ও parse করুন। সাধারণত `request.upload` / `web.parse_form`-এর মাধ্যমে — কিন্তু low-level প্রিমিটিভ দরকার হলে এখানে।
+
+```bnl
+import "multipart" as multipart;
+
+var boundary = multipart.generate_boundary();
+var body = multipart.encode([
+    { name: "user", value: "alice" },
+    { name: "avatar", filename: "a.png", content_type: "image/png", data: bytes }
+], boundary);
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `multipart.generate_boundary()` → string | নতুন র‍্যান্ডম boundary token। |
+| `multipart.encode(parts, boundary)` → string | Parts → body। প্রতি part: `{name, value}` বা `{name, filename, content_type, data}`। |
+| `multipart.decode(body, boundary)` → list | পূর্ণ body → parts list। |
+| `multipart.streaming_decode(boundary, on_part_start, on_part_chunk, on_part_end)` | Push-style parser — chunks যেভাবে আসে feed করুন। |
+
+## আরও দেখুন
+- [`request`](/bn/docs/v1.0.0/modules/request-module)।
+- [`web`](/bn/docs/v1.0.0/modules/web-module)।
+</I18nBangla>

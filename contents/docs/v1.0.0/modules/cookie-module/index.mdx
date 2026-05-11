@@ -1,0 +1,65 @@
+---
+title: cookie module
+description: Parse and build HTTP cookies and `Set-Cookie` headers.
+bnTitle: cookie মডিউল
+bnDescription: HTTP কুকি ও `Set-Cookie` header।
+---
+
+# <I18nEnglish>`cookie` module</I18nEnglish>
+# <I18nBangla>`cookie` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Parse `Cookie:` headers into maps, and build `Set-Cookie` header values with the right attributes.
+
+```bnl
+import "cookie" as cookie;
+
+var parsed = cookie.parse("theme=dark; lang=en; sid=abc123");
+print(parsed.theme);     // dark
+
+var sc = cookie.build("sid", "abc123", {
+    path: "/", http_only: true, max_age: 3600, same_site: "Lax"
+});
+// sid=abc123; Path=/; HttpOnly; Max-Age=3600; SameSite=Lax
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `cookie.parse(header)` → map | Parse a `Cookie:` header value into `{name: value, …}`. |
+| `cookie.build(name, value, opts)` → string | Build a `Set-Cookie` value. `opts`: `{path, domain, max_age, expires, http_only, secure, same_site}`. |
+| `cookie.delete_(name, opts)` → string | Build a cookie that expires immediately — use to log out / clear a cookie on the client. |
+
+## See also
+- [`session`](/en/docs/v1.0.0/modules/session-module) — session middleware built on top of `cookie`.
+- [`web`](/en/docs/v1.0.0/modules/web-module) — `req.cookies` is already a parsed map.
+</I18nEnglish>
+
+<I18nBangla>
+`Cookie:` header parse করে ম্যাপে, এবং `Set-Cookie` header value সঠিক attributes সহ বানায়।
+
+```bnl
+import "cookie" as cookie;
+
+var parsed = cookie.parse("theme=dark; lang=en; sid=abc123");
+print(parsed.theme);     // dark
+
+var sc = cookie.build("sid", "abc123", {
+    path: "/", http_only: true, max_age: 3600, same_site: "Lax"
+});
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `cookie.parse(header)` → map | `Cookie:` header → `{name: value, …}`। |
+| `cookie.build(name, value, opts)` → string | `Set-Cookie` value। `opts`: `{path, domain, max_age, expires, http_only, secure, same_site}`। |
+| `cookie.delete_(name, opts)` → string | অবিলম্বে expire — কুকি clear করতে। |
+
+## আরও দেখুন
+- [`session`](/bn/docs/v1.0.0/modules/session-module)।
+- [`web`](/bn/docs/v1.0.0/modules/web-module) — `req.cookies` already parsed।
+</I18nBangla>

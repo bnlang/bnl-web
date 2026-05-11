@@ -1,102 +1,67 @@
 ---
 title: url module
-description: URL utilities for parsing, formatting, and resolving — support for WHATWG URL class, query params, and legacy parse/format/resolve.
+description: URL parsing, percent-encoding, and query-string serialization.
 bnTitle: url মডিউল
-bnDescription: URL ইউটিলিটি — পার্সিং, ফরম্যাটিং, রিসলভ; WHATWG URL ক্লাস, কুয়েরি প্যারাম ও পুরোনো parse/format/resolve সাপোর্ট।
+bnDescription: URL পার্সিং, percent-encoding, query-string।
 ---
 
-# <I18nEnglish>url</I18nEnglish>
-# <I18nBangla>url</I18nBangla>
+# <I18nEnglish>`url` module</I18nEnglish>
+# <I18nBangla>`url` মডিউল</I18nBangla>
 
 
 <I18nEnglish>
-The **`url`** module provides utilities for URL resolution and parsing. Modern code should use the **WHATWG URL API**.
-</I18nEnglish>
-
-<I18nBangla>
-**`url`** মডিউল URL পার্স ও রিসলভের জন্য ইউটিলিটি দেয়। আধুনিক কোডে **WHATWG URL API** ব্যবহার করুন।
-</I18nBangla>
-
-
-
----
-
-## API Surface
-
-<I18nEnglish>
-
-### WHATWG URL
-- **`new URL(input[, base])`** — create URL object.  
-- Properties: `href`, `protocol`, `username`, `password`, `host`, `hostname`, `port`, `pathname`, `search`, `hash`.  
-- **`url.searchParams`**: interface to manage query params.  
-  - `.get(name)`, `.set(name, value)`, `.append(name, value)`, `.delete(name)`.
-
-### Legacy API
-- **`url.parse(urlStr)`** — parse into object.  
-- **`url.format(obj)`** — format object into string.  
-- **`url.resolve(from, to)`** — resolve relative URL.  
-
-</I18nEnglish>
-
-<I18nBangla>
-### WHATWG URL
-- **`new URL()`** অবজেক্ট তৈরি। প্রপার্টি: href, protocol, host, pathname, search, hash ইত্যাদি।  
-- **`searchParams`** দিয়ে কুয়েরি প্যারাম ম্যানেজ করা যায়।
-
-### লিগ্যাসি
-- **`parse/format/resolve`** — পুরোনো স্টাইল ফাংশন।
-</I18nBangla>
-
-
-
----
-
-## Examples (English only)
-
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="english">
+Parse and build URLs, encode/decode percent-escapes, and serialize query parameters.
 
 ```bnl
-const { URL } = require("url");
+import "url" as url;
 
-// Modern URL API
-const myUrl = new URL("https://user:pass@example.com:8080/p/a/t/h?query=1#hash");
+var u = url.parse("https://example.com:8080/path?q=hello+world&n=42");
+print(u.scheme, u.host, u.port, u.path, u.query.q);
+// https example.com 8080 /path hello world
 
-console.log(myUrl.hostname);   // example.com
-console.log(myUrl.pathname);   // /p/a/t/h
-console.log(myUrl.searchParams.get("query")); // 1
-
-myUrl.searchParams.set("query", "42");
-console.log(myUrl.toString());
-
-// Legacy API
-const url = require("url");
-const parsed = url.parse("https://example.com/foo/bar?x=1");
-console.log(parsed.hostname, parsed.pathname);
+print(url.encode("hello world"));    // hello%20world
+print(url.build_query({ q: "hi", n: 1 }));  // q=hi&n=1
 ```
-  </TabsContent>
-</Tabs>
 
----
+## API
 
-## Notes
+| Function | Description |
+|---|---|
+| `url.parse(s)` → map | `{scheme, user, password, host, port, path, query, fragment, raw}`. `query` is a map. |
+| `url.encode(s)` → string | Percent-encode a single component. |
+| `url.decode(s)` → string | Reverse of `encode`. |
+| `url.build_query(params)` → string | Serialize a `{key: value}` map into `k1=v1&k2=v2`. |
+| `url.parse_query(s)` → map | Parse `k1=v1&k2=v2` (with or without leading `?`) into a map. |
 
-<I18nEnglish>
-- Prefer **WHATWG URL** for consistency with browsers.  
-- `searchParams` provides convenient query manipulation.  
-- Legacy API still works but is discouraged for new code.  
-- Always provide a **base URL** when parsing relative URLs.  
+## See also
+- [`web`](/en/docs/v1.0.0/modules/web-module) — `req.query` / `req.params` for incoming HTTP requests.
+- [`request`](/en/docs/v1.0.0/modules/request-module) — pass `query` opts to URL-encode automatically.
 </I18nEnglish>
 
 <I18nBangla>
-- ব্রাউজার সঙ্গতিপূর্ণতার জন্য WHATWG URL ব্যবহার করুন।  
-- `searchParams` দিয়ে সহজে কুয়েরি ম্যানেজ করা যায়।  
-- পুরোনো API নতুন কোডে ব্যবহার না করাই ভালো।  
-- রিলেটিভ URL পার্স করার সময় বেস দিন।  
+URL পার্স ও বানান, percent-escape encode/decode, query parameter serialize।
+
+```bnl
+import "url" as url;
+
+var u = url.parse("https://example.com:8080/path?q=hello+world&n=42");
+print(u.scheme, u.host, u.port, u.path, u.query.q);
+
+print(url.encode("hello world"));    // hello%20world
+print(url.build_query({ q: "hi", n: 1 }));  // q=hi&n=1
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `url.parse(s)` → map | `{scheme, user, password, host, port, path, query, fragment, raw}`। `query` একটি map। |
+| `url.encode(s)` → string | একটি component percent-encode। |
+| `url.decode(s)` → string | `encode`-এর reverse। |
+| `url.build_query(params)` → string | `{key: value}` → `k1=v1&k2=v2`। |
+| `url.parse_query(s)` → map | `k1=v1&k2=v2` → map। |
+
+## আরও দেখুন
+- [`web`](/bn/docs/v1.0.0/modules/web-module)।
+- [`request`](/bn/docs/v1.0.0/modules/request-module)।
 </I18nBangla>
-
-

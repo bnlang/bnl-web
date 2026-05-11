@@ -1,175 +1,236 @@
 ---
-title: class Keyword
-description: Define classes in Bnlang — constructors, methods, fields, getters/setters, static members, inheritance (extends/super), and private fields.
-bnTitle: শ্রেণী কীওয়ার্ড
-bnDescription: Bnlang এ শ্রেণী (class), নির্মাতা (constructor), মেথড, ফিল্ড, গেটার/সেটার, স্থির (static) সদস্য, প্রসারিত (extends)/অভিভাবক (super), প্রাইভেট ফিল্ড।
+title: class / extends / super
+description: Classes in Bnlang — definition, fields via `self`, inheritance with `extends`, and `super` calls.
+bnTitle: শ্রেণী / প্রসারিত / উপরের
+bnDescription: Bnlang-এ ক্লাস — সংজ্ঞা, `self` দিয়ে ফিল্ড, `extends` দিয়ে inheritance, এবং `super` কল।
 ---
 
-# <I18nEnglish>class Keyword</I18nEnglish>
-# <I18nBangla>শ্রেণী কীওয়ার্ড</I18nBangla>
+# <I18nEnglish>`class` / `extends` / `super`</I18nEnglish>
+# <I18nBangla>`শ্রেণী` / `প্রসারিত` / `উপরের`</I18nBangla>
 
 
 <I18nEnglish>
-Use **`class`** to define blueprints for objects.  
-Classes can have a **constructor**, **methods**, **fields** (including **private** `#fields`), **getters/setters**, **static** members, and support inheritance via **`extends`** and **`super`**.
-</I18nEnglish>
+A `class` defines a type with methods and fields. `extends` declares inheritance from a parent class. `super` chains to the parent (constructor or method). The Bangla forms are `শ্রেণী`, `প্রসারিত`, and `উপরের`.
 
-<I18nBangla>
-**`শ্রেণী`** দিয়ে অবজেক্টের নকশা সংজ্ঞায়িত করা যায়।  
-এতে থাকতে পারে **নির্মাতা** (constructor), **মেথড**, **ফিল্ড** (প্রাইভেট `#ফিল্ড` সহ), **গেটার/সেটার**, **স্থির** সদস্য এবং **`প্রসারিত`**/ **`অভিভাবক`** দিয়ে ইনহেরিটেন্স।
-</I18nBangla>
+## Defining a class
 
-
-
----
-
-## Syntax
-
-<I18nEnglish>
+Methods take `self` as their **first parameter explicitly** — there is no implicit `this`. An `init` method, if present, runs on construction.
 
 ```bnl
-class Account {
-  #balance = 0;                // private field
-  currency = "BDT";           // public field
-
-  constructor(owner, opening = 0) {
-    this.owner = owner;       // instance property
-    this.deposit(opening);    // call method
-  }
-
-  deposit(amount) {           // instance method
-    this.#balance += amount;
-  }
-
-  get balance() {             // getter
-    return this.#balance;
-  }
-
-  set balance(v) {            // setter (validate)
-    if (v < 0) throw new Error("negative");
-    this.#balance = v;
-  }
-
-  static bank = "BNL Bank";   // static field
-  static from(user) {         // static factory
-    return new Account(user, 0);
-  }
+class Counter {
+    function init(self, start) {
+        self.value = start;
+    }
+    function increment(self) {
+        self.value = self.value + 1;
+    }
+    function get(self) {
+        return self.value;
+    }
 }
 
-class Savings extends Account {         // inheritance
-  constructor(owner, opening, rate = 0.05) {
-    super(owner, opening);              // call parent constructor
-    this.rate = rate;
-  }
-  accrue() {
-    this.#balance = this.balance * (1 + this.rate); // via getter or internal logic
-  }
+var c = Counter(10);     // no `new` keyword
+c.increment();
+c.increment();
+print(c.get());          // 12
+```
+
+Notes:
+- Construction is `ClassName(args)` — there is **no `new` keyword**.
+- Method calls (`c.increment()`) automatically pass the instance as `self`.
+- If a class has no `init`, zero-arg construction works: `Bag()`.
+- Fields are set via `self.field = value` and read via `self.field` (or `obj.field` from outside).
+
+## Inheritance with `extends`
+
+```bnl
+class Animal {
+    function init(self, name) {
+        self.name = name;
+    }
+    function speak(self) {
+        return self.name + " makes a sound";
+    }
 }
+
+class Dog extends Animal {
+    function init(self, name, breed) {
+        super(name);              // chain parent's init
+        self.breed = breed;
+    }
+    function speak(self) {        // override
+        return self.name + " barks";
+    }
+}
+
+var d = Dog("Rex", "labrador");
+print(d.speak());                 // Rex barks
+```
+
+`super(...)` inside `init` calls the parent's constructor.
+
+## Calling parent methods
+
+Use `super.method(args)` to delegate to the parent's version of a method:
+
+```bnl
+class Dog extends Animal {
+    function describe(self) {
+        return super.describe() + " breed=" + self.breed;
+    }
+}
+```
+
+You can chain through multiple levels — a subclass's `super.x()` resolves against its direct parent, regardless of how deep the hierarchy goes.
+
+## Multi-level inheritance
+
+```bnl
+class Puppy extends Dog {
+    function speak(self) {
+        return super.speak() + " (puppy yip!)";
+    }
+}
+
+var p = Puppy("Buddy", "poodle");
+print(p.speak());    // Buddy barks (puppy yip!)
+```
+
+## What's *not* here
+
+- **No `this`.** Always use `self`, declared as the first method parameter.
+- **No `new`.** Just call the class: `Counter(10)`.
+- **No `static` methods.** If you need a module-level helper, write a top-level function.
+- **No access modifiers.** No `private` / `protected` / `public` — all fields and methods are accessible.
+- **No multiple inheritance.** A class extends at most one parent.
+
+## Bangla form
+
+```bnl
+শ্রেণী Counter {
+    ফাংশন init(self, start) {
+        self.value = start;
+    }
+    ফাংশন increment(self) {
+        self.value = self.value + 1;
+    }
+}
+
+চলক c = Counter(10);
+c.increment();
+print(c.value);   // 11
 ```
 </I18nEnglish>
 
 <I18nBangla>
+একটি `class` মেথড ও ফিল্ডসহ একটি টাইপ ডিফাইন করে। `extends` একটি প্যারেন্ট ক্লাস থেকে inheritance ঘোষণা করে। `super` প্যারেন্টে chain করে (constructor বা method)। বাংলা রূপ `শ্রেণী`, `প্রসারিত`, এবং `উপরের`।
+
+## একটি ক্লাস ডিফাইন
+
+মেথড তাদের **প্রথম parameter হিসেবে স্পষ্টভাবে** `self` নেয় — কোনো implicit `this` নেই। `init` মেথড থাকলে, construction-এ চলে।
 
 ```bnl
-শ্রেণী হিসাব {
-  #ব্যালেন্স = 0;                 // প্রাইভেট ফিল্ড
-  মুদ্রা = "BDT";                 // পাবলিক ফিল্ড
-
-  constructor(মালিক, প্রারম্ভ = 0) {
-    এটি.মালিক = মালিক;            // ইনস্ট্যান্স প্রপার্টি
-    এটি.জমা(প্রারম্ভ);            // মেথড কল
-  }
-
-  জমা(পরিমাণ) {                   // ইনস্ট্যান্স মেথড
-    #ব্যালেন্স += পরিমাণ;
-  }
-
-  get ব্যালেন্স() {                // গেটার
-    ফেরত #ব্যালেন্স;
-  }
-
-  set ব্যালেন্স(v) {               // সেটার (ভ্যালিডেশন)
-    যদি (v < 0) নিক্ষেপ new Error("ঋণাত্মক");
-    #ব্যালেন্স = v;
-  }
-
-  স্থির ব্যাংক = "BNL Bank";       // স্থির ফিল্ড
-  স্থির from(ব্যবহারকারী) {       // স্থির ফ্যাক্টরি
-    ফেরত নতুন হিসাব(ব্যবহারকারী, 0);
-  }
+class Counter {
+    function init(self, start) {
+        self.value = start;
+    }
+    function increment(self) {
+        self.value = self.value + 1;
+    }
+    function get(self) {
+        return self.value;
+    }
 }
 
-শ্রেণী সঞ্চয় প্রসারিত হিসাব {      // ইনহেরিটেন্স
-  constructor(মালিক, প্রারম্ভ, হার = 0.05) {
-    অভিভাবক(মালিক, প্রারম্ভ);      // প্যারেন্ট কন্সট্রাক্টর কল
-    এটি.হার = হার;
-  }
-  accrue() {
-    #ব্যালেন্স = এটি.ব্যালেন্স * (1 + এটি.হার);
-  }
+var c = Counter(10);     // কোনো `new` কীওয়ার্ড নেই
+c.increment();
+c.increment();
+print(c.get());          // 12
+```
+
+নোট:
+- Construction হলো `ClassName(args)` — **কোনো `new` কীওয়ার্ড নেই**।
+- Method কল (`c.increment()`) স্বয়ংক্রিয়ভাবে instance-কে `self` হিসেবে পাস করে।
+- যদি ক্লাসে `init` না থাকে, zero-arg construction কাজ করে: `Bag()`।
+- ফিল্ড সেট হয় `self.field = value` দিয়ে এবং পড়া হয় `self.field` (অথবা বাইরে থেকে `obj.field`)।
+
+## `extends` দিয়ে inheritance
+
+```bnl
+class Animal {
+    function init(self, name) {
+        self.name = name;
+    }
+    function speak(self) {
+        return self.name + " makes a sound";
+    }
+}
+
+class Dog extends Animal {
+    function init(self, name, breed) {
+        super(name);              // প্যারেন্টের init chain
+        self.breed = breed;
+    }
+    function speak(self) {        // override
+        return self.name + " barks";
+    }
+}
+
+var d = Dog("Rex", "labrador");
+print(d.speak());                 // Rex barks
+```
+
+`init`-এর ভেতরে `super(...)` প্যারেন্টের constructor কল করে।
+
+## প্যারেন্ট মেথড কল
+
+প্যারেন্টের method-এর version-এ delegate করতে `super.method(args)` ব্যবহার করুন:
+
+```bnl
+class Dog extends Animal {
+    function describe(self) {
+        return super.describe() + " breed=" + self.breed;
+    }
 }
 ```
-</I18nBangla>
 
+আপনি একাধিক লেভেল চেইন করতে পারেন — একটি subclass-এর `super.x()` এর সরাসরি প্যারেন্টের বিপরীতে resolve হয়।
 
-
----
-
-## Examples
-
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="bangla">
+## Multi-level inheritance
 
 ```bnl
-const a = নতুন হিসাব("Mamun", 1000);
-a.জমা(500);
-দেখাও("ব্যালেন্স:", a.ব্যালেন্স);   // getter
+class Puppy extends Dog {
+    function speak(self) {
+        return super.speak() + " (puppy yip!)";
+    }
+}
 
-const b = সঞ্চয়.থেকে?; // উদাহরণস্বরূপ আলাদা কন্সট্রাকশন
-const c = হিসাব.from("Rafi");        // স্থির ফ্যাক্টরি
-কনসোল.লগ(হিসাব.ব্যাংক);             // স্থির ফিল্ড
+var p = Puppy("Buddy", "poodle");
+print(p.speak());    // Buddy barks (puppy yip!)
 ```
-  </TabsContent>
 
-  
+## যা *এখানে নেই*
 
-  <TabsContent value="english">
+- **কোনো `this` নেই।** সবসময় `self` ব্যবহার করুন, method-এর প্রথম parameter হিসেবে।
+- **কোনো `new` নেই।** শুধু ক্লাস কল করুন: `Counter(10)`।
+- **কোনো `static` মেথড নেই।** Module-level হেল্পার দরকার হলে একটি top-level ফাংশন লিখুন।
+- **কোনো access modifier নেই।** `private` / `protected` / `public` নেই — সব ফিল্ড ও মেথড অ্যাক্সেসযোগ্য।
+- **কোনো multiple inheritance নেই।** একটি ক্লাস সর্বাধিক একটি প্যারেন্ট extend করে।
+
+## বাংলা রূপ
 
 ```bnl
-const a = new Account("Mamun", 1000);
-a.deposit(500);
-print("balance:", a.balance);
+শ্রেণী Counter {
+    ফাংশন init(self, start) {
+        self.value = start;
+    }
+    ফাংশন increment(self) {
+        self.value = self.value + 1;
+    }
+}
 
-const c = Account.from("Rafi");
-console.log(Account.bank);
+চলক c = Counter(10);
+c.increment();
+print(c.value);   // 11
 ```
-  </TabsContent>
-</Tabs>
-
----
-
-## Notes
-
-<I18nEnglish>
-- **Fields** declared directly inside the class body are set up per‑instance at construction; **`static`** fields belong to the class constructor.  
-- Call **`super(...)`** in a subclass constructor **before** accessing `this`.  
-- **Private fields** `#name` are truly private (not accessible via `this["#name"]`). Names are lexical, not dynamic.  
-- Methods are on the **prototype**; arrow functions as fields create a new function per instance (useful for `this` binding, but increases memory).  
-- Keep language style consistent per file; in Bangla, aliases are: `শ্রেণী`/`shreni`, `প্রসারিত`/`prosarito`, `অভিভাবক`/`obhibhabok`, `স্থির`/`sthir`, `নতুন`/`notun`.
-</I18nEnglish>
-
-<I18nBangla>
-- ক্লাস বডিতে ঘোষিত **ফিল্ড** নির্মাণকালে প্রতিটি ইনস্ট্যান্সে সেট হয়; **`স্থির`** ফিল্ড ক্লাস‑এর সাথেই থাকে।  
-- সাবক্লাস কন্সট্রাক্টরে `এটি` ব্যবহারের **আগে** অবশ্যই **`অভিভাবক(...)`** কল করুন।  
-- **প্রাইভেট ফিল্ড** `#নাম` সত্যিকারের প্রাইভেট—`এটি["#নাম"]` দিয়ে পাওয়া যায় না; নামটি লেক্সিক্যাল।  
-- মেথডগুলো **প্রোটোটাইপে** থাকে; অ্যারো‑মেথড ফিল্ড প্রতিটি ইনস্ট্যান্সে নতুন ফাংশন তৈরি করে (binding সুবিধা, তবে মেমরি বেশি)।  
-- প্রতি ফাইলে একই ভাষা স্টাইল অনুসরণ করা শ্রেয়: `শ্রেণী`, `প্রসারিত`, `অভিভাবক`, `স্থির`, `নতুন` ইত্যাদি।
 </I18nBangla>
-
-

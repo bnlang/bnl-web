@@ -1,8 +1,8 @@
 ---
 title: Bnlang File Stats
-description: Learn how to retrieve and understand file statistics in Bnlang, including size, type, and timestamps.
+description: How to inspect a file's size, type, and modification time in Bnlang using `io.stat`.
 bnTitle: Bnlang ফাইল স্ট্যাটস
-bnDescription: Bnlang এ ফাইলের পরিসংখ্যান পাওয়া শিখুন, যেমন সাইজ, ধরন, এবং টাইমস্ট্যাম্প।
+bnDescription: Bnlang-এ `io.stat` দিয়ে ফাইলের সাইজ, ধরন ও পরিবর্তনের সময় কীভাবে দেখবেন।
 ---
 
 # <I18nEnglish>Bnlang File Stats</I18nEnglish>
@@ -10,107 +10,91 @@ bnDescription: Bnlang এ ফাইলের পরিসংখ্যান প�
 
 
 <I18nEnglish>
-File statistics (or **file stats**) provide detailed information about a file, such as its size, type, creation date, and last modification date.  
-In Bnlang, you can use built-in modules to get these details and make decisions in your program, such as checking if a path is a file or a directory.
+File **stats** are metadata about a file or directory — its size, whether it's a regular file or directory, and when it was last modified.
+The built-in `io` module exposes this through `io.stat`, plus a handful of one-question helpers.
 </I18nEnglish>
 
 <I18nBangla>
-ফাইল পরিসংখ্যান (**ফাইল স্ট্যাটস**) একটি ফাইলের বিস্তারিত তথ্য দেয়, যেমন সাইজ, ধরন, তৈরির তারিখ এবং সর্বশেষ পরিবর্তনের তারিখ।  
-Bnlang এ আপনি বিল্ট-ইন মডিউল ব্যবহার করে এই তথ্যগুলি পেতে পারেন এবং আপনার প্রোগ্রামে সিদ্ধান্ত নিতে পারেন, যেমন একটি পাথ ফাইল না ডিরেক্টরি তা যাচাই করা।
+ফাইল **স্ট্যাটস** হলো একটি ফাইল বা ডিরেক্টরির মেটাডেটা — সাইজ, এটি একটি রেগুলার ফাইল না ডিরেক্টরি, এবং সর্বশেষ কখন পরিবর্তিত হয়েছিল।
+বিল্ট-ইন `io` মডিউল `io.stat`-এর মাধ্যমে এটি এক্সপোজ করে, সাথে কিছু এক-প্রশ্নের হেল্পার।
 </I18nBangla>
 
 
 
 ---
 
-## Example: Getting File Stats
-
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="english">
-
-```js
-const fs = require("fs");
-
-fs.stat("example.txt", (err, stats) => {
-  if (err) {
-    console.error("Error:", err);
-    return;
-  }
-  console.log("Is file?", stats.isFile());
-  console.log("Is directory?", stats.isDirectory());
-  console.log("Size:", stats.size);
-  console.log("Created:", stats.birthtime);
-  console.log("Modified:", stats.mtime);
-});
-```
-  </TabsContent>
-
-  <TabsContent value="bangla">
-
-```bnl
-const fs = require("fs");
-
-fs.stat("example.txt", (ত্রুটি, পরিসংখ্যান) => {
-  যদি (ত্রুটি) {
-    কনসোল.ত্রুটি("সমস্যা:", ত্রুটি);
-    ফেরত;
-  }
-  কনসোল.লগ("ফাইল?", পরিসংখ্যান.isFile());
-  কনসোল.লগ("ডিরেক্টরি?", পরিসংখ্যান.isDirectory());
-  কনসোল.লগ("সাইজ:", পরিসংখ্যান.size);
-  কনসোল.লগ("তৈরি:", পরিসংখ্যান.birthtime);
-  কনসোল.লগ("পরিবর্তন:", পরিসংখ্যান.mtime);
-});
-```
-  </TabsContent>
-
-  
-</Tabs>
-
----
-
-## Common Properties
+## io.stat — Full Metadata Map
 
 <I18nEnglish>
-- **isFile()** → Checks if the path is a file.  
-- **isDirectory()** → Checks if the path is a directory.  
-- **size** → Returns the file size in bytes.  
-- **birthtime** → The date the file was created.  
-- **mtime** → The date the file was last modified.
+`io.stat(path)` returns a map with these fields:
+
+- `bytes` — file size in bytes (number).
+- `mtime` — last modification time as a Unix timestamp in seconds (number).
+- `is_dir` — `true` if the path is a directory.
+- `is_file` — `true` if the path is a regular file.
 </I18nEnglish>
 
 <I18nBangla>
-- **isFile()** → যাচাই করে পাথটি ফাইল কিনা।  
-- **isDirectory()** → যাচাই করে পাথটি ডিরেক্টরি কিনা।  
-- **size** → ফাইলের সাইজ (বাইটে) দেয়।  
-- **birthtime** → ফাইলটি কবে তৈরি হয়েছে তার তারিখ দেয়।  
-- **mtime** → ফাইলটি সর্বশেষ কখন পরিবর্তিত হয়েছে তা জানায়।
+`io.stat(path)` একটি ম্যাপ ফেরত দেয়, যেখানে এই ফিল্ডগুলো থাকে:
+
+- `bytes` — ফাইল সাইজ বাইটে (সংখ্যা)।
+- `mtime` — সর্বশেষ পরিবর্তনের সময়, সেকেন্ডে Unix টাইমস্ট্যাম্প হিসেবে (সংখ্যা)।
+- `is_dir` — পাথ ডিরেক্টরি হলে `true`।
+- `is_file` — পাথ রেগুলার ফাইল হলে `true`।
 </I18nBangla>
 
+```bnl
+import "io" as io;
 
+var s = io.stat("notes.txt");
+print("size:",     s.bytes, "bytes");
+print("is file?",  s.is_file);
+print("is dir?",   s.is_dir);
+print("mtime:",    s.mtime, "seconds since epoch");
+```
+
+---
+
+## Quick Boolean Checks
+
+<I18nEnglish>
+For yes/no questions, skip the full `stat` and use the dedicated helpers — they're more readable and avoid loading metadata you don't need.
+</I18nEnglish>
+
+<I18nBangla>
+হ্যাঁ/না প্রশ্নের জন্য পুরো `stat` এড়িয়ে ডেডিকেটেড হেল্পার ব্যবহার করুন — পাঠযোগ্যতা ভালো, এবং অপ্রয়োজনীয় মেটাডেটা লোড হয় না।
+</I18nBangla>
+
+```bnl
+import "io" as io;
+
+if (io.exists("notes.txt")) {
+    print("the file is there");
+}
+
+if (io.is_file("notes.txt")) {
+    print("and it's a regular file");
+}
+
+if (io.is_dir("data")) {
+    print("data/ is a directory");
+}
+```
 
 ---
 
 ## Best Practices
 
 <I18nEnglish>
-- Always handle errors when reading file stats.  
-- Use `isFile()` and `isDirectory()` before performing operations.  
-- File sizes are in bytes, so convert them if needed (e.g., KB, MB).  
-- Use stats to check last modification date for caching or versioning logic.
+- Use `io.exists` first when you're not sure a path will be valid — `io.stat` throws on missing files.
+- Sizes are reported in **bytes**. Convert in your own code if you want KB / MB.
+- `mtime` is in seconds; multiply by 1000 if you need milliseconds for the `time` module.
 </I18nEnglish>
 
 <I18nBangla>
-- ফাইল স্ট্যাটস পড়ার সময় সবসময় ত্রুটি হ্যান্ডল করুন।  
-- কোনো অপারেশন করার আগে `isFile()` এবং `isDirectory()` ব্যবহার করুন।  
-- ফাইলের সাইজ বাইটে হয়, তাই প্রয়োজন হলে এটি কনভার্ট করুন (যেমন KB, MB)।  
-- ক্যাশিং বা ভার্সনিং লজিকের জন্য সর্বশেষ পরিবর্তনের তারিখ যাচাই করতে স্ট্যাটস ব্যবহার করুন।
+- পাথ যদি ভ্যালিড নাও হতে পারে, প্রথমে `io.exists` ব্যবহার করুন — অনুপস্থিত ফাইলে `io.stat` থ্রো করে।
+- সাইজ **বাইটে** রিপোর্ট হয়। KB / MB চাইলে নিজের কোডে কনভার্ট করুন।
+- `mtime` সেকেন্ডে; `time` মডিউলের জন্য মিলিসেকেন্ড চাইলে 1000 দিয়ে গুণ করুন।
 </I18nBangla>
 
 

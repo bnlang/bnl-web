@@ -1,224 +1,214 @@
 ---
-title: try–catch–finally
-description: Error handling in Bnlang using try, catch, finally, and throw — with examples in Bangla, and English.
-bnTitle: চেষ্টা–ধরুন–অবশেষে
-bnDescription: Bnlang এ চেষ্টা (try), ধরুন (catch), অবশেষে (finally) ও নিক্ষেপ (throw) দিয়ে ত্রুটি হ্যান্ডলিং—বাংলা উদাহরণসহ।
+title: try / catch / finally
+description: Handling thrown values in Bnlang with try / catch / finally.
+bnTitle: চেষ্টা / ধরুন / অবশেষে
+bnDescription: Bnlang-এ try / catch / finally দিয়ে throw করা মান হ্যান্ডল করা।
 ---
 
-# <I18nEnglish>try–catch–finally</I18nEnglish>
-# <I18nBangla>চেষ্টা–ধরুন–অবশেষে</I18nBangla>
+# <I18nEnglish>`try` / `catch` / `finally`</I18nEnglish>
+# <I18nBangla>`চেষ্টা` / `ধরুন` / `অবশেষে`</I18nBangla>
 
 
 <I18nEnglish>
-Use **`try`** for code that might throw. Handle failures in **`catch (err)`**.  
-Use **`finally`** for cleanup that must run whether success or failure.  
-Throw errors with **`throw`** to signal exceptional conditions.
-</I18nEnglish>
-
-<I18nBangla>
-সম্ভাব্য ত্রুটি‑সৃষ্টিকারী কোড **`চেষ্টা`** ব্লকে লিখুন। ব্যর্থতা ধরতে **`ধরুন (ত্রু)`** ব্যবহার করুন।  
-সাফল্য‑ব্যর্থতা নির্বিশেষে চলবে এমন ক্লিন‑আপের জন্য **`অবশেষে`** ব্যবহার করুন।  
-অসাধারণ পরিস্থিতি জানাতে **`নিক্ষেপ`** দিয়ে ত্রুটি ছুঁড়ুন।
-</I18nBangla>
-
-
-
----
+A `try` block contains code that may throw. A trailing `catch (<name>) { ... }` receives the thrown value. An optional `finally { ... }` block runs regardless of whether the try succeeded or threw — useful for cleanup. The Bangla forms `চেষ্টা` / `ধরুন` / `অবশেষে` are equivalent.
 
 ## Syntax
 
-<I18nEnglish>
-
 ```bnl
 try {
-  // risky work
-} catch (err) {
-  // handle
+    // code that may throw
+} catch (<name>) {
+    // runs only when the try block threw; <name> binds the thrown value
 } finally {
-  // cleanup (always runs)
+    // runs in both cases (optional)
 }
-
-// You can omit catch, but then finally must be present
-try {
-  // ...
-} finally {
-  // cleanup
-}
-
-// Throwing
-throw new Error("message");
 ```
-</I18nEnglish>
 
-<I18nBangla>
-
-```bnl
-চেষ্টা {
-  // ঝুঁকিপূর্ণ কাজ
-} ধরুন (ত্রু) {
-  // হ্যান্ডলিং
-} অবশেষে {
-  // ক্লিন‑আপ (সবসময় চলবে)
-}
-
-// ধরুন বাদ দিতে পারেন, তবে অবশেষে থাকতে হবে
-চেষ্টা {
-  // ...
-} অবশেষে {
-  // ক্লিন‑আপ
-}
-
-// নিক্ষেপ
-নিক্ষেপ new Error("বার্তা");
-```
-</I18nBangla>
-
-
-
----
+`catch` is required; `finally` is optional.
 
 ## Examples
 
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="bangla">
-
 ```bnl
-// ১) JSON পার্সিং
-চেষ্টা {
-  const ডেটা = '{"name":"Bnlang"}';
-  const obj = JSON.parse(ডেটা);
-  কনসোল.লগ("নাম:", obj.name);
-} ধরুন (ত্রু) {
-  কনসোল.ত্রুটি("পার্সিং ব্যর্থ:", ত্রু.message);
-} অবশেষে {
-  কনসোল.তথ্য("পার্সের চেষ্টা শেষ");
-}
-
-// ২) ইনপুট যাচাই + rethrow
-function ব্যবহারকারী_লোড(আইডি) {
-  চেষ্টা {
-    যদি (আইডি == null) নিক্ষেপ new Error("আইডি লাগবে");
-    // ... ডাটাবেস থেকে পড়া
-    ফেরত { id: আইডি, নাম: "Mamun" };
-  } ধরুন (ত্রু) {
-    কনসোল.ত্রুটি("লোড ব্যর্থ:", ত্রু.message);
-    নিক্ষেপ ত্রু; // মূল ত্রুটি আবার ছুঁড়ে দিচ্ছি
-  } অবশেষে {
-    কনসোল.লগ("রিসোর্স মুক্ত");
-  }
-}
-
-// ৩) return থাকলেও অবশেষে চলবে
-function ভাগ(a, b) {
-  চেষ্টা {
-    যদি (b === 0) নিক্ষেপ new Error("শূন্য দ্বারা ভাগ নয়");
-    ফেরত a / b;
-  } ধরুন (ত্রু) {
-    ফেরত NaN;
-  } অবশেষে {
-    কনসোল.তথ্য("ভাগ শেষ");
-  }
-}
-
-// ৪) অপেক্ষা/অসমলয় সহ
-অসমলয় function ডাউনলোড(url) {
-  চেষ্টা {
-    const res = অপেক্ষা fetch(url);
-    যদি (!res.ok) নিক্ষেপ new Error("রেসপন্স ব্যর্থ");
-    ফেরত অপেক্ষা res.text();
-  } ধরুন (ত্রু) {
-    কনসোল.ত্রুটি("ডাউনলোড ব্যর্থ:", ত্রু.message);
-    ফেরত null;
-  } অবশেষে {
-    কনসোল.লগ("নেটওয়ার্ক ক্লিন‑আপ");
-  }
-}
-```
-  </TabsContent>
-
-  
-
-  <TabsContent value="english">
-
-```bnl
-// 1) JSON parsing
-try {
-  const data = '{"name":"Bnlang"}';
-  const obj = JSON.parse(data);
-  console.log("name:", obj.name);
-} catch (err) {
-  console.error("parse failed:", err.message);
-} finally {
-  console.info("parse attempt done");
-}
-
-// 2) Validate + rethrow
-function loadUser(id) {
-  try {
-    if (id == null) throw new Error("ID required");
-    // ... read from DB
-    return { id, name: "Mamun" };
-  } catch (err) {
-    console.error("load failed:", err.message);
-    throw err; // rethrow original
-  } finally {
-    console.log("resource cleanup");
-  }
-}
-
-// 3) finally still runs after return
 function divide(a, b) {
-  try {
-    if (b === 0) throw new Error("Division by zero");
+    if (b == 0) { throw "divide by zero"; }
     return a / b;
-  } catch (err) {
-    return NaN;
-  } finally {
-    console.info("division done");
-  }
 }
 
-// 4) with async/await
-async function download(url) {
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("Bad response");
-    return await res.text();
-  } catch (err) {
-    console.error("download failed:", err.message);
-    return null;
-  } finally {
-    console.log("network cleanup");
-  }
+try {
+    var result = divide(10, 0);
+    print(result);
+} catch (e) {
+    print("caught:", e);
+} finally {
+    print("done");
+}
+
+// Output:
+// caught: divide by zero
+// done
+```
+
+## Cleanup with finally
+
+`finally` is the right place for resource cleanup so it always runs:
+
+```bnl
+import "io" as io;
+
+var f = io.open_read("notes.txt");
+
+try {
+    f.read(64, function (err, chunk) { /* ... */ });
+} catch (e) {
+    print("read failed:", e);
+} finally {
+    f.close();
 }
 ```
-  </TabsContent>
-</Tabs>
 
----
+## Catching specific shapes
 
-## Notes
+The catch parameter is just a plain value — inspect it to branch:
 
-<I18nEnglish>
-- `try` may be paired with **either** `catch` **or** `finally` (or both), but not neither.  
-- The `finally` block runs even if there is a `return`, `break`, `continue`, or `throw` inside `try`/`catch`.  
-- Prefer **rethrowing** the same error object (`throw err`) to preserve the original stack.  
-- For **async** code, `try/catch` works with `await`; for bare Promises, use `.catch(...)`.  
-- Avoid swallowing errors silently; log and rethrow when appropriate.
+```bnl
+try {
+    do_work();
+} catch (e) {
+    if (type(e) == "map" and e.code != null) {
+        print("error code:", e.code, "-", e.message);
+    } else {
+        print("unexpected error:", e);
+    }
+}
+```
+
+## Rethrowing
+
+You can re-throw the caught value (or a new one) from inside `catch`:
+
+```bnl
+try {
+    risky();
+} catch (e) {
+    print("logging error:", e);
+    throw e;   // bubble up
+}
+```
+
+## Bangla form
+
+```bnl
+চেষ্টা {
+    var result = divide(10, 0);
+} ধরুন (e) {
+    print("caught:", e);
+} অবশেষে {
+    print("done");
+}
+```
+
+## See also
+- [`throw`](/en/docs/v1.0.0/keywords/throw-keyword) — raise an error.
 </I18nEnglish>
 
 <I18nBangla>
-- `চেষ্টা` ব্লকের সাথে **`ধরুন`** বা **`অবশেষে`**—যেকোনো একটি থাকা চাই (বা দুটোই); কোনোটাই না হলে অবৈধ।  
-- `অবশেষে` ব্লক `return`, `break`, `continue`, `নিক্ষেপ` থাকলেও চালানো হয়।  
-- একই ত্রুটি অবজেক্ট **আবার নিক্ষেপ** করলে (যেমন `নিক্ষেপ ত্রু`) স্ট্যাক তথ্য বজায় থাকে।  
-- **অসমলয়** কোডে `অপেক্ষা` (`await`) ব্যবহার করলে `চেষ্টা/ধরুন` যথারীতি কাজ করে; প্রমিসে `.catch(...)` ব্যবহার করুন।  
-- ত্রুটি চুপচাপ গিলে ফেলা এড়িয়ে চলুন—প্রয়োজনে লগ করে **পুনরায় নিক্ষেপ** করুন।
+একটি `try` ব্লকে এমন কোড থাকে যা throw করতে পারে। trailing `catch (<name>) { ... }` throw করা মান পায়। ঐচ্ছিক `finally { ... }` ব্লক চলে — try সফল হোক বা throw করুক — cleanup-এর জন্য উপযোগী। বাংলা রূপ `চেষ্টা` / `ধরুন` / `অবশেষে` সমার্থক।
+
+## সিনট্যাক্স
+
+```bnl
+try {
+    // throw করতে পারে এমন কোড
+} catch (<name>) {
+    // try থ্রো করলে শুধু চলে; <name> থ্রো করা মান বাইন্ড করে
+} finally {
+    // উভয় ক্ষেত্রে চলে (ঐচ্ছিক)
+}
+```
+
+`catch` আবশ্যক; `finally` ঐচ্ছিক।
+
+## উদাহরণ
+
+```bnl
+function divide(a, b) {
+    if (b == 0) { throw "divide by zero"; }
+    return a / b;
+}
+
+try {
+    var result = divide(10, 0);
+    print(result);
+} catch (e) {
+    print("caught:", e);
+} finally {
+    print("done");
+}
+
+// আউটপুট:
+// caught: divide by zero
+// done
+```
+
+## finally দিয়ে cleanup
+
+`finally` রিসোর্স cleanup-এর সঠিক জায়গা যাতে এটি সবসময় চলে:
+
+```bnl
+import "io" as io;
+
+var f = io.open_read("notes.txt");
+
+try {
+    f.read(64, function (err, chunk) { /* ... */ });
+} catch (e) {
+    print("read failed:", e);
+} finally {
+    f.close();
+}
+```
+
+## নির্দিষ্ট shape catch
+
+catch parameter একটি সাধারণ মান — branch করতে inspect করুন:
+
+```bnl
+try {
+    do_work();
+} catch (e) {
+    if (type(e) == "map" and e.code != null) {
+        print("error code:", e.code, "-", e.message);
+    } else {
+        print("unexpected error:", e);
+    }
+}
+```
+
+## Rethrowing
+
+`catch`-এর ভেতর থেকে catch করা মান (অথবা নতুন) re-throw করতে পারেন:
+
+```bnl
+try {
+    risky();
+} catch (e) {
+    print("logging error:", e);
+    throw e;   // bubble up
+}
+```
+
+## বাংলা রূপ
+
+```bnl
+চেষ্টা {
+    var result = divide(10, 0);
+} ধরুন (e) {
+    print("caught:", e);
+} অবশেষে {
+    print("done");
+}
+```
+
+## আরও দেখুন
+- [`throw`](/bn/docs/v1.0.0/keywords/throw-keyword) — একটি এরর রেইজ।
 </I18nBangla>
-
-

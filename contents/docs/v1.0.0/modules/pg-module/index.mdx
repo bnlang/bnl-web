@@ -1,0 +1,84 @@
+---
+title: pg module
+description: PostgreSQL client — connect, query, parameter binding, transactions, migrations.
+bnTitle: pg মডিউল
+bnDescription: PostgreSQL ক্লায়েন্ট।
+---
+
+# <I18nEnglish>`pg` module</I18nEnglish>
+# <I18nBangla>`pg` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+PostgreSQL client backed by libpq. Connect with a conninfo string, a `postgresql://` URL, or a map of options. Once connected the interface mirrors `sqlite`.
+
+```bnl
+import "pg" as pg;
+
+var db = pg.connect({
+    host: "localhost", port: 5432, user: "alice",
+    password: "secret", database: "myapp"
+});
+
+db.exec("INSERT INTO users (name) VALUES ($1)", ["Alice"]);
+var rows = db.query("SELECT * FROM users WHERE id = $1", [1]);
+print(rows[0].name);
+
+db.close();
+```
+
+## Module API
+
+| Function | Description |
+|---|---|
+| `pg.connect(conninfo)` → db | `conninfo` can be a libpq keyword string, a `postgresql://` URL, or a map of options. |
+| `pg.version()` → string | libpq client version, e.g. `"16.3.0"`. |
+| `pg.transaction(db, fn)` | Run `fn(db)` inside `BEGIN`/`COMMIT`. |
+| `pg.migrate(db, statements)` | Idempotent DDL list. |
+| `pg.insert(db, table, row)` → id | Convenience insert + `RETURNING id`. |
+
+## db handle
+
+Mirrors `sqlite` — `db.exec`, `db.query`, `db.query_one`, `db.changes`, `db.close`. Use `$1`, `$2`, … for parameter placeholders.
+
+## See also
+- [`sqlite`](/en/docs/v1.0.0/modules/sqlite-module), [`mysql`](/en/docs/v1.0.0/modules/mysql-module), [`mongo`](/en/docs/v1.0.0/modules/mongo-module).
+- [`dotenv`](/en/docs/v1.0.0/modules/dotenv-module) — common pattern: load `DATABASE_URL` from `.env`, pass to `pg.connect`.
+</I18nEnglish>
+
+<I18nBangla>
+libpq-চালিত PostgreSQL ক্লায়েন্ট। Conninfo স্ট্রিং, `postgresql://` URL, বা option map দিয়ে connect। কানেক্ট হয়ে গেলে interface `sqlite`-এর মতই।
+
+```bnl
+import "pg" as pg;
+
+var db = pg.connect({
+    host: "localhost", port: 5432, user: "alice",
+    password: "secret", database: "myapp"
+});
+
+db.exec("INSERT INTO users (name) VALUES ($1)", ["Alice"]);
+var rows = db.query("SELECT * FROM users WHERE id = $1", [1]);
+print(rows[0].name);
+
+db.close();
+```
+
+## Module API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `pg.connect(conninfo)` → db | libpq keyword string, `postgresql://` URL, অথবা option map। |
+| `pg.version()` → string | libpq client version। |
+| `pg.transaction(db, fn)` | `fn(db)` `BEGIN`/`COMMIT`-এ। |
+| `pg.migrate(db, statements)` | Idempotent DDL list। |
+| `pg.insert(db, table, row)` → id | Insert + `RETURNING id`। |
+
+## db handle
+
+`sqlite`-এর মতই — `db.exec`, `db.query`, `db.query_one`, `db.changes`, `db.close`। Parameter placeholder `$1`, `$2`, …।
+
+## আরও দেখুন
+- [`sqlite`](/bn/docs/v1.0.0/modules/sqlite-module), [`mysql`](/bn/docs/v1.0.0/modules/mysql-module), [`mongo`](/bn/docs/v1.0.0/modules/mongo-module)।
+- [`dotenv`](/bn/docs/v1.0.0/modules/dotenv-module)।
+</I18nBangla>

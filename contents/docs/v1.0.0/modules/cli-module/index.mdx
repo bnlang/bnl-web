@@ -1,0 +1,90 @@
+---
+title: cli module
+description: Declarative command-line argument parsing — flags, options with values, and positionals.
+bnTitle: cli মডিউল
+bnDescription: ডিক্লেয়ারেটিভ কমান্ড-লাইন আর্গুমেন্ট পার্সিং — flag, option, positional।
+---
+
+# <I18nEnglish>`cli` module</I18nEnglish>
+# <I18nBangla>`cli` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Declare your CLI shape (flags, options, positionals), then parse `argv` into a map. Auto-generates a `--help`-style usage string.
+
+```bnl
+import "cli" as cli;
+
+var p = cli.parser("greet");
+p.description = "Print a greeting.";
+cli.flag      (p, {name: "shout",  short: "s", help: "Use upper case"});
+cli.option    (p, {name: "lang",   short: "l", help: "en or bn", default: "en"});
+cli.positional(p, {name: "name",                help: "Who to greet"});
+
+var args = cli.parse(p);
+print(args.lang, args.name, args.shout);
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `cli.parser(name)` → parser | Start a new parser. Set `parser.description` for the help blurb. |
+| `cli.flag(p, spec)` | Add a boolean flag. `spec`: `{name, short?, help?}`. |
+| `cli.option(p, spec)` | Add an option that takes a value. `spec`: `{name, short?, help?, default?}`. |
+| `cli.positional(p, spec)` | Add a positional arg. `spec`: `{name, help?, default?}`. |
+| `cli.parse(p)` → map | Read real `sys.arg(*)` and produce the args map. |
+| `cli.parse_argv(p, argv)` → map | Same, but parses a synthetic list (useful in tests). |
+| `cli.usage(p)` → string | Build a `--help`-style usage string. |
+
+## Output shape
+
+The returned map has one entry per declared name:
+- Flags: `bool` (default `false`).
+- Options: `string` (default per spec).
+- Positionals: `string` (default per spec).
+- `_rest` — extra positionals past the declared ones.
+
+## See also
+- [`sys`](/en/docs/v1.0.0/modules/sys-module) — the low-level `sys.argc()` / `sys.arg(i)` accessors `cli` sits on top of.
+</I18nEnglish>
+
+<I18nBangla>
+আপনার CLI shape (flag, option, positional) ডিক্লেয়ার করুন, তারপর `argv` একটি ম্যাপে পার্স করুন। অটো-জেনারেটেড `--help`-স্টাইল usage।
+
+```bnl
+import "cli" as cli;
+
+var p = cli.parser("greet");
+p.description = "Print a greeting.";
+cli.flag      (p, {name: "shout",  short: "s", help: "Use upper case"});
+cli.option    (p, {name: "lang",   short: "l", help: "en or bn", default: "en"});
+cli.positional(p, {name: "name",                help: "Who to greet"});
+
+var args = cli.parse(p);
+print(args.lang, args.name, args.shout);
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `cli.parser(name)` → parser | নতুন parser। `parser.description` সেট করুন। |
+| `cli.flag(p, spec)` | বুলিয়ান ফ্ল্যাগ। `spec`: `{name, short?, help?}`। |
+| `cli.option(p, spec)` | মান নেয় এমন option। `spec`: `{name, short?, help?, default?}`। |
+| `cli.positional(p, spec)` | Positional arg। `spec`: `{name, help?, default?}`। |
+| `cli.parse(p)` → map | আসল `sys.arg(*)` থেকে args ম্যাপ। |
+| `cli.parse_argv(p, argv)` → map | Synthetic list থেকে (টেস্টে কাজে আসে)। |
+| `cli.usage(p)` → string | `--help`-স্টাইল usage স্ট্রিং। |
+
+## আউটপুট shape
+
+প্রতিটি ডিক্লেয়ার্ড name-এ একটি entry:
+- Flag: `bool` (default `false`)।
+- Option: `string` (spec অনুযায়ী default)।
+- Positional: `string` (spec অনুযায়ী default)।
+- `_rest` — অতিরিক্ত positionals।
+
+## আরও দেখুন
+- [`sys`](/bn/docs/v1.0.0/modules/sys-module) — লো-লেভেল `sys.argc()` / `sys.arg(i)`।
+</I18nBangla>

@@ -1,8 +1,8 @@
 ---
 title: Introduction to Bnlang
-description: A beginner-friendly introduction to Bnlang, its purpose, features, and usage examples.
+description: A beginner-friendly introduction to Bnlang — its goals, design, and a first taste of the language.
 bnTitle: Bnlang পরিচিতি
-bnDescription: Bnlang এর উদ্দেশ্য, বৈশিষ্ট্য এবং ব্যবহারিক উদাহরণের জন্য সহজ পরিচিতি।
+bnDescription: Bnlang এর লক্ষ্য, ডিজাইন, এবং প্রথম ছোঁয়ার জন্য সহজ পরিচিতি।
 ---
 
 # <I18nEnglish>Introduction to Bnlang</I18nEnglish>
@@ -10,19 +10,19 @@ bnDescription: Bnlang এর উদ্দেশ্য, বৈশিষ্ট্�
 
 
 <I18nEnglish>
-**Bnlang** is a modern programming language designed to make coding more inclusive and accessible.  
-It allows developers to write code not only in English, but also in **Bangla**.  
-The language is built on top of a modern JavaScript runtime, ensuring compatibility with JavaScript while adding multilingual syntax and native system bindings.
+**Bnlang** is a modern programming language and runtime designed to make coding accessible without sacrificing engineering rigor.
+You can write code in **English**, **Bangla**, or both at once — the parser treats them as a single language.
 
-With Bnlang, developers can write familiar JavaScript-style code, but using their own language preferences, making programming easier for learners and more flexible for professionals.
+Bnlang is a **native language** with its own tree-walking interpreter written in modern C++.
+There is no transpilation step, no JavaScript engine, no shim layer — just `bnl` running your `.bnl` files directly.
 </I18nEnglish>
 
 <I18nBangla>
-**Bnlang** একটি আধুনিক প্রোগ্রামিং ভাষা, যা কোডিংকে আরও অন্তর্ভুক্তিমূলক এবং সহজলভ্য করার জন্য তৈরি হয়েছে।  
-ডেভেলপাররা কেবল ইংরেজি নয়, বরং **বাংলা** এবং **বাংলিশে** ও কোড লিখতে পারে।  
-ভাষাটি আধুনিক জাভাস্ক্রিপ্ট রানটাইমের উপর ভিত্তি করে তৈরি, তাই এটি জাভাস্ক্রিপ্টের সাথে সামঞ্জস্যপূর্ণ থেকে বহুভাষিক সিনট্যাক্স এবং নেটিভ সিস্টেম বাইন্ডিং যোগ করেছে।
+**Bnlang** একটি আধুনিক প্রোগ্রামিং ভাষা ও রানটাইম, যা ইঞ্জিনিয়ারিং-এর কঠোরতা বজায় রেখে কোডিং-কে সহজলভ্য করতে ডিজাইন করা হয়েছে।
+আপনি কোড লিখতে পারেন **ইংরেজিতে**, **বাংলায়**, অথবা দু'টো একসাথে — পার্সার দু'টাকেই একই ভাষা হিসেবে দেখে।
 
-Bnlang ব্যবহার করে ডেভেলপাররা জাভাস্ক্রিপ্ট-স্টাইল কোড লিখতে পারে, তবে নিজের ভাষার পছন্দ অনুযায়ী। এতে শিক্ষার্থীদের জন্য প্রোগ্রামিং হয় সহজ, আর পেশাদারদের জন্য হয় আরও নমনীয়।
+Bnlang একটি **নেটিভ ভাষা**, যার নিজস্ব ট্রি-ওয়াকিং ইন্টারপ্রেটার আধুনিক C++ এ লেখা।
+কোনো ট্রান্সপাইলেশন স্টেপ নেই, কোনো জাভাস্ক্রিপ্ট ইঞ্জিন নেই, কোনো শিম লেয়ার নেই — শুধু `bnl` আপনার `.bnl` ফাইল সরাসরি চালায়।
 </I18nBangla>
 
 
@@ -32,19 +32,19 @@ Bnlang ব্যবহার করে ডেভেলপাররা জাভ�
 ## Why Bnlang?
 
 <I18nEnglish>
-- **Accessibility** → Makes programming easier for those more comfortable in Bangla.  
-- **Inclusivity** → Breaks the language barrier in software development.  
-- **Compatibility** → Works seamlessly with JavaScript and its ecosystem.  
-- **System Power** → Offers native bindings for file, network, and system operations.  
-- **Education** → Helps beginners learn coding concepts without struggling with foreign syntax.
+- **Accessibility** — makes programming approachable for people more comfortable in Bangla.
+- **Inclusivity** — lowers the language barrier in software development.
+- **Predictability** — small, regular syntax. Fixed-arity functions, no surprising overloads.
+- **Batteries included** — file I/O, HTTP, WebSocket, SQLite/PostgreSQL/MySQL/MongoDB, templating, crypto, and more in the standard library.
+- **Embeddable** — `bnl_core` is a C++ library; drop native plugins next to a `bnl.json` to extend the runtime.
 </I18nEnglish>
 
 <I18nBangla>
-- **অ্যাক্সেসিবিলিটি** → যারা বাংলায় বা বাংলিশে স্বাচ্ছন্দ্যবোধ করে তাদের জন্য প্রোগ্রামিং সহজ করে।  
-- **অন্তর্ভুক্তি** → সফটওয়্যার ডেভেলপমেন্টে ভাষার বাধা ভেঙে দেয়।  
-- **সামঞ্জস্যতা** → জাভাস্ক্রিপ্ট এবং এর ইকোসিস্টেমের সাথে নিরবিচ্ছিন্নভাবে কাজ করে।  
-- **সিস্টেম ক্ষমতা** → ফাইল, নেটওয়ার্ক এবং সিস্টেম অপারেশনের জন্য নেটিভ বাইন্ডিং দেয়।  
-- **শিক্ষা** → নতুনদের কোড শেখার সময় বিদেশি সিনট্যাক্সে কষ্ট না করে সহজভাবে শিখতে সাহায্য করে।
+- **অ্যাক্সেসিবিলিটি** — যারা বাংলায় স্বাচ্ছন্দ্যবোধ করেন, তাদের জন্য প্রোগ্রামিং সহজ করে।
+- **অন্তর্ভুক্তি** — সফটওয়্যার ডেভেলপমেন্টে ভাষার বাধা কমায়।
+- **পূর্বানুমানযোগ্যতা** — ছোট, নিয়মিত সিনট্যাক্স। ফিক্সড-অ্যারিটি ফাংশন, কোনো বিভ্রান্তিকর ওভারলোড নেই।
+- **ব্যাটারি ইনক্লুডেড** — ফাইল I/O, HTTP, WebSocket, SQLite/PostgreSQL/MySQL/MongoDB, টেমপ্লেটিং, ক্রিপ্টো — সবই স্ট্যান্ডার্ড লাইব্রেরিতে।
+- **এমবেডেবল** — `bnl_core` একটি C++ লাইব্রেরি; `bnl.json` এর পাশে নেটিভ প্লাগইন রেখে রানটাইম এক্সটেন্ড করুন।
 </I18nBangla>
 
 
@@ -53,28 +53,64 @@ Bnlang ব্যবহার করে ডেভেলপাররা জাভ�
 
 ## Example: Hello World
 
-<Tabs defaultValue="bangla" className="w-full">
+<Tabs defaultValue="english" className="w-full">
   <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
     <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
   </TabsList>
 
   <TabsContent value="english">
 
-```js
-console.log("Hello, World!");
+```bnl
+print("Hello, World!");
 ```
   </TabsContent>
 
   <TabsContent value="bangla">
 
 ```bnl
-কনসোল.লগ("হ্যালো, বিশ্ব!");
+লিখুন("হ্যালো, বিশ্ব!");
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## A Slightly Larger Taste
+
+<Tabs defaultValue="english" className="w-full">
+  <TabsList>
+    <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="english">
+
+```bnl
+function greet(name) {
+    return "Hello, " + name + "!";
+}
+
+var people = ["Alice", "Bob", "Charlie"];
+for (var p of people) {
+    print(greet(p));
+}
 ```
   </TabsContent>
 
-  
+  <TabsContent value="bangla">
+
+```bnl
+ফাংশন অভিবাদন(নাম) {
+    ফেরত "হ্যালো, " + নাম + "!";
+}
+
+চলক জনগণ = ["আলিস", "বব", "চার্লি"];
+প্রতি (চলক p এর জনগণ) {
+    লিখুন(অভিবাদন(p));
+}
+```
+  </TabsContent>
 </Tabs>
 
 ---
@@ -82,13 +118,13 @@ console.log("Hello, World!");
 ## Summary
 
 <I18nEnglish>
-Bnlang is not just another programming language—it’s a step towards breaking language barriers in technology.  
-It keeps the efficiency and ecosystem of JavaScript while adding inclusivity for Bangla speakers.
+Bnlang is a step towards breaking the language barrier in technology.
+It pairs a clean, dual-language syntax with a native C++ runtime and a practical standard library, so beginners can learn in their own language and professionals can ship real systems.
 </I18nEnglish>
 
 <I18nBangla>
-Bnlang কেবল আরেকটি প্রোগ্রামিং ভাষা নয়—এটি প্রযুক্তিতে ভাষার বাধা দূর করার একটি পদক্ষেপ।  
-এটি জাভাস্ক্রিপ্টের কর্মক্ষমতা ও ইকোসিস্টেম ধরে রাখে, তবে বাংলা এবং বাংলিশ ব্যবহারকারীদের জন্য অন্তর্ভুক্তি যোগ করে।
+Bnlang প্রযুক্তিতে ভাষার বাধা ভাঙার একটি পদক্ষেপ।
+এটি একটি পরিষ্কার, দ্বিভাষিক সিনট্যাক্স-কে একটি নেটিভ C++ রানটাইম এবং ব্যবহারিক স্ট্যান্ডার্ড লাইব্রেরির সাথে যুক্ত করে — যাতে নতুনরা মাতৃভাষায় শিখতে পারে, আর পেশাদাররা প্রকৃত সিস্টেম শিপ করতে পারে।
 </I18nBangla>
 
 

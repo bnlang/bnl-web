@@ -1,0 +1,100 @@
+---
+title: time module
+description: Clocks, calendar conversions, duration arithmetic, and ISO 8601 formatting/parsing.
+bnTitle: time মডিউল
+bnDescription: ক্লক, ক্যালেন্ডার, duration arithmetic, ISO 8601 formatting/parsing।
+---
+
+# <I18nEnglish>`time` module</I18nEnglish>
+# <I18nBangla>`time` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Time primitives — millisecond and nanosecond clocks, calendar component conversions, duration math, and ISO 8601 formatting.
+
+Time is represented as **milliseconds since the Unix epoch**.
+
+```bnl
+import "time" as time;
+
+var now = time.now();
+print(time.iso(now));                    // 2026-05-11T14:30:00.000Z
+print(time.components(now, false));      // { year, month, day, hour, ... }
+```
+
+## Clocks
+
+| Function | Description |
+|---|---|
+| `time.now()` → number | Current time, milliseconds since epoch. |
+| `time.now_seconds()` → number | Same as `now() / 1000`. |
+| `time.now_ns()` → number | High-resolution monotonic nanosecond counter. |
+
+## Calendar conversion
+
+| Function | Description |
+|---|---|
+| `time.components(ms, local)` → map | `{year, month, day, hour, minute, second, ms, weekday, yearday}`. `local` selects local vs. UTC. |
+| `time.from(parts, local)` → number | Inverse of `components`. |
+| `time.local_offset_ms(ms)` → number | Local timezone offset from UTC at that instant. |
+
+## Duration helpers (durations are plain numbers in ms)
+
+| Function | Description |
+|---|---|
+| `time.seconds(n)`, `time.minutes(n)`, `time.hours(n)`, `time.days(n)` | Convert a count to milliseconds. |
+| `time.add_seconds(ms, n)`, `add_minutes`, `add_hours`, `add_days` | Shift an instant by a duration. |
+
+## ISO 8601
+
+| Function | Description |
+|---|---|
+| `time.iso(ms)` → string | UTC, `2026-05-11T14:30:00.000Z`. |
+| `time.iso_local(ms)` → string | Local with offset, `2026-05-11T20:30:00.000+06:00`. |
+| `time.parse_iso(s)` → number | Parse an ISO 8601 string back to a timestamp. |
+</I18nEnglish>
+
+<I18nBangla>
+সময় প্রিমিটিভ — মিলিসেকেন্ড ও ন্যানোসেকেন্ড ক্লক, ক্যালেন্ডার component কনভার্সন, duration math, এবং ISO 8601 formatting।
+
+সময় = **Unix epoch থেকে মিলিসেকেন্ড**।
+
+```bnl
+import "time" as time;
+
+var now = time.now();
+print(time.iso(now));                    // 2026-05-11T14:30:00.000Z
+print(time.components(now, false));      // { year, month, day, hour, ... }
+```
+
+## ক্লক
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `time.now()` → number | বর্তমান সময়, epoch থেকে মিলিসেকেন্ড। |
+| `time.now_seconds()` → number | `now() / 1000`। |
+| `time.now_ns()` → number | উচ্চ-রেজোলিউশন monotonic ন্যানোসেকেন্ড কাউন্টার। |
+
+## ক্যালেন্ডার
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `time.components(ms, local)` → map | `{year, month, day, hour, minute, second, ms, weekday, yearday}`। |
+| `time.from(parts, local)` → number | `components`-এর inverse। |
+| `time.local_offset_ms(ms)` → number | সেই মুহূর্তে UTC থেকে local offset। |
+
+## Duration হেল্পার (durations = ms)
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `time.seconds(n)`, `minutes(n)`, `hours(n)`, `days(n)` | সংখ্যাকে ms-এ রূপান্তর। |
+| `time.add_seconds(ms, n)`, `add_minutes`, `add_hours`, `add_days` | একটি duration দ্বারা shift। |
+
+## ISO 8601
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `time.iso(ms)` → string | UTC, `2026-05-11T14:30:00.000Z`। |
+| `time.iso_local(ms)` → string | Offset সহ local। |
+| `time.parse_iso(s)` → number | ISO স্ট্রিং থেকে timestamp। |
+</I18nBangla>

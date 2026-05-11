@@ -1,133 +1,75 @@
 ---
 title: tls module
-description: TLS/SSL APIs for secure communication — creating secure servers and clients, certificates, key pairs, sockets, and encrypted streams.
+description: TLS-encrypted TCP — secure servers and clients with cert/key support.
 bnTitle: tls মডিউল
-bnDescription: TLS/SSL API — সুরক্ষিত কমিউনিকেশন, সার্ভার ও ক্লায়েন্ট তৈরি, সার্টিফিকেট, কী পেয়ার, সকেট ও এনক্রিপ্টেড স্ট্রিম।
+bnDescription: TLS-encrypted TCP।
 ---
 
-# <I18nEnglish>tls</I18nEnglish>
-# <I18nBangla>tls</I18nBangla>
+# <I18nEnglish>`tls` module</I18nEnglish>
+# <I18nBangla>`tls` মডিউল</I18nBangla>
 
 
 <I18nEnglish>
-The **`tls`** module provides Transport Layer Security (TLS) and Secure Socket Layer (SSL) communication support. It is the foundation for **https**.
-</I18nEnglish>
-
-<I18nBangla>
-**`tls`** মডিউল Transport Layer Security (TLS) ও Secure Socket Layer (SSL) সাপোর্ট দেয়। **https** এর ভিত্তি এটি।
-</I18nBangla>
-
-
-
----
-
-## API Surface
-
-<I18nEnglish>
-
-### Server
-- **`tls.createServer(options, secureConnectionListener)`** — create secure server.  
-  Options include:  
-  - `key`: private key  
-  - `cert`: certificate  
-  - `ca`: certificate authority list  
-- **Events**: `'secureConnection'`, `'tlsClientError'`.
-
-### Client
-- **`tls.connect(port, [host], [options], [callback])`** — connect to secure server.  
-- Options include: `ca`, `cert`, `key`, `rejectUnauthorized`.  
-- Returns a **TLSSocket** (a duplex encrypted stream).
-
-### TLSSocket
-- Extends `net.Socket`.  
-- Events: `'secureConnect'`, `'OCSPResponse'`, `'session'`, `'keylog'`.  
-- Properties: `.authorized`, `.authorizationError`.  
-- Methods: `.getPeerCertificate()`, `.getProtocol()`.  
-
-</I18nEnglish>
-
-<I18nBangla>
-### সার্ভার
-- **`createServer`** দিয়ে TLS সার্ভার তৈরি। অপশন: `key`, `cert`, `ca`।
-- ইভেন্ট: `'secureConnection'`, `'tlsClientError'`।
-
-### ক্লায়েন্ট
-- **`connect`** TLS সার্ভারে কানেক্ট। অপশন: `ca`, `cert`, `key`, `rejectUnauthorized`।
-- রিটার্ন: **TLSSocket**।
-
-### TLSSocket
-- `net.Socket` কে এক্সটেন্ড করে।  
-- প্রপার্টি: `.authorized`, `.authorizationError`।  
-- মেথড: `.getPeerCertificate()`, `.getProtocol()`।
-</I18nBangla>
-
-
-
----
-
-## Examples (English only)
-
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="english">
+Same surface as [`net`](/en/docs/v1.0.0/modules/net-module) but wrapped in OpenSSL. Used internally by `web` for HTTPS and by `request` for HTTPS clients — usually you reach for those higher-level modules instead.
 
 ```bnl
-const tls = require("tls");
-const fs = require("fs");
+import "tls" as tls;
 
-// TLS server
-const options = {
-  key: fs.readFileSync("server-key.pem"),
-  cert: fs.readFileSync("server-cert.pem"),
-  ca: [fs.readFileSync("ca-cert.pem")]
-};
-
-const server = tls.createServer(options, (socket) => {
-  console.log("Secure connection");
-  socket.write("Welcome secure client!\n");
-  socket.setEncoding("utf8");
-  socket.on("data", (data) => console.log("client:", data));
-});
-
-server.listen(8000, () => console.log("TLS server running on 8000"));
-
-// TLS client
-const client = tls.connect(8000, { ca: [fs.readFileSync("ca-cert.pem")] }, () => {
-  if (client.authorized) {
-    console.log("Connection authorized by CA");
-  } else {
-    console.log("Authorization error:", client.authorizationError);
-  }
-  client.write("Hello secure server!");
-});
-
-client.on("data", (data) => {
-  console.log("Server:", data.toString());
-  client.end();
+var server = tls.listen(8443, {
+    cert: io.read_file("server.crt"),
+    key:  io.read_file("server.key")
+}, function (conn) {
+    conn.on_data(function (chunk) { conn.write("got " + chunk); });
 });
 ```
-  </TabsContent>
-</Tabs>
 
----
+## API
 
-## Notes
+| Function | Description |
+|---|---|
+| `tls.listen(port, opts, on_conn)` → server | TLS server. `opts.cert` / `opts.key` are PEM strings. Returns `{port, close()}`. |
+| `tls.connect(host, port, opts, on_conn)` | TLS client. `opts.servername` for SNI; pass `{}` for defaults. `on_conn(err, conn)`. |
 
-<I18nEnglish>
-- TLS ensures encryption and authentication of communication.  
-- Self-signed certificates can be used for testing but not recommended for production.  
-- Always verify certificates with CA for security.  
-- **TLSSocket** behaves like a normal socket but with encryption.  
+## Connection object
+
+Same shape as `net`:
+- `conn.write(data, cb?)`
+- `conn.on_data(fn)`
+- `conn.on_end(fn)`
+- `conn.close()`
+
+## See also
+- [`net`](/en/docs/v1.0.0/modules/net-module) — plain TCP.
+- [`web`](/en/docs/v1.0.0/modules/web-module) — HTTPS server framework.
+- [`request`](/en/docs/v1.0.0/modules/request-module) — HTTPS client.
 </I18nEnglish>
 
 <I18nBangla>
-- TLS যোগাযোগ এনক্রিপ্ট ও অথেনটিকেট করে।  
-- টেস্টে self-signed সার্টিফিকেট ব্যবহার করা যায়, প্রোডাকশনে নয়।  
-- নিরাপত্তার জন্য সবসময় CA দিয়ে সার্টিফিকেট ভেরিফাই করুন।  
-- **TLSSocket** সাধারণ সকেটের মত কিন্তু এনক্রিপ্টেড।  
+[`net`](/bn/docs/v1.0.0/modules/net-module)-এর মতই, কিন্তু OpenSSL-এ wrapped। `web` (HTTPS) ও `request` (HTTPS client) ভেতরে এটি ব্যবহার করে — সাধারণত উচ্চ-লেভেল মডিউল ব্যবহার করুন।
+
+```bnl
+import "tls" as tls;
+
+var server = tls.listen(8443, {
+    cert: io.read_file("server.crt"),
+    key:  io.read_file("server.key")
+}, function (conn) {
+    conn.on_data(function (chunk) { conn.write("got " + chunk); });
+});
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `tls.listen(port, opts, on_conn)` → server | TLS server। `opts.cert` / `opts.key` PEM স্ট্রিং। `{port, close()}`। |
+| `tls.connect(host, port, opts, on_conn)` | TLS client। `opts.servername` SNI-এর জন্য। `on_conn(err, conn)`। |
+
+## Connection object
+
+`net`-এর মতই: `write`, `on_data`, `on_end`, `close`।
+
+## আরও দেখুন
+- [`net`](/bn/docs/v1.0.0/modules/net-module)।
+- [`web`](/bn/docs/v1.0.0/modules/web-module) / [`request`](/bn/docs/v1.0.0/modules/request-module)।
 </I18nBangla>
-
-

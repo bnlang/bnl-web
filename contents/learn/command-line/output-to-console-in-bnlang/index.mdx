@@ -1,8 +1,8 @@
 ---
 title: Output to Console in Bnlang
-description: Learn how to print messages to the console in Bnlang with examples in Bangla and English.
+description: Print to standard output and standard error in Bnlang — print(), log levels, and the log library.
 bnTitle: Bnlang এ কনসোলে আউটপুট দেওয়া
-bnDescription: Bnlang এ কনসোলে বার্তা প্রিন্ট করার উদাহরণ।
+bnDescription: Bnlang-এ stdout ও stderr-এ প্রিন্ট — print(), লগ লেভেল, এবং `log` লাইব্রেরি।
 ---
 
 # <I18nEnglish>Output to Console in Bnlang</I18nEnglish>
@@ -10,143 +10,106 @@ bnDescription: Bnlang এ কনসোলে বার্তা প্রিন�
 
 
 <I18nEnglish>
-In **Bnlang**, the console is the primary way to display information while running a program.  
-The built‑in **`console`** object provides multiple methods to print messages, debug, or log errors.
+The simplest way to write to the terminal is the built-in `print` function — it accepts any number of arguments, separates them with spaces, and adds a trailing newline.
+For anything beyond a quick script, reach for the `log` library, which adds severity levels and a configurable sink.
 </I18nEnglish>
 
 <I18nBangla>
-**Bnlang** এ প্রোগ্রাম চালানোর সময় তথ্য দেখানোর প্রধান উপায় হলো কনসোল।  
-বিল্ট‑ইন **`console`** অবজেক্ট বার্তা প্রিন্ট করা, ডিবাগ করা বা এরর লগ করার জন্য বিভিন্ন মেথড দেয়।
+টার্মিনালে লেখার সবচেয়ে সরল উপায় হলো বিল্ট-ইন `print` ফাংশন — এটি যে কোনো সংখ্যক আর্গুমেন্ট নেয়, স্পেস দিয়ে আলাদা করে, এবং একটি নতুন লাইন যোগ করে।
+দ্রুত স্ক্রিপ্টের বাইরে যেকোনো কিছুর জন্য `log` লাইব্রেরি ব্যবহার করুন, যা সিভিয়ারিটি লেভেল এবং কনফিগারেবল সিঙ্ক যোগ করে।
 </I18nBangla>
 
 
 
 ---
 
-## Basic Methods
+## print — The Simple Path
 
 <Tabs defaultValue="english" className="w-full">
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-  </TabsList>
-
-  <TabsContent value="english">
-    <ul>
-      <li><code>console.log()</code> → Print general messages.</li>
-      <li><code>console.info()</code> → Print informational messages.</li>
-      <li><code>console.warn()</code> → Print warning messages.</li>
-      <li><code>console.error()</code> → Print error messages.</li>
-    </ul>
-  </TabsContent>
-
-  <TabsContent value="bangla">
-    <ul>
-      <li><code>console.log()</code> → সাধারণ বার্তা প্রিন্ট করে।</li>
-      <li><code>console.info()</code> → তথ্যবহুল বার্তা প্রিন্ট করে।</li>
-      <li><code>console.warn()</code> → সতর্কতা বার্তা প্রিন্ট করে।</li>
-      <li><code>console.error()</code> → এরর বার্তা প্রিন্ট করে।</li>
-    </ul>
-  </TabsContent>
-
-  
-</Tabs>
-
----
-
-## Examples
-
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
   </TabsList>
 
   <TabsContent value="english">
 
-```js
-console.log("Hello, World!");
-console.info("Server started");
-console.warn("Low memory");
-console.error("Something went wrong");
+```bnl
+print("Hello, World!");
+print("user:", "Alice", "age:", 25);
+print(1 + 2 + 3);
 ```
   </TabsContent>
 
   <TabsContent value="bangla">
 
 ```bnl
-কনসোল.লগ("হ্যালো, বিশ্ব!");
-কনসোল.তথ্য("সার্ভার চালু হয়েছে");
-কনসোল.সতর্ক("মেমরি কম");
-কনসোল.ত্রুটি("কিছু ভুল হয়েছে");
+লিখুন("হ্যালো, বিশ্ব!");
+লিখুন("ব্যবহারকারী:", "আলিস", "বয়স:", 25);
+লিখুন(1 + 2 + 3);
 ```
   </TabsContent>
-
-  
 </Tabs>
-
----
-
-## Formatting Output
 
 <I18nEnglish>
-`console.log` supports format specifiers like `%s` (string), `%d` (number), and `%o` (object).
+`print` and `লিখুন` are aliases for the same built-in — pick whichever reads better to you. There's no separate `printf`; build the string yourself with `+` or pass multiple arguments.
 </I18nEnglish>
 
 <I18nBangla>
-`console.log` এ ফরম্যাট স্পেসিফায়ার ব্যবহার করা যায় যেমন `%s` (স্ট্রিং), `%d` (সংখ্যা), `%o` (অবজেক্ট)।
+`print` এবং `লিখুন` একই বিল্ট-ইনের দু'টা alias — যেটা আপনার কাছে ভালো লাগে সেটাই ব্যবহার করুন। আলাদা `printf` নেই; `+` দিয়ে স্ট্রিং বানান অথবা একাধিক আর্গুমেন্ট পাঠান।
 </I18nBangla>
 
+---
 
+## The log Library — Levels and Structure
 
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-  </TabsList>
+<I18nEnglish>
+For real programs you want severity (info vs warning vs error), timestamps, and a single place to redirect output. The `log` library handles all three.
+</I18nEnglish>
 
-  <TabsContent value="english">
-
-```js
-const user = "Alice";
-const age = 25;
-
-console.log("User: %s, Age: %d", user, age);
-```
-  </TabsContent>
-
-  <TabsContent value="bangla">
+<I18nBangla>
+বাস্তব প্রোগ্রামের জন্য আপনি সিভিয়ারিটি (info vs warning vs error), টাইমস্ট্যাম্প, এবং আউটপুট রিডাইরেক্ট করার একটি জায়গা চান। `log` লাইব্রেরি তিনটাই সামলায়।
+</I18nBangla>
 
 ```bnl
-const ব্যবহারকারী = "আলিস";
-const বয়স = 25;
+import "log" as log;
 
-কনসোল.লগ("ব্যবহারকারী: %s, বয়স: %d", ব্যবহারকারী, বয়স);
+log.info("server starting");
+log.warn("port", 3000, "already in use, falling back");
+log.error("could not bind, exiting");
 ```
-  </TabsContent>
 
-  
-</Tabs>
+---
+
+## Writing to stderr
+
+<I18nEnglish>
+`print` writes to standard output. Errors usually belong on **stderr** so they aren't captured into your data pipeline. Use `sys.write_err`:
+</I18nEnglish>
+
+<I18nBangla>
+`print` standard output-এ লেখে। এররগুলো সাধারণত **stderr**-এ থাকা উচিত যাতে আপনার ডাটা পাইপলাইনে ক্যাপচার না হয়। `sys.write_err` ব্যবহার করুন:
+</I18nBangla>
+
+```bnl
+import "sys" as sys;
+
+sys.write_err("something went wrong\n");
+```
 
 ---
 
 ## Best Practices
 
 <I18nEnglish>
-- Use `console.log` for development but clean up logs in production.  
-- Use appropriate log levels (`info`, `warn`, `error`) for clarity.  
-- Avoid logging sensitive information.  
-- Combine logs with monitoring tools for larger projects.
+- Use `print` freely while prototyping; switch to the `log` library before deploying.
+- Send anything that isn't program output (warnings, errors, progress) to stderr so callers can pipe stdout cleanly.
+- Don't log secrets — API keys, tokens, passwords — even at debug level.
 </I18nEnglish>
 
 <I18nBangla>
-- ডেভেলপমেন্টে `console.log` ব্যবহার করুন তবে প্রোডাকশনে লগ সরিয়ে ফেলুন।  
-- উপযুক্ত লগ লেভেল (`info`, `warn`, `error`) ব্যবহার করুন।  
-- সংবেদনশীল তথ্য লগ করবেন না।  
-- বড় প্রজেক্টে মনিটরিং টুলসের সাথে লগ যুক্ত করুন।
+- প্রোটোটাইপিং-এর সময় `print` মুক্তভাবে ব্যবহার করুন; ডিপ্লয় করার আগে `log` লাইব্রেরিতে শিফট করুন।
+- যা প্রোগ্রাম আউটপুট নয় (ওয়ার্নিং, এরর, প্রোগ্রেস) সেগুলো stderr-এ পাঠান, যাতে কলার stdout পরিষ্কারভাবে পাইপ করতে পারে।
+- সিক্রেট লগ করবেন না — API key, টোকেন, পাসওয়ার্ড — এমনকি ডিবাগ লেভেলেও না।
 </I18nBangla>
 
 

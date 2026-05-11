@@ -1,0 +1,106 @@
+---
+title: session module
+description: In-memory session middleware backed by an HttpOnly cookie.
+bnTitle: session মডিউল
+bnDescription: HttpOnly কুকি-backed session middleware।
+---
+
+# <I18nEnglish>`session` module</I18nEnglish>
+# <I18nBangla>`session` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Session middleware for `web`. Sessions are keyed by a random UUID stored in an HttpOnly cookie; per-session data is a bnl map living in-process. The interface is pluggable — swap the store for one backed by Redis or a database without changing handler code.
+
+```bnl
+import "web"     as web;
+import "session" as session;
+
+var store = session.create_store(null);
+var app   = web.app();
+app.before(store.before);
+app.after (store.after);
+
+app.get("/", function (req) {
+    var n = req.session.visits;
+    if (n == null) { n = 0; }
+    req.session.visits = n + 1;
+    return "visit " + str(req.session.visits);
+});
+
+app.listen({ port: 3000 });
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `session.create_store(opts)` → store | Build an in-memory store. `opts`: `{cookie_name, max_age, same_site, secure}`. |
+
+## Store object
+
+| Method | Description |
+|---|---|
+| `store.before` | App-level middleware: populates `req.session`. Mount with `app.before`. |
+| `store.after` | App-level middleware: writes `req.session` back, attaches the session cookie. Mount with `app.after`. |
+| `store.destroy(req)` | Drop the session and arrange for the cookie to be deleted on the next response. |
+| `store.count()` → number | Number of sessions currently held. |
+
+## Notes
+
+- `req.session` is a per-request **copy** — mutating `req.session.foo = ...` is safe and gets written back at response time.
+- Defaults: cookie name `bnl_sid`, `max_age` 86400s, `same_site: "Lax"`, `secure: false` (set true behind HTTPS).
+- For multi-process deployments, write your own store implementing `{before, after}` on top of Redis or a DB.
+
+## See also
+- [`cookie`](/en/docs/v1.0.0/modules/cookie-module).
+- [`web`](/en/docs/v1.0.0/modules/web-module).
+</I18nEnglish>
+
+<I18nBangla>
+`web`-এর জন্য session middleware। Session একটি র‍্যান্ডম UUID দিয়ে keyed, HttpOnly কুকিতে স্টোর হয়; per-session data একটি bnl map in-process। Pluggable — handler কোড না বদলে Redis/DB-backed store দিয়ে swap করতে পারেন।
+
+```bnl
+import "web"     as web;
+import "session" as session;
+
+var store = session.create_store(null);
+var app   = web.app();
+app.before(store.before);
+app.after (store.after);
+
+app.get("/", function (req) {
+    var n = req.session.visits;
+    if (n == null) { n = 0; }
+    req.session.visits = n + 1;
+    return "visit " + str(req.session.visits);
+});
+
+app.listen({ port: 3000 });
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `session.create_store(opts)` → store | In-memory store। `opts`: `{cookie_name, max_age, same_site, secure}`। |
+
+## Store object
+
+| মেথড | বর্ণনা |
+|---|---|
+| `store.before` | App middleware: `req.session` populate। `app.before`-এ mount। |
+| `store.after` | App middleware: `req.session` write back ও cookie attach। `app.after`-এ mount। |
+| `store.destroy(req)` | Session drop ও পরের response-এ কুকি delete। |
+| `store.count()` → number | বর্তমান session সংখ্যা। |
+
+## নোট
+
+- `req.session` একটি per-request **copy** — `req.session.foo = ...` safe।
+- ডিফল্ট: cookie name `bnl_sid`, `max_age` 86400s, `same_site: "Lax"`, `secure: false`।
+- Multi-process deploy-এ Redis/DB store লিখুন `{before, after}` ইন্টারফেসের উপর।
+
+## আরও দেখুন
+- [`cookie`](/bn/docs/v1.0.0/modules/cookie-module)।
+- [`web`](/bn/docs/v1.0.0/modules/web-module)।
+</I18nBangla>

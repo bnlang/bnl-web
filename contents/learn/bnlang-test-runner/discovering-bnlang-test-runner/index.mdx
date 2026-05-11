@@ -1,153 +1,120 @@
 ---
-title: Discovering the Bnlang Test Runner
-description: Learn about the Bnlang Test Runner, its features, and usage with examples in Bangla and English.
-bnTitle: Bnlang টেস্ট রানার আবিষ্কার
-bnDescription: Bnlang টেস্ট রানার, এর ফিচার এবং ব্যবহার উদাহরণসহ।
+title: Discovering the Bnlang Test Framework
+description: Meet Bnlang's test framework — `test`, assertions, and a tiny end-to-end example.
+bnTitle: Bnlang টেস্ট ফ্রেমওয়ার্ক আবিষ্কার
+bnDescription: Bnlang টেস্ট ফ্রেমওয়ার্কের সাথে পরিচিত হোন — `test`, অ্যাসারশন এবং একটি ছোট এন্ড-টু-এন্ড উদাহরণ।
 ---
 
-# <I18nEnglish>Discovering the Bnlang Test Runner</I18nEnglish>
-# <I18nBangla>Bnlang টেস্ট রানার আবিষ্কার</I18nBangla>
+# <I18nEnglish>Discovering the Bnlang Test Framework</I18nEnglish>
+# <I18nBangla>Bnlang টেস্ট ফ্রেমওয়ার্ক আবিষ্কার</I18nBangla>
 
 <I18nEnglish>
-The **Bnlang Test Runner** is the official tool for writing and running tests in the Bnlang ecosystem.  
-It provides a simple API for defining tests, assertions, and hooks, ensuring reliable and maintainable code.  
-With the test runner, you can automate quality checks and confidently refactor projects.
+Bnlang ships with a tiny test framework in the standard library — `test`. It gives you `test(name, fn)` to register tests, a handful of assertion helpers, and `run()` to execute everything and exit non-zero on failure.
+
+There's no separate test discovery binary. A test file is just a regular Bnlang script that imports `test`, registers cases, and calls `t.run()`.
 </I18nEnglish>
 
 <I18nBangla>
-**Bnlang টেস্ট রানার** হলো Bnlang ইকোসিস্টেমে টেস্ট লেখার এবং চালানোর অফিসিয়াল টুল।  
-এটি টেস্ট, অ্যাসারশন এবং হুক ডিফাইন করার সহজ API দেয়, যা কোডকে নির্ভরযোগ্য ও মেইনটেনযোগ্য রাখে।  
-টেস্ট রানার দিয়ে কোডের মান যাচাই অটোমেট করা যায় এবং নিশ্চিন্তে প্রজেক্ট রিফ্যাক্টর করা যায়।
+Bnlang এর স্ট্যান্ডার্ড লাইব্রেরিতে একটি ছোট টেস্ট ফ্রেমওয়ার্ক আছে — `test`। এটি আপনাকে দেয় `test(name, fn)` টেস্ট রেজিস্টার করার জন্য, কিছু অ্যাসারশন হেল্পার, এবং `run()` যা সবকিছু এক্সিকিউট করে এবং ব্যর্থতার ক্ষেত্রে non-zero দিয়ে এক্সিট করে।
+
+আলাদা কোনো টেস্ট-ডিসকভারি বাইনারি নেই। একটি টেস্ট ফাইল একটি সাধারণ Bnlang স্ক্রিপ্টই — যা `test` ইমপোর্ট করে, কেস রেজিস্টার করে, এবং `t.run()` কল করে।
 </I18nBangla>
 
 ---
 
-## Writing a Simple Test
+## A Minimal Test File
 
 <Tabs defaultValue="english" className="w-full">
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
   </TabsList>
 
   <TabsContent value="english">
 
-```js
-const { test } = require("bnl_test");
+```bnl
+// file: tests/math_spec.bnl
+import "test" as t;
 
-test("addition works", (t) => {
-  t.equal(2 + 2, 4);
+t.test("addition", function () {
+    t.equal(2 + 2, 4);
 });
+
+t.test("upper case", function () {
+    t.equal("foo".to_upper(), "FOO");
+});
+
+t.run();
 ```
   </TabsContent>
 
   <TabsContent value="bangla">
 
 ```bnl
-const { test } = require("bnl_test");
+// ফাইল: tests/math_spec.bnl
+আমদানি "test" যেমন t;
 
-test("যোগফল কাজ করছে", (t) => {
-  t.equal(2 + 2, 4);
+t.test("যোগ", ফাংশন () {
+    t.equal(2 + 2, 4);
 });
+
+t.test("আপার কেস", ফাংশন () {
+    t.equal("foo".to_upper(), "FOO");
+});
+
+t.run();
 ```
   </TabsContent>
-
-  
 </Tabs>
 
 ---
 
-## Assertions
+## Available Assertions
 
 <I18nEnglish>
-Assertions are checks that confirm expected outcomes.  
-Common methods include `t.equal`, `t.notEqual`, `t.ok`, and `t.fail`.
+The framework keeps its surface tiny. Every assertion throws on failure; `run()` catches and reports.
 </I18nEnglish>
 
 <I18nBangla>
-অ্যাসারশন মানে হলো প্রত্যাশিত ফলাফল যাচাই করা।  
-সাধারণ মেথডগুলোর মধ্যে আছে: `t.equal`, `t.notEqual`, `t.ok`, এবং `t.fail`।
+ফ্রেমওয়ার্ক তার surface ছোট রাখে। প্রতিটি অ্যাসারশন ব্যর্থ হলে থ্রো করে; `run()` ধরে এবং রিপোর্ট করে।
 </I18nBangla>
+
+- `t.equal(actual, expected)` — value compare.
+- `t.not_equal(actual, expected)` — opposite of `equal`.
+- `t.is_true(v)` / `t.is_false(v)` — boolean checks.
+- `t.is_null(v)` / `t.not_null(v)` — null checks.
+- `t.contains(haystack, needle)` — substring (for strings) or membership (for lists).
+- `t.throws(fn)` — assert that `fn()` throws.
+- `t.throws_with(fn, substring)` — like `throws`, but also checks the message.
 
 ---
 
-## Hooks
+## Running a Test File
 
 <I18nEnglish>
-The runner supports lifecycle hooks:  
-- `before` → Runs once before all tests.  
-- `after` → Runs once after all tests.  
-- `beforeEach` → Runs before each test.  
-- `afterEach` → Runs after each test.
+Just run the file with `bnl`. `t.run()` prints a summary to stdout and exits the process with code 1 on any failure, so CI picks it up automatically.
 </I18nEnglish>
 
 <I18nBangla>
-রানার লাইফসাইকেল হুক সাপোর্ট করে:  
-- `before` → সব টেস্টের আগে একবার চলে।  
-- `after` → সব টেস্টের পরে একবার চলে।  
-- `beforeEach` → প্রতিটি টেস্টের আগে চলে।  
-- `afterEach` → প্রতিটি টেস্টের পরে চলে।
+শুধু `bnl` দিয়ে ফাইলটি চালান। `t.run()` stdout-এ একটি সারমর্ম প্রিন্ট করে, এবং কোনো ব্যর্থতায় প্রসেসকে কোড 1-এ এক্সিট করায় — তাই CI স্বয়ংক্রিয়ভাবে এটি ধরে নেয়।
 </I18nBangla>
 
----
-
-## Example with Hooks
-
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-  </TabsList>
-
-  <TabsContent value="english">
-
-```js
-const { test } = require("bnl_test");
-
-test.before(() => console.log("Setup"));
-test.after(() => console.log("Teardown"));
-
-test("check value", (t) => {
-  const x = 10;
-  t.ok(x > 5);
-});
+```sh
+bnl tests/math_spec.bnl
 ```
-  </TabsContent>
-
-  <TabsContent value="bangla">
-
-```bnl
-const { test } = require("bnl_test");
-
-test.before(() => কনসোল.লগ("সেটআপ"));
-test.after(() => কনসোল.লগ("টিয়ারডাউন"));
-
-test("মান যাচাই", (t) => {
-  const x = 10;
-  t.ok(x > 5);
-});
-```
-  </TabsContent>
-
-  
-</Tabs>
 
 ---
 
 ## Best Practices
 
 <I18nEnglish>
-- Group related tests for readability.  
-- Keep test functions small and focused.  
-- Use hooks for setup/teardown logic.  
-- Automate tests in CI/CD pipelines for reliability.
+- Keep each `test()` focused on a single behavior — the name should describe the assertion.
+- Group related test files under a `tests/` directory. There's no magic discovery, but it makes shell globs (`bnl tests/*.bnl`) straightforward.
+- Use `t.throws_with` to assert on error *messages* — it catches regressions where the right exception fires for the wrong reason.
 </I18nEnglish>
 
 <I18nBangla>
-- সম্পর্কিত টেস্ট একসাথে লিখুন।  
-- টেস্ট ফাংশন ছোট ও নির্দিষ্ট রাখুন।  
-- সেটআপ/টিয়ারডাউন লজিকের জন্য হুক ব্যবহার করুন।  
-- নির্ভরযোগ্যতার জন্য টেস্ট CI/CD তে অটোমেট করুন।
+- প্রতিটি `test()` কে একটি একক বিহেভিয়রে ফোকাস রাখুন — নামটি অ্যাসারশনকে বর্ণনা করবে।
+- সম্পর্কিত টেস্ট ফাইল একটি `tests/` ডিরেক্টরিতে গ্রুপ করুন। কোনো ম্যাজিক ডিসকভারি নেই, কিন্তু এটি শেল গ্লব (`bnl tests/*.bnl`)-কে সরল করে।
+- এরর *মেসেজ*-এ অ্যাসার্ট করতে `t.throws_with` ব্যবহার করুন — এটি এমন রিগ্রেশন ধরে যেখানে সঠিক এক্সেপশন ভুল কারণে ফায়ার হয়।
 </I18nBangla>

@@ -1,115 +1,78 @@
 ---
 title: zlib module
-description: Compression APIs — gzip, deflate, brotli, streaming compression/decompression, synchronous and asynchronous utilities.
+description: gzip / deflate compression and decompression.
 bnTitle: zlib মডিউল
-bnDescription: কম্প্রেশন API — gzip, deflate, brotli, স্ট্রিম ভিত্তিক কম্প্রেশন/ডিকম্প্রেশন, সিঙ্ক ও অ্যাসিঙ্ক ইউটিলিটি।
+bnDescription: gzip / deflate compression।
 ---
 
-# <I18nEnglish>zlib</I18nEnglish>
-# <I18nBangla>zlib</I18nBangla>
+# <I18nEnglish>`zlib` module</I18nEnglish>
+# <I18nBangla>`zlib` মডিউল</I18nBangla>
 
 
 <I18nEnglish>
-The **`zlib`** module provides compression and decompression utilities using formats like **gzip**, **deflate**, and **brotli**. Supports both streaming and buffer-based APIs.
-</I18nEnglish>
-
-<I18nBangla>
-**`zlib`** মডিউল কম্প্রেশন ও ডিকম্প্রেশন দেয় — যেমন **gzip**, **deflate**, **brotli**। স্ট্রিম ও বাফার-ভিত্তিক API সাপোর্ট করে।
-</I18nBangla>
-
-
-
----
-
-## API Surface
-
-<I18nEnglish>
-
-### Compression Streams
-- **`zlib.createGzip()`**, **`zlib.createGunzip()`**  
-- **`zlib.createDeflate()`**, **`zlib.createInflate()`**  
-- **`zlib.createBrotliCompress()`**, **`zlib.createBrotliDecompress()`**  
-
-These return transform streams usable with **pipeline**.
-
-### Utility Functions
-- **`zlib.gzip(buf, cb)`**, **`zlib.gunzip(buf, cb)`**  
-- **`zlib.deflate(buf, cb)`**, **`zlib.inflate(buf, cb)`**  
-- **`zlib.brotliCompress(buf, cb)`**, **`zlib.brotliDecompress(buf, cb)`**  
-
-Synchronous variants exist: **`gzipSync`**, **`deflateSync`**, etc.
-
-### Options
-- Compression level, strategy, windowBits, etc. configurable.  
-
-</I18nEnglish>
-
-<I18nBangla>
-### ফাংশন
-- **`createGzip/createGunzip`**, **`createDeflate/createInflate`**, **`createBrotliCompress/createBrotliDecompress`** — স্ট্রিম API।  
-- **`gzip/gunzip/deflate/inflate/brotliCompress/brotliDecompress`** — বাফার API।  
-- সিঙ্ক ভ্যারিয়েন্টও আছে।  
-</I18nBangla>
-
-
-
----
-
-## Examples (English only)
-
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="english">
+Compress and decompress bytes with the zlib library. Two framings: **gzip** (the file format you see in `.gz` files and HTTP `Content-Encoding: gzip`) and **raw deflate** (used by WebSocket `permessage-deflate` and similar).
 
 ```bnl
-const fs = require("fs");
-const zlib = require("zlib");
-const { pipeline } = require("stream");
+import "zlib" as zlib;
 
-// Compress a file with gzip
-pipeline(
-  fs.createReadStream("input.txt"),
-  zlib.createGzip(),
-  fs.createWriteStream("input.txt.gz"),
-  (err) => {
-    if (err) console.error("Compression failed:", err);
-    else console.log("File compressed");
-  }
-);
-
-// Decompress gzip
-pipeline(
-  fs.createReadStream("input.txt.gz"),
-  zlib.createGunzip(),
-  fs.createWriteStream("output.txt"),
-  (err) => {
-    if (err) console.error("Decompression failed:", err);
-    else console.log("File decompressed");
-  }
-);
+var compressed   = zlib.gzip("Hello, World!");
+var decompressed = zlib.gunzip(compressed);
+print(decompressed);                                  // Hello, World!
 ```
-  </TabsContent>
-</Tabs>
 
----
+## gzip framing
 
-## Notes
+| Function | Description |
+|---|---|
+| `zlib.gzip(data)` → string | gzip-framed, default compression level. |
+| `zlib.gzip_at(data, level)` → string | `level`: 0 (no compression) – 9 (best). |
+| `zlib.gunzip(data)` → string | Decompress gzip *or* zlib-framed input (auto-detect). |
 
-<I18nEnglish>
-- Use **streams** for large files to avoid memory pressure.  
-- **Brotli** usually offers better compression ratio but may be slower.  
-- Always handle pipeline errors to avoid partial files.  
-- Synchronous methods block the event loop — use only for small buffers.  
+## Raw deflate
+
+| Function | Description |
+|---|---|
+| `zlib.deflate(data)` → string | Raw deflate, no header or checksum. |
+| `zlib.deflate_at(data, level)` → string | |
+| `zlib.inflate(data)` → string | Matches `deflate`. |
+
+## Misc
+
+| Function | Description |
+|---|---|
+| `zlib.version()` → string | zlib library version, e.g. `"1.3.1"`. |
 </I18nEnglish>
 
 <I18nBangla>
-- বড় ফাইলের জন্য **স্ট্রিম** ব্যবহার করুন।  
-- **Brotli** সাধারণত ভালো কম্প্রেশন দেয় কিন্তু ধীর।  
-- পাইপলাইনে ত্রুটি ধরুন।  
-- সিঙ্ক মেথড ইভেন্ট লুপ ব্লক করে।  
+zlib লাইব্রেরি দিয়ে compress/decompress। দু'টি framing: **gzip** (`.gz` ফাইল ও HTTP `Content-Encoding: gzip`) এবং **raw deflate** (WebSocket `permessage-deflate` ইত্যাদি)।
+
+```bnl
+import "zlib" as zlib;
+
+var compressed   = zlib.gzip("Hello, World!");
+var decompressed = zlib.gunzip(compressed);
+print(decompressed);                                  // Hello, World!
+```
+
+## gzip framing
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `zlib.gzip(data)` → string | Default level। |
+| `zlib.gzip_at(data, level)` → string | `level`: 0–9। |
+| `zlib.gunzip(data)` → string | gzip বা zlib-framed দু'টোই (auto-detect)। |
+
+## Raw deflate
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `zlib.deflate(data)` → string | Raw, header/checksum ছাড়া। |
+| `zlib.deflate_at(data, level)` → string | |
+| `zlib.inflate(data)` → string | `deflate`-এর সাথে মিলে। |
+
+## Misc
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `zlib.version()` → string | zlib library version। |
 </I18nBangla>
-
-

@@ -1,0 +1,94 @@
+---
+title: sqlite module
+description: Embedded SQLite — open, query, parameter binding, transactions, simple migrations.
+bnTitle: sqlite মডিউল
+bnDescription: এমবেডেড SQLite।
+---
+
+# <I18nEnglish>`sqlite` module</I18nEnglish>
+# <I18nBangla>`sqlite` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Embedded SQLite client. Open a file (or `":memory:"` for tests), run parameterized SQL, wrap operations in transactions, and run idempotent migrations.
+
+```bnl
+import "sqlite" as sqlite;
+
+var db = sqlite.open("app.db");
+
+db.exec("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)");
+db.exec("INSERT INTO users (name) VALUES (?)", ["Alice"]);
+
+var rows = db.query("SELECT * FROM users");
+for (var row of rows) { print(row.id, row.name); }
+
+db.close();
+```
+
+## Module API
+
+| Function | Description |
+|---|---|
+| `sqlite.open(path)` → db | Open or create. `":memory:"` for a private in-memory DB. |
+| `sqlite.version()` → string | SQLite library version. |
+| `sqlite.transaction(db, fn)` | Run `fn(db)` inside `BEGIN`/`COMMIT`; rolls back on throw. |
+| `sqlite.migrate(db, statements)` | Run a list of idempotent DDL statements. |
+| `sqlite.insert(db, table, row)` → id | Convenience: `INSERT` + return `last_insert_id()`. |
+
+## db handle
+
+| Method | Description |
+|---|---|
+| `db.exec(sql, params?)` | Run a statement; returns nothing. `params` is a list. |
+| `db.query(sql, params?)` → list of maps | Each row as `{col_name: value}`. |
+| `db.query_one(sql, params?)` → map \| null | First row or `null`. |
+| `db.last_insert_id()` → number | |
+| `db.changes()` → number | Rows touched by the last DML. |
+| `db.close()` | Idempotent. |
+
+## See also
+- [`pg`](/en/docs/v1.0.0/modules/pg-module), [`mysql`](/en/docs/v1.0.0/modules/mysql-module), [`mongo`](/en/docs/v1.0.0/modules/mongo-module) — other database drivers.
+</I18nEnglish>
+
+<I18nBangla>
+এমবেডেড SQLite client। একটি ফাইল (বা টেস্টের জন্য `":memory:"`), parameterized SQL, transaction, ও idempotent migration।
+
+```bnl
+import "sqlite" as sqlite;
+
+var db = sqlite.open("app.db");
+
+db.exec("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)");
+db.exec("INSERT INTO users (name) VALUES (?)", ["Alice"]);
+
+var rows = db.query("SELECT * FROM users");
+for (var row of rows) { print(row.id, row.name); }
+
+db.close();
+```
+
+## Module API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `sqlite.open(path)` → db | Open বা create। `":memory:"` private in-memory DB। |
+| `sqlite.version()` → string | SQLite library version। |
+| `sqlite.transaction(db, fn)` | `fn(db)` `BEGIN`/`COMMIT`-এ; throw হলে rollback। |
+| `sqlite.migrate(db, statements)` | Idempotent DDL statements list। |
+| `sqlite.insert(db, table, row)` → id | `INSERT` + `last_insert_id()`। |
+
+## db handle
+
+| মেথড | বর্ণনা |
+|---|---|
+| `db.exec(sql, params?)` | Statement চালান। `params` একটি list। |
+| `db.query(sql, params?)` → list of maps | প্রতিটি row `{col_name: value}`। |
+| `db.query_one(sql, params?)` → map \| null | প্রথম row বা `null`। |
+| `db.last_insert_id()` → number | |
+| `db.changes()` → number | শেষ DML-এ touched rows। |
+| `db.close()` | Idempotent। |
+
+## আরও দেখুন
+- [`pg`](/bn/docs/v1.0.0/modules/pg-module), [`mysql`](/bn/docs/v1.0.0/modules/mysql-module), [`mongo`](/bn/docs/v1.0.0/modules/mongo-module)।
+</I18nBangla>

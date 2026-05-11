@@ -1,8 +1,8 @@
 ---
 title: Run Bnlang Scripts from Command Line
-description: Learn how to run Bnlang scripts directly from the command line with examples in English, Bangla.
+description: How to run Bnlang scripts from the terminal — files, inline code, and passing arguments.
 bnTitle: কমান্ড লাইন থেকে Bnlang স্ক্রিপ্ট চালানো
-bnDescription: কমান্ড লাইন থেকে Bnlang স্ক্রিপ্ট চালানোর উদাহরণ।
+bnDescription: টার্মিনাল থেকে Bnlang স্ক্রিপ্ট চালানো — ফাইল, ইনলাইন কোড, এবং আর্গুমেন্ট পাঠানো।
 ---
 
 # <I18nEnglish>Run Bnlang Scripts from Command Line</I18nEnglish>
@@ -10,63 +10,35 @@ bnDescription: কমান্ড লাইন থেকে Bnlang স্ক্�
 
 
 <I18nEnglish>
-Bnlang programs can be executed directly from the command line using the **`bnl`** command.  
-This allows developers to quickly test, debug, and run scripts without extra setup.
+The `bnl` CLI is the single entry point to the runtime. It can run a script file, evaluate inline code with `-e`, or drop into a REPL when called with no arguments.
 </I18nEnglish>
 
 <I18nBangla>
-**`bnl`** কমান্ড ব্যবহার করে সরাসরি কমান্ড লাইন থেকে Bnlang প্রোগ্রাম চালানো যায়।  
-এর মাধ্যমে ডেভেলপাররা দ্রুত টেস্ট, ডিবাগ এবং স্ক্রিপ্ট চালাতে পারে।
+`bnl` CLI রানটাইমের একমাত্র এন্ট্রি পয়েন্ট। এটি একটি স্ক্রিপ্ট ফাইল চালাতে পারে, `-e` দিয়ে ইনলাইন কোড ইভ্যালুয়েট করতে পারে, অথবা কোনো আর্গুমেন্ট ছাড়া কল করলে REPL-এ ঢোকে।
 </I18nBangla>
 
 
 
 ---
 
-## Running a Script
-
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-  </TabsList>
-
-  <TabsContent value="english">
+## Running a Script File
 
 ```sh
 # Run a script
 bnl hello.bnl
 ```
-  </TabsContent>
-
-  <TabsContent value="bangla">
-
-```sh
-# একটি স্ক্রিপ্ট চালান
-bnl hello.bnl
-```
-  </TabsContent>
-
-  
-</Tabs>
-
----
-
-## Example Script
 
 <Tabs defaultValue="english" className="w-full">
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
   </TabsList>
 
   <TabsContent value="english">
 
-```js
+```bnl
 // file: hello.bnl
-console.log("Hello, World!");
+print("Hello, World!");
 ```
   </TabsContent>
 
@@ -74,40 +46,69 @@ console.log("Hello, World!");
 
 ```bnl
 // ফাইল: hello.bnl
-কনসোল.লগ("হ্যালো, বিশ্ব!");
+লিখুন("হ্যালো, বিশ্ব!");
 ```
   </TabsContent>
-
-  
 </Tabs>
 
 ---
 
-## Running with Arguments
+## Inline Code with -e
+
+```sh
+bnl -e 'print(1 + 2);'
+# 3
+```
+
+---
+
+## Starting the REPL
 
 <I18nEnglish>
-You can pass command-line arguments to Bnlang scripts using `process.argv`.
+Running `bnl` with no arguments opens an interactive prompt. Useful for poking at the language or trying out stdlib calls.
 </I18nEnglish>
 
 <I18nBangla>
-`process.argv` ব্যবহার করে Bnlang স্ক্রিপ্টে কমান্ড লাইন আর্গুমেন্ট পাঠানো যায়।
+`bnl` কোনো আর্গুমেন্ট ছাড়া চালালে একটি ইন্টারেক্টিভ প্রম্পট খুলে। ভাষা যাচাই বা stdlib কল ট্রাই করতে কাজে লাগে।
 </I18nBangla>
 
+```sh
+bnl
+> print("hi");
+hi
+> 1 + 2
+3
+```
 
+---
+
+## Passing Arguments
+
+<I18nEnglish>
+Anything after the script path (or after the `-e` code) is forwarded to the script. Read them with `sys.arg(i)` / `sys.argc()`.
+</I18nEnglish>
+
+<I18nBangla>
+স্ক্রিপ্ট পাথের পরে (বা `-e` কোডের পরে) যা কিছু থাকে, তা স্ক্রিপ্টের কাছে ফরওয়ার্ড হয়। `sys.arg(i)` / `sys.argc()` দিয়ে পড়ুন।
+</I18nBangla>
 
 <Tabs defaultValue="english" className="w-full">
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
   </TabsList>
 
   <TabsContent value="english">
 
-```js
+```bnl
 // file: greet.bnl
-const name = process.argv[2] || "Guest";
-console.log("Hello,", name);
+import "sys" as sys;
+
+var name = "Guest";
+if (sys.argc() > 0) {
+    name = sys.arg(0);
+}
+print("Hello,", name);
 ```
 
 ```sh
@@ -120,8 +121,13 @@ bnl greet.bnl Alice
 
 ```bnl
 // ফাইল: greet.bnl
-const নাম = process.argv[2] || "অতিথি";
-কনসোল.লগ("হ্যালো,", নাম);
+আমদানি "sys" যেমন sys;
+
+চলক নাম = "অতিথি";
+যদি (sys.argc() > 0) {
+    নাম = sys.arg(0);
+}
+লিখুন("হ্যালো,", নাম);
 ```
 
 ```sh
@@ -129,8 +135,6 @@ bnl greet.bnl আলিস
 # আউটপুট: হ্যালো, আলিস
 ```
   </TabsContent>
-
-  
 </Tabs>
 
 ---
@@ -138,17 +142,15 @@ bnl greet.bnl আলিস
 ## Best Practices
 
 <I18nEnglish>
-- Keep scripts small and modular.  
-- Use meaningful file names.  
-- Validate input when using arguments.  
-- Organize scripts in a `scripts/` directory.
+- Keep scripts small and focused — one entry point per file.
+- For anything past a handful of arguments, switch from `sys.arg` to the `cli` module for proper flag parsing.
+- Use `bnl --version` in CI logs so you know which interpreter built which output.
 </I18nEnglish>
 
 <I18nBangla>
-- স্ক্রিপ্ট ছোট এবং মডুলার রাখুন।  
-- অর্থবহ ফাইল নাম ব্যবহার করুন।  
-- আর্গুমেন্ট ব্যবহার করলে ইনপুট যাচাই করুন।  
-- স্ক্রিপ্টগুলো `scripts/` ডিরেক্টরিতে রাখুন।
+- স্ক্রিপ্ট ছোট এবং নির্দিষ্ট রাখুন — প্রতিটি ফাইলে একটি এন্ট্রি পয়েন্ট।
+- কয়েকটির বেশি আর্গুমেন্ট হলে, প্রপার ফ্ল্যাগ পার্সিং-এর জন্য `sys.arg` থেকে `cli` মডিউলে শিফট করুন।
+- CI লগে `bnl --version` ব্যবহার করুন, যাতে জানা যায় কোন ইন্টারপ্রেটার কোন আউটপুট তৈরি করেছে।
 </I18nBangla>
 
 

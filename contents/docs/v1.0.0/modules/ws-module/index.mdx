@@ -1,0 +1,96 @@
+---
+title: ws module
+description: WebSocket server — accept upgrades, send/receive frames.
+bnTitle: ws মডিউল
+bnDescription: WebSocket সার্ভার।
+---
+
+# <I18nEnglish>`ws` module</I18nEnglish>
+# <I18nBangla>`ws` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+WebSocket protocol on top of a raw connection. Designed to pair with `web.upgrade(req)` — the `web` server hands you a raw conn after the HTTP upgrade, and `ws` turns it into a frame-oriented socket.
+
+```bnl
+import "web" as web;
+import "ws"  as ws;
+
+var app = web.app();
+app.get("/chat", function (req) {
+    if (not ws.validate_request(req)) { return web.error(400, "bad ws req"); }
+
+    var conn = web.upgrade(req);
+    var sock = ws.accept(conn, req);
+
+    sock.on_message(function (msg)  { sock.send("echo: " + msg); });
+    sock.on_close  (function (code) { print("closed:", code); });
+});
+
+app.listen({ port: 3000 });
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `ws.validate_request(req)` → bool | True if `req` is a valid WebSocket upgrade request. |
+| `ws.accept(conn, req)` → sock | Send the upgrade response and return a frame-oriented socket. |
+
+## Socket object
+
+| Method | Description |
+|---|---|
+| `sock.on_message(fn)` | `fn(text)` per text frame. |
+| `sock.on_binary(fn)` | `fn(bytes)` per binary frame. |
+| `sock.on_close(fn)` | `fn(code)` when the peer disconnects. |
+| `sock.send(text)` | Send a text frame. |
+| `sock.send_binary(bytes)` | Send a binary frame. |
+| `sock.close(code?)` | Close with an optional status code. |
+
+## See also
+- [`web`](/en/docs/v1.0.0/modules/web-module) — `web.upgrade(req)` returns the raw connection.
+</I18nEnglish>
+
+<I18nBangla>
+Raw connection-এর উপর WebSocket protocol। `web.upgrade(req)`-এর সাথে pair-এ ডিজাইন — `web` সার্ভার HTTP upgrade-এর পরে একটি raw conn দেয়, `ws` সেটাকে frame-oriented socket-এ পরিণত করে।
+
+```bnl
+import "web" as web;
+import "ws"  as ws;
+
+var app = web.app();
+app.get("/chat", function (req) {
+    if (not ws.validate_request(req)) { return web.error(400, "bad ws req"); }
+
+    var conn = web.upgrade(req);
+    var sock = ws.accept(conn, req);
+
+    sock.on_message(function (msg)  { sock.send("echo: " + msg); });
+    sock.on_close  (function (code) { print("closed:", code); });
+});
+
+app.listen({ port: 3000 });
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `ws.validate_request(req)` → bool | Valid WebSocket upgrade হলে true। |
+| `ws.accept(conn, req)` → sock | Upgrade response পাঠিয়ে frame-oriented socket। |
+
+## Socket object
+
+| মেথড | বর্ণনা |
+|---|---|
+| `sock.on_message(fn)` | প্রতি text frame-এ `fn(text)`। |
+| `sock.on_binary(fn)` | প্রতি binary frame-এ। |
+| `sock.on_close(fn)` | `fn(code)`। |
+| `sock.send(text)` | Text frame পাঠান। |
+| `sock.send_binary(bytes)` | Binary frame পাঠান। |
+| `sock.close(code?)` | Close, ঐচ্ছিক status code সহ। |
+
+## আরও দেখুন
+- [`web`](/bn/docs/v1.0.0/modules/web-module) — `web.upgrade(req)`।
+</I18nBangla>

@@ -1,0 +1,70 @@
+---
+title: regex module
+description: Regular expression matching, replacement, and splitting.
+bnTitle: regex মডিউল
+bnDescription: রেগুলার এক্সপ্রেশন match, replace, split।
+---
+
+# <I18nEnglish>`regex` module</I18nEnglish>
+# <I18nBangla>`regex` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+ECMAScript-flavored regular expressions (powered by `std::regex`). Use for matching, capturing, replacement, and splitting.
+
+```bnl
+import "regex" as regex;
+
+print(regex.test("\\d+", "hello 42"));           // true
+print(regex.match("(\\w+)@(\\w+)", "ada@a.com"));// ["ada@a.com", "ada", "a"]
+print(regex.replace("\\s+", "two  spaces", "_"));// "two_spaces"
+print(regex.split(",\\s*", "a, b,c"));            // ["a", "b", "c"]
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `regex.test(pattern, s)` → bool | True if `pattern` matches anywhere in `s`. |
+| `regex.match(pattern, s)` → list \| null | First match as `[full, group1, group2, ...]`, or `null`. |
+| `regex.match_all(pattern, s)` → list of lists | Every match. |
+| `regex.replace(pattern, s, replacement)` → string | Replace **first** match. Use `\1`, `\2` in replacement to reference capture groups. |
+| `regex.replace_all(pattern, s, replacement)` → string | Replace every match. |
+| `regex.split(pattern, s)` → list | Split on each match. |
+| `regex.escape(s)` → string | Escape regex metacharacters so the result matches `s` literally. |
+
+## Notes
+
+- Patterns are strings — escape backslashes when needed (`"\\d"` for `\d`).
+- Bnlang has no regex literal syntax (no `/foo/g`). All flags are baked into the pattern (e.g. `(?i)` for case-insensitive).
+</I18nEnglish>
+
+<I18nBangla>
+ECMAScript-flavored regex (`std::regex`-চালিত)।
+
+```bnl
+import "regex" as regex;
+
+print(regex.test("\\d+", "hello 42"));           // true
+print(regex.match("(\\w+)@(\\w+)", "ada@a.com"));// ["ada@a.com", "ada", "a"]
+print(regex.replace("\\s+", "two  spaces", "_"));// "two_spaces"
+print(regex.split(",\\s*", "a, b,c"));            // ["a", "b", "c"]
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `regex.test(pattern, s)` → bool | `s`-এ কোথাও match হলে true। |
+| `regex.match(pattern, s)` → list \| null | প্রথম match `[full, group1, …]`, না হলে `null`। |
+| `regex.match_all(pattern, s)` → list of lists | সব match। |
+| `regex.replace(pattern, s, replacement)` → string | **প্রথম** match replace। `\1`, `\2` capture group রেফারেন্স। |
+| `regex.replace_all(pattern, s, replacement)` → string | সব match replace। |
+| `regex.split(pattern, s)` → list | প্রতি match-এ split। |
+| `regex.escape(s)` → string | Metacharacter escape। |
+
+## নোট
+
+- Pattern স্ট্রিং — backslash escape করুন (`"\\d"` = `\d`)।
+- কোনো regex literal সিনট্যাক্স নেই (`/foo/g` নেই)। Flag pattern-এ embed করুন (`(?i)` = case-insensitive)।
+</I18nBangla>

@@ -1,0 +1,68 @@
+---
+title: csv module
+description: Parse and emit CSV text.
+bnTitle: csv মডিউল
+bnDescription: CSV টেক্সট পার্স ও emit।
+---
+
+# <I18nEnglish>`csv` module</I18nEnglish>
+# <I18nBangla>`csv` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Read CSV either as raw rows (list of lists) or as records (list of maps keyed by header). Write CSV from rows.
+
+```bnl
+import "csv" as csv;
+import "io"  as io;
+
+var text = io.read_file("users.csv");
+var rows = csv.parse(text);             // [["id","name"], ["1","Alice"], ...]
+
+var records = csv.parse_records(text);  // [{id: "1", name: "Alice"}, ...]
+print(records[0].name);                 // Alice
+
+var out = csv.stringify([["id","name"], [1,"Alice"], [2,"Bob"]]);
+io.write_file("out.csv", out);
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `csv.parse(text)` → list of lists | Each inner list is one row's cells. |
+| `csv.parse_records(text)` → list of maps | First row treated as headers; subsequent rows become maps keyed by header. |
+| `csv.stringify(rows)` → string | `rows` is a list of lists. Cells are coerced to strings and quoted when needed. |
+
+## See also
+- [`json`](/en/docs/v1.0.0/modules/json-module) — when JSON fits your data better.
+</I18nEnglish>
+
+<I18nBangla>
+CSV পড়ুন raw rows (list of lists) হিসেবে অথবা records (header-keyed map) হিসেবে। Rows থেকে CSV লিখুন।
+
+```bnl
+import "csv" as csv;
+import "io"  as io;
+
+var text = io.read_file("users.csv");
+var rows = csv.parse(text);             // [["id","name"], ["1","Alice"], ...]
+
+var records = csv.parse_records(text);  // [{id: "1", name: "Alice"}, ...]
+print(records[0].name);                 // Alice
+
+var out = csv.stringify([["id","name"], [1,"Alice"], [2,"Bob"]]);
+io.write_file("out.csv", out);
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `csv.parse(text)` → list of lists | প্রতিটি inner list = একটি row। |
+| `csv.parse_records(text)` → list of maps | প্রথম row = headers; পরবর্তী rows header-keyed maps। |
+| `csv.stringify(rows)` → string | `rows` = list of lists। প্রয়োজনে quote ও escape। |
+
+## আরও দেখুন
+- [`json`](/bn/docs/v1.0.0/modules/json-module)।
+</I18nBangla>

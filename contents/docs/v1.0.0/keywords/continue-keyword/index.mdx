@@ -1,130 +1,161 @@
 ---
-title: continue Keyword
-description: The continue statement in Bnlang skips the rest of the current loop iteration and proceeds to the next one. Examples in Bangla and English.
+title: continue keyword
+description: Skip to the next iteration of the nearest enclosing loop in Bnlang.
 bnTitle: চলুন কীওয়ার্ড
-bnDescription: Bnlang এ চলুন (continue) স্টেটমেন্ট বর্তমান ইটারেশন স্কিপ করে পরের ইটারেশনে যায়—উদাহরণসহ।
+bnDescription: Bnlang-এ নিকটতম enclosing loop-এর পরের iteration-এ skip করুন।
 ---
 
-# <I18nEnglish>continue Keyword</I18nEnglish>
-# <I18nBangla>চলুন কীওয়ার্ড</I18nBangla>
+# <I18nEnglish>`continue` keyword</I18nEnglish>
+# <I18nBangla>`চলুন` কীওয়ার্ড</I18nBangla>
 
 
 <I18nEnglish>
-The **`continue`** statement skips the rest of the **current** iteration of a loop and moves to the next check/iteration.  
-Use it in `for`, `while`, and `do...while` loops to ignore certain cases without exiting the loop.
-</I18nEnglish>
+`continue;` skips the rest of the current loop iteration and re-evaluates the loop condition (or moves to the next item for `for ... of`). Bangla form: `চলুন;`.
 
-<I18nBangla>
-**`চলুন`** স্টেটমেন্ট বর্তমান ইটারেশনের বাকি অংশ **স্কিপ** করে পরবর্তী ইটারেশনে চলে যায়।  
-`প্রতি` (for), `যতক্ষণ` (while), এবং `করো...যতক্ষণ` (do...while) লুপে কিছু কেস বাদ দিতে এটি ব্যবহার করুন।
-</I18nBangla>
-
-
-
----
+Note: `continue` only applies to **loops**. Inside a `switch` it passes through to the enclosing loop.
 
 ## Syntax
-
-<I18nEnglish>
 
 ```bnl
 continue;
 ```
-</I18nEnglish>
-
-<I18nBangla>
-
-```bnl
-চলুন;
-```
-</I18nBangla>
-
-
-
----
 
 ## Examples
 
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="bangla">
+Skip even numbers:
 
 ```bnl
-// ১) জোড় সংখ্যা স্কিপ
-let যোগফল = 0;
-প্রতি (let i = 1; i <= 10; i++) {
-  যদি (i % 2 === 0) চলুন;  // জোড় বাদ
-  যোগফল += i;
+var i = 0;
+while (i < 6) {
+    i = i + 1;
+    if (i % 2 == 0) { continue; }
+    print(i);
 }
-কনসোল.লগ("Odd sum =", যোগফল);
-
-// ২) while এ ইনপুট ভ্যালিডেশন
-let n = 0;
-যতক্ষণ (n < 8) {
-  n++;
-  যদি (n < 3) চলুন;       // 1,2 স্কিপ
-  ছাপাও("processing:", n);
-}
-
-// ৩) for...of — ফাঁকা স্ট্রিং স্কিপ
-const শব্দসমূহ = ["Hi", "", "Bnlang", " ", "OK"];
-প্রতি (const শব্দ এর শব্দসমূহ) {
-  যদি (শব্দ.trim().length === 0) চলুন;
-  দেখাও("=>", শব্দ);
-}
+// 1
+// 3
+// 5
 ```
-  </TabsContent>
 
-  
-
-  <TabsContent value="english">
+In a C-style `for`, the update clause **still runs** before the next iteration:
 
 ```bnl
-// 1) Skip even numbers
-let sum = 0;
-for (let i = 1; i <= 10; i++) {
-  if (i % 2 === 0) continue;
-  sum += i;
+for (var k = 0; k < 5; k = k + 1) {
+    if (k == 2) { continue; }
+    print(k);
 }
-console.log("Odd sum =", sum);
+// 0
+// 1
+// 3
+// 4
+```
 
-// 2) while input validation
-let n = 0;
-while (n < 8) {
-  n++;
-  if (n < 3) continue;       // skip 1,2
-  console.info("processing:", n);
+In `for ... of`, the loop advances to the next item:
+
+```bnl
+for (var name of ["alice", "_skip", "bob"]) {
+    if (name.starts_with("_")) { continue; }
+    print(name);
 }
+// alice
+// bob
+```
 
-// 3) for...of — skip empty strings
-const words = ["Hi", "", "Bnlang", " ", "OK"];
-for (const w of words) {
-  if (w.trim().length === 0) continue;
-  print("=>", w);
+## continue inside a switch
+
+`continue` does **not** match the enclosing `switch`. It propagates outward to the next enclosing loop:
+
+```bnl
+for (var n of [1, 2, 3]) {
+    switch (n) {
+        case 2: { continue; }    // skips n==2 in the outer for-of
+        default: { print(n); }
+    }
+}
+// 1
+// 3
+```
+
+## Bangla form
+
+```bnl
+যতক্ষণ (p < 5) {
+    p = p + 1;
+    যদি (p == 2) { চলুন; }
+    print(p);
 }
 ```
-  </TabsContent>
-</Tabs>
 
----
-
-## Notes
-
-<I18nEnglish>
-- `continue` does **not** exit the loop; it only skips to the next iteration.  
-- In `while`/`do...while`, ensure state updates happen **before** `continue` to avoid infinite loops.  
-- Prefer clear conditions; overusing `continue` can hurt readability. Use filtering (`.filter`) when appropriate.
+## See also
+- [`break`](/en/docs/v1.0.0/keywords/break-keyword) — exit the loop entirely.
+- [`for / of`](/en/docs/v1.0.0/keywords/for-keyword), [`while`](/en/docs/v1.0.0/keywords/while-keyword).
 </I18nEnglish>
 
 <I18nBangla>
-- **`চলুন`** লুপ থেকে বের করে না; কেবল পরের ইটারেশনে লাফ দেয়।  
-- `যতক্ষণ`/`করো...যতক্ষণ` লুপে **স্টেট আপডেট** `চলুন`-র আগেই করুন, নাহলে অনন্ত লুপ হতে পারে।  
-- পড়তে সহজ রাখতে অযথা `চলুন` ব্যবহার করবেন না; প্রয়োজনে ফিল্টারিং (`.filter`) ব্যবহার করুন।
+`continue;` কারেন্ট loop iteration-এর বাকি অংশ skip করে এবং loop condition পুনরায় মূল্যায়ন করে (অথবা `for ... of`-এর জন্য পরের item-এ যায়)। বাংলা রূপ: `চলুন;`।
+
+নোট: `continue` শুধু **loops**-এ প্রযোজ্য। একটি `switch`-এর ভেতরে এটি enclosing loop-এ পাস হয়ে যায়।
+
+## সিনট্যাক্স
+
+```bnl
+continue;
+```
+
+## উদাহরণ
+
+জোড় সংখ্যা skip:
+
+```bnl
+var i = 0;
+while (i < 6) {
+    i = i + 1;
+    if (i % 2 == 0) { continue; }
+    print(i);
+}
+// 1
+// 3
+// 5
+```
+
+C-স্টাইল `for`-এ, update clause পরবর্তী iteration-এর আগে **still চলে**:
+
+```bnl
+for (var k = 0; k < 5; k = k + 1) {
+    if (k == 2) { continue; }
+    print(k);
+}
+// 0
+// 1
+// 3
+// 4
+```
+
+## switch-এর ভেতরে continue
+
+`continue` enclosing `switch`-এর সাথে **মেলে না**। এটি পরবর্তী enclosing loop-এ propagate হয়:
+
+```bnl
+for (var n of [1, 2, 3]) {
+    switch (n) {
+        case 2: { continue; }    // outer for-of-এ n==2 skip
+        default: { print(n); }
+    }
+}
+// 1
+// 3
+```
+
+## বাংলা রূপ
+
+```bnl
+যতক্ষণ (p < 5) {
+    p = p + 1;
+    যদি (p == 2) { চলুন; }
+    print(p);
+}
+```
+
+## আরও দেখুন
+- [`break`](/bn/docs/v1.0.0/keywords/break-keyword)।
+- [`for / of`](/bn/docs/v1.0.0/keywords/for-keyword), [`while`](/bn/docs/v1.0.0/keywords/while-keyword)।
 </I18nBangla>
-
-

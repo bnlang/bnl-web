@@ -1,232 +1,154 @@
 ---
-title: if Keyword
-description: The if keyword in Bnlang with examples in Bangla and English.
+title: if keyword
+description: Conditional branching in Bnlang using `if` / `যদি`.
 bnTitle: যদি কীওয়ার্ড
-bnDescription: Bnlang এ যদি কীওয়ার্ড এবং এর বাংলা উদাহরণ।
+bnDescription: Bnlang-এ `if` / `যদি` দিয়ে শর্তভিত্তিক ব্রাঞ্চিং।
 ---
 
-# <I18nEnglish>if Keyword</I18nEnglish>
-# <I18nBangla>যদি কীওয়ার্ড</I18nBangla>
+# <I18nEnglish>`if` keyword</I18nEnglish>
+# <I18nBangla>`যদি` কীওয়ার্ড</I18nBangla>
 
 
 <I18nEnglish>
-The **`if`** keyword performs conditional branching in Bnlang.  
-A block runs only when its condition evaluates to **true**.  
-Chain with **`else if`** and **`else`** to handle multiple paths.
-</I18nEnglish>
-
-<I18nBangla>
-**`যদি`** ব্যবহার হয় শর্তভিত্তিক ব্রাঞ্চিংয়ের জন্য।  
-শর্ত **সত্য** হলে ব্লকের কোড রান হয়।  
-একাধিক শর্তের জন্য **`নাহলে যদি`** এবং শেষ বিকল্প হিসেবে **`নাহলে`** ব্যবহার করুন।
-</I18nBangla>
-
-
-
----
+`if` runs a block when its condition evaluates to `true`. Chain with `else if` and `else` for additional branches. The Bangla form `যদি` is exactly equivalent.
 
 ## Syntax
 
-<I18nEnglish>
-
 ```bnl
 if (<condition>) {
-  // then-block
+    // runs when condition is true
 } else if (<another condition>) {
-  // else-if block
+    // runs when the first was false and this is true
 } else {
-  // else block
+    // runs when nothing above matched
 }
 ```
-</I18nEnglish>
-
-<I18nBangla>
-
-```bnl
-যদি (<শর্ত>) {
-  // সত্য হলে চালাও
-} নাহলে যদি (<আরেক শর্ত>) {
-  // বিকল্প শর্ত
-} নাহলে {
-  // বাকি সব ক্ষেত্রে
-}
-```
-</I18nBangla>
-
-
-
----
 
 ## Examples
 
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="english">
-
 ```bnl
-// Grade checker
-let score = 85;
+var score = 85;
 
 if (score >= 80) {
-  print("Grade: A+");
+    print("Grade: A+");
 } else if (score >= 70) {
-  console.info("Grade: A");
+    print("Grade: A");
 } else {
-  console.warn("Grade: Below A");
-}
-
-// String match
-const user = "admin";
-if (user === "admin") {
-  console.log("Welcome, admin!");
-} else {
-  console.error("Access denied");
-}
-
-// Function guard (early return)
-function pay(amount) {
-  if (amount <= 0) {
-    console.error("Amount must be positive");
-    return;
-  }
-  console.log("Processing payment:", amount);
+    print("Grade: below A");
 }
 ```
-  </TabsContent>
 
-  <TabsContent value="bangla">
+Bangla form:
 
 ```bnl
-// গ্রেড চেকার
-ধরি নম্বর = 85;
+চলক নম্বর = 85;
 
 যদি (নম্বর >= 80) {
-  ছাপাও("গ্রেড: A+");
+    print("গ্রেড: A+");
 } নাহলে যদি (নম্বর >= 70) {
-  দেখাও("গ্রেড: A");
+    print("গ্রেড: A");
 } নাহলে {
-  লিখো("গ্রেড: A-এর নিচে");
-}
-
-// স্ট্রিং মিলানো
-ধ্রুবক ব্যবহারকারী = "admin";
-যদি (ব্যবহারকারী === "admin") {
-  প্রিন্ট("স্বাগতম, অ্যাডমিন!");
-} নাহলে {
-  কনসোল.ত্রুটি("প্রবেশাধিকার বাতিল");
-}
-
-// ফাংশনে গার্ড (আগে বেরিয়ে যাওয়া)
-ফাংশন বিল_পরিশোধ(পরিমাণ) {
-  যদি (পরিমাণ <= 0) {
-    কনসোল.ত্রুটি("পরিমাণ অবশ্যই ধনাত্মক হতে হবে");
-    ফেরত;
-  }
-  কনসোল.লগ("পেমেন্ট প্রসেস হচ্ছে:", পরিমাণ);
+    print("গ্রেড: A-এর নিচে");
 }
 ```
-  </TabsContent>
 
-  
-</Tabs>
+## Truthiness
 
----
+Bnlang has *no* JavaScript-style truthiness rules. A condition must evaluate to a **boolean** (`true` / `false`). Compare explicitly:
 
-## Truthy & Falsy
+```bnl
+var name = "";
 
-<I18nEnglish>
-Bnlang follows JavaScript-style truthiness. The following are **falsy**:
-`false`, `0`, `-0`, `0n`, `""` (empty string), `null`, `undefined`, and `NaN`.  
-Everything else is **truthy**.
+// Correct:
+if (name == "") { print("empty"); }
+
+// Wrong — does not coerce string to boolean:
+// if (name) { ... }
+```
+
+## Early return idiom
+
+For functions, prefer early returns over deeply nested `if`:
+
+```bnl
+function pay(amount) {
+    if (amount <= 0) {
+        print("amount must be positive");
+        return;
+    }
+    print("processing payment:", amount);
+}
+```
 </I18nEnglish>
 
 <I18nBangla>
-Bnlang এ JavaScript-এর মত truthiness কাজ করে। **Falsy** মানগুলি হলো:
-`false`, `0`, `-0`, `0n`, `""` (ফাঁকা স্ট্রিং), `null`, `undefined`, `NaN`।  
-এর বাইরে বাকি সব **truthy**।
-</I18nBangla>
+`if` শর্ত `true` হলে একটি ব্লক চালায়। অতিরিক্ত শাখার জন্য `else if` ও `else` চেইন করুন। বাংলা রূপ `যদি` একই অর্থে কাজ করে।
 
-
-
----
-
-## Nested conditions
-
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="english">English</TabsTrigger>
-    
-  </TabsList>
-
-  <TabsContent value="english">
+## সিনট্যাক্স
 
 ```bnl
-const role = "editor";
-const active = true;
-
-if (active) {
-  if (role === "admin") {
-    console.log("Full access");
-  } else if (role === "editor") {
-    console.log("Edit access");
-  } else {
-    console.log("Read only");
-  }
+if (<শর্ত>) {
+    // সত্য হলে চলে
+} else if (<আরেকটি শর্ত>) {
+    // প্রথমটি false এবং এটি true হলে
 } else {
-  console.warn("Account inactive");
+    // উপরের কিছুই না মিললে
 }
 ```
-  </TabsContent>
 
-  <TabsContent value="bangla">
+## উদাহরণ
 
 ```bnl
-const ভূমিকা = "editor";
-const সক্রিয় = true;
+var score = 85;
 
-যদি (সক্রিয়) {
-  যদি (ভূমিকা === "admin") {
-    কনসোল.লগ("পূর্ণ অ্যাক্সেস");
-  } নাহলে যদি (ভূমিকা === "editor") {
-    কনসোল.লগ("এডিট করার অনুমতি");
-  } নাহলে {
-    কনসোল.লগ("শুধু পড়ার অনুমতি");
-  }
-} নাহলে {
-  কনসোল.সতর্ক("অ্যাকাউন্ট নিষ্ক্রিয়");
+if (score >= 80) {
+    print("Grade: A+");
+} else if (score >= 70) {
+    print("Grade: A");
+} else {
+    print("Grade: below A");
 }
 ```
-  </TabsContent>
 
-  
-</Tabs>
+বাংলা রূপ:
 
----
+```bnl
+চলক নম্বর = 85;
 
-## Best practices
+যদি (নম্বর >= 80) {
+    print("গ্রেড: A+");
+} নাহলে যদি (নম্বর >= 70) {
+    print("গ্রেড: A");
+} নাহলে {
+    print("গ্রেড: A-এর নিচে");
+}
+```
 
-<I18nEnglish>
+## Truthiness
 
-- Keep one language style (English/Bangla) per file for readability.
-- Prefer strict comparison `===`/`!==` for predictable checks.
-- Extract complex conditions into named variables or functions.
-- Use early returns inside functions to avoid deep nesting.
-</I18nEnglish>
+Bnlang-এ *কোনো* JavaScript-স্টাইলের truthiness নিয়ম নেই। একটি শর্তকে **boolean** (`true` / `false`) এ মূল্যায়ন হতে হবে। স্পষ্টভাবে তুলনা করুন:
 
-<I18nBangla>
+```bnl
+var name = "";
 
-- পড়ার সহজতার জন্য প্রতি ফাইলে একটিই ভাষা স্টাইল অনুসরণ করুন।
-- নির্ভরযোগ্য তুলনার জন্য `===`/`!==` ব্যবহার করুন।
-- জটিল শর্ত আলাদা ভেরিয়েবল বা ফাংশনে বের করে নিন।
-- গভীর নেস্টিং এড়াতে ফাংশনে আগেভাগে `return/ফেরত` দিন।
+// সঠিক:
+if (name == "") { print("empty"); }
+
+// ভুল — স্ট্রিং বুলিয়ানে কোয়ার্স করে না:
+// if (name) { ... }
+```
+
+## Early return idiom
+
+ফাংশনের জন্য, গভীর নেস্টেড `if`-এর পরিবর্তে early return পছন্দ করুন:
+
+```bnl
+function pay(amount) {
+    if (amount <= 0) {
+        print("amount must be positive");
+        return;
+    }
+    print("processing payment:", amount);
+}
+```
 </I18nBangla>
-
-
-
----

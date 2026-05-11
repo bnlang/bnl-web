@@ -253,8 +253,10 @@ export default function AboutPage({ locale }: Props) {
                     ))}
                   </ul>
                   <p className="text-sm mt-2">
-                    <strong>Compilation pipeline:</strong> Bnlang transpiles to
-                    JavaScript and runs on the V8 engine for execution.
+                    <strong>Execution model:</strong> Bnlang is a native
+                    tree-walking interpreter written in C++. No transpilation,
+                    no virtual machine — the runtime evaluates the AST directly
+                    and dispatches async I/O through libuv.
                   </p>
                 </CardContent>
               </Card>

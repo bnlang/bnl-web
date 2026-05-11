@@ -1,0 +1,110 @@
+---
+title: test module
+description: Tiny built-in test framework — register tests, run them, exit non-zero on failure.
+bnTitle: test মডিউল
+bnDescription: বিল্ট-ইন টেস্ট ফ্রেমওয়ার্ক।
+---
+
+# <I18nEnglish>`test` module</I18nEnglish>
+# <I18nBangla>`test` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+A minimal test framework. Register tests with `test()`, assert with `equal` / `is_true` / etc., and call `run()` to execute everything. The process exits with code `1` if any test fails — that's all CI needs.
+
+A test file is just a Bnlang script: import `test`, register cases, call `t.run()`.
+
+```bnl
+import "test" as t;
+
+t.test("addition", function () {
+    t.equal(2 + 2, 4);
+});
+
+t.test("upper case", function () {
+    t.equal("foo".to_upper(), "FOO");
+});
+
+t.run();
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `t.test(name, fn)` | Register a test. `fn` takes no args; throw to fail. |
+| `t.run()` | Execute every registered test; print a summary; exit 1 on any failure. |
+
+## Assertions
+
+| Function | Description |
+|---|---|
+| `t.equal(actual, expected)` | Value compare. |
+| `t.not_equal(actual, expected)` | Opposite. |
+| `t.is_true(v)` / `t.is_false(v)` | Boolean checks. |
+| `t.is_null(v)` / `t.not_null(v)` | |
+| `t.contains(haystack, needle)` | Substring (for strings) or membership (for lists). |
+| `t.throws(fn)` | Assert `fn()` throws. |
+| `t.throws_with(fn, substring)` | Assert it throws *and* the message contains `substring`. |
+
+## Running tests
+
+```sh
+bnl tests/parser_spec.bnl
+
+# Run a whole folder via your shell:
+for f in tests/*.bnl; do bnl "$f" || exit 1; done
+```
+
+There is no test discovery binary — just run the file with `bnl`. See [Using Bnlang's test framework](/en/learn/bnlang-test-runner/using-bnlang-test-runner) for CI patterns.
+</I18nEnglish>
+
+<I18nBangla>
+একটি minimal টেস্ট ফ্রেমওয়ার্ক। `test()` দিয়ে রেজিস্টার, `equal` / `is_true` / ইত্যাদি দিয়ে assert, `run()` দিয়ে সব execute। কোনো test ব্যর্থ হলে প্রসেস কোড `1`-এ exit — CI-এর জন্য এটাই যথেষ্ট।
+
+একটি test ফাইল = একটি Bnlang স্ক্রিপ্ট। `test` import করুন, কেস রেজিস্টার করুন, `t.run()` কল করুন।
+
+```bnl
+import "test" as t;
+
+t.test("addition", function () {
+    t.equal(2 + 2, 4);
+});
+
+t.test("upper case", function () {
+    t.equal("foo".to_upper(), "FOO");
+});
+
+t.run();
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `t.test(name, fn)` | একটি test রেজিস্টার। `fn` কোনো arg নেয় না; throw করলে fail। |
+| `t.run()` | সব test execute; summary; কোনো fail হলে exit 1। |
+
+## অ্যাসারশন
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `t.equal(actual, expected)` | Value তুলনা। |
+| `t.not_equal(actual, expected)` | উল্টো। |
+| `t.is_true(v)` / `t.is_false(v)` | Boolean চেক। |
+| `t.is_null(v)` / `t.not_null(v)` | |
+| `t.contains(haystack, needle)` | Substring (string) বা membership (list)। |
+| `t.throws(fn)` | `fn()` throw assert। |
+| `t.throws_with(fn, substring)` | Throw + মেসেজে substring। |
+
+## চালানো
+
+```sh
+bnl tests/parser_spec.bnl
+
+# একটি পুরো ফোল্ডার (শেল দিয়ে):
+for f in tests/*.bnl; do bnl "$f" || exit 1; done
+```
+
+কোনো test-discovery বাইনারি নেই — শুধু `bnl` দিয়ে ফাইল চালান। CI প্যাটার্নের জন্য [Using Bnlang's test framework](/bn/learn/bnlang-test-runner/using-bnlang-test-runner) দেখুন।
+</I18nBangla>

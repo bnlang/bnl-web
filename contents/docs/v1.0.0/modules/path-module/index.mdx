@@ -1,118 +1,66 @@
 ---
 title: path module
-description: Path utilities for working with file and directory paths—join, resolve, normalize, parse, format, dirname, basename, extname, relative, and separators.
+description: Cross-platform path manipulation — join, normalize, split, and inspect file paths.
 bnTitle: path মডিউল
-bnDescription: ফাইল ও ডিরেক্টরির পাথ নিয়ে কাজের জন্য ইউটিলিটি—join, resolve, normalize, parse, format, dirname, basename, extname, relative ইত্যাদি।
+bnDescription: ক্রস-প্ল্যাটফর্ম পাথ ম্যানিপুলেশন।
 ---
 
-# <I18nEnglish>path</I18nEnglish>
-# <I18nBangla>path</I18nBangla>
+# <I18nEnglish>`path` module</I18nEnglish>
+# <I18nBangla>`path` মডিউল</I18nBangla>
 
 
 <I18nEnglish>
-The **`path`** module provides utilities to work with filesystem paths in a consistent way across platforms.
-</I18nEnglish>
-
-<I18nBangla>
-**`path`** মডিউল ফাইলসিস্টেম পাথ নিয়ে কাজ করার জন্য ইউটিলিটি দেয়, প্ল্যাটফর্মভেদে সঙ্গতিপূর্ণভাবে।
-</I18nBangla>
-
-
-
----
-
-## API Surface
-
-<I18nEnglish>
-
-### Core Methods
-- **`path.join(...segments)`** — concatenate path segments, normalizing separators.
-- **`path.resolve(...segments)`** — resolve into an absolute path.
-- **`path.normalize(p)`** — fix `..`, `.` and redundant separators.
-- **`path.isAbsolute(p)`** — check if absolute.
-
-### Name utilities
-- **`path.basename(p, [ext])`** — last part of path (file name).
-- **`path.dirname(p)`** — directory portion.
-- **`path.extname(p)`** — extension (with leading dot).
-
-### Object conversion
-- **`path.parse(p)`** — split into `{ root, dir, base, name, ext }`.
-- **`path.format(obj)`** — inverse of `parse`.
-
-### Other
-- **`path.relative(from, to)`** — relative path from one to another.
-- **`path.sep`** — path separator (`/` on POSIX, `\\` on Windows).
-- **`path.delimiter`** — PATH env separator (`:` on POSIX, `;` on Windows).
-
-</I18nEnglish>
-
-<I18nBangla>
-### প্রধান ফাংশন
-- **`join/resolve/normalize/isAbsolute`** — পাথ জোড়া, অ্যাবসোলিউট করা, নরমালাইজ।
-- **`basename/dirname/extname`** — নাম সম্পর্কিত ফাংশন।
-- **`parse/format`** — অবজেক্ট আকারে ভাঙা ও তৈরি।
-- **`relative/sep/delimiter`** — আপেক্ষিক পথ, সেপারেটর।
-</I18nBangla>
-
-
-
----
-
-## Examples (English only)
-
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="english">
+Build, split, and normalize filesystem paths in a portable way. Accepts both `/` and `\` on input; emits `/` (which works on Windows too).
 
 ```bnl
-const path = require("path");
+import "path" as path;
 
-// Join & normalize
-console.log(path.join("a", "b", "c.txt")); // a/b/c.txt
-
-// Absolute resolution
-console.log(path.resolve("a/b", "../c.txt"));
-
-// Dirname, basename, extname
-console.log(path.dirname("/tmp/file.txt")); // /tmp
-console.log(path.basename("/tmp/file.txt")); // file.txt
-console.log(path.extname("/tmp/file.txt")); // .txt
-
-// Parse & format
-const obj = path.parse("/tmp/demo.js");
-console.log(obj);
-console.log(path.format(obj));
-
-// Relative
-console.log(path.relative("/data/orig", "/data/orig/sub/file"));
-
-// Separators
-console.log("sep:", path.sep);
-console.log("delimiter:", path.delimiter);
+print(path.join(["data", "users", "alice.json"]));   // data/users/alice.json
+print(path.basename("/var/log/app.log"));            // app.log
+print(path.normalize("/foo/./bar/../baz"));          // /foo/baz
 ```
-  </TabsContent>
-</Tabs>
 
----
+## API
 
-## Notes
+| Function | Description |
+|---|---|
+| `path.is_absolute(p)` → bool | True for POSIX-absolute, Windows drive paths, and UNC paths. |
+| `path.dirname(p)` → string | Everything before the last separator. |
+| `path.basename(p)` → string | Last component (file or directory name). |
+| `path.stem(p)` → string | `basename` minus the last extension. |
+| `path.extname(p)` → string | The last extension including the dot (e.g. `".log"`). |
+| `path.join(parts)` → string | Concatenate a list of segments with `/`. |
+| `path.normalize(p)` → string | Collapse `.` and `..` segments; squash duplicate separators. |
+| `path.sep` → string | Native separator (`"/"` on POSIX, `"\\"` on Windows). |
 
-<I18nEnglish>
-- Use **`path.join`** when concatenating user-supplied or dynamic segments.  
-- Use **`path.resolve`** when you need an absolute path relative to CWD.  
-- Extensions include the dot (`.txt`). Use `basename(p, ".txt")` to strip it.  
-- `path.sep` and `path.delimiter` differ across operating systems; avoid hardcoding `/` or `:`.  
+## See also
+- [`io`](/en/docs/v1.0.0/modules/io-module) — read, write, and inspect the files those paths point at.
 </I18nEnglish>
 
 <I18nBangla>
-- ইউজার বা ডাইনামিক সেগমেন্ট যোগ করতে **`join`** ব্যবহার করুন।  
-- অ্যাবসোলিউট পাথ প্রয়োজন হলে **`resolve`**।  
-- এক্সটেনশনে ডট থাকে (`.txt`)।  
-- `sep` ও `delimiter` আলাদা হতে পারে, হার্ডকোড করবেন না।  
+পোর্টেবল ভাবে ফাইলসিস্টেম পাথ বানান, ভাগ করুন, ও নর্মালাইজ করুন। ইনপুটে `/` ও `\` দু'টোই গ্রহণ করে; আউটপুটে `/` দেয় (Windows-এও কাজ করে)।
+
+```bnl
+import "path" as path;
+
+print(path.join(["data", "users", "alice.json"]));   // data/users/alice.json
+print(path.basename("/var/log/app.log"));            // app.log
+print(path.normalize("/foo/./bar/../baz"));          // /foo/baz
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `path.is_absolute(p)` → bool | POSIX-absolute, Windows drive, ও UNC পাথের জন্য true। |
+| `path.dirname(p)` → string | শেষ separator-এর আগের সব। |
+| `path.basename(p)` → string | শেষ component। |
+| `path.stem(p)` → string | `basename` থেকে শেষ extension বাদে। |
+| `path.extname(p)` → string | শেষ extension, dot সহ (যেমন `".log"`)। |
+| `path.join(parts)` → string | একটি লিস্টের segments `/` দিয়ে যুক্ত। |
+| `path.normalize(p)` → string | `.` ও `..` collapse, ডুপ্লিকেট separator squash। |
+| `path.sep` → string | Native separator (POSIX-এ `"/"`, Windows-এ `"\\"`)। |
+
+## আরও দেখুন
+- [`io`](/bn/docs/v1.0.0/modules/io-module) — সেই পাথের ফাইল পড়ুন/লিখুন।
 </I18nBangla>
-
-

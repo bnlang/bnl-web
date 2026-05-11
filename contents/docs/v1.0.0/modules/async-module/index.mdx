@@ -1,0 +1,96 @@
+---
+title: async module
+description: Compose callback-style async work — series, parallel, waterfall, each, map, and sync-friendly apply_*.
+bnTitle: async মডিউল
+bnDescription: কলব্যাক-স্টাইল async কাজ কম্পোজ করুন।
+---
+
+# <I18nEnglish>`async` module</I18nEnglish>
+# <I18nBangla>`async` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Composition helpers for callback-style async functions. Bnlang has no `async`/`await` — this library is how you avoid callback nesting.
+
+```bnl
+import "async"   as async;
+import "request" as req;
+
+async.parallel([
+    function (cb) { req.get("https://a.example/", cb); },
+    function (cb) { req.get("https://b.example/", cb); }
+], function (err, responses) {
+    print("got", responses.length, "pages");
+});
+```
+
+## Composers (callback-style tasks)
+
+| Function | Description |
+|---|---|
+| `async.series(tasks, done)` | Run tasks one after another. Collect results in input order. |
+| `async.parallel(tasks, done)` | Start all tasks at once. Collect results in input order. |
+| `async.waterfall(tasks, done)` | Sequential, threading each result into the next. Each task: `function(prev, cb)`. |
+| `async.each(items, iter, done)` | `iter(item, cb)` for every item, parallel. No results. |
+| `async.each_series(items, iter, done)` | Sequential variant. |
+| `async.map(items, iter, done)` | Parallel, collect results in order. |
+| `async.map_series(items, iter, done)` | Sequential variant. |
+
+## Sync-fn wrappers
+
+For arrays of items processed by a plain sync function — automatic `try/catch` and event-loop yielding.
+
+| Function | Description |
+|---|---|
+| `async.apply_each(items, fn, done)` | `fn(item)` for each, parallel. |
+| `async.apply_each_series(items, fn, done)` | Sequential variant. |
+| `async.apply_map(items, fn, done)` | Collect `fn(item)` results in order. |
+| `async.apply_map_series(items, fn, done)` | Sequential variant. |
+
+## Convention
+
+Tasks call back as **`cb(err, result)`** (2 args) for `series` / `parallel` / `map` / `waterfall`. For `each` variants, `cb(err)` (1 arg). Bnlang is strict-arity — match these exactly.
+</I18nEnglish>
+
+<I18nBangla>
+কলব্যাক-স্টাইল async কাজের জন্য কম্পোজিশন হেল্পার। Bnlang-এ `async`/`await` নেই — এই লাইব্রেরি কলব্যাক nesting এড়াতে।
+
+```bnl
+import "async"   as async;
+import "request" as req;
+
+async.parallel([
+    function (cb) { req.get("https://a.example/", cb); },
+    function (cb) { req.get("https://b.example/", cb); }
+], function (err, responses) {
+    print("got", responses.length, "pages");
+});
+```
+
+## কম্পোজার (callback-style task)
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `async.series(tasks, done)` | Task একের পর এক। Input order-এ results। |
+| `async.parallel(tasks, done)` | সব task একসাথে শুরু। Input order-এ results। |
+| `async.waterfall(tasks, done)` | Sequential, প্রতিটি result পরের task-এ। Task: `function(prev, cb)`। |
+| `async.each(items, iter, done)` | প্রতি item-এ `iter(item, cb)`, parallel। কোনো result নেই। |
+| `async.each_series(items, iter, done)` | Sequential। |
+| `async.map(items, iter, done)` | Parallel, order-এ results। |
+| `async.map_series(items, iter, done)` | Sequential। |
+
+## Sync-fn র‍্যাপার
+
+সাধারণ sync ফাংশন দিয়ে — স্বয়ংক্রিয় `try/catch` ও event-loop yielding।
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `async.apply_each(items, fn, done)` | প্রতিটি item-এ `fn(item)`, parallel। |
+| `async.apply_each_series(items, fn, done)` | Sequential। |
+| `async.apply_map(items, fn, done)` | Order-এ `fn(item)` results সংগ্রহ। |
+| `async.apply_map_series(items, fn, done)` | Sequential। |
+
+## কনভেনশন
+
+Task কলব্যাক **`cb(err, result)`** (2 args) — series/parallel/map/waterfall-এর জন্য। `each` ভ্যারিয়েন্টে `cb(err)` (1 arg)। Bnlang strict-arity — মিলিয়ে চলুন।
+</I18nBangla>

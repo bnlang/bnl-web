@@ -1,0 +1,62 @@
+---
+title: uuid module
+description: Generate and validate UUIDs (v4 random).
+bnTitle: uuid মডিউল
+bnDescription: UUID তৈরি ও যাচাই।
+---
+
+# <I18nEnglish>`uuid` module</I18nEnglish>
+# <I18nBangla>`uuid` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Random (version 4) UUIDs. Useful for request IDs, session IDs, and database primary keys when you don't want to round-trip through the DB to mint one.
+
+```bnl
+import "uuid" as uuid;
+
+var id = uuid.v4();
+print(id);                      // 550e8400-e29b-41d4-a716-446655440000
+print(uuid.is_valid(id));       // true
+print(uuid.is_v4(id));          // true
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `uuid.v4()` → string | A fresh random v4 UUID. |
+| `uuid.nil()` → string | The all-zero UUID. |
+| `uuid.is_valid(s)` → bool | True for any well-formed UUID string. |
+| `uuid.is_v4(s)` → bool | True only for v4 UUIDs (version nibble = 4, variant `8`/`9`/`a`/`b`). |
+
+## See also
+- [`crypto`](/en/docs/v1.0.0/modules/crypto-module) — `crypto.random_bytes(n)` if you need raw randomness.
+- [`random`](/en/docs/v1.0.0/modules/random-module) — non-cryptographic RNG for tests and games.
+</I18nEnglish>
+
+<I18nBangla>
+র‍্যান্ডম (version 4) UUID। Request ID, session ID, ডাটাবেস primary key-এর জন্য উপযোগী যখন আপনি DB রাউন্ড-ট্রিপ এড়াতে চান।
+
+```bnl
+import "uuid" as uuid;
+
+var id = uuid.v4();
+print(id);                      // 550e8400-e29b-41d4-a716-446655440000
+print(uuid.is_valid(id));       // true
+print(uuid.is_v4(id));          // true
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `uuid.v4()` → string | নতুন র‍্যান্ডম v4 UUID। |
+| `uuid.nil()` → string | All-zero UUID। |
+| `uuid.is_valid(s)` → bool | যেকোনো well-formed UUID স্ট্রিং। |
+| `uuid.is_v4(s)` → bool | শুধু v4 UUID। |
+
+## আরও দেখুন
+- [`crypto`](/bn/docs/v1.0.0/modules/crypto-module) — `crypto.random_bytes(n)`।
+- [`random`](/bn/docs/v1.0.0/modules/random-module) — non-crypto RNG।
+</I18nBangla>

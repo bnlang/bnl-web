@@ -1,126 +1,122 @@
 ---
 title: Overview of Blocking vs Non-Blocking
-description: A detailed guide to blocking and non-blocking operations in Bnlang with examples in Bangla and English.
+description: How blocking and non-blocking I/O work in Bnlang, with examples for both styles.
 bnTitle: ব্লকিং বনাম নন-ব্লকিং এর ওভারভিউ
-bnDescription: Bnlang এ ব্লকিং এবং নন-ব্লকিং অপারেশন এর ব্যাখ্যা ও উদাহরণ।
+bnDescription: Bnlang-এ ব্লকিং এবং নন-ব্লকিং I/O কেমন কাজ করে — দু'টা স্টাইলের উদাহরণসহ।
 ---
 
 # <I18nEnglish>Overview of Blocking vs Non-Blocking</I18nEnglish>
 # <I18nBangla>ব্লকিং বনাম নন-ব্লকিং এর ওভারভিউ</I18nBangla>
 
 <I18nEnglish>
-In **Bnlang**, operations can be **blocking** or **non-blocking**.  
-- **Blocking** means the program waits until the operation finishes before moving on.  
-- **Non-blocking** means the program continues running other tasks while the operation works in the background.  
+In Bnlang, an operation is either **blocking** or **non-blocking**:
 
-Understanding this difference is key to writing efficient and responsive programs.
+- **Blocking** — the program waits in place until the operation finishes. The rest of the script (and the event loop) is paused.
+- **Non-blocking** — the program kicks off the operation, keeps running, and the runtime calls your callback later when the result is ready.
+
+Most stdlib modules ship both styles. As a rule of thumb, the sync variant is named `fn()` and the async variant is `fn_async()`.
 </I18nEnglish>
 
 <I18nBangla>
-**Bnlang** এ দুটি ধরণের অপারেশন আছে: **ব্লকিং** এবং **নন-ব্লকিং**।  
-- **ব্লকিং** মানে প্রোগ্রাম অপেক্ষা করবে যতক্ষণ না কাজ শেষ হয়।  
-- **নন-ব্লকিং** মানে প্রোগ্রাম কাজ চলাকালীন অন্য কোড চালিয়ে যাবে।  
+Bnlang-এ একটি অপারেশন হয় **ব্লকিং**, নয়তো **নন-ব্লকিং**:
 
-এটি বোঝা জরুরি যাতে দক্ষ এবং রেসপন্সিভ প্রোগ্রাম লেখা যায়।
+- **ব্লকিং** — অপারেশন শেষ না হওয়া পর্যন্ত প্রোগ্রাম জায়গায় থামে। বাকি স্ক্রিপ্ট (এবং ইভেন্ট লুপ) থেমে থাকে।
+- **নন-ব্লকিং** — প্রোগ্রাম অপারেশন কিক-অফ করে চলতে থাকে, এবং রেজাল্ট প্রস্তুত হলে রানটাইম পরে আপনার কলব্যাক কল করে।
+
+বেশিরভাগ stdlib মডিউল দু'টা স্টাইলই দেয়। সাধারণ নিয়ম: sync ভ্যারিয়েন্টের নাম `fn()`, async ভ্যারিয়েন্টের নাম `fn_async()`।
 </I18nBangla>
 
 ---
 
 ## Blocking Example
 
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
+<I18nEnglish>
+`io.read_file` blocks until the whole file is in memory. This is fine for small files or one-off scripts.
+</I18nEnglish>
 
-  <TabsContent value="english">
-
-```js
-// Simulated blocking function
-function sleep(ms) {
-  const end = Date.now() + ms;
-  while (Date.now() < end) {}
-}
-
-console.log("Start");
-sleep(2000); // Blocks for 2 seconds
-console.log("End");
-```
-  </TabsContent>
-
-  <TabsContent value="bangla">
+<I18nBangla>
+`io.read_file` পুরো ফাইল মেমোরিতে আসা পর্যন্ত ব্লক করে। ছোট ফাইল বা একবারের স্ক্রিপ্টের জন্য ঠিক আছে।
+</I18nBangla>
 
 ```bnl
-// ব্লকিং ফাংশনের উদাহরণ
-function ঘুমাও(ms) {
-  const শেষ = Date.now() + ms;
-  যতক্ষণ (Date.now() < শেষ) {}
-}
+import "io" as io;
 
-কনসোল.লগ("শুরু");
-ঘুমাও(2000); // ২ সেকেন্ড ব্লক করে
-কনসোল.লগ("শেষ");
+print("start");
+var data = io.read_file("notes.txt");   // blocks here
+print("file length:", data.byte_length);
+print("end");
 ```
-  </TabsContent>
-
-  
-</Tabs>
 
 ---
 
 ## Non-Blocking Example
 
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="english">
-
-```js
-console.log("Start");
-
-setTimeout(() => {
-  console.log("Inside timeout");
-}, 2000);
-
-console.log("End"); // Printed immediately
-```
-  </TabsContent>
-
-  <TabsContent value="bangla">
-
-```bnl
-কনসোল.লগ("শুরু");
-
-সময়সীমা_নির্ধারণ(() => {
-  কনসোল.লগ("টাইমআউটের ভেতরে");
-}, 2000);
-
-কনসোল.লগ("শেষ"); // সাথে সাথে প্রিন্ট হয়
-```
-  </TabsContent>
-
-  
-</Tabs>
-
----
-
-## Why Non-Blocking is Better
-
 <I18nEnglish>
-- Keeps programs **responsive**.  
-- Multiple tasks can progress together.  
-- Better for I/O operations like file read, network requests, and database queries.
+`io.read_file_async` returns immediately; the callback fires when the read is done. The lines after it keep running in the meantime.
 </I18nEnglish>
 
 <I18nBangla>
-- প্রোগ্রামকে **রেসপন্সিভ** রাখে।  
-- একাধিক কাজ একসাথে চলতে পারে।  
-- ফাইল পড়া, নেটওয়ার্ক রিকোয়েস্ট, এবং ডাটাবেস কোয়েরির জন্য উপযোগী।
+`io.read_file_async` সাথে সাথে ফেরত আসে; পড়া শেষ হলে কলব্যাক ফায়ার হয়। এর পরের লাইনগুলো মাঝখানে চলতে থাকে।
+</I18nBangla>
+
+```bnl
+import "io" as io;
+
+print("start");
+io.read_file_async("notes.txt", function (err, data) {
+    if (err != null) { print("read failed:", err); return; }
+    print("file length:", data.byte_length);
+});
+print("scheduled, doing other work");
+```
+
+---
+
+## Streaming Large Files
+
+<I18nEnglish>
+For very large files, neither `read_file` nor `read_file_async` is the right choice — both load the whole thing into memory.
+Use `io.open_read` to get a stream you can pull from in chunks. The callback receives `chunk = null` to signal EOF.
+</I18nEnglish>
+
+<I18nBangla>
+খুব বড় ফাইলের জন্য `read_file` বা `read_file_async` কোনোটাই ঠিক না — দু'টাই পুরো ফাইল মেমোরিতে আনে।
+`io.open_read` ব্যবহার করুন, যাতে স্ট্রিম থেকে চাঙ্ক-বাই-চাঙ্ক পুল করা যায়। কলব্যাকে `chunk = null` মানে EOF।
+</I18nBangla>
+
+```bnl
+import "io" as io;
+
+var src = io.open_read("big.log");
+
+function on_chunk(err, chunk) {
+    if (err != null) { print("read err:", err); return; }
+    if (chunk == null) {
+        print("done");
+        src.close();
+        return;
+    }
+    print("got", chunk.byte_length, "bytes");
+    src.read(64 * 1024, on_chunk);
+}
+
+src.read(64 * 1024, on_chunk);
+```
+
+---
+
+## Why Non-Blocking Matters
+
+<I18nEnglish>
+- Keeps a web server, GUI, or CLI **responsive** while I/O is in flight.
+- Lets multiple slow operations (network calls, DB queries, file ops) make progress at the same time.
+- Avoids head-of-line blocking when one slow request would otherwise hold up everyone else.
+</I18nEnglish>
+
+<I18nBangla>
+- I/O চলাকালীন ওয়েব সার্ভার, GUI বা CLI কে **রেসপন্সিভ** রাখে।
+- একাধিক ধীর অপারেশন (নেটওয়ার্ক কল, DB কুয়েরি, ফাইল অপ) একসাথে এগোতে দেয়।
+- হেড-অফ-লাইন ব্লকিং এড়ায় — না হলে একটা ধীর রিকোয়েস্ট বাকি সবাইকে আটকে রাখতো।
 </I18nBangla>
 
 ---
@@ -128,14 +124,13 @@ console.log("End"); // Printed immediately
 ## Best Practices
 
 <I18nEnglish>
-- Avoid blocking operations in the main thread.  
-- Use asynchronous APIs for I/O tasks.  
-- Break heavy computations into smaller chunks or move them to workers.
+- Default to the async variant in long-running programs (servers, daemons).
+- Reach for the sync variant in scripts, build steps, or REPL exploration where simplicity beats throughput.
+- Don't mix heavy CPU work into your async callbacks — they share the event-loop thread with every other request.
 </I18nEnglish>
 
 <I18nBangla>
-- মূল থ্রেডে ব্লকিং অপারেশন ব্যবহার করবেন না।  
-- I/O কাজের জন্য অ্যাসিঙ্ক্রোনাস এপিআই ব্যবহার করুন।  
-- ভারী কম্পিউটেশন ছোট অংশে ভাগ করুন অথবা আলাদা ওয়ার্কারে চালান।
+- দীর্ঘ-চলা প্রোগ্রামে (সার্ভার, ডিমন) ডিফল্ট হিসেবে async ভ্যারিয়েন্ট ব্যবহার করুন।
+- স্ক্রিপ্ট, বিল্ড স্টেপ, বা REPL এক্সপ্লোরেশনে — যেখানে সহজতা থ্রুপুটের চেয়ে গুরুত্বপূর্ণ — sync ভ্যারিয়েন্ট ব্যবহার করুন।
+- আপনার async কলব্যাকে ভারী CPU কাজ ঢোকাবেন না — তারা প্রতিটা অন্য রিকোয়েস্টের সাথে ইভেন্ট-লুপ থ্রেড শেয়ার করে।
 </I18nBangla>
-

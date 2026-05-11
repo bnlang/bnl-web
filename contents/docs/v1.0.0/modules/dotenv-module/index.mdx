@@ -1,0 +1,82 @@
+---
+title: dotenv module
+description: "Parse .env files into a key/value map."
+bnTitle: dotenv মডিউল
+bnDescription: ".env ফাইল একটি key/value ম্যাপে পার্স করুন।"
+---
+
+# <I18nEnglish>`dotenv` module</I18nEnglish>
+# <I18nBangla>`dotenv` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Read `.env`-style files into a map. Handles `KEY=value`, quoted values (`"..."`, `'...'`), `export KEY=value`, comments, and blank lines.
+
+```bnl
+import "dotenv" as dotenv;
+
+var env = dotenv.load_or_empty(".env");
+print(env.DATABASE_URL);
+print(env.API_KEY);
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `dotenv.parse(text)` → map | Parse a `.env`-style string into a key/value map. |
+| `dotenv.load(path)` → map | Read the file, then parse. Throws if missing. |
+| `dotenv.load_or_empty(path)` → map | Same, but returns an empty map if the file is missing. Useful for optional local overrides. |
+
+## Supported syntax
+
+- `KEY=value` — bare value, trims surrounding whitespace.
+- `KEY="quoted value"` / `KEY='literal'` — quoted forms (no escape expansion in v1).
+- `export KEY=value` — bash-style `export` prefix is stripped.
+- `# comment` — full-line comments and blank lines are ignored.
+
+## Not supported
+
+- Shell-style variable interpolation (`$VAR` and the brace form).
+- Backslash escape sequences inside quoted values.
+- Multi-line values.
+
+## See also
+- [`sys`](/en/docs/v1.0.0/modules/sys-module) — read process env via `sys.env()`. Layering `.env` over real env is a common pattern.
+</I18nEnglish>
+
+<I18nBangla>
+`.env`-স্টাইল ফাইল একটি ম্যাপে পড়ুন। `KEY=value`, quoted values, `export KEY=value`, comments, blank lines সামলায়।
+
+```bnl
+import "dotenv" as dotenv;
+
+var env = dotenv.load_or_empty(".env");
+print(env.DATABASE_URL);
+print(env.API_KEY);
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `dotenv.parse(text)` → map | `.env`-স্টাইল স্ট্রিং → key/value ম্যাপ। |
+| `dotenv.load(path)` → map | ফাইল পড়ে, তারপর parse। অনুপস্থিত হলে throw। |
+| `dotenv.load_or_empty(path)` → map | একই, কিন্তু অনুপস্থিত হলে খালি ম্যাপ ফেরত। |
+
+## সাপোর্টেড
+
+- `KEY=value`
+- `KEY="quoted"` / `KEY='literal'`
+- `export KEY=value` (prefix strip)
+- `#` দিয়ে শুরু কমেন্ট, blank line — উপেক্ষা।
+
+## সাপোর্টেড নয়
+
+- Shell-স্টাইল variable interpolation (`$VAR` ও brace ফর্ম)।
+- Quoted values-এ backslash escape।
+- Multi-line value।
+
+## আরও দেখুন
+- [`sys`](/bn/docs/v1.0.0/modules/sys-module) — `sys.env()` দিয়ে process env পড়ুন।
+</I18nBangla>

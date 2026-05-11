@@ -1,8 +1,8 @@
 ---
 title: Accept Input from Command Line in Bnlang
-description: Learn how to accept user input from the command line in Bnlang with examples in Bangla and English.
+description: Read command-line arguments in Bnlang with `sys.arg` and the `cli` library.
 bnTitle: Bnlang এ কমান্ড লাইন থেকে ইনপুট নেওয়া
-bnDescription: Bnlang এ কমান্ড লাইন থেকে ইউজার ইনপুট নেওয়ার উদাহরণ।
+bnDescription: "sys.arg এবং cli লাইব্রেরি দিয়ে Bnlang-এ কমান্ড লাইন আর্গুমেন্ট পড়ুন।"
 ---
 
 # <I18nEnglish>Accept Input from Command Line in Bnlang</I18nEnglish>
@@ -10,36 +10,49 @@ bnDescription: Bnlang এ কমান্ড লাইন থেকে ইউজ
 
 
 <I18nEnglish>
-In **Bnlang**, you can accept input from the command line using the built‑in **`process.argv`** array.  
-It contains all arguments passed when running the program. The first two elements are the runtime and script path, and the rest are user inputs.
+There are two layers for reading command-line arguments in Bnlang:
+
+- **`sys.arg(i)`** — the raw, low-level accessor. Good for one or two positional inputs.
+- **`cli` module** — a declarative parser for flags, options, and positional arguments. Good when you have anything more structured.
 </I18nEnglish>
 
 <I18nBangla>
-**Bnlang** এ **`process.argv`** অ্যারে ব্যবহার করে কমান্ড লাইন থেকে ইনপুট নেওয়া যায়।  
-এতে প্রোগ্রাম চালানোর সময় দেওয়া সব আর্গুমেন্ট থাকে। প্রথম দুটি মান হলো রানটাইম এবং স্ক্রিপ্ট পাথ, বাকি গুলো ইউজার ইনপুট।
+Bnlang-এ কমান্ড লাইন আর্গুমেন্ট পড়ার দু'টি লেয়ার আছে:
+
+- **`sys.arg(i)`** — কাঁচা, লো-লেভেল অ্যাক্সেসর। এক-দু'টি পজিশনাল ইনপুটের জন্য ভালো।
+- **`cli` মডিউল** — ফ্ল্যাগ, অপশন এবং পজিশনাল আর্গুমেন্টের জন্য একটি ডিক্লেয়ারেটিভ পার্সার। যখন আপনার আরো স্ট্রাকচার্ড কিছু থাকে তখন ভালো।
 </I18nBangla>
 
 
 
 ---
 
-## Example: Reading Arguments
+## Raw Access with sys.arg
+
+<I18nEnglish>
+`sys.argc()` returns how many arguments the script received; `sys.arg(i)` returns the *i*-th one (0-indexed). The script path itself is **not** counted.
+</I18nEnglish>
+
+<I18nBangla>
+`sys.argc()` ফেরত দেয় স্ক্রিপ্ট কত আর্গুমেন্ট পেয়েছে; `sys.arg(i)` ফেরত দেয় *i*-তম টা (0-ইনডেক্সড)। স্ক্রিপ্ট পাথ নিজেকে গণনা করা হয় **না**।
+</I18nBangla>
 
 <Tabs defaultValue="english" className="w-full">
   <TabsList>
     <TabsTrigger value="english">English</TabsTrigger>
     <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
   </TabsList>
 
   <TabsContent value="english">
 
-```js
+```bnl
 // file: greet.bnl
-const args = process.argv.slice(2);
-const name = args[0] || "Guest";
+import "sys" as sys;
 
-console.log("Hello,", name);
+var name = "Guest";
+if (sys.argc() > 0) { name = sys.arg(0); }
+
+print("Hello,", name);
 ```
 
 ```sh
@@ -52,10 +65,12 @@ bnl greet.bnl Alice
 
 ```bnl
 // ফাইল: greet.bnl
-const আর্গুমেন্ট = process.argv.slice(2);
-const নাম = আর্গুমেন্ট[0] || "অতিথি";
+আমদানি "sys" যেমন sys;
 
-কনসোল.লগ("হ্যালো,", নাম);
+চলক নাম = "অতিথি";
+যদি (sys.argc() > 0) { নাম = sys.arg(0); }
+
+লিখুন("হ্যালো,", নাম);
 ```
 
 ```sh
@@ -63,74 +78,86 @@ bnl greet.bnl আলিস
 # আউটপুট: হ্যালো, আলিস
 ```
   </TabsContent>
-
-  
 </Tabs>
 
 ---
 
-## Example: Accept Multiple Inputs
+## Structured Parsing with the cli Library
 
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-  </TabsList>
+<I18nEnglish>
+For anything past one or two positional inputs, declare your CLI shape with the `cli` library. You get flags, options-with-values, positional arguments, and an auto-generated `--help` string.
+</I18nEnglish>
 
-  <TabsContent value="english">
-
-```js
-// file: sum.bnl
-const args = process.argv.slice(2);
-const a = Number(args[0]);
-const b = Number(args[1]);
-
-console.log("Sum:", a + b);
-```
-
-```sh
-bnl sum.bnl 5 7
-# Output: Sum: 12
-```
-  </TabsContent>
-
-  <TabsContent value="bangla">
+<I18nBangla>
+এক-দু'টা পজিশনাল ইনপুটের বাইরে যাকিছু, `cli` লাইব্রেরি দিয়ে আপনার CLI শেপ ডিক্লেয়ার করুন। ফ্ল্যাগ, অপশন (মান-সহ), পজিশনাল আর্গুমেন্ট, এবং একটি অটো-জেনারেটেড `--help` স্ট্রিং পাবেন।
+</I18nBangla>
 
 ```bnl
-// ফাইল: sum.bnl
-const আর্গ = process.argv.slice(2);
-const ক = সংখ্যা(আর্গ[0]);
-const খ = সংখ্যা(আর্গ[1]);
+// file: greet.bnl
+import "cli" as cli;
 
-কনসোল.লগ("যোগফল:", ক + খ);
+var p = cli.parser("greet");
+p.description = "Print a greeting.";
+cli.flag    (p, {name: "shout",  short: "s", help: "Use upper case"});
+cli.option  (p, {name: "lang",   short: "l", help: "en or bn", default: "en"});
+cli.positional(p, {name: "name", help: "Who to greet"});
+
+var args = cli.parse(p);
+
+var msg = "Hello, ";
+if (args.lang == "bn") { msg = "হ্যালো, "; }
+msg = msg + args.name + "!";
+
+if (args.shout) { msg = msg.to_upper(); }
+print(msg);
 ```
 
 ```sh
-bnl sum.bnl 5 7
-# আউটপুট: যোগফল: 12
-```
-  </TabsContent>
+bnl greet.bnl Alice
+# Hello, Alice!
 
-  
-</Tabs>
+bnl greet.bnl -l bn আলিস
+# হ্যালো, আলিস!
+
+bnl greet.bnl -s Alice
+# HELLO, ALICE!
+```
+
+---
+
+## Showing Help
+
+<I18nEnglish>
+`cli.usage(p)` returns the auto-generated help text. Define your own `--help` flag and check it after parsing:
+</I18nEnglish>
+
+<I18nBangla>
+`cli.usage(p)` অটো-জেনারেটেড হেল্প টেক্সট ফেরত দেয়। নিজের `--help` ফ্ল্যাগ ডিফাইন করুন এবং পার্সিং-এর পরে চেক করুন:
+</I18nBangla>
+
+```bnl
+cli.flag(p, {name: "help", short: "h", help: "Show usage"});
+var args = cli.parse(p);
+if (args.help) {
+    print(cli.usage(p));
+    return;
+}
+```
 
 ---
 
 ## Best Practices
 
 <I18nEnglish>
-- Always validate and sanitize input values.  
-- Provide default values to handle missing arguments.  
-- Use libraries for advanced parsing (e.g., options, flags).  
-- Print usage help when invalid inputs are given.
+- Reach for `cli` as soon as you have more than two inputs or any optional flags. It's much easier to maintain than handwritten parsing.
+- Provide sensible defaults so the script does something useful with no arguments.
+- Print a usage hint and exit with a non-zero code on bad input.
 </I18nEnglish>
 
 <I18nBangla>
-- ইনপুট সবসময় যাচাই এবং স্যানিটাইজ করুন।  
-- আর্গুমেন্ট না থাকলে ডিফল্ট মান দিন।  
-- উন্নত পার্সিংয়ের জন্য লাইব্রেরি ব্যবহার করুন (যেমন অপশন, ফ্ল্যাগ)।  
-- ভুল ইনপুট এলে হেল্প মেসেজ দেখান।
+- দু'টার বেশি ইনপুট, বা কোনো অপশনাল ফ্ল্যাগ থাকলে সাথে সাথে `cli` ব্যবহার করুন। হ্যান্ডরিটেন পার্সিং-এর চেয়ে এটা মেইনটেন করা অনেক সহজ।
+- যুক্তিসঙ্গত ডিফল্ট দিন, যাতে কোনো আর্গুমেন্ট ছাড়াই স্ক্রিপ্ট কিছু কাজের কাজ করে।
+- ভুল ইনপুটে একটি usage hint প্রিন্ট করুন এবং non-zero কোড দিয়ে এক্সিট করুন।
 </I18nBangla>
 
 

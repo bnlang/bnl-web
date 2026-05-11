@@ -1,255 +1,160 @@
 ---
-title: switch & case Keywords
-description: Using switch, case, default, and break in Bnlang with examples in Bangla and English.
-bnTitle: বিকল্প ও অবস্থা কীওয়ার্ড
-bnDescription: Bnlang এ বিকল্প (switch), অবস্থা (case), অন্যথায় (default) ও থামুন (break) ব্যবহারের নিয়ম ও উদাহরণ।
+title: switch / case / default
+description: Multi-way branching in Bnlang. No fall-through; each case is its own block.
+bnTitle: বিকল্প / অবস্থা / অন্যথায়
+bnDescription: Bnlang-এ মাল্টি-ওয়ে ব্রাঞ্চিং। কোনো fall-through নেই; প্রতিটি case তার নিজস্ব ব্লক।
 ---
 
-# <I18nEnglish>switch & case Keywords</I18nEnglish>
-# <I18nBangla>বিকল্প ও অবস্থা কীওয়ার্ড</I18nBangla>
+# <I18nEnglish>`switch` / `case` / `default`</I18nEnglish>
+# <I18nBangla>`বিকল্প` / `অবস্থা` / `অন্যথায়`</I18nBangla>
 
 
 <I18nEnglish>
-Use **`switch`** to select one of many branches based on a single expression.  
-Each **`case`** is a label to match; use **`break`** to stop execution, and **`default`** as the fallback when no case matches.
-</I18nEnglish>
+`switch` matches a single value against a list of `case` blocks and runs the first one that matches. There is **no fall-through** — each block runs at most once, and control then exits the switch.
 
-<I18nBangla>
-**`বিকল্প`** ব্যবহার করুন একটি অভিব্যক্তির মান অনুযায়ী একাধিক পথের মধ্যে যেকোনো একটি চালাতে।  
-প্রতিটি **`অবস্থা`** একটি লেবেল; **`থামুন`** দিয়ে ব্লক শেষ করুন, আর কোনো অবস্থা না মিললে **`অন্যথায়`** চলবে।
-</I18nBangla>
-
-
-
----
+Bangla forms: `বিকল্প` / `অবস্থা` / `অন্যথায়`.
 
 ## Syntax
 
-<I18nEnglish>
-
 ```bnl
-switch (expression) {
-  case value1:
-    // statements
-    break;            // usually stop here
-  case value2:
-    // statements
-    break;
-  default:
-    // fallback
-}
-```
-<br/>
-```bnl
-// Grouping multiple cases
-switch (x) {
-  case 1:
-  case 2:
-  case 3:
-    // handle 1,2,3
-    break;
-  default:
-    // ...
-}
-```
-<br/>
-```bnl
-// Placing default earlier (falls through if no break)
-switch (code) {
-  default:
-    console.log("Unknown");
-    // no break -> falls through
-  case "A":
-    console.log("Handled A");
-    break;
-}
-```
-</I18nEnglish>
-
-<I18nBangla>
-
-```bnl
-বিকল্প (অভিব্যক্তি) {
-  অবস্থা মান১:
-    // স্টেটমেন্ট
-    থামুন;
-  অবস্থা মান২:
-    // স্টেটমেন্ট
-    থামুন;
-  অন্যথায়:
-    // ডিফল্ট/ফলব্যাক
+switch (<subject>) {
+    case <value1>: { <statements> }
+    case <value2>:
+    case <value3>: { <shared statements> }
+    default: { <fallback statements> }
 }
 ```
 
-```bnl
-// একাধিক অবস্থা একসাথে গ্রুপ
-বিকল্প (x) {
-  অবস্থা 1:
-  অবস্থা 2:
-  অবস্থা 3:
-    // 1,2,3 একভাবে হ্যান্ডল
-    থামুন;
-  অন্যথায়:
-    // ...
-}
-```
-
-```bnl
-// শুরুতে অন্যথায় রাখলে (থামুন না দিলে) পরের ব্লকে পড়বে
-বিকল্প (কোড) {
-  অন্যথায়:
-    কনসোল.লগ("অজানা");
-  অবস্থা "A":
-    কনসোল.লগ("A হ্যান্ডলড");
-    থামুন;
-}
-```
-</I18nBangla>
-
-
-
----
+Each case's body is required to be wrapped in `{ ... }`. Multiple `case <value>:` lines stacked before a single block share that block.
 
 ## Examples
 
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
+```bnl
+function describe(n) {
+    switch (n) {
+        case 1: { return "one"; }
+        case 2:
+        case 3: { return "two or three"; }
+        default: { return "other"; }
+    }
+}
 
-  <TabsContent value="bangla">
+print(describe(1));    // one
+print(describe(2));    // two or three
+print(describe(99));   // other
+```
+
+Matching uses bnl's `==` semantics — types must match, no implicit coercion:
 
 ```bnl
-// ১) গ্রেড মেসেজ
-let গ্রেড = "B";
-
-বিকল্প (গ্রেড) {
-  অবস্থা "A":
-    কনসোল.লগ("দারুণ!");
-    থামুন;
-  অবস্থা "B":
-    কনসোল.লগ("ভালো কাজ!");
-    থামুন;
-  অবস্থা "C":
-    কনসোল.সতর্ক("গড় মান");
-    থামুন;
-  অন্যথায়:
-    কনসোল.ত্রুটি("ভুল গ্রেড");
-}
-
-// ২) সপ্তাহের দিন গ্রুপিং
-const দিন = 6;
-বিকল্প (দিন) {
-  অবস্থা 1:
-  অবস্থা 2:
-  অবস্থা 3:
-  অবস্থা 4:
-  অবস্থা 5:
-    ছাপাও("কর্মদিবস");
-    থামুন;
-  অবস্থা 6:
-  অবস্থা 7:
-    দেখাও("সপ্তাহান্ত");
-    থামুন;
-  অন্যথায়:
-    লিখো("অজানা দিন");
-}
-
-// ৩) রেঞ্জ‑চেক: বিকল্প (true) কৌশল
-const n = 10;
-বিকল্প (true) {
-  অবস্থা n < 0:
-    কনসোল.সতর্ক("ঋণাত্মক");
-    থামুন;
-  অবস্থা n === 0:
-    কনসোল.লগ("শূন্য");
-    থামুন;
-  অবস্থা n > 0 && n % 2 === 0:
-    কনসোল.লগ("ধনাত্মক জোড়");
-    থামুন;
-  অন্যথায়:
-    কনসোল.লগ("ধনাত্মক বিজোড়");
+switch ("red") {
+    case "red":   { print("RGB 255 0 0"); }
+    case "green": { print("RGB 0 255 0"); }
+    default:      { print("unknown"); }
 }
 ```
-  </TabsContent>
 
-  
+## Early exit with break
 
-  <TabsContent value="english">
+You can write `break;` inside a case to exit the switch early. Falling off the end of the case body has the same effect, so `break` is rarely needed — it's there for parity with loops:
 
 ```bnl
-// 1) Grade message
-let grade = "B";
-
-switch (grade) {
-  case "A":
-    console.log("Excellent!");
-    break;
-  case "B":
-    console.log("Good job!");
-    break;
-  case "C":
-    console.warn("Average");
-    break;
-  default:
-    console.error("Invalid grade");
-}
-
-// 2) Weekday/weekend grouping
-const day = 6;
-switch (day) {
-  case 1:
-  case 2:
-  case 3:
-  case 4:
-  case 5:
-    print("Weekday");
-    break;
-  case 6:
-  case 7:
-    console.info("Weekend");
-    break;
-  default:
-    console.log("Unknown day");
-}
-
-// 3) Range check pattern
-const n = 10;
-switch (true) {
-  case n < 0:
-    console.warn("Negative");
-    break;
-  case n === 0:
-    console.log("Zero");
-    break;
-  case n > 0 && n % 2 === 0:
-    console.log("Positive even");
-    break;
-  default:
-    console.log("Positive odd");
+switch (n) {
+    case 0: {
+        print("zero");
+        break;            // optional — the case body would end here anyway
+    }
+    default: { print("nonzero"); }
 }
 ```
-  </TabsContent>
-</Tabs>
 
----
+## No fall-through
 
-## Notes
+If you're coming from C or JavaScript: `case` in bnl does **not** fall through. The block runs and the switch ends. Use stacked cases (`case X: case Y: { body }`) when you need one body for multiple values.
 
-<I18nEnglish>
-- Put **`break`** after each `case` unless you intentionally want **fall‑through**.  
-- Only one **`default`** per switch; it can appear anywhere in the block.  
-- Use a `switch (true)` pattern to express range logic succinctly, otherwise prefer `if...else` for complex predicates.  
-- For simple value-to-result mapping, an **object map** can be faster and more readable than a long switch.
+## Bangla form
+
+```bnl
+ফাংশন describe(n) {
+    বিকল্প (n) {
+        অবস্থা 1: { ফেরত "এক"; }
+        অবস্থা 2: { ফেরত "দুই"; }
+        অন্যথায়: { ফেরত "অন্য"; }
+    }
+}
+```
+
+## See also
+- [`break`](/en/docs/v1.0.0/keywords/break-keyword) — explicit exit from a case.
+- [`if` / `else`](/en/docs/v1.0.0/keywords/if-keyword) — for non-equality conditions.
 </I18nEnglish>
 
 <I18nBangla>
-- প্রতিটি `অবস্থা`র শেষে সাধারণত **`থামুন`** রাখুন, নাহলে **fall‑through** হবে।  
-- একটি `বিকল্প` ব্লকে মাত্র একটি **`অন্যথায়`** থাকতে পারে এবং এটি যেকোনো স্থানে রাখা যায়।  
-- রেঞ্জ লজিকের জন্য `বিকল্প (true)` কৌশল কার্যকর; খুব জটিল শর্তে `যদি...নাহলে` আরামদায়ক।  
-- সরল মান‑থেকে‑ফলাফল ম্যাপিং হলে দীর্ঘ `বিকল্প`‑এর বদলে **অবজেক্ট ম্যাপ** ব্যবহার করুন।
+`switch` একটি একক মান-কে একাধিক `case` ব্লকের বিপরীতে মেলায় এবং প্রথম মিলযুক্ত ব্লকটি চালায়। কোনো **fall-through নেই** — প্রতিটি ব্লক সর্বাধিক একবার চলে, এবং তারপর কন্ট্রোল switch থেকে বের হয়।
+
+বাংলা রূপ: `বিকল্প` / `অবস্থা` / `অন্যথায়`।
+
+## সিনট্যাক্স
+
+```bnl
+switch (<subject>) {
+    case <value1>: { <statements> }
+    case <value2>:
+    case <value3>: { <shared statements> }
+    default: { <fallback statements> }
+}
+```
+
+প্রতিটি case-এর body `{ ... }`-এ wrap করা আবশ্যক। একাধিক `case <value>:` লাইন একটি single ব্লকের আগে stack করলে তারা সেই ব্লক শেয়ার করে।
+
+## উদাহরণ
+
+```bnl
+function describe(n) {
+    switch (n) {
+        case 1: { return "one"; }
+        case 2:
+        case 3: { return "two or three"; }
+        default: { return "other"; }
+    }
+}
+
+print(describe(1));    // one
+print(describe(2));    // two or three
+print(describe(99));   // other
+```
+
+মিল bnl-এর `==` সেম্যান্টিক্স ব্যবহার করে — টাইপ মিলতে হবে, কোনো implicit coercion নেই:
+
+```bnl
+switch ("red") {
+    case "red":   { print("RGB 255 0 0"); }
+    case "green": { print("RGB 0 255 0"); }
+    default:      { print("unknown"); }
+}
+```
+
+## break দিয়ে early exit
+
+আপনি একটি case-এর ভেতরে `break;` লিখতে পারেন switch থেকে তাড়াতাড়ি বের হতে। কিন্তু case body-এর শেষে পৌঁছালেও একই effect হয়, তাই `break` সাধারণত প্রয়োজন হয় না — এটি loops-এর সাথে parity-এর জন্য আছে।
+
+## কোনো fall-through নেই
+
+আপনি যদি C বা JavaScript থেকে আসেন: bnl-এ `case` fall-through করে **না**। ব্লক চলে এবং switch শেষ হয়। এক body একাধিক মানের জন্য চাইলে stacked cases (`case X: case Y: { body }`) ব্যবহার করুন।
+
+## বাংলা রূপ
+
+```bnl
+ফাংশন describe(n) {
+    বিকল্প (n) {
+        অবস্থা 1: { ফেরত "এক"; }
+        অবস্থা 2: { ফেরত "দুই"; }
+        অন্যথায়: { ফেরত "অন্য"; }
+    }
+}
+```
+
+## আরও দেখুন
+- [`break`](/bn/docs/v1.0.0/keywords/break-keyword) — case থেকে explicit exit।
+- [`if` / `else`](/bn/docs/v1.0.0/keywords/if-keyword) — non-equality শর্তের জন্য।
 </I18nBangla>
-
-

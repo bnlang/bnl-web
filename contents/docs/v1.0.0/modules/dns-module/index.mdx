@@ -1,115 +1,76 @@
 ---
 title: dns module
-description: DNS lookup and resolution APIs — resolve hostnames, lookup addresses, reverse IPs, with async and sync methods.
+description: Hostname → IP address resolution and reverse lookup.
 bnTitle: dns মডিউল
-bnDescription: DNS লুকআপ ও রিসলিউশন API — হোস্টনেম রিসলভ, অ্যাড্রেস লুকআপ, IP রিভার্স, অ্যাসিঙ্ক ও সিঙ্ক মেথড।
+bnDescription: হোস্টনেম → IP রেজোলিউশন ও reverse lookup।
 ---
 
-# <I18nEnglish>dns</I18nEnglish>
-# <I18nBangla>dns</I18nBangla>
+# <I18nEnglish>`dns` module</I18nEnglish>
+# <I18nBangla>`dns` মডিউল</I18nBangla>
 
 
 <I18nEnglish>
-The **`dns`** module provides functions for name resolution. It can resolve hostnames into IP addresses, perform reverse lookups, and query specific DNS records.
-</I18nEnglish>
-
-<I18nBangla>
-**`dns`** মডিউল নাম রিসলিউশনের জন্য ফাংশন দেয়। এটি হোস্টনেম থেকে IP অ্যাড্রেস বের করে, রিভার্স লুকআপ করে, এবং নির্দিষ্ট DNS রেকর্ড কুয়েরি করতে পারে।
-</I18nBangla>
-
-
-
----
-
-## API Surface
-
-<I18nEnglish>
-
-### Lookup
-- **`dns.lookup(hostname[, options], callback)`** — resolve hostname to address. Options may include `family` (4 or 6).  
-- **`dns.lookupService(address, port, callback)`** — resolve address + port to hostname/service.
-
-### Resolve
-- **`dns.resolve(hostname[, rrtype], callback)`** — resolve DNS records. `rrtype`: `A`, `AAAA`, `MX`, `TXT`, `SRV`, etc.  
-- **`dns.resolve4/resolve6`**, **`dns.resolveMx`**, **`dns.resolveTxt`**, etc.  
-- **`dns.reverse(ip, callback)`** — reverse IP to hostname.
-
-### Promises API
-- **`dns.promises.lookup()`**, **`dns.promises.resolve()`**, etc. — return promises.
-
-### Sync
-- No synchronous DNS methods except via `net` or `url` parsing.  
-</I18nEnglish>
-
-<I18nBangla>
-### প্রধান ফাংশন
-- **`lookup`** — হোস্টনেম থেকে IP।  
-- **`lookupService`** — IP থেকে হোস্টনেম।  
-- **`resolve`** — DNS রেকর্ড (A, AAAA, MX, TXT, SRV)।  
-- **`reverse`** — IP থেকে হোস্টনেম।  
-- **`promises`** — প্রমিস-ভিত্তিক API।  
-</I18nBangla>
-
-
-
----
-
-## Examples (English only)
-
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="english">
+DNS lookups using the OS resolver. Async (callbacks), with helpers for IP-literal detection.
 
 ```bnl
-const dns = require("dns");
+import "dns" as dns;
 
-// Simple lookup
-dns.lookup("example.com", (err, address, family) => {
-  if (err) throw err;
-  console.log("address:", address, "family: IPv" + family);
+dns.lookup("example.com", 0, function (err, ip, family) {
+    if (err != null) { print("lookup failed:", err); return; }
+    print("got:", ip, "family", family);   // got: 93.184.215.14 family 4
 });
-
-// Resolve A records
-dns.resolve4("example.com", (err, addresses) => {
-  if (err) throw err;
-  console.log("IPv4:", addresses);
-});
-
-// Reverse lookup
-dns.reverse("93.184.216.34", (err, hostnames) => {
-  if (err) throw err;
-  console.log("reverse:", hostnames);
-});
-
-// Promises API
-(async () => {
-  const { promises: dnsPromises } = require("dns");
-  const res = await dnsPromises.lookup("example.com");
-  console.log("promises.lookup:", res.address);
-})();
 ```
-  </TabsContent>
-</Tabs>
 
----
+## Lookups
 
-## Notes
+| Function | Description |
+|---|---|
+| `dns.lookup(host, family, cb)` | `cb(err, ip, family)` — first matching address. `family`: 0 = any, 4 = IPv4, 6 = IPv6. |
+| `dns.lookup_all(host, family, cb)` | `cb(err, [{address, family}, …])` — every match. |
+| `dns.reverse(ip, cb)` | `cb(err, hostname)`. Falls back to the IP literal when no PTR record exists. |
 
-<I18nEnglish>
-- Use **`dns.lookup`** for general hostname resolution (uses OS facilities).  
-- Use **`dns.resolve`** for actual DNS queries (bypasses OS cache).  
-- Prefer **Promises API** with async/await for clarity.  
-- Always handle errors (network issues, NXDOMAIN).  
+## Helpers
+
+| Function | Description |
+|---|---|
+| `dns.is_ipv4(s)` → bool | True if `s` parses as an IPv4 literal. |
+| `dns.is_ipv6(s)` → bool | |
+| `dns.is_ip(s)` → bool | `is_ipv4 or is_ipv6`. |
+| `dns.lookup_or_self(host, cb)` | Skip resolution and call back with `host` if it's already an IP literal. |
+
+## See also
+- [`net`](/en/docs/v1.0.0/modules/net-module) — connect over TCP after resolving.
 </I18nEnglish>
 
 <I18nBangla>
-- সাধারণ হোস্টনেম রিসলিউশনের জন্য **`lookup`**।  
-- আসল DNS কুয়েরির জন্য **`resolve`**।  
-- অ্যাসিঙ্ক/অ্যাওয়েটের জন্য **Promises API** ব্যবহার করুন।  
-- ত্রুটি অবশ্যই ধরতে হবে।  
+OS resolver দিয়ে DNS lookup। Async (callbacks), IP-literal detection হেল্পারসহ।
+
+```bnl
+import "dns" as dns;
+
+dns.lookup("example.com", 0, function (err, ip, family) {
+    if (err != null) { print("lookup failed:", err); return; }
+    print("got:", ip, "family", family);
+});
+```
+
+## Lookups
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `dns.lookup(host, family, cb)` | `cb(err, ip, family)` — প্রথম address। `family`: 0/4/6। |
+| `dns.lookup_all(host, family, cb)` | `cb(err, [{address, family}, …])` — সব address। |
+| `dns.reverse(ip, cb)` | `cb(err, hostname)`। PTR না থাকলে IP literal-এ fallback। |
+
+## হেল্পার
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `dns.is_ipv4(s)` → bool | |
+| `dns.is_ipv6(s)` → bool | |
+| `dns.is_ip(s)` → bool | `is_ipv4 or is_ipv6`। |
+| `dns.lookup_or_self(host, cb)` | IP literal হলে সরাসরি ফেরত, না হলে resolve। |
+
+## আরও দেখুন
+- [`net`](/bn/docs/v1.0.0/modules/net-module)।
 </I18nBangla>
-
-

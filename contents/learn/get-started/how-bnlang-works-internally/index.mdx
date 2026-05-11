@@ -1,80 +1,74 @@
 ---
 title: How Bnlang Works Internally
-description: A detailed explanation of the internal architecture of Bnlang, including parsing, translation, execution, and native bindings.
-bnTitle: ভেতরে Bnlang কিভাবে কাজ করে
-bnDescription: Bnlang এর অভ্যন্তরীণ আর্কিটেকচার, পার্সিং, ট্রান্সলেশন, এক্সিকিউশন ও নেটিভ বাইন্ডিং।
+description: The internal architecture of Bnlang — lexer, parser, tree-walking interpreter, libuv event loop, and native stdlib.
+bnTitle: Bnlang ভেতরে কিভাবে কাজ করে
+bnDescription: Bnlang এর অভ্যন্তরীণ আর্কিটেকচার — লেক্সার, পার্সার, ট্রি-ওয়াকিং ইন্টারপ্রেটার, libuv ইভেন্ট লুপ ও নেটিভ স্ট্যান্ডার্ড লাইব্রেরি।
 ---
 
 # <I18nEnglish>How Bnlang Works Internally</I18nEnglish>
-# <I18nBangla>ভেতরে Bnlang কিভাবে কাজ করে</I18nBangla>
+# <I18nBangla>Bnlang ভেতরে কিভাবে কাজ করে</I18nBangla>
 
 
 <I18nEnglish>
-**Bnlang** is built on top of a modern JavaScript runtime, but extends it with multilingual syntax and system bindings.  
-Its goal is to allow developers to write programs in Bangla, or English while still running efficiently on the underlying JavaScript engine.  
-
-The process of execution goes through several stages: parsing, translation, execution, and system-level bindings.  
-This layered design makes Bnlang flexible, accessible, and still compatible with JavaScript projects.
+**Bnlang** is a native programming language. The whole runtime is modern C++ — lexer, parser, tree-walking interpreter, value model, and every built-in module.
+There is no virtual machine, no transpilation step, and no dependency on a JavaScript engine.
+This page walks through what happens when you run `bnl your_script.bnl`.
 </I18nEnglish>
 
 <I18nBangla>
-**Bnlang** একটি আধুনিক জাভাস্ক্রিপ্ট রানটাইমের উপর ভিত্তি করে তৈরি, তবে এটিকে সম্প্রসারিত করেছে বহুভাষিক সিনট্যাক্স এবং সিস্টেম বাইন্ডিং দিয়ে।  
-এটি এমনভাবে ডিজাইন করা হয়েছে যাতে ডেভেলপাররা বাংলা, বাংলিশ বা ইংরেজিতে কোড লিখতে পারে, এবং তা কার্যকরভাবে জাভাস্ক্রিপ্ট ইঞ্জিনে চালাতে পারে।  
-
-এক্সিকিউশন প্রক্রিয়া কয়েকটি ধাপে ভাগ করা: পার্সিং, ট্রান্সলেশন, এক্সিকিউশন এবং সিস্টেম-লেভেল বাইন্ডিং।  
-এই লেয়ার্ড ডিজাইন Bnlang কে করে তুলেছে নমনীয়, সহজলভ্য এবং জাভাস্ক্রিপ্ট প্রজেক্টের সাথে সামঞ্জস্যপূর্ণ।
+**Bnlang** একটি নেটিভ প্রোগ্রামিং ভাষা। পুরো রানটাইম আধুনিক C++ — লেক্সার, পার্সার, ট্রি-ওয়াকিং ইন্টারপ্রেটার, ভ্যালু মডেল ও প্রতিটি বিল্ট-ইন মডিউল।
+কোনো ভার্চুয়াল মেশিন নেই, কোনো ট্রান্সপাইলেশন স্টেপ নেই, কোনো জাভাস্ক্রিপ্ট ইঞ্জিনের উপর নির্ভরতাও নেই।
+এই পেজে দেখানো হলো `bnl your_script.bnl` চালালে ভেতরে কী ঘটে।
 </I18nBangla>
 
 
 
 ---
 
-## Internal Workflow
+## Execution Pipeline
 
 <I18nEnglish>
-1. **Parsing** → The Bnlang parser reads the source code written in Bangla, or English.  
-2. **Translation** → Bangla keywords are mapped and converted into equivalent JavaScript syntax.  
-3. **Execution** → The translated code is executed by the underlying engine, ensuring high performance.  
-4. **Native Bindings** → Bnlang provides extra bindings for tasks like file handling, networking, and OS operations through C++ integrations.
+1. **Lexer** — reads source bytes and produces a token stream. Bangla and English keywords (e.g. `if` / `যদি`, `function` / `ফাংশন`) map to the same `TokenType`, so the parser sees one unified language.
+2. **Parser** — turns tokens into an AST (Abstract Syntax Tree). Pure recursive descent; no parser generator.
+3. **Interpreter** — walks the AST directly to produce values. No bytecode emission, no JIT.
+4. **Event loop** — libuv drives async I/O (file ops, sockets, timers, child processes) without blocking the main thread.
+5. **Standard library** — built-in modules (`io`, `web`, `request`, `template`, `sqlite`, `pg`, `mysql`, `mongo`, `crypto`, ...) live in C++ and register their functions with the interpreter at startup.
 </I18nEnglish>
 
 <I18nBangla>
-১. **পার্সিং** → Bnlang পার্সার বাংলা, বাংলিশ বা ইংরেজিতে লেখা সোর্স কোড পড়ে।  
-২. **ট্রান্সলেশন** → বাংলা ও বাংলিশ কীওয়ার্ড সমতুল্য জাভাস্ক্রিপ্ট সিনট্যাক্সে রূপান্তরিত হয়।  
-৩. **এক্সিকিউশন** → রূপান্তরিত কোড আন্ডারলাইং ইঞ্জিন দ্বারা এক্সিকিউট হয়, যা উচ্চ কর্মক্ষমতা নিশ্চিত করে।  
-৪. **নেটিভ বাইন্ডিং** → ফাইল হ্যান্ডলিং, নেটওয়ার্কিং এবং অপারেটিং সিস্টেম সম্পর্কিত কাজের জন্য C++ দিয়ে অতিরিক্ত বাইন্ডিং সরবরাহ করে।
+১. **লেক্সার** — সোর্সের বাইট পড়ে টোকেন স্ট্রিম বানায়। বাংলা ও ইংরেজি কীওয়ার্ড (যেমন `if` / `যদি`, `function` / `ফাংশন`) একই `TokenType`-এ ম্যাপ হয়, ফলে পার্সার একটি একক ভাষা দেখে।
+২. **পার্সার** — টোকেন থেকে AST (Abstract Syntax Tree) বানায়। পিউর রিকার্সিভ-ডিসেন্ট; কোনো পার্সার-জেনারেটর নেই।
+৩. **ইন্টারপ্রেটার** — AST সরাসরি ওয়াক করে ভ্যালু তৈরি করে। কোনো বাইটকোড এমিশন বা JIT নেই।
+৪. **ইভেন্ট লুপ** — libuv অ্যাসিঙ্ক I/O (ফাইল অপ, সকেট, টাইমার, চাইল্ড প্রসেস) চালায়, মূল থ্রেড ব্লক না করে।
+৫. **স্ট্যান্ডার্ড লাইব্রেরি** — বিল্ট-ইন মডিউল (`io`, `web`, `request`, `template`, `sqlite`, `pg`, `mysql`, `mongo`, `crypto`, ...) C++ এ লেখা, এবং স্টার্টআপে ইন্টারপ্রেটারের সাথে নিজেদের ফাংশন রেজিস্টার করে।
 </I18nBangla>
-
-
 
 ---
 
-## Example: Translation Flow
+## Example: One Program, Two Languages
 
-<Tabs defaultValue="bangla" className="w-full">
+<I18nEnglish>
+The two snippets below parse to the **same AST** and run identically. The lexer's keyword table is the only thing that knows the difference.
+</I18nEnglish>
+
+<I18nBangla>
+নিচের দু'টি স্নিপেট **একই AST**-এ পার্স হয় এবং একই ভাবে চলে। শুধুমাত্র লেক্সারের কীওয়ার্ড টেবিল পার্থক্যটা জানে।
+</I18nBangla>
+
+<Tabs defaultValue="english" className="w-full">
   <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
     <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
   </TabsList>
 
   <TabsContent value="english">
 
 ```bnl
-// Bnlang source code
-if (x > 10) {
-  print("Large");
+var x = 10;
+if (x > 5) {
+    print("Large");
 } else {
-  print("Small");
-}
-```
-<br/>
-```bnl
-// Translated JavaScript
-if (x > 10) {
-  console.log("Large");
-} else {
-  console.log("Small");
+    print("Small");
 }
 ```
   </TabsContent>
@@ -82,39 +76,44 @@ if (x > 10) {
   <TabsContent value="bangla">
 
 ```bnl
-// Bnlang সোর্স কোড
-যদি (x > 10) {
-  ছাপাও("বড়");
+চলক x = 10;
+যদি (x > 5) {
+    লিখুন("বড়");
 } নাহলে {
-  ছাপাও("ছোট");
-}
-```
-<br/>
-```bnl
-// রূপান্তরিত JavaScript
-if (x > 10) {
-  console.log("বড়");
-} else {
-  console.log("ছোট");
+    লিখুন("ছোট");
 }
 ```
   </TabsContent>
-
-  
 </Tabs>
 
 ---
 
-## Why This Matters
+## Runtime Stack
 
 <I18nEnglish>
-Bnlang’s architecture shows how a programming language can remain compatible with modern runtimes while enabling inclusivity through multilingual syntax.  
-This makes it suitable not just for developers who are comfortable with English, but also for those who prefer coding in Bangla.
+Under the hood Bnlang stands on a small set of well-known C/C++ libraries:
+
+- **C++20** — the interpreter, value model, and embedding API.
+- **libuv** — cross-platform event loop and async I/O primitives.
+- **OpenSSL** — TLS for HTTPS / WebSocket-over-TLS, plus hashing, HMAC, and base64/hex codecs.
+- **llhttp** — fast HTTP/1.1 parser used by the built-in web server and client.
+- **SQLite / libpq / libmariadb / mongo-c-driver** — embedded SQLite plus first-class clients for PostgreSQL, MySQL/MariaDB, and MongoDB.
+- **zlib** — gzip/deflate for HTTP compression and general data processing.
+
+This is the entire dependency set — no V8, no Node.js runtime, no JS layer.
 </I18nEnglish>
 
 <I18nBangla>
-Bnlang এর আর্কিটেকচার প্রমাণ করে যে একটি প্রোগ্রামিং ভাষা আধুনিক রানটাইমের সাথে সামঞ্জস্যপূর্ণ থেকেও বহুভাষিক সিনট্যাক্স দিয়ে অন্তর্ভুক্তি বাড়াতে পারে।  
-এটি শুধুমাত্র ইংরেজি জানা ডেভেলপারদের জন্য নয়, বরং যারা বাংলায় বা বাংলিশে কোড করতে স্বাচ্ছন্দ্যবোধ করে তাদের জন্যও উপযুক্ত।
+ভেতরে Bnlang কিছু পরিচিত C/C++ লাইব্রেরির উপর দাঁড়ানো:
+
+- **C++20** — ইন্টারপ্রেটার, ভ্যালু মডেল ও এমবেডিং API।
+- **libuv** — ক্রস-প্ল্যাটফর্ম ইভেন্ট লুপ ও অ্যাসিঙ্ক I/O প্রিমিটিভ।
+- **OpenSSL** — HTTPS / WebSocket-over-TLS এর জন্য TLS, এবং হ্যাশিং, HMAC, base64/hex কোডেক।
+- **llhttp** — দ্রুত HTTP/1.1 পার্সার, বিল্ট-ইন ওয়েব সার্ভার ও ক্লায়েন্ট ব্যবহার করে।
+- **SQLite / libpq / libmariadb / mongo-c-driver** — এমবেডেড SQLite এবং PostgreSQL, MySQL/MariaDB, MongoDB এর জন্য প্রথম-শ্রেণির ক্লায়েন্ট।
+- **zlib** — HTTP কম্প্রেশন ও সাধারণ ডেটা প্রসেসিং এর জন্য gzip/deflate।
+
+পুরো ডিপেন্ডেন্সি সেট এটুকুই — কোনো V8, Node.js রানটাইম বা JS লেয়ার নেই।
 </I18nBangla>
 
 

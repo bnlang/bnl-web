@@ -1,9 +1,9 @@
 ---
 title: Introduction
-description: Learn what Bnlang is, its goals, design, ecosystem, and how to get started.
+description: What Bnlang is, how it's built, and how to write your first program.
 
 bnTitle: ভূমিকা
-bnDescription: Bnlang কী, লক্ষ্য, নকশা দর্শন, ইকোসিস্টেম, এবং শুরু করার উপায়।
+bnDescription: Bnlang কী, এটি কীভাবে তৈরি, এবং প্রথম প্রোগ্রাম কীভাবে লিখবেন।
 
 ---
 
@@ -12,227 +12,113 @@ bnDescription: Bnlang কী, লক্ষ্য, নকশা দর্শন, 
 
 
 <I18nEnglish>
-Welcome to the **Introduction** of Bnlang.
+**Bnlang** is a dual-language programming language and runtime. You can write the same program in **English** or **Bangla** — the parser maps both keyword sets to the same syntax tree, so the language itself is a single, predictable thing.
 
-## What is Bnlang?
-**Bnlang** is the Bangla Programming Language that lets you write code in **Bangla**, **English**—side by side.  
-It’s designed for learners and professionals who want the comfort of native script while staying compatible with mainstream tooling.
+Bnlang is **native**: a tree-walking interpreter written in modern C++ with a libuv event loop. There is no transpilation step and no JavaScript engine — `bnl` runs your `.bnl` file directly.
 
-### Design goals
-- **Native-first learning**: let students think and code in their everyday language.
-- **Interoperability**: interop with popular ecosystems (files, processes, networking) and standard data formats (JSON, UTF-8).
-- **Predictable syntax**: familiar to JavaScript developers, with clear, minimal rules.
-- **Practical tooling**: CLI, formatter, linter, VS Code support, and a package manager (BPM).
+## Design principles
+- **Predictable semantics.** Small, regular syntax. Fixed-arity functions. No surprising overloads, no implicit type coercions worth memorizing.
+- **One way to do it.** No `let`/`const`/`var` trio — just `var`. No `===` and `==` debate — just `==`. No `null` and `undefined` split — just `null`.
+- **Batteries included.** File I/O, HTTP/WebSocket server and client, templating, SQLite/PostgreSQL/MySQL/MongoDB, crypto, timers, JSON, regex — all in the standard library.
+- **Embeddable.** `bnl_core` is a C++ library that drops into a host application. Native plugins (`.dll`/`.so`/`.dylib`) extend the runtime without a transpile step.
 
-### Language philosophy
-- **Clarity over cleverness**: explicit syntax and readable keywords.
-- **One way to do it**: reduce ambiguity and foot‑guns.
-- **Progressive disclosure**: basics first; advanced features when you need them.
+## Runtime stack (under the hood)
+- **C++20** — the interpreter, value model, embedding API, and every built-in module.
+- **libuv** — cross-platform event loop and async I/O primitives.
+- **OpenSSL** — TLS for HTTPS / WebSocket-over-TLS, plus hashing, HMAC, base64/hex codecs.
+- **llhttp** — fast HTTP/1.1 parser used by the built-in web server and client.
+- **SQLite / libpq / libmariadb / mongo-c-driver** — embedded SQLite and first-class clients for PostgreSQL, MySQL/MariaDB, MongoDB.
+- **zlib** — gzip/deflate.
 
-## How Bnlang works
-Bnlang code is parsed and executed by a runtime that understands multiple keyword sets (Bangla/English) but maps them to the same semantics.  
-Core libraries expose OS features, I/O, networking, buffers, child processes, and timers—modeled after proven designs.
-
-### Interoperability
-- **Calling out to the OS**: spawn processes, read/write files, use environment variables.
-- **Data exchange**: JSON, text encodings (UTF‑8, UTF‑16LE, Base64, Hex).
-- **FFI/Bridges (planned)**: interop with native extensions for performance‑critical paths.
-
-## Ecosystem
-- **BPM (Bnlang Package Manager)**: install, update, and publish libraries.  
-- **Editor support**: VS Code extension with syntax highlighting, completion, formatting, and snippets.  
-- **Tooling**: test runner, formatter, and CLI utilities for project scaffolding (planned).
-
-## Language surface (high level)
-- **Basics**: variables, numbers, strings, booleans, arrays, maps, functions.
-- **Control flow**: if/else, switch, loops (for/while), try/catch/finally.
-- **Modules**: import/export modules; standard library for files, paths, buffers, timers.
-- **Concurrency (planned)**: lightweight workers/messages.
-- **Networking**: sockets/HTTP helpers (incremental rollout).
-
-## Example keywords (aligned sets)
-The language provides aligned keywords across three sets. You can pick one style per file or mix sparingly.
-
-| Concept | English | Bangla |
-|---|---|---|
-| if | `if` | `যদি` |
-| else | `else` | `নাহলে` |
-| function | `function` | `ফাংশন` |
-| return | `return` | `ফেরত` |
-
-> Tip: keep a consistent style within a file for readability.
-
-## Hello, Bnlang (three styles)
+## Hello, Bnlang (two ways)
 ```bnl
 // English
-function main() {
-  print("Hello, Bnlang!");
-}
-```
-<br/>
-```bnl
-// Bangla
-ফাংশন মেইন() {
-  লিখুন("হ্যালো, Bnlang!");
-}
+print("Hello, Bnlang!");
 ```
 
-## Installation overview
-- Download Bnlang binaries for Windows/macOS/Linux from the official releases.
-- Add `bnl` to your PATH.
-- (Optional) Install **BPM** to manage packages globally and per project.
-- Install the VS Code extension for syntax highlighting and formatting.
+```bnl
+// Bangla
+লিখুন("হ্যালো, Bnlang!");
+```
+
+Both produce the same output. The lexer maps `print` and `লিখুন` to the same built-in.
+
+## Installation
+1. Download the latest binary for your platform from the [Releases page](/en/releases) — Windows (`.exe` / `.zip`), Linux (`.tar.gz`), macOS (`.pkg` / `.tar.gz`).
+2. Make sure `bnl` is on your PATH.
+3. Verify:
+
+```sh
+bnl --version
+# Bnlang (bnl) 1.0.0 (windows)
+```
 
 ## Project layout
 ```
 my-app/
   ├─ src/
   │  └─ main.bnl
-  ├─ bnl_package.json
-  └─ README.md
+  ├─ bnl.json        # project manifest (managed by bpm)
+  ├─ bnl.lock        # lockfile (generated)
+  └─ deps/           # installed packages
 ```
 
 ## Versioning and docs
-- Versions follow `vMAJOR.MINOR.PATCH`.
-- Docs are versioned: `/docs/v1.0.0/...` with locale segments for Bangla and English.
-
-## Contributing
-We welcome contributions to language design, standard library, docs, and editor tooling.  
-Start with issues tagged **good-first-issue** and follow the contribution guidelines.
-
-## Roadmap (snapshot)
-- ✅ Core runtime & stdlib (files, buffers, timers)
-- ✅ VS Code extension (highlight, format, snippets)
-- 🚧 Networking helpers (HTTP/Sockets)
-- 🚧 Workers & concurrency primitives
-- 🚧 FFI/Bridge for native extensions
-- 🚧 Package signing & integrity checks in BPM
-
-## FAQ
-**Is Bnlang only for Bangladesh?**  
-No. While it centers Bangla users, the design emphasizes international compatibility.
-
-**Can I mix Bangla and English in the same file?**  
-Yes, but keep it consistent—your team should agree on a style per repo/module.
-
-**Does Bnlang replace existing ecosystems?**  
-No. It integrates with them; use Bnlang where it improves learning and readability.
-
----
+Versions follow `vMAJOR.MINOR.PATCH`. Docs are versioned at `/docs/v1.0.0/...` with English and Bangla locales.
 </I18nEnglish>
 
 <I18nBangla>
-**ভূমিকা** অংশে আপনাকে স্বাগতম।
+**Bnlang** একটি দ্বিভাষিক প্রোগ্রামিং ভাষা ও রানটাইম। একই প্রোগ্রাম আপনি **ইংরেজিতে** বা **বাংলায়** লিখতে পারেন — পার্সার দু'টি কীওয়ার্ড সেটকেই একই সিনট্যাক্স ট্রিতে ম্যাপ করে, ফলে ভাষাটি নিজে একটি একক, পূর্বানুমানযোগ্য জিনিস।
 
-## Bnlang কী?
-**Bnlang** হলো বাংলা প্রোগ্রামিং ভাষা—যেখানে আপনি **বাংলা**, **ইংরেজি** এবং **বাংলিশ**—এই তিনভাবে কোড লিখতে পারেন।  
-লক্ষ্য হলো শেখা ও কাজ—দুটিতেই মাতৃভাষার স্বাচ্ছন্দ্য বজায় রেখে আন্তর্জাতিক টুলিংয়ের সাথে সামঞ্জস্য রাখা।
+Bnlang একটি **নেটিভ ভাষা**: আধুনিক C++ এ লেখা ট্রি-ওয়াকিং ইন্টারপ্রেটার, libuv ইভেন্ট লুপসহ। কোনো ট্রান্সপাইলেশন স্টেপ নেই, কোনো জাভাস্ক্রিপ্ট ইঞ্জিন নেই — `bnl` সরাসরি আপনার `.bnl` ফাইল চালায়।
 
-### নকশা লক্ষ্য
-- **স্থানীয়তাকে অগ্রাধিকার**: শিক্ষার্থীরা যেভাবে ভাবেন/লিখেন, সেভাবেই কোড লিখতে পারা।
-- **ইন্টারঅপারেবিলিটি**: অপারেটিং সিস্টেম, ফাইল, প্রসেস, নেটওয়ার্ক—সবকিছুর সাথে কাজ করার সুবিধা।
-- **পরিচিত সিনট্যাক্স**: JavaScript‑ধাঁচের পরিষ্কার নিয়ম।
-- **ব্যবহারিক টুলিং**: CLI, ফরম্যাটার, লিন্টার, VS Code এক্সটেনশন, এবং প্যাকেজ ম্যানেজার (BPM)।
+## ডিজাইন নীতি
+- **পূর্বানুমানযোগ্য সেম্যান্টিক্স।** ছোট, নিয়মিত সিনট্যাক্স। ফিক্সড-অ্যারিটি ফাংশন। কোনো বিভ্রান্তিকর ওভারলোড নেই।
+- **একটাই পথ।** `let`/`const`/`var` ত্রিভুজ নেই — শুধু `var`। `===` বনাম `==` বিতর্ক নেই — শুধু `==`। `null` ও `undefined` ভাগ নেই — শুধু `null`।
+- **ব্যাটারি ইনক্লুডেড।** ফাইল I/O, HTTP/WebSocket সার্ভার ও ক্লায়েন্ট, টেমপ্লেটিং, SQLite/PostgreSQL/MySQL/MongoDB, ক্রিপ্টো, টাইমার, JSON, regex — সবই স্ট্যান্ডার্ড লাইব্রেরিতে।
+- **এমবেডেবল।** `bnl_core` একটি C++ লাইব্রেরি যা হোস্ট অ্যাপ্লিকেশনে ড্রপ-ইন করা যায়। নেটিভ প্লাগইন (`.dll`/`.so`/`.dylib`) রানটাইম এক্সটেন্ড করে — কোনো ট্রান্সপাইল ছাড়াই।
 
-### দর্শন
-- **স্বচ্ছতা**: বোঝা সহজ—চালাকি কম।
-- **একটিই পথ**: একই কাজের একাধিক জটিল পন্থা নয়; বিভ্রান্তি কমানো।
-- **ধাপে ধাপে শেখা**: আগে ভিত্তি, পরে উন্নত বিষয়।
+## রানটাইম স্ট্যাক (অভ্যন্তরে)
+- **C++20** — ইন্টারপ্রেটার, ভ্যালু মডেল, এমবেডিং API, এবং প্রতিটি বিল্ট-ইন মডিউল।
+- **libuv** — ক্রস-প্ল্যাটফর্ম ইভেন্ট লুপ ও অ্যাসিঙ্ক I/O প্রিমিটিভ।
+- **OpenSSL** — HTTPS / WebSocket-over-TLS এর জন্য TLS, এবং হ্যাশিং, HMAC, base64/hex কোডেক।
+- **llhttp** — দ্রুত HTTP/1.1 পার্সার, বিল্ট-ইন ওয়েব সার্ভার ও ক্লায়েন্ট ব্যবহার করে।
+- **SQLite / libpq / libmariadb / mongo-c-driver** — এমবেডেড SQLite এবং PostgreSQL, MySQL/MariaDB, MongoDB এর জন্য প্রথম-শ্রেণির ক্লায়েন্ট।
+- **zlib** — gzip/deflate।
 
-## কীভাবে কাজ করে
-Bnlang একাধিক কীওয়ার্ড সেট (বাংলা/ইংরেজি/বাংলিশ) বুঝে একই অর্থে চালায়।  
-স্ট্যান্ডার্ড লাইব্রেরিতে ফাইল I/O, বাফার, টাইমার, প্রসেস, নেটওয়ার্ক ইত্যাদি সুবিধা রয়েছে।
-
-### ইন্টারঅপারেবিলিটি
-- **OS ইন্টিগ্রেশন**: প্রসেস চালানো, ফাইল পড়া/লেখা, এনভায়রনমেন্ট ভ্যারিয়েবল।
-- **ডাটা ফরম্যাট**: JSON, UTF‑8/UTF‑16LE, Base64, Hex।
-- **FFI/ব্রিজ (পরিকল্পিত)**: পারফরম্যান্স দরকারে নেটিভ এক্সটেনশন।
-
-## ইকোসিস্টেম
-- **BPM (Bnlang Package Manager)**: লাইব্রেরি ইনস্টল/আপডেট/পাবলিশ।
-- **এডিটর সাপোর্ট**: VS Code এক্সটেনশন—হাইলাইট, অটো‑কমপ্লিট, ফরম্যাট, স্নিপেট।
-- **টুলিং**: টেস্ট রানার, ফরম্যাটার, CLI স্ক্যাফোল্ডিং (পর্যায়ক্রমে)।
-
-## ভাষার সারাংশ
-- **বেসিক্স**: ভ্যারিয়েবল, সংখ্যা/স্ট্রিং/বুলিয়ান, অ্যারে/ম্যাপ, ফাংশন।
-- **কন্ট্রোল ফ্লো**: if/else, switch, for/while, try/catch/finally।
-- **মডিউল**: import/export; ফাইল/পাথ/বাফার/টাইমার স্ট্যান্ডার্ড লাইব্রেরি।
-- **কনকারেন্সি (পরিকল্পিত)**: লাইটওয়েট ওয়ার্কার/মেসেজিং।
-- **নেটওয়ার্কিং**: সোকেট/HTTP হেল্পার (ধাপে ধাপে)।
-
-## উদাহরণ কীওয়ার্ড
-| ধারণা | ইংরেজি | বাংলা | বাংলিশ |
-|---|---|---|---|
-| if | `if` | `যদি` | `jodi` |
-| else | `else` | `নাহলে` | `nahole` |
-| function | `function` | `ফাংশন` | `function` |
-| return | `return` | `ফেরত` | `ferot` |
-
-> টিপ: এক ফাইলে এক স্টাইল অনুসরণ করুন—রিডেবিলিটি বাড়ে।
-
-## হ্যালো, Bnlang (তিন ধারায়)
+## হ্যালো, Bnlang (দু'ভাবে)
 ```bnl
-// ইংরেজি স্টাইল
-function main() {
-  print("Hello, Bnlang!");
-}
-```
-<br/>
-```bnl
-// বাংলা স্টাইল
-ফাংশন main() {
-  print("হ্যালো, Bnlang!");
-}
-```
-<br/>
-```bnl
-// বাংলিশ স্টাইল
-function main() {
-  print("Hello, Bnlang!");
-}
+// ইংরেজি
+print("Hello, Bnlang!");
 ```
 
-## ইনস্টলেশন (সারাংশ)
-- Windows/macOS/Linux এর জন্য রিলিজ ডাউনলোড করুন।
-- `bnl` কে PATH‑এ যোগ করুন।
-- (ঐচ্ছিক) **BPM** ইনস্টল করুন—প্যাকেজ ম্যানেজমেন্টের জন্য।
-- VS Code এক্সটেনশন ইনস্টল করুন।
+```bnl
+// বাংলা
+লিখুন("হ্যালো, Bnlang!");
+```
+
+দু'টোই একই আউটপুট দেয়। লেক্সার `print` ও `লিখুন`-কে একই বিল্ট-ইনে ম্যাপ করে।
+
+## ইনস্টলেশন
+1. আপনার প্ল্যাটফর্মের জন্য সর্বশেষ বাইনারি ডাউনলোড করুন [Releases পেজ](/bn/releases) থেকে — Windows (`.exe` / `.zip`), Linux (`.tar.gz`), macOS (`.pkg` / `.tar.gz`)।
+2. `bnl` যে PATH-এ আছে তা নিশ্চিত করুন।
+3. যাচাই করুন:
+
+```sh
+bnl --version
+# Bnlang (bnl) 1.0.0 (windows)
+```
 
 ## প্রজেক্ট কাঠামো
 ```
 my-app/
   ├─ src/
   │  └─ main.bnl
-  ├─ bnl_package.json
-  └─ README.md
+  ├─ bnl.json        # প্রজেক্ট ম্যানিফেস্ট (bpm পরিচালিত)
+  ├─ bnl.lock        # লকফাইল (জেনারেটেড)
+  └─ deps/           # ইনস্টল করা প্যাকেজ
 ```
 
 ## ভার্সনিং ও ডক্স
-- ভার্সন: `vMAJOR.MINOR.PATCH`।
-- লোকালাইজড/ভার্সনড ডক্স: `/docs/v1.0.0/...` (ইংরেজি/বাংলা/বাংলিশ)।
-
-## কন্ট্রিবিউশন
-ইস্যু, ভাষা নকশা, স্ট্যান্ডার্ড লাইব্রেরি, ডক্স, টুলিং—সবখানেই অবদান স্বাগত।
-
-## রোডম্যাপ (ঝলক)
-- ✅ কোর রানটাইম ও স্ট্যান্ডার্ড লাইব্রেরি
-- ✅ VS Code এক্সটেনশন (হাইলাইট/ফরম্যাট/স্নিপেট)
-- 🚧 নেটওয়ার্কিং হেল্পার
-- 🚧 ওয়ার্কার/কনকারেন্সি
-- 🚧 FFI/ব্রিজ
-- 🚧 BPM‑এ প্যাকেজ সাইনিং/ইন্টিগ্রিটি
-
-## সাধারণ প্রশ্ন
-**Bnlang কি শুধু বাংলাদেশের জন্য?**  
-না—আন্তর্জাতিক চাহিদাও মাথায় রেখে ডিজাইন করা।
-
-**একই ফাইলে বাংলা‑ইংরেজি মিশিয়ে লেখা যাবে?**  
-হ্যাঁ, তবে টিম‑কনভেনশন অনুযায়ী এক স্টাইল নিলে পড়া সহজ।
-
-**Bnlang কি বিদ্যমান ইকোসিস্টেমকে প্রতিস্থাপন করবে?**  
-না—এটি তাদের সাথে কাজ করে; যেখানে সুবিধা, সেখানে ব্যবহার করুন।
-
----
+ভার্সন: `vMAJOR.MINOR.PATCH`। ডক্স ভার্সন-ভিত্তিক: `/docs/v1.0.0/...` — ইংরেজি ও বাংলা লোকালসহ।
 </I18nBangla>
-
-

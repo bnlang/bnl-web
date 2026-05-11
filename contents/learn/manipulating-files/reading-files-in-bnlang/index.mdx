@@ -1,8 +1,8 @@
 ---
 title: Reading Files in Bnlang
-description: Learn how to read files in Bnlang using synchronous and asynchronous methods with examples.
+description: Read files in Bnlang — sync, async, and streaming for very large files.
 bnTitle: Bnlang এ ফাইল পড়া
-bnDescription: Bnlang এ সিঙ্ক্রোনাস এবং অ্যাসিঙ্ক্রোনাস পদ্ধতিতে ফাইল পড়া শিখুন উদাহরণসহ।
+bnDescription: Bnlang-এ ফাইল পড়া — sync, async, এবং বড় ফাইলের জন্য স্ট্রিমিং।
 ---
 
 # <I18nEnglish>Reading Files in Bnlang</I18nEnglish>
@@ -10,113 +10,117 @@ bnDescription: Bnlang এ সিঙ্ক্রোনাস এবং অ্য�
 
 
 <I18nEnglish>
-Reading files is a core operation in most applications.  
-Bnlang provides both **synchronous** and **asynchronous** methods for reading files.  
-Synchronous methods block the program until the file is read, while asynchronous methods allow the program to continue running while the file is being processed.
+Reading files is one of the most common things a program does.
+The built-in `io` module gives you three flavors, from simplest to most powerful:
+
+- `io.read_file(path)` — synchronous; returns the whole file as a string.
+- `io.read_file_async(path, cb)` — asynchronous; the callback receives the data when ready.
+- `io.open_read(path)` — streaming; pull the file in chunks for memory-friendly processing.
 </I18nEnglish>
 
 <I18nBangla>
-ফাইল পড়া বেশিরভাগ অ্যাপ্লিকেশনের একটি মূল অপারেশন।  
-Bnlang ফাইল পড়ার জন্য **সিঙ্ক্রোনাস** এবং **অ্যাসিঙ্ক্রোনাস** উভয় পদ্ধতি প্রদান করে।  
-সিঙ্ক্রোনাস পদ্ধতিতে ফাইল পড়া শেষ না হওয়া পর্যন্ত প্রোগ্রাম ব্লক থাকে, আর অ্যাসিঙ্ক্রোনাস পদ্ধতিতে ফাইল প্রসেসিং চলার সময়ও প্রোগ্রাম চালু থাকে।
+ফাইল পড়া প্রোগ্রামের সবচেয়ে সাধারণ কাজের মধ্যে একটি।
+বিল্ট-ইন `io` মডিউল তিনটি ফ্লেভার দেয়, সরল থেকে শক্তিশালী:
+
+- `io.read_file(path)` — সিঙ্ক্রোনাস; পুরো ফাইল স্ট্রিং হিসেবে ফেরত দেয়।
+- `io.read_file_async(path, cb)` — অ্যাসিঙ্ক্রোনাস; ডাটা প্রস্তুত হলে কলব্যাক পায়।
+- `io.open_read(path)` — স্ট্রিমিং; মেমরি-ফ্রেন্ডলি প্রসেসিং-এর জন্য ফাইল চাঙ্কে পুল করুন।
 </I18nBangla>
 
 
 
 ---
 
-## Example: Synchronous Read
+## Synchronous Read
 
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
+<I18nEnglish>
+The simplest form. Blocks the event loop until the whole file is in memory. Use this in scripts and for small files.
+</I18nEnglish>
 
-  <TabsContent value="english">
-
-```js
-const fs = require("fs");
-
-const data = fs.readFileSync("example.txt", "utf-8");
-console.log("File content:", data);
-```
-  </TabsContent>
-
-  <TabsContent value="bangla">
+<I18nBangla>
+সরলতম ফর্ম। পুরো ফাইল মেমরিতে আসা পর্যন্ত ইভেন্ট লুপ ব্লক করে। স্ক্রিপ্ট এবং ছোট ফাইলের জন্য ব্যবহার করুন।
+</I18nBangla>
 
 ```bnl
-const fs = require("fs");
+import "io" as io;
 
-const তথ্য = fs.readFileSync("example.txt", "utf-8");
-কনসোল.লগ("ফাইলের কন্টেন্ট:", তথ্য);
+var text = io.read_file("notes.txt");
+print(text);
 ```
-  </TabsContent>
-
-  
-</Tabs>
 
 ---
 
-## Example: Asynchronous Read
+## Asynchronous Read
 
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
+<I18nEnglish>
+Returns immediately. The callback is invoked once the read completes — first argument is the error (or `null`), second is the file contents.
+</I18nEnglish>
 
-  <TabsContent value="english">
-
-```js
-const fs = require("fs");
-
-fs.readFile("example.txt", "utf-8", (err, data) => {
-  if (err) {
-    console.error("Error reading file:", err);
-    return;
-  }
-  console.log("File content:", data);
-});
-```
-  </TabsContent>
-
-  <TabsContent value="bangla">
+<I18nBangla>
+সাথে সাথে ফেরত আসে। পড়া শেষ হলে কলব্যাক ইনভোক হয় — প্রথম আর্গুমেন্ট এরর (বা `null`), দ্বিতীয়টি ফাইল কনটেন্ট।
+</I18nBangla>
 
 ```bnl
-const fs = require("fs");
+import "io" as io;
 
-fs.readFile("example.txt", "utf-8", (ত্রুটি, তথ্য) => {
-  যদি (ত্রুটি) {
-    কনসোল.ত্রুটি("ফাইল পড়ার সমস্যা:", ত্রুটি);
-    ফেরত;
-  }
-  কনসোল.লগ("ফাইলের কন্টেন্ট:", তথ্য);
+io.read_file_async("notes.txt", function (err, data) {
+    if (err != null) {
+        print("read failed:", err);
+        return;
+    }
+    print("got", data.byte_length, "bytes");
 });
+print("scheduled — keep doing other work");
 ```
-  </TabsContent>
 
-  
-</Tabs>
+---
+
+## Streaming Large Files
+
+<I18nEnglish>
+For files that don't fit comfortably in memory, open a read stream and pull chunks. The callback receives `chunk = null` to signal **EOF**.
+</I18nEnglish>
+
+<I18nBangla>
+যেসব ফাইল আরামে মেমরিতে আঁটে না, রিড স্ট্রিম খুলুন এবং চাঙ্ক পুল করুন। কলব্যাকে `chunk = null` মানে **EOF**।
+</I18nBangla>
+
+```bnl
+import "io" as io;
+
+var src   = io.open_read("big.log");
+var total = 0;
+
+function on_chunk(err, chunk) {
+    if (err != null) { print("read err:", err); src.close(); return; }
+    if (chunk == null) {
+        print("done. total:", total, "bytes");
+        src.close();
+        return;
+    }
+    total = total + chunk.byte_length;
+    src.read(64 * 1024, on_chunk);
+}
+
+src.read(64 * 1024, on_chunk);
+```
 
 ---
 
 ## Best Practices
 
 <I18nEnglish>
-- Prefer asynchronous methods in production for scalability.  
-- Use synchronous methods only for small scripts or quick utilities.  
-- Always handle errors properly when reading files.  
-- Use `utf-8` encoding for text files unless binary data is required.
+- Reach for `io.read_file_async` by default in long-running programs (servers, daemons).
+- Use the sync variant for one-shot scripts where simplicity wins.
+- For files larger than, say, a few megabytes, prefer `io.open_read` so you don't allocate a huge string.
+- Always call `src.close()` when you're done with a stream — otherwise the OS file handle stays open.
 </I18nEnglish>
 
 <I18nBangla>
-- প্রোডাকশনে স্কেলেবিলিটির জন্য অ্যাসিঙ্ক্রোনাস মেথড ব্যবহার করুন।  
-- ছোট স্ক্রিপ্ট বা ইউটিলিটির জন্য কেবল সিঙ্ক্রোনাস মেথড ব্যবহার করুন।  
-- ফাইল পড়ার সময় সর্বদা ত্রুটি সঠিকভাবে হ্যান্ডল করুন।  
-- টেক্সট ফাইলের জন্য `utf-8` এনকোডিং ব্যবহার করুন, যদি না বাইনারি ডেটা প্রয়োজন হয়।
+- দীর্ঘ-চলা প্রোগ্রামে (সার্ভার, ডিমন) ডিফল্ট হিসেবে `io.read_file_async` ব্যবহার করুন।
+- একবারের স্ক্রিপ্ট, যেখানে সহজতা গুরুত্বপূর্ণ — sync ভ্যারিয়েন্ট ব্যবহার করুন।
+- কয়েক মেগাবাইটের চেয়ে বড় ফাইলের জন্য `io.open_read` ব্যবহার করুন, যাতে বিশাল স্ট্রিং অ্যালোকেট না হয়।
+- স্ট্রিম শেষ হলে সবসময় `src.close()` কল করুন — না করলে OS ফাইল হ্যান্ডেল খোলা থাকবে।
 </I18nBangla>
 
 

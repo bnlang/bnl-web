@@ -1,160 +1,141 @@
 ---
-title: break Keyword
-description: The break statement in Bnlang exits the nearest loop or switch. Examples in Bangla and English.
+title: break keyword
+description: Exit the nearest enclosing loop or switch in Bnlang.
 bnTitle: থামুন কীওয়ার্ড
-bnDescription: Bnlang এ থামুন স্টেটমেন্ট নিকটতম লুপ বা বিকল্প (switch) থেকে বের হতে ব্যবহৃত হয়। উদাহরণসহ।
+bnDescription: Bnlang-এ নিকটতম enclosing loop বা switch থেকে exit করুন।
 ---
 
-# <I18nEnglish>break Keyword</I18nEnglish>
-# <I18nBangla>থামুন কীওয়ার্ড</I18nBangla>
+# <I18nEnglish>`break` keyword</I18nEnglish>
+# <I18nBangla>`থামুন` কীওয়ার্ড</I18nBangla>
 
 
 <I18nEnglish>
-The **`break`** statement immediately exits the **nearest** enclosing loop (`for`, `while`, `do`) or a `switch`.  
-Control continues with the first statement after that construct.
-</I18nEnglish>
-
-<I18nBangla>
-**`থামুন`** স্টেটমেন্ট নিকটতম **লুপ** (`for`, `while`, `do`) বা **বিকল্প** (`switch`) ব্লক থেকে সাথে সাথে বের হয়ে আসে।  
-এরপরের লাইন থেকে কোড চলতে থাকে।
-</I18nBangla>
-
-
-
----
+`break;` exits the nearest enclosing `while`, `for`, `for ... of`, or `switch`. Bangla form: `থামুন;`.
 
 ## Syntax
-
-<I18nEnglish>
 
 ```bnl
 break;
 ```
-</I18nEnglish>
-
-<I18nBangla>
-
-```bnl
-থামুন;
-```
-</I18nBangla>
-
-
-
----
 
 ## Examples
 
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="english">
+Exit a loop early when a condition is hit:
 
 ```bnl
-// Stop a for loop early
-for (let i = 1; i <= 10; i++) {
-  if (i === 5) {
-    console.warn("Stopping at 5");
-    break;
-  }
-  console.log("i =", i);
+for (var n of [1, 2, 3, 4, 5]) {
+    if (n == 3) { break; }
+    print(n);
 }
-
-// Find first match and break
-const nums = [3, 9, 12, 7];
-for (const n of nums) {
-  if (n % 3 === 0 && n > 10) {
-    console.log("Found:", n);
-    break;
-  }
-}
-
-// Break in a while loop
-let count = 0;
-while (true) {
-  if (++count === 3) break;
-  console.log("looping", count);
-}
-
-// Break in switch
-const grade = "B";
-switch (grade) {
-  case "A":
-    console.log("Excellent");
-    break;
-  case "B":
-    console.log("Good");
-    break;
-  default:
-    console.log("Unknown");
-}
+// 1
+// 2
 ```
-  </TabsContent>
 
-  <TabsContent value="bangla">
+Exit a `switch` case explicitly (rare — the case body already ends naturally):
 
 ```bnl
-// for লুপ আগে থামানো
-for (let i = 1; i <= 10; i++) {
-  যদি (i === 5) {
-    কনসোল.সতর্ক("৫ এ থামছে");
-    থামুন;
-  }
-  কনসোল.লগ("i =", i);
-}
-
-// প্রথম মেলামেশা পেলে থামাও
-const সংখ্যা = [3, 9, 12, 7];
-for (const n of সংখ্যা) {
-  যদি (n % 3 === 0 && n > 10) {
-    কনসোল.লগ("পাওয়া গেছে:", n);
-    থামুন;
-  }
-}
-
-// while লুপে থামুন
-let গণনা = 0;
-while (true) {
-  যদি (++গণনা === 3) থামুন;
-  কনসোল.লগ("লুপিং", গণনা);
-}
-
-// switch ব্লকে থামুন
-const গ্রেড = "B";
-বিকল্প (গ্রেড) {
-  অবস্থা "A":
-    কনসোল.লগ("দারুণ");
-    থামুন;
-  অবস্থা "B":
-    কনসোল.লগ("ভালো");
-    থামুন;
-  অন্যথায়:
-    কনসোল.লগ("অজানা");
+switch (status) {
+    case "ready": {
+        do_work();
+        break;          // optional; falling off the end has the same effect
+    }
+    default: { print("not ready"); }
 }
 ```
-  </TabsContent>
 
-  
-</Tabs>
+## Nested loops
 
----
+`break` exits the **innermost** enclosing loop or switch only:
 
-## Notes
+```bnl
+for (var i of [1, 2, 3]) {
+    for (var j of [10, 20, 30]) {
+        if (j == 20) { break; }   // exits the inner for-of, not the outer one
+        print(i, j);
+    }
+}
+// 1 10
+// 2 10
+// 3 10
+```
 
-<I18nEnglish>
-- `break` affects only the **innermost** loop or switch.  
-- Use clear conditions to avoid accidental infinite loops that rely on `break`.  
-- Prefer early `return` inside functions when you need to exit multiple levels of logic.
+For multi-level exits, use a sentinel variable in the outer loop's condition.
+
+## Bangla form
+
+```bnl
+যতক্ষণ (i < 10) {
+    যদি (i == 5) { থামুন; }
+    print(i);
+    i = i + 1;
+}
+```
+
+## See also
+- [`continue`](/en/docs/v1.0.0/keywords/continue-keyword) — skip to the next iteration without exiting.
+- [`switch`](/en/docs/v1.0.0/keywords/switch-case-keyword).
 </I18nEnglish>
 
 <I18nBangla>
-- **`থামুন`** কেবলমাত্র **সবচেয়ে ভেতরের** লুপ/বিকল্পকে প্রভাবিত করে।  
-- `থামুন`-র ওপর নির্ভরশীল অসাবধানী অনন্ত লুপ এড়াতে শর্ত পরিষ্কার রাখুন।  
-- বহু স্তরের লজিক থেকে বের হতে হলে ফাংশনের ভেতরে আগে **`ফেরত/return`** দেওয়া উত্তম।
+`break;` নিকটতম enclosing `while`, `for`, `for ... of`, বা `switch` থেকে exit করে। বাংলা রূপ: `থামুন;`।
+
+## সিনট্যাক্স
+
+```bnl
+break;
+```
+
+## উদাহরণ
+
+একটি শর্ত পূরণ হলে loop থেকে তাড়াতাড়ি বের হোন:
+
+```bnl
+for (var n of [1, 2, 3, 4, 5]) {
+    if (n == 3) { break; }
+    print(n);
+}
+// 1
+// 2
+```
+
+একটি `switch` case থেকে explicit exit (বিরল — case body স্বাভাবিকভাবেই শেষ হয়):
+
+```bnl
+switch (status) {
+    case "ready": {
+        do_work();
+        break;          // ঐচ্ছিক
+    }
+    default: { print("not ready"); }
+}
+```
+
+## Nested loops
+
+`break` শুধু **সবচেয়ে ভেতরের** enclosing loop বা switch থেকে exit করে:
+
+```bnl
+for (var i of [1, 2, 3]) {
+    for (var j of [10, 20, 30]) {
+        if (j == 20) { break; }   // inner for-of থেকে exit, outer নয়
+        print(i, j);
+    }
+}
+```
+
+মাল্টি-লেভেল exit-এর জন্য outer loop-এর condition-এ একটি sentinel ভ্যারিয়েবল ব্যবহার করুন।
+
+## বাংলা রূপ
+
+```bnl
+যতক্ষণ (i < 10) {
+    যদি (i == 5) { থামুন; }
+    print(i);
+    i = i + 1;
+}
+```
+
+## আরও দেখুন
+- [`continue`](/bn/docs/v1.0.0/keywords/continue-keyword) — exit না করে পরের iteration-এ skip।
+- [`switch`](/bn/docs/v1.0.0/keywords/switch-case-keyword)।
 </I18nBangla>
-
-

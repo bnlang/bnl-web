@@ -1,0 +1,125 @@
+---
+title: request module
+description: HTTP/HTTPS client — get/post/put/etc, file upload/download, instances, middleware, connection pooling.
+bnTitle: request মডিউল
+bnDescription: HTTP/HTTPS ক্লায়েন্ট।
+---
+
+# <I18nEnglish>`request` module</I18nEnglish>
+# <I18nBangla>`request` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Axios-style HTTP client. Verb methods, an `axios.create()`-style instance constructor, before/after hooks, JSON/form auto-encoding, file upload/download helpers, and a connection pool for keep-alive.
+
+```bnl
+import "request" as req;
+
+req.get("https://api.example.com/users/1", function (err, resp) {
+    if (err != null) { print("err:", err); return; }
+    print(resp.status, resp.body);
+});
+
+req.post("https://api.example.com/users",
+    { json: { name: "Alice" } },
+    function (err, resp) { /* ... */ });
+```
+
+## Verb shortcuts
+
+| Function | Description |
+|---|---|
+| `req.get(url, cb)` | `cb(err, resp)`. |
+| `req.head(url, cb)` | |
+| `req.delete(url, cb)` | |
+| `req.post(url, data, cb)` | `data` can be a string, map (auto-JSON), or `{json}`/`{form}`/`{file}` shape. |
+| `req.put(url, data, cb)` | |
+| `req.patch(url, data, cb)` | |
+| `req.request(opts, cb)` | Full options form: `{url, method, headers, body, timeout, ...}`. |
+| `req.post_form(url, fields, cb)` | URL-encoded form body. |
+
+## Instances
+
+| Function | Description |
+|---|---|
+| `req.create(defaults)` → instance | Bind a base URL, default headers, timeout, etc. Has `.get`, `.post`, … same as the module. |
+| `req.before(fn)` / `req.after(fn)` | Hooks on the default instance. `before(opts) → opts`; `after(resp) → resp`. |
+
+## File transfer
+
+| Function | Description |
+|---|---|
+| `req.download(url, dest, cb)` | Stream `url` to file `dest`. |
+| `req.download_with(opts, cb)` | `opts.url`, `opts.dest`, plus headers, query, etc. |
+| `req.upload(url, file_path, cb)` | POST file as multipart. |
+| `req.upload_with(opts, cb)` | `opts.url`, `opts.file`, `opts.fields`, etc. |
+
+## Connection pool
+
+`request` keeps a keep-alive pool per `scheme://host:port`. Call `req.shutdown()` at process end to drain it cleanly.
+
+## Response object
+
+`resp` exposes: `status`, `headers` (lowercased keys), `body`, plus parsed helpers (`resp.json()` when content-type is JSON).
+
+## See also
+- [`web`](/en/docs/v1.0.0/modules/web-module) — the server side.
+- [`multipart`](/en/docs/v1.0.0/modules/multipart-module) — what `upload` builds under the hood.
+</I18nEnglish>
+
+<I18nBangla>
+Axios-স্টাইল HTTP client। Verb method, instance constructor, before/after hook, JSON/form auto-encoding, ফাইল আপলোড/ডাউনলোড, keep-alive connection pool।
+
+```bnl
+import "request" as req;
+
+req.get("https://api.example.com/users/1", function (err, resp) {
+    if (err != null) { print("err:", err); return; }
+    print(resp.status, resp.body);
+});
+
+req.post("https://api.example.com/users",
+    { json: { name: "Alice" } },
+    function (err, resp) { /* ... */ });
+```
+
+## Verb shortcut
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `req.get(url, cb)` | `cb(err, resp)`। |
+| `req.head(url, cb)` | |
+| `req.delete(url, cb)` | |
+| `req.post(url, data, cb)` | `data` = string / map (auto-JSON) / `{json}` / `{form}` / `{file}`। |
+| `req.put(url, data, cb)`, `req.patch(url, data, cb)` | |
+| `req.request(opts, cb)` | পূর্ণ option ফর্ম। |
+| `req.post_form(url, fields, cb)` | URL-encoded form। |
+
+## Instances
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `req.create(defaults)` → instance | Base URL, ডিফল্ট header, timeout ইত্যাদি। |
+| `req.before(fn)` / `req.after(fn)` | ডিফল্ট instance-এ hook। |
+
+## ফাইল ট্রান্সফার
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `req.download(url, dest, cb)` | ফাইলে stream। |
+| `req.download_with(opts, cb)` | `opts.url`, `opts.dest`, headers, query ইত্যাদি। |
+| `req.upload(url, file_path, cb)` | Multipart POST। |
+| `req.upload_with(opts, cb)` | `opts.url`, `opts.file`, `opts.fields` ইত্যাদি। |
+
+## Connection pool
+
+`request` `scheme://host:port` প্রতি keep-alive pool রাখে। প্রসেস শেষে clean drain-এর জন্য `req.shutdown()` কল করুন।
+
+## Response object
+
+`resp` এক্সপোজ করে: `status`, `headers` (lowercased), `body`, এবং parsed helper।
+
+## আরও দেখুন
+- [`web`](/bn/docs/v1.0.0/modules/web-module)।
+- [`multipart`](/bn/docs/v1.0.0/modules/multipart-module)।
+</I18nBangla>

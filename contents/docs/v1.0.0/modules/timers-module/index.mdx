@@ -1,0 +1,68 @@
+---
+title: timers module
+description: Schedule callbacks to fire later — once after a delay, or repeatedly on an interval.
+bnTitle: timers মডিউল
+bnDescription: কলব্যাক শিডিউল — ডিলের পরে একবার, বা ইন্টারভ্যালে বারবার।
+---
+
+# <I18nEnglish>`timers` module</I18nEnglish>
+# <I18nBangla>`timers` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Two functions, both drive callbacks from the event loop. There is no `setTimeout` / `setImmediate` / `setInterval` — use these.
+
+```bnl
+import "timers" as timers;
+
+timers.set(1000, function () { print("one second later"); });
+
+var cancel = timers.interval(500, function () { print("every half second"); });
+// later:  cancel();
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `timers.set(delay_ms, fn)` | Run `fn` **once**, `delay_ms` from now. Pass `0` to defer to the next tick. |
+| `timers.interval(delay_ms, fn)` → cancel-fn | Run `fn` **every** `delay_ms`. Returns a function — call it to stop. |
+
+## Notes
+
+- `timers.set(0, fn)` is the bnl equivalent of Node's `setImmediate` and `process.nextTick`.
+- Hold on to the cancel handle returned by `interval` — otherwise the timer keeps your process alive forever.
+- Callbacks share the event loop with every other in-flight task. Keep them short.
+
+## See also
+- [The Bnlang event loop](/en/learn/asynchronous-work/the-bnlang-event-loop) — how callbacks get scheduled.
+</I18nEnglish>
+
+<I18nBangla>
+দু'টি ফাংশন — দু'টোই ইভেন্ট লুপ থেকে কলব্যাক চালায়। কোনো `setTimeout` / `setImmediate` / `setInterval` নেই — এগুলো ব্যবহার করুন।
+
+```bnl
+import "timers" as timers;
+
+timers.set(1000, function () { print("one second later"); });
+
+var cancel = timers.interval(500, function () { print("every half second"); });
+// পরে:  cancel();
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `timers.set(delay_ms, fn)` | `delay_ms` পরে `fn` **একবার** চালান। `0` দিলে পরের tick-এ defer হয়। |
+| `timers.interval(delay_ms, fn)` → cancel-fn | প্রতি `delay_ms`-এ `fn` চালান। একটি ফাংশন ফেরত দেয় — থামাতে কল করুন। |
+
+## নোট
+
+- `timers.set(0, fn)` = Node-এর `setImmediate` / `process.nextTick`।
+- `interval`-এর cancel handle ধরে রাখুন — না করলে টাইমার আপনার প্রসেস চিরকাল জীবিত রাখবে।
+- কলব্যাক ইভেন্ট লুপ শেয়ার করে। ছোট রাখুন।
+
+## আরও দেখুন
+- [Bnlang ইভেন্ট লুপ](/bn/learn/asynchronous-work/the-bnlang-event-loop)।
+</I18nBangla>

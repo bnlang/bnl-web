@@ -1,8 +1,8 @@
 ---
 title: Writing Files in Bnlang
-description: Learn how to write files in Bnlang using synchronous and asynchronous methods with examples.
+description: Write files in Bnlang — sync, async, append, and streaming for very large outputs.
 bnTitle: Bnlang এ ফাইল লেখা
-bnDescription: Bnlang এ সিঙ্ক্রোনাস এবং অ্যাসিঙ্ক্রোনাস পদ্ধতিতে ফাইল লেখা শিখুন উদাহরণসহ।
+bnDescription: Bnlang-এ ফাইল লেখা — sync, async, append, এবং বড় আউটপুটের জন্য স্ট্রিমিং।
 ---
 
 # <I18nEnglish>Writing Files in Bnlang</I18nEnglish>
@@ -10,115 +10,133 @@ bnDescription: Bnlang এ সিঙ্ক্রোনাস এবং অ্য�
 
 
 <I18nEnglish>
-Writing files is a common task when working with file systems.  
-Bnlang provides both **synchronous** and **asynchronous** methods to write data into files.  
-Synchronous methods block program execution until the operation is finished, while asynchronous methods allow the program to continue running in the background.
+The `io` module mirrors its read API on the write side:
+
+- `io.write_file(path, data)` — synchronous; overwrites the file.
+- `io.write_file_async(path, data, cb)` — asynchronous; callback fires when the write is durable.
+- `io.append_file(path, data)` — synchronous append (creates the file if missing).
+- `io.open_write(path)` — streaming; push chunks one at a time.
 </I18nEnglish>
 
 <I18nBangla>
-ফাইল লেখা ফাইল সিস্টেম নিয়ে কাজ করার সময় একটি সাধারণ কাজ।  
-Bnlang ফাইল লেখার জন্য **সিঙ্ক্রোনাস** এবং **অ্যাসিঙ্ক্রোনাস** উভয় পদ্ধতি প্রদান করে।  
-সিঙ্ক্রোনাস মেথডে অপারেশন শেষ না হওয়া পর্যন্ত প্রোগ্রাম ব্লক থাকে, আর অ্যাসিঙ্ক্রোনাস মেথডে প্রোগ্রাম ব্যাকগ্রাউন্ডে চালু থাকে।
+`io` মডিউল রিড API-কে রাইট সাইডে মিরর করে:
+
+- `io.write_file(path, data)` — সিঙ্ক্রোনাস; ফাইল ওভাররাইট করে।
+- `io.write_file_async(path, data, cb)` — অ্যাসিঙ্ক্রোনাস; রাইট ডিউরেবল হলে কলব্যাক ফায়ার হয়।
+- `io.append_file(path, data)` — সিঙ্ক্রোনাস অ্যাপেন্ড (ফাইল না থাকলে তৈরি করে)।
+- `io.open_write(path)` — স্ট্রিমিং; এক একটা চাঙ্ক পুশ করুন।
 </I18nBangla>
 
 
 
 ---
 
-## Example: Synchronous Write
+## Synchronous Write
 
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
+<I18nEnglish>
+The simplest form. Blocks until the bytes are on disk.
+</I18nEnglish>
 
-  <TabsContent value="english">
-
-```js
-const fs = require("fs");
-
-fs.writeFileSync("example.txt", "Hello from Bnlang!");
-console.log("File written successfully!");
-```
-  </TabsContent>
-
-  <TabsContent value="bangla">
+<I18nBangla>
+সরলতম ফর্ম। বাইটগুলো ডিস্কে না যাওয়া পর্যন্ত ব্লক করে।
+</I18nBangla>
 
 ```bnl
-const fs = require("fs");
+import "io" as io;
 
-fs.writeFileSync("example.txt", "Bnlang থেকে হ্যালো!");
-কনসোল.লগ("ফাইল সফলভাবে লেখা হয়েছে!");
+io.write_file("greeting.txt", "Hello from Bnlang!");
+print("written");
 ```
-  </TabsContent>
-
-  
-</Tabs>
 
 ---
 
-## Example: Asynchronous Write
+## Asynchronous Write
 
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
+<I18nEnglish>
+Returns immediately. The callback fires with an error argument (`null` on success) once the data is durable.
+</I18nEnglish>
 
-  <TabsContent value="english">
-
-```js
-const fs = require("fs");
-
-fs.writeFile("example.txt", "Hello World!", (err) => {
-  if (err) {
-    console.error("Error writing file:", err);
-    return;
-  }
-  console.log("File written asynchronously!");
-});
-```
-  </TabsContent>
-
-  <TabsContent value="bangla">
+<I18nBangla>
+সাথে সাথে ফেরত আসে। ডাটা ডিউরেবল হলে কলব্যাক একটি এরর আর্গুমেন্ট-সহ ফায়ার হয় (সফল হলে `null`)।
+</I18nBangla>
 
 ```bnl
-const fs = require("fs");
+import "io" as io;
 
-fs.writeFile("example.txt", "হ্যালো বিশ্ব!", (ত্রুটি) => {
-  যদি (ত্রুটি) {
-    কনসোল.ত্রুটি("ফাইল লেখার সমস্যা:", ত্রুটি);
-    ফেরত;
-  }
-  কনসোল.লগ("অ্যাসিঙ্ক্রোনাসভাবে ফাইল লেখা হয়েছে!");
+io.write_file_async("greeting.txt", "Hello, async!", function (err) {
+    if (err != null) {
+        print("write failed:", err);
+        return;
+    }
+    print("written");
+});
+print("scheduled");
+```
+
+---
+
+## Appending
+
+<I18nEnglish>
+For log files and accumulating output, use `io.append_file` — it doesn't truncate, and creates the file if needed.
+</I18nEnglish>
+
+<I18nBangla>
+লগ ফাইল ও জমা হওয়া আউটপুটের জন্য `io.append_file` ব্যবহার করুন — এটি ট্রাঙ্কেট করে না, প্রয়োজন হলে ফাইল তৈরি করে।
+</I18nBangla>
+
+```bnl
+import "io" as io;
+
+io.append_file("app.log", "started up\n");
+io.append_file("app.log", "ready\n");
+```
+
+---
+
+## Streaming Large Outputs
+
+<I18nEnglish>
+When the output doesn't fit in memory (or you don't want to buffer it), open a write stream and push chunks.
+Don't forget to `close()` the stream — that's what flushes the final bytes to disk.
+</I18nEnglish>
+
+<I18nBangla>
+যখন আউটপুট মেমরিতে আঁটে না (অথবা আপনি বাফার করতে চান না), একটি রাইট স্ট্রিম খুলুন এবং চাঙ্ক পুশ করুন।
+স্ট্রিম `close()` করতে ভুলবেন না — এটাই শেষ বাইটগুলো ডিস্কে ফ্লাশ করে।
+</I18nBangla>
+
+```bnl
+import "io" as io;
+
+var sink = io.open_write("report.csv");
+
+sink.write("id,name\n",   function (err) { /* ... */ });
+sink.write("1,Alice\n",   function (err) { /* ... */ });
+sink.write("2,Bob\n",     function (err) { /* ... */ });
+
+sink.close(function (err) {
+    if (err != null) { print("close failed:", err); return; }
+    print("report written");
 });
 ```
-  </TabsContent>
-
-  
-</Tabs>
 
 ---
 
 ## Best Practices
 
 <I18nEnglish>
-- Use asynchronous writes in production for better performance.  
-- Synchronous writes are suitable for small scripts or setup tasks.  
-- Always handle errors when writing files.  
-- Use proper encoding like `utf-8` for text files.  
-- Be careful when overwriting files; check before writing if necessary.
+- Use the async variant in long-running programs; reach for sync only in scripts and one-shots.
+- Avoid mixing concurrent `write_file` calls to the same path — they overwrite each other.
+- For streaming writes, always call `close()` and use its callback to confirm the data is durable.
+- Be careful with overwrite: `write_file` truncates without asking. Check with `io.exists` first if that's a concern.
 </I18nEnglish>
 
 <I18nBangla>
-- প্রোডাকশনে ভালো পারফরম্যান্সের জন্য অ্যাসিঙ্ক্রোনাস মেথড ব্যবহার করুন।  
-- ছোট স্ক্রিপ্ট বা সেটআপ টাস্কের জন্য সিঙ্ক্রোনাস মেথড উপযুক্ত।  
-- ফাইল লেখার সময় সর্বদা ত্রুটি হ্যান্ডল করুন।  
-- টেক্সট ফাইলের জন্য সঠিক এনকোডিং (যেমন `utf-8`) ব্যবহার করুন।  
-- ফাইল ওভাররাইট করার সময় সতর্ক থাকুন; প্রয়োজন হলে আগে যাচাই করুন।
+- দীর্ঘ-চলা প্রোগ্রামে async ভ্যারিয়েন্ট ব্যবহার করুন; sync শুধু স্ক্রিপ্ট ও একবারের কাজে।
+- একই পাথে কনকারেন্ট `write_file` কল মিশাবেন না — এরা একে অপরকে ওভাররাইট করে।
+- স্ট্রিমিং রাইটে সবসময় `close()` কল করুন, এবং ডাটা ডিউরেবল কিনা কনফার্ম করতে এর কলব্যাক ব্যবহার করুন।
+- ওভাররাইটে সতর্ক থাকুন: `write_file` জিজ্ঞেস না করেই ট্রাঙ্কেট করে। এটা চিন্তার বিষয় হলে আগে `io.exists` দিয়ে চেক করুন।
 </I18nBangla>
 
 

@@ -63,72 +63,72 @@
     },
     "how": {
         "title": "How it works (why these choices)",
-        "lead": "We choose a pragmatic stack for Bangladesh today: fast iteration on a modern V8 runtime, clean interop with C++ for performance-critical paths, and robust libraries like libuv, OpenSSL, llhttp, and zlib—so schools and companies can adopt incrementally.",
+        "lead": "Bnlang is a native, tree-walking interpreter written in modern C++. It embeds libuv for async I/O and pairs with proven libraries — OpenSSL, llhttp, zlib, SQLite, libpq, libmariadb, mongo-c-driver — so schools and companies get one self-contained binary that just runs on Windows, Linux, and macOS.",
         "frontend": {
             "title": "Frontend: Lexer, Parser, Checker",
             "points": [
-                "Trilingual tokens normalized (Bangla/English) → language-agnostic IR.",
-                "Static checks for scope, arity, and optional type hints.",
-                "Formatter ensures deterministic layout across scripts."
+                "Bilingual tokens normalized (Bangla/English) into a single AST.",
+                "Static checks for scope and arity; bilingual diagnostics.",
+                "UTF-8 throughout — Bangla identifiers and keywords are first-class."
             ]
         },
         "backend": {
-            "title": "Backend: V8 Runtime",
+            "title": "Backend: Native C++ Interpreter",
             "points": [
-                "IR → JavaScript transpilation; JavaScript executes on the Google V8 Engine.",
-                "Module resolution via BPM + lockfiles for reproducible builds.",
-                "Source maps and readable diagnostics for first-class debugging."
+                "Tree-walking evaluator implemented directly in C++ — no virtual machine, no transpilation.",
+                "Values, closures, classes, and modules are native C++ types with `shared_ptr` lifetimes.",
+                "libuv event loop drives async callbacks, timers, networking, and file I/O."
             ]
         },
         "native": {
-            "title": "Native Path: C++",
+            "title": "Native Stdlib & FFI: C++",
             "points": [
-                "Performance-critical functions (crypto, parsing, image ops) in C++.",
-                "Stable ABI boundary with prebuilt binaries per platform.",
-                "FFI helpers to call system libraries safely."
+                "Built-in modules (HTTP server/client, WebSocket, templates, three DB drivers, crypto, JSON, …) live in C++ for speed.",
+                "Distributable as `bnl.exe` + `bnl_core.dll`/`.so`/`.dylib`, or a single static binary.",
+                "FFI plugin loader — drop a `.dll`/`.so`/`.dylib` next to a `bnl.json` to extend the runtime without recompiling bnl."
             ]
         },
         "runtimeStack": {
             "title": "Runtime stack (under the hood)",
             "items": [
                 {
-                    "name": "V8",
-                    "desc": "high-performance JavaScript engine for executing transpiled code"
-                },
-                {
-                    "name": "C++",
-                    "desc": "core runtime and native extensions"
+                    "name": "C++20",
+                    "desc": "Core interpreter, value model, embedding API, and every built-in native module."
                 },
                 {
                     "name": "libuv",
-                    "desc": "event loop, async I/O, cross-platform primitives"
+                    "desc": "Event loop, async I/O, and cross-platform primitives that drive networking, filesystem, timers, and child processes."
                 },
                 {
                     "name": "OpenSSL",
-                    "desc": "TLS and cryptography"
+                    "desc": "TLS for HTTPS / WebSocket-over-TLS, hashing, HMAC, and base64/hex codecs."
                 },
                 {
                     "name": "llhttp",
-                    "desc": "fast, secure HTTP parsing"
+                    "desc": "Fast, security-audited HTTP/1.1 parser used by the built-in web server and client."
+                },
+                {
+                    "name": "SQLite / libpq / libmariadb / mongo-c-driver",
+                    "desc": "Built-in database drivers — embedded SQLite plus first-class clients for PostgreSQL, MySQL/MariaDB, and MongoDB."
                 },
                 {
                     "name": "zlib",
-                    "desc": "compression and decompression"
+                    "desc": "gzip / deflate for HTTP compression and general data processing."
                 }
             ]
         },
         "pillars": [
             {
                 "title": "Packages & Stdlib (why)",
-                "body": "BPM provides integrity checks and semantic versions. The standard library covers I/O, HTTP, crypto, and text utilities with identical APIs across three surface forms—so lessons don’t fragment."
+                "body": "BPM provides integrity checks and semantic versions. The standard library covers I/O, HTTP/WebSocket, templates, three databases, crypto, and text utilities — bilingual where it matters, identical behavior on every OS."
             },
             {
                 "title": "Tooling (why)",
-                "body": "Formatter, test runner, docs generator, and scaffolding ship with the language. Upgrades stay predictable in classrooms and CI because tools evolve together."
+                "body": "REPL, test runner, formatter, and scaffolding ship with the language. Upgrades stay predictable in classrooms and CI because tools evolve together."
             },
             {
                 "title": "Interop (why not a walled garden)",
-                "body": "Leverage existing C/C++ libraries; export clean interfaces. Transpile to JavaScript and run on V8 for broad deployment."
+                "body": "Embed `bnl_core` directly into a C++ host application, or load native plugins at runtime via the FFI loader. No transpilation step — the interpreter is the runtime."
             }
         ]
     },
@@ -243,28 +243,28 @@
     },
     "runtimeStack": [
       {
-        "name": "C++",
-        "desc": "Core of the Bnlang runtime, written in modern C++ for speed and portability. It powers native extensions, FFI bridges, and low-level system integration."
-      },
-      {
-        "name": "V8",
-        "desc": "Google’s high-performance JavaScript engine. Bnlang transpiles to JavaScript and runs on V8, gaining JIT compilation, fast GC, and proven production stability."
+        "name": "C++20",
+        "desc": "The whole Bnlang runtime is modern C++ — lexer, parser, tree-walking interpreter, value model, and every built-in native module. No VM, no transpilation step."
       },
       {
         "name": "libuv",
-        "desc": "Cross-platform async I/O library used heavily in Bnlang for networking, filesystem access, timers, event loops, and process management."
+        "desc": "Cross-platform async I/O for networking, filesystem, timers, event loop, and child processes — a battle-tested foundation for high-throughput, non-blocking workloads."
       },
       {
         "name": "OpenSSL",
-        "desc": "Provides TLS, SSL, and cryptography. Bnlang relies on it for secure communications, encryption, hashing, and certificate handling."
+        "desc": "TLS for HTTPS and WebSocket-over-TLS, plus the building blocks of the crypto module (hashing, HMAC, base64/hex codecs, secure random)."
       },
       {
         "name": "llhttp",
-        "desc": "Fast, lightweight HTTP parser in C. Integrated into Bnlang to handle HTTP traffic efficiently and securely for servers and clients."
+        "desc": "Fast, security-audited HTTP/1.1 parser. Powers the built-in HTTP request + response parsers used by the web server and client."
+      },
+      {
+        "name": "SQLite · libpq · libmariadb · mongo-c-driver",
+        "desc": "Database drivers compiled in. SQLite for embedded use; libpq for PostgreSQL; libmariadb (LGPL) for MySQL/MariaDB; mongo-c-driver for MongoDB — all behind a uniform `import \"pg\"` / `import \"mysql\"` / etc. API."
       },
       {
         "name": "zlib",
-        "desc": "Battle-tested compression library. Used for gzip/deflate support, package compression in BPM, and general data processing."
+        "desc": "gzip / deflate / raw inflate. Used for HTTP content-encoding and general data processing."
       }
     ]
 }

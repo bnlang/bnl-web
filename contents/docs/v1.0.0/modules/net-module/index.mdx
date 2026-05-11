@@ -1,124 +1,75 @@
 ---
 title: net module
-description: Networking APIs for creating TCP servers and clients, handling sockets, data events, connection lifecycle, and stream-based communication.
+description: TCP networking — connect to and listen on TCP sockets.
 bnTitle: net মডিউল
-bnDescription: নেটওয়ার্কিং API — TCP সার্ভার ও ক্লায়েন্ট তৈরি, সকেট হ্যান্ডলিং, ডেটা ইভেন্ট, কানেকশন লাইফসাইকেল ও স্ট্রিম কমিউনিকেশন।
+bnDescription: TCP নেটওয়ার্কিং।
 ---
 
-# <I18nEnglish>net</I18nEnglish>
-# <I18nBangla>net</I18nBangla>
+# <I18nEnglish>`net` module</I18nEnglish>
+# <I18nBangla>`net` মডিউল</I18nBangla>
 
 
 <I18nEnglish>
-The **`net`** module provides an asynchronous network API for creating TCP servers and clients. Communication uses **sockets** which are stream-based.
-</I18nEnglish>
-
-<I18nBangla>
-**`net`** মডিউল অ্যাসিঙ্ক নেটওয়ার্ক API দেয়, TCP সার্ভার ও ক্লায়েন্ট তৈরি করতে। যোগাযোগ হয় **সকেট** দিয়ে, যা স্ট্রিম-ভিত্তিক।
-</I18nBangla>
-
-
-
----
-
-## API Surface
-
-<I18nEnglish>
-
-### Server
-- **`net.createServer([options], [connectionListener])`** — create a TCP server.
-- **server.listen(port[, host], callback)** — start listening.
-- **server.close([callback])** — stop server.
-- **Events**:
-  - **`'connection'`**: new client socket.
-  - **`'listening'`**, **`'close'`**, **`'error'`**.
-
-### Socket (net.Socket)
-- Duplex stream representing connection.
-- **`socket.connect(port[, host], [callback])`** — initiate client connection.
-- **`socket.write(data)`** — send data.
-- **`socket.end([data])`** — half-close, optionally send final data.
-- **Properties**: `socket.remoteAddress`, `socket.remotePort`, `socket.localAddress`, `socket.localPort`.
-- **Events**:
-  - **`'data'`**: incoming data chunk.
-  - **`'end'`**: remote closed.
-  - **`'error'`**: error occurred.
-  - **`'close'`**: fully closed.
-
-</I18nEnglish>
-
-<I18nBangla>
-### সার্ভার
-- **`createServer`**, **`listen`**, **`close`** — TCP সার্ভার তৈরি ও চালু/বন্ধ।
-- ইভেন্ট: **`connection`**, **`listening`**, **`close`**, **`error`**।
-
-### সকেট
-- কানেকশনকে রিপ্রেজেন্ট করে।
-- মেথড: **`connect`**, **`write`**, **`end`**।
-- প্রপার্টি: `remoteAddress`, `remotePort` ইত্যাদি।
-- ইভেন্ট: **`data`**, **`end`**, **`error`**, **`close`**।
-</I18nBangla>
-
-
-
----
-
-## Examples (English only)
-
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="english">
+Plain TCP. For TLS use [`tls`](/en/docs/v1.0.0/modules/tls-module); for HTTP use [`web`](/en/docs/v1.0.0/modules/web-module) / [`request`](/en/docs/v1.0.0/modules/request-module) which sit on top of these.
 
 ```bnl
-const net = require("net");
+import "net" as net;
 
-// Simple echo server
-const server = net.createServer((socket) => {
-  console.log("Client connected");
-
-  socket.on("data", (data) => {
-    console.log("Received:", data.toString());
-    socket.write("Echo: " + data);
-  });
-
-  socket.on("end", () => console.log("Client disconnected"));
-});
-
-server.listen(3000, () => console.log("Server listening on port 3000"));
-
-// Client example
-const client = net.createConnection({ port: 3000 }, () => {
-  console.log("Connected to server");
-  client.write("Hello server!");
-});
-
-client.on("data", (data) => {
-  console.log("From server:", data.toString());
-  client.end();
+var server = net.tcp_listen(3000, function (conn) {
+    conn.on_data(function (chunk) { conn.write("echo: " + chunk); });
+    conn.on_end (function ()      { conn.close(); });
 });
 ```
-  </TabsContent>
-</Tabs>
 
----
+## API
 
-## Notes
+| Function | Description |
+|---|---|
+| `net.tcp_listen(port, on_conn)` → server | Listen on `port`; `on_conn(conn)` fires for each accepted connection. Returns `{port, close()}`. |
+| `net.tcp_connect(host, port, on_conn)` | Dial out. `on_conn(err, conn)` fires once connected. |
+| `net.resolve(host, cb)` | DNS A/AAAA lookup. `cb(err, addr)`. |
 
-<I18nEnglish>
-- TCP is stream-oriented; use `'data'` events to accumulate or parse messages.  
-- Always handle **errors** on both server and client sockets.  
-- The server can handle multiple concurrent clients.  
-- Use **`end`** to close a socket gracefully, **`destroy`** to force.  
+## Connection object
+
+`conn` exposes:
+- `conn.write(data, cb?)` — push bytes.
+- `conn.on_data(fn)` — `fn(chunk)` for each incoming chunk.
+- `conn.on_end(fn)` — `fn()` when peer closes its side.
+- `conn.close()` — half-close from your side.
+
+## See also
+- [`tls`](/en/docs/v1.0.0/modules/tls-module) — same shape, with TLS.
+- [`dns`](/en/docs/v1.0.0/modules/dns-module) — when you need lookup-all or reverse.
 </I18nEnglish>
 
 <I18nBangla>
-- TCP স্ট্রিম-ভিত্তিক; `'data'` ইভেন্ট দিয়ে ডেটা জমান বা পার্স করুন।  
-- সার্ভার ও ক্লায়েন্ট দুই দিকেই **ত্রুটি** হ্যান্ডল করুন।  
-- সার্ভার একাধিক ক্লায়েন্ট একসাথে হ্যান্ডল করতে পারে।  
-- সকেট সুন্দরভাবে বন্ধ করতে **`end`**, জোর করে বন্ধে **`destroy`**।  
+সাধারণ TCP। TLS-এর জন্য [`tls`](/bn/docs/v1.0.0/modules/tls-module); HTTP-এর জন্য [`web`](/bn/docs/v1.0.0/modules/web-module) / [`request`](/bn/docs/v1.0.0/modules/request-module)।
+
+```bnl
+import "net" as net;
+
+var server = net.tcp_listen(3000, function (conn) {
+    conn.on_data(function (chunk) { conn.write("echo: " + chunk); });
+    conn.on_end (function ()      { conn.close(); });
+});
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `net.tcp_listen(port, on_conn)` → server | `port`-এ listen। `on_conn(conn)` প্রতিটি accepted connection-এ। `{port, close()}` ফেরত। |
+| `net.tcp_connect(host, port, on_conn)` | Dial out। `on_conn(err, conn)`। |
+| `net.resolve(host, cb)` | DNS A/AAAA lookup। `cb(err, addr)`। |
+
+## Connection object
+
+- `conn.write(data, cb?)`
+- `conn.on_data(fn)` — incoming chunk প্রতি `fn(chunk)`।
+- `conn.on_end(fn)` — peer close করলে `fn()`।
+- `conn.close()` — half-close।
+
+## আরও দেখুন
+- [`tls`](/bn/docs/v1.0.0/modules/tls-module)।
+- [`dns`](/bn/docs/v1.0.0/modules/dns-module)।
 </I18nBangla>
-
-

@@ -1,0 +1,66 @@
+---
+title: log module
+description: Leveled logging — debug, info, warn, error — with a configurable formatter and sink.
+bnTitle: log মডিউল
+bnDescription: লেভেলভিত্তিক লগিং, কনফিগারেবল formatter ও sink সহ।
+---
+
+# <I18nEnglish>`log` module</I18nEnglish>
+# <I18nBangla>`log` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+A small leveled logger. Four levels (debug, info, warn, error), a current level filter, and a swappable formatter and sink for structured output or redirecting to a file.
+
+```bnl
+import "log" as log;
+
+log.set_level("info");
+log.info("server starting");
+log.warn("port already in use, falling back");
+log.error("could not bind");
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `log.set_level(level)` | Lowest level emitted. One of `"debug"`, `"info"`, `"warn"`, `"error"`. |
+| `log.set_formatter(fn)` | `fn(level_name, msg)` → string. Default prepends a timestamp + level. |
+| `log.set_sink(fn)` | `fn(line)` — receives the formatted line. Default is `print`. |
+| `log.debug(msg)` | |
+| `log.info(msg)` | |
+| `log.warn(msg)` | |
+| `log.error(msg)` | |
+
+## See also
+- [`dotenv`](/en/docs/v1.0.0/modules/dotenv-module) — common pattern: read `LOG_LEVEL` from `.env` and feed to `log.set_level`.
+</I18nEnglish>
+
+<I18nBangla>
+একটি ছোট leveled logger। চারটি লেভেল (debug, info, warn, error), কারেন্ট লেভেল ফিল্টার, এবং structured আউটপুট বা ফাইলে রিডাইরেক্টের জন্য swappable formatter ও sink।
+
+```bnl
+import "log" as log;
+
+log.set_level("info");
+log.info("server starting");
+log.warn("port already in use, falling back");
+log.error("could not bind");
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `log.set_level(level)` | সর্বনিম্ন emit লেভেল। `"debug"`, `"info"`, `"warn"`, `"error"`। |
+| `log.set_formatter(fn)` | `fn(level_name, msg)` → string। ডিফল্ট timestamp + level prepend। |
+| `log.set_sink(fn)` | `fn(line)` — formatted line পায়। ডিফল্ট `print`। |
+| `log.debug(msg)` | |
+| `log.info(msg)` | |
+| `log.warn(msg)` | |
+| `log.error(msg)` | |
+
+## আরও দেখুন
+- [`dotenv`](/bn/docs/v1.0.0/modules/dotenv-module) — `.env` থেকে `LOG_LEVEL` পড়ে `log.set_level` দিন।
+</I18nBangla>

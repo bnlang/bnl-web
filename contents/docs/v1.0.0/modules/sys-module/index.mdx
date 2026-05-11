@@ -1,0 +1,66 @@
+---
+title: sys module
+description: Process info — argv, environment variables, working directory, and exit.
+bnTitle: sys মডিউল
+bnDescription: প্রসেস তথ্য — argv, environment variables, working directory, exit।
+---
+
+# <I18nEnglish>`sys` module</I18nEnglish>
+# <I18nBangla>`sys` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Process-level information: command-line arguments, environment variables, current directory, and a way to exit with a status code.
+
+```bnl
+import "sys" as sys;
+
+print("argv count:", sys.argc());
+print("user:",       sys.env("USER"));
+print("cwd:",        sys.cwd());
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `sys.argc()` → number | Count of arguments passed to the script (not counting `bnl` itself or the script path). |
+| `sys.arg(i)` → string | The *i*-th argument (0-indexed). Throws on out-of-range. |
+| `sys.env(name)` → string \| null | Look up one environment variable. |
+| `sys.envs()` → map | Snapshot of every environment variable as a `{KEY: value}` map. |
+| `sys.cwd()` → string | The process's current working directory. |
+| `sys.exit(code)` | Exit the process with the given status code. |
+| `sys.platform` | `"windows"`, `"linux"`, or `"macos"`. |
+
+## See also
+- [`cli`](/en/docs/v1.0.0/modules/cli-module) — declarative CLI argument parsing on top of `sys.argc`/`sys.arg`.
+- [`dotenv`](/en/docs/v1.0.0/modules/dotenv-module) — read `.env` files into env-style maps.
+</I18nEnglish>
+
+<I18nBangla>
+প্রসেস-লেভেল তথ্য: কমান্ড-লাইন আর্গুমেন্ট, environment variables, কারেন্ট ডিরেক্টরি, এবং একটি status code নিয়ে exit করার উপায়।
+
+```bnl
+import "sys" as sys;
+
+print("argv count:", sys.argc());
+print("user:",       sys.env("USER"));
+print("cwd:",        sys.cwd());
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `sys.argc()` → number | স্ক্রিপ্টে পাঠানো আর্গুমেন্টের সংখ্যা। |
+| `sys.arg(i)` → string | *i*-তম আর্গুমেন্ট (0-ইনডেক্সড)। |
+| `sys.env(name)` → string \| null | একটি environment variable পড়ুন। |
+| `sys.envs()` → map | সব environment variables-এর snapshot। |
+| `sys.cwd()` → string | কারেন্ট ওয়ার্কিং ডিরেক্টরি। |
+| `sys.exit(code)` | প্রদত্ত status code দিয়ে exit। |
+| `sys.platform` | `"windows"`, `"linux"`, বা `"macos"`। |
+
+## আরও দেখুন
+- [`cli`](/bn/docs/v1.0.0/modules/cli-module) — `sys.argc`/`sys.arg` এর উপর ডিক্লেয়ারেটিভ CLI পার্সিং।
+- [`dotenv`](/bn/docs/v1.0.0/modules/dotenv-module) — `.env` ফাইল env-স্টাইল ম্যাপে পড়ুন।
+</I18nBangla>

@@ -1,0 +1,195 @@
+---
+title: var keyword
+description: Declaring variables in Bnlang with `var` / `চলক`. Scope, reassignment, and shadowing.
+
+bnTitle: চলক কীওয়ার্ড
+bnDescription: Bnlang-এ `var` / `চলক` দিয়ে ভ্যারিয়েবল ডিক্লেয়ারেশন — স্কোপ, পুনঃঅ্যাসাইনমেন্ট, ছায়াদান।
+---
+
+# <I18nEnglish>`var` keyword</I18nEnglish>
+# <I18nBangla>`চলক` কীওয়ার্ড</I18nBangla>
+
+
+<I18nEnglish>
+`var` introduces a new variable in the current scope. It is Bnlang's only variable-declaration keyword — there is no `let` or `const`.
+
+The Bangla form `চলক` is exactly equivalent.
+
+## Syntax
+
+```bnl
+var <name> = <expression>;
+var <name>;              // declared, value is null
+```
+
+## Examples
+
+```bnl
+var greeting = "Hello";
+var count    = 0;
+var items    = [1, 2, 3];
+var user     = { name: "Alice" };
+
+// Without an initializer, the variable is null.
+var pending;
+print(pending);   // null
+```
+
+The Bangla form parses identically:
+
+```bnl
+চলক অভিবাদন = "হ্যালো";
+চলক গণনা   = 0;
+
+print(অভিবাদন, গণনা);   // হ্যালো 0
+```
+
+## Reassignment
+
+Variables are mutable. Assign with `=`:
+
+```bnl
+var x = 1;
+x = x + 1;
+print(x);    // 2
+```
+
+There are no compound assignment operators (`+=`, `-=`, etc.). Write the full form: `x = x + 1`.
+
+## Scope
+
+`var` declarations are scoped to the **block** they appear in (a `{ ... }` body). Lookups walk outward to the enclosing function, then to the module top level.
+
+```bnl
+var outer = "module";
+
+function demo() {
+    var outer = "function";   // shadows the module-level outer
+    if (true) {
+        var outer = "block";  // shadows the function-level outer
+        print(outer);         // "block"
+    }
+    print(outer);             // "function"
+}
+
+demo();
+print(outer);                 // "module"
+```
+
+## Closures
+
+Inner functions capture outer variables by **reference** — mutating them is visible from the closure:
+
+```bnl
+function make_counter() {
+    var n = 0;
+    return function () {
+        n = n + 1;
+        return n;
+    };
+}
+
+var c = make_counter();
+print(c());   // 1
+print(c());   // 2
+print(c());   // 3
+```
+
+## What's *not* here
+
+- **No `let` or `const`.** Use `var` for everything. If you want to communicate "this should not change," use naming conventions (`UPPER_CASE` constants are a common convention).
+- **No destructuring.** Each `var` declares exactly one name. To extract fields, do `var x = obj.x; var y = obj.y;`.
+- **No multi-declare.** `var a, b, c;` is not supported — use one statement per variable.
+</I18nEnglish>
+
+<I18nBangla>
+`var` কারেন্ট স্কোপে একটি নতুন ভ্যারিয়েবল পরিচয় করায়। এটি Bnlang-এর একমাত্র ভ্যারিয়েবল-ডিক্লেয়ারেশন কীওয়ার্ড — কোনো `let` বা `const` নেই।
+
+বাংলা রূপ `চলক` একই অর্থে কাজ করে।
+
+## সিনট্যাক্স
+
+```bnl
+var <name> = <expression>;
+var <name>;              // ডিক্লেয়ার্ড, মান null
+```
+
+## উদাহরণ
+
+```bnl
+var greeting = "Hello";
+var count    = 0;
+var items    = [1, 2, 3];
+var user     = { name: "আলিস" };
+
+// initializer ছাড়া ভ্যারিয়েবল null হয়।
+var pending;
+print(pending);   // null
+```
+
+বাংলা রূপ একই ভাবে পার্স হয়:
+
+```bnl
+চলক অভিবাদন = "হ্যালো";
+চলক গণনা   = 0;
+
+print(অভিবাদন, গণনা);   // হ্যালো 0
+```
+
+## পুনঃঅ্যাসাইনমেন্ট
+
+ভ্যারিয়েবল mutable। `=` দিয়ে অ্যাসাইন করুন:
+
+```bnl
+var x = 1;
+x = x + 1;
+print(x);    // 2
+```
+
+কোনো compound অ্যাসাইনমেন্ট অপারেটর (`+=`, `-=`, ইত্যাদি) নেই। পূর্ণ রূপ লিখুন: `x = x + 1`।
+
+## স্কোপ
+
+`var` ডিক্লেয়ারেশন যে **ব্লকে** (`{ ... }` বডি) লেখা হয়, সেখানেই স্কোপড। লুকআপ বাইরের ফাংশনে, তারপর মডিউল টপ-লেভেলে পৌঁছায়।
+
+```bnl
+var outer = "module";
+
+function demo() {
+    var outer = "function";   // মডিউল-লেভেল outer-কে shadow করে
+    if (true) {
+        var outer = "block";  // ফাংশন-লেভেল outer-কে shadow করে
+        print(outer);         // "block"
+    }
+    print(outer);             // "function"
+}
+
+demo();
+print(outer);                 // "module"
+```
+
+## ক্লোজার
+
+ইনার ফাংশন আউটার ভ্যারিয়েবল **রেফারেন্স** দিয়ে ক্যাপচার করে — মিউটেশন ক্লোজার থেকে দেখা যায়:
+
+```bnl
+function make_counter() {
+    var n = 0;
+    return function () {
+        n = n + 1;
+        return n;
+    };
+}
+
+var c = make_counter();
+print(c());   // 1
+print(c());   // 2
+print(c());   // 3
+```
+
+## যা *এখানে নেই*
+
+- **কোনো `let` বা `const` নেই।** সবকিছুর জন্য `var` ব্যবহার করুন। "এটি পরিবর্তন হওয়া উচিত নয়" বোঝাতে চাইলে নামকরণ কনভেনশন ব্যবহার করুন (`UPPER_CASE` কনস্ট্যান্ট একটি কমন কনভেনশন)।
+- **কোনো destructuring নেই।** প্রতিটি `var` ঠিক একটি নাম ডিক্লেয়ার করে। ফিল্ড এক্সট্রাক্ট করতে `var x = obj.x; var y = obj.y;` লিখুন।
+- **কোনো multi-declare নেই।** `var a, b, c;` সাপোর্টেড নয় — প্রতিটি ভ্যারিয়েবলের জন্য আলাদা স্টেটমেন্ট।
+</I18nBangla>

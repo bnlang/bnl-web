@@ -1,142 +1,148 @@
 ---
-title: return Keyword
-description: The return statement in Bnlang exits a function and optionally returns a value. Examples in Bangla and English.
+title: return keyword
+description: Returning a value from a function in Bnlang using `return` / `ফেরত`.
 bnTitle: ফেরত কীওয়ার্ড
-bnDescription: Bnlang এ ফেরত (return) স্টেটমেন্ট—ফাংশন থেকে বের হওয়া ও মান পাঠানোর নিয়ম, বাংলা উদাহরণসহ।
+bnDescription: Bnlang-এ `return` / `ফেরত` দিয়ে একটি ফাংশন থেকে মান ফেরত।
 ---
 
-# <I18nEnglish>return Keyword</I18nEnglish>
-# <I18nBangla>ফেরত কীওয়ার্ড</I18nBangla>
+# <I18nEnglish>`return` keyword</I18nEnglish>
+# <I18nBangla>`ফেরত` কীওয়ার্ড</I18nBangla>
 
 
 <I18nEnglish>
-The **`return`** statement **exits the current function** and optionally supplies a value to the caller.  
-Statements after `return` in the same block do **not** run.
-</I18nEnglish>
-
-<I18nBangla>
-**`ফেরত`** স্টেটমেন্ট দিয়ে বর্তমান **ফাংশন থেকে বের হওয়া** যায় এবং প্রয়োজনে একটি মান পাঠানো যায়।  
-`ফেরত`-এর পরের স্টেটমেন্টগুলো আর **চালানো হয় না**।
-</I18nBangla>
-
-
-
----
+`return` ends a function call and yields a value back to the caller. The Bangla form `ফেরত` is equivalent.
 
 ## Syntax
 
-<I18nEnglish>
-
 ```bnl
-return;          // no value
-return value;    // with value
+return <expression>;   // return a value
+return;                // return null and exit
 ```
-</I18nEnglish>
-
-<I18nBangla>
-
-```bnl
-ফেরত;           // মান ছাড়া
-ফেরত মান;       // মান সহ
-```
-</I18nBangla>
-
-
-
----
 
 ## Examples
 
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
+```bnl
+function add(a, b) {
+    return a + b;
+}
 
-  <TabsContent value="bangla">
+print(add(2, 3));   // 5
+```
+
+## Early return
+
+A bare `return;` exits the function and yields `null`. Use it as a guard:
 
 ```bnl
-// ১) গ্রেড নির্ধারণ — early ফেরত
-function গ্রেড(নম্বর) {
-  যদি (নম্বর < 0 || নম্বর > 100) {
-    কনসোল.ত্রুটি("অবৈধ নম্বর");
-    ফেরত;                    // value ছাড়া ফেরত
-  }
-  যদি (নম্বর >= 80) ফেরত "A+";
-  নাহলে যদি (নম্বর >= 70) ফেরত "A";
-  নাহলে ফেরত "A-এর নিচে";
-}
-
-// ২) প্রথম জোড় সংখ্যা খুঁজে ফেরত
-function প্রথম_জোড়(অ্যারে) {
-  প্রতি (const n এর অ্যারে) {
-    যদি (n % 2 === 0) ফেরত n; // মিল পেলেই বেরিয়ে যাও
-  }
-  ফেরত null; // কিছু না পেলে
-}
-
-// ৩) অবজেক্ট/অ্যারে ফেরত
-function পরিসংখ্যান(সংখ্যা) {
-  let মোট = 0;
-  প্রতি (const n এর সংখ্যা) মোট += n;
-  ফেরত { total: মোট, avg: মোট / সংখ্যা.length };
+function pay(amount) {
+    if (amount <= 0) {
+        print("amount must be positive");
+        return;
+    }
+    print("paying:", amount);
 }
 ```
-  </TabsContent>
 
-  
+## Implicit return
 
-  <TabsContent value="english">
+If execution falls off the end of a function without `return`, the function returns `null`.
 
 ```bnl
-// 1) Grade — early return
-function grade(score) {
-  if (score < 0 || score > 100) {
-    console.error("Invalid score");
-    return;                  // no value
-  }
-  if (score >= 80) return "A+";
-  else if (score >= 70) return "A";
-  else return "Below A";
+function shout(name) {
+    print("HEY " + name);
+    // no return — implicit null
 }
 
-// 2) Find first even
-function firstEven(arr) {
-  for (const n of arr) {
-    if (n % 2 === 0) return n;
-  }
-  return null;
+print(shout("Alice"));   // prints "HEY Alice", then "null"
+```
+
+## Returning multiple values
+
+Bnlang has no tuple syntax. Return a list or a map:
+
+```bnl
+function divmod(a, b) {
+    return { q: a / b, r: a % b };
 }
 
-// 3) Return object/array
-function stats(nums) {
-  let total = 0;
-  for (const n of nums) total += n;
-  return { total, avg: total / nums.length };
+var r = divmod(17, 5);
+print(r.q, r.r);   // 3 2
+```
+
+## Bangla form
+
+```bnl
+ফাংশন যোগ(a, b) {
+    ফেরত a + b;
 }
 ```
-  </TabsContent>
-</Tabs>
-
----
-
-## Notes
-
-<I18nEnglish>
-- `return;` without a value returns **`undefined`**.  
-- `return` exits **only the current function**, not loops/blocks outside it.  
-- Prefer **early returns** for validation to reduce nesting.  
-- When returning an **object literal** from a concise arrow function, wrap it in parentheses: `() => ({ ok: true })`.  
-- In `try { ... } finally { ... }`, the `finally` block runs **even if** a `return` occurs in `try`.
 </I18nEnglish>
 
 <I18nBangla>
-- মান ছাড়া `ফেরত;` দিলে **`undefined`** ফিরে আসে।  
-- `ফেরত` শুধু **বর্তমান ফাংশন** থেকে বের করে; বাইরের লুপ/ব্লককে নয়।  
-- নেস্টিং কমাতে ভ্যালিডেশনে **early return/ফেরত** ব্যবহার করুন।  
-- সংক্ষিপ্ত arrow-style ফাংশনে অবজেক্ট ফেরাতে বন্ধনী দিন: `() => ({ ok: true })`.  
-- `চেষ্টা { ... } অবশেষে { ... }` ব্লকে, `চেষ্টা`র ভেতরে `ফেরত` থাকলেও **অবশেষে** অংশটি চলবে।
+`return` একটি ফাংশন কল শেষ করে এবং কলারকে একটি মান ফেরত দেয়। বাংলা রূপ `ফেরত` সমার্থক।
+
+## সিনট্যাক্স
+
+```bnl
+return <expression>;   // মান ফেরত
+return;                // null ফেরত দিয়ে exit
+```
+
+## উদাহরণ
+
+```bnl
+function add(a, b) {
+    return a + b;
+}
+
+print(add(2, 3));   // 5
+```
+
+## Early return
+
+খালি `return;` ফাংশন থেকে exit করে এবং `null` ফেরত দেয়। গার্ড হিসেবে ব্যবহার করুন:
+
+```bnl
+function pay(amount) {
+    if (amount <= 0) {
+        print("amount must be positive");
+        return;
+    }
+    print("paying:", amount);
+}
+```
+
+## Implicit return
+
+`return` ছাড়া ফাংশনের শেষে পৌঁছালে ফাংশন `null` ফেরত দেয়।
+
+```bnl
+function shout(name) {
+    print("HEY " + name);
+    // কোনো return নেই — implicit null
+}
+
+print(shout("Alice"));   // "HEY Alice" প্রিন্ট, তারপর "null"
+```
+
+## একাধিক মান ফেরত
+
+Bnlang-এ tuple সিনট্যাক্স নেই। একটি লিস্ট বা ম্যাপ ফেরত দিন:
+
+```bnl
+function divmod(a, b) {
+    return { q: a / b, r: a % b };
+}
+
+var r = divmod(17, 5);
+print(r.q, r.r);   // 3 2
+```
+
+## বাংলা রূপ
+
+```bnl
+ফাংশন যোগ(a, b) {
+    ফেরত a + b;
+}
+```
 </I18nBangla>
-
-

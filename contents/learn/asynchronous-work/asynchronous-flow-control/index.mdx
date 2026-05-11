@@ -1,79 +1,37 @@
 ---
 title: Asynchronous Flow Control
-description: Understanding asynchronous flow control in Bnlang with Bangla, and English examples.
+description: How to structure asynchronous code in Bnlang using callbacks, with examples in English and Bangla.
 bnTitle: অ্যাসিঙ্ক্রোনাস ফ্লো কন্ট্রোল
-bnDescription: Bnlang এ অ্যাসিঙ্ক্রোনাস ফ্লো কন্ট্রোল এর ধারণা ও উদাহরণ।
+bnDescription: Bnlang এ কলব্যাক দিয়ে অ্যাসিঙ্ক্রোনাস কোডের গঠন, ইংরেজি ও বাংলা উদাহরণসহ।
 ---
 
 # <I18nEnglish>Asynchronous Flow Control</I18nEnglish>
 # <I18nBangla>অ্যাসিঙ্ক্রোনাস ফ্লো কন্ট্রোল</I18nBangla>
 
 <I18nEnglish>
-Asynchronous flow control in **Bnlang** allows programs to perform non-blocking tasks, such as reading files, making network requests, or handling timers, without stopping the execution of other code.  
-This ensures efficiency and responsiveness in applications that rely on multiple operations happening together.  
-Common tools for flow control are callbacks, promises, and async/await.
+Bnlang's runtime is built on a single-threaded **event loop** (powered by libuv).
+Long-running operations — disk I/O, network requests, timers — don't block the loop; they schedule a callback that fires when the work is done.
+
+This means asynchronous code in Bnlang is **callback-based**. There are no Promises and no `async`/`await` keywords — the contract is simpler: pass a function, get called back.
 </I18nEnglish>
 
 <I18nBangla>
-**Bnlang** এ অ্যাসিঙ্ক্রোনাস ফ্লো কন্ট্রোলের মাধ্যমে প্রোগ্রাম একাধিক কাজ একসাথে চালাতে পারে।  
-যেমন ফাইল পড়া, নেটওয়ার্ক রিকোয়েস্ট করা বা টাইমার চালানো — এগুলো বাকি কোড থামিয়ে না রেখেই করা যায়।  
-এই কারণে প্রোগ্রাম হয় দ্রুত এবং রেসপন্সিভ।  
-প্রধান টুলস হলো: কলব্যাক, প্রতিশ্রুতি, এবং `async/await`।
+Bnlang এর রানটাইম একটি সিঙ্গেল-থ্রেডেড **ইভেন্ট লুপ** (libuv-চালিত) এর উপর তৈরি।
+দীর্ঘ অপারেশন — ডিস্ক I/O, নেটওয়ার্ক রিকোয়েস্ট, টাইমার — লুপকে ব্লক করে না; এরা একটি কলব্যাক শিডিউল করে যা কাজ শেষ হলে ফায়ার হয়।
+
+এর মানে Bnlang-এ অ্যাসিঙ্ক্রোনাস কোড **কলব্যাক-ভিত্তিক**। কোনো Promise নেই, `async`/`await` কীওয়ার্ডও নেই — কন্ট্রাক্টটি সরল: একটি ফাংশন পাঠান, কল-ব্যাক পান।
 </I18nBangla>
 
 ---
 
-## Callbacks
-
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="english">
-
-```js
-function fetchData(callback) {
-  setTimeout(() => {
-    callback("Data loaded");
-  }, 1000);
-}
-
-fetchData((result) => {
-  console.log(result);
-});
-```
-  </TabsContent>
-
-  <TabsContent value="bangla">
-
-```bnl
-function ডাটা_আনা(কলব্যাক) {
-  সময়সীমা_নির্ধারণ(() => {
-    কলব্যাক("ডাটা লোড হয়েছে");
-  }, 1000);
-}
-
-ডাটা_আনা((ফলাফল) => {
-  কনসোল.লগ(ফলাফল);
-});
-```
-  </TabsContent>
-
-  
-</Tabs>
-
----
-
-## Promises
+## Error-First Callbacks
 
 <I18nEnglish>
-Promises represent values that may be available now, later, or never. They provide a cleaner way to handle asynchronous results than callbacks.
+Standard library functions that take a callback follow the **error-first** convention: the first argument is `null` on success, or an error message string on failure.
 </I18nEnglish>
 
 <I18nBangla>
-প্রতিশ্রুতি এমন একটি মান প্রকাশ করে যা এখন, পরে, অথবা কখনো পাওয়া যেতে পারে। কলব্যাকের তুলনায় এটি আরও পরিষ্কারভাবে অ্যাসিঙ্ক্রোনাস রেজাল্ট হ্যান্ডল করতে দেয়।
+স্ট্যান্ডার্ড লাইব্রেরির যেসব ফাংশন কলব্যাক নেয়, তারা **error-first** কনভেনশন অনুসরণ করে: প্রথম আর্গুমেন্ট সফল হলে `null`, ব্যর্থ হলে একটি এরর মেসেজ স্ট্রিং।
 </I18nBangla>
 
 <Tabs defaultValue="english" className="w-full">
@@ -84,15 +42,15 @@ Promises represent values that may be available now, later, or never. They provi
 
   <TabsContent value="english">
 
-```js
-const fetchData = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("Data fetched successfully");
-  }, 1000);
-});
+```bnl
+import "io" as io;
 
-fetchData.then((data) => {
-  console.log(data);
+io.read_file_async("notes.txt", function (err, data) {
+    if (err != null) {
+        print("read failed:", err);
+        return;
+    }
+    print("got", data.byte_length, "bytes");
 });
 ```
   </TabsContent>
@@ -100,82 +58,86 @@ fetchData.then((data) => {
   <TabsContent value="bangla">
 
 ```bnl
-const ডাটা_আনা = নতুন প্রতিশ্রুতি((রিজলভ, রিজেক্ট) => {
-  সময়সীমা_নির্ধারণ(() => {
-    রিজলভ("ডাটা সফলভাবে আনা হয়েছে");
-  }, 1000);
-});
+আমদানি "io" যেমন io;
 
-ডাটা_আনা.তারপর((ডাটা) => {
-  কনসোল.লগ(ডাটা);
+io.read_file_async("notes.txt", ফাংশন (err, data) {
+    যদি (err != নাই) {
+        লিখুন("পড়া ব্যর্থ:", err);
+        ফেরত;
+    }
+    লিখুন("পাওয়া গেলো", data.byte_length, "বাইট");
 });
 ```
   </TabsContent>
-
-  
 </Tabs>
 
 ---
 
-## Async/Await
+## Deferring Work with Timers
 
 <I18nEnglish>
-`async/await` makes asynchronous code look synchronous, improving readability and reducing complexity.
+The `timers` module schedules a callback to fire later from the event loop.
 </I18nEnglish>
 
 <I18nBangla>
-`async/await` ব্যবহার করলে অ্যাসিঙ্ক্রোনাস কোড অনেকটা সিনক্রোনাস কোডের মত দেখায়। এতে কোড হয় সহজপাঠ্য এবং কম জটিল।
+`timers` মডিউল একটি কলব্যাক শিডিউল করে যা পরে ইভেন্ট লুপ থেকে ফায়ার হয়।
 </I18nBangla>
 
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-  </TabsList>
+```bnl
+import "timers" as timers;
 
-  <TabsContent value="english">
-
-```js
-async function load() {
-  const data = await new Promise((resolve) => {
-    setTimeout(() => resolve("Done!"), 1000);
-  });
-  console.log(data);
-}
-
-load();
+print("a");
+timers.set(0,    function () { print("c — next tick"); });
+timers.set(1000, function () { print("d — one second later"); });
+print("b");
+// Output order:
+// a
+// b
+// c — next tick
+// d — one second later
 ```
-  </TabsContent>
 
-  <TabsContent value="bangla">
+---
+
+## Composing Async Steps
+
+<I18nEnglish>
+For sequential async work, you nest callbacks or factor each step into a named function. Keep handlers small to keep the nesting shallow.
+</I18nEnglish>
+
+<I18nBangla>
+সিকোয়েন্সিয়াল অ্যাসিঙ্ক কাজের জন্য কলব্যাক নেস্ট করুন, অথবা প্রতিটা স্টেপকে নামযুক্ত ফাংশনে ভাগ করুন। হ্যান্ডলার ছোট রাখলে নেস্টিং কম থাকবে।
+</I18nBangla>
 
 ```bnl
-async function লোড() {
-  const ডাটা = অপেক্ষা নতুন প্রতিশ্রুতি((রিজলভ) => {
-    সময়সীমা_নির্ধারণ(() => রিজলভ("শেষ!"), 1000);
-  });
-  কনসোল.লগ(ডাটা);
+import "io" as io;
+
+function on_written(err) {
+    if (err != null) { print("write failed:", err); return; }
+    io.read_file_async("greeting.txt", on_read);
 }
 
-লোড();
-```
-  </TabsContent>
+function on_read(err, data) {
+    if (err != null) { print("read failed:", err); return; }
+    print("file says:", data);
+}
 
-  
-</Tabs>
+io.write_file_async("greeting.txt", "Hello, async!", on_written);
+print("scheduled");
+```
 
 ---
 
 ## Best Practices
 
 <I18nEnglish>
-- Avoid deeply nested callbacks (callback hell). Prefer promises or async/await.  
-- Handle errors with `.catch()` in promises or `try/catch` with async/await.  
-- Use async flow only when necessary to keep code clean and maintainable.
+- Always check the error argument first; bail out early before touching the result.
+- Pull each async step into a named function once nesting reaches two or three levels.
+- Clear timers and close streams you no longer need — the event loop will hold them alive otherwise.
 </I18nEnglish>
 
 <I18nBangla>
-- একাধিক নেস্টেড কলব্যাক এড়িয়ে চলুন (callback hell)। এর পরিবর্তে প্রতিশ্রুতি বা async/await ব্যবহার করুন।  
-- এরর হ্যান্ডল করতে প্রতিশ্রুতিে `.catch()` অথবা async/await এ `try/catch` ব্যবহার করুন।  
-- কোড পরিষ্কার ও মেইনটেনযোগ্য রাখার জন্য শুধুমাত্র প্রয়োজন হলে অ্যাসিঙ্ক ফ্লো ব্যবহার করুন।
+- সবসময় প্রথমে এরর আর্গুমেন্ট চেক করুন; রেজাল্ট ছোঁয়ার আগেই বের হয়ে আসুন।
+- নেস্টিং দুই-তিন লেভেলে পৌঁছলে প্রতিটা স্টেপ আলাদা নামযুক্ত ফাংশনে নিয়ে যান।
+- আপনার আর প্রয়োজন নেই এমন টাইমার ও স্ট্রিম ক্লিয়ার/বন্ধ করুন — না করলে ইভেন্ট লুপ তাদের জীবিত রাখবে।
 </I18nBangla>

@@ -1,0 +1,110 @@
+---
+title: template module
+description: Jinja-flavored template engine — variables, blocks, filters, inheritance, whitespace control.
+bnTitle: template মডিউল
+bnDescription: Jinja-flavored টেমপ্লেট ইঞ্জিন।
+---
+
+# <I18nEnglish>`template` module</I18nEnglish>
+# <I18nBangla>`template` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+A small Jinja-flavored template engine. Supports `{{ var }}` interpolation, `{% if %}` / `{% for %}` / `{% block %}` / `{% extends %}` / `{% include %}`, a filter pipeline (`{{ name | upper }}`), and `{%- ... -%}` whitespace control.
+
+```bnl
+import "template" as tpl;
+
+tpl.set_views("./views");
+
+var html = tpl.render("home.html", { user: "Alice", items: [1, 2, 3] });
+print(html);
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `tpl.render(path, ctx)` → string | Read `<views_dir>/<path>` and render. |
+| `tpl.render_string(text, ctx)` → string | Render an in-memory template. |
+| `tpl.set_views(dir)` | Set the base directory used by `render`. |
+| `tpl.clear_cache()` | Drop compiled-template cache. |
+| `tpl.register_filter(name, fn)` | Add a filter. `fn(value, ...args) → value`. |
+
+## Syntax cheat-sheet
+
+```
+{# comment #}
+{{ user.name | upper }}
+{% if items %}
+  <ul>
+    {% for item in items %}
+      <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  No items.
+{% endif %}
+
+{% extends "base.html" %}
+{% block content %}...{% endblock %}
+{% include "_footer.html" %}
+```
+
+## Built-in filters
+
+`upper`, `lower`, `length`, `default`, `escape` (auto for `{{ }}`), `safe` (suppress escaping), `join`, `replace`.
+
+## See also
+- [`web`](/en/docs/v1.0.0/modules/web-module) — `web.view(path, ctx)` is a thin wrapper over `tpl.render`.
+</I18nEnglish>
+
+<I18nBangla>
+একটি ছোট Jinja-flavored টেমপ্লেট ইঞ্জিন। `{{ var }}` interpolation, `{% if %}` / `{% for %}` / `{% block %}` / `{% extends %}` / `{% include %}`, filter pipeline (`{{ name | upper }}`), এবং `{%- ... -%}` whitespace control।
+
+```bnl
+import "template" as tpl;
+
+tpl.set_views("./views");
+
+var html = tpl.render("home.html", { user: "Alice", items: [1, 2, 3] });
+print(html);
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `tpl.render(path, ctx)` → string | `<views_dir>/<path>` পড়ে রেন্ডার। |
+| `tpl.render_string(text, ctx)` → string | In-memory টেমপ্লেট রেন্ডার। |
+| `tpl.set_views(dir)` | `render`-এর base ডিরেক্টরি। |
+| `tpl.clear_cache()` | Compiled-template cache ড্রপ। |
+| `tpl.register_filter(name, fn)` | Filter যোগ। `fn(value, ...args) → value`। |
+
+## সিনট্যাক্স
+
+```
+{# comment #}
+{{ user.name | upper }}
+{% if items %}
+  <ul>
+    {% for item in items %}
+      <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  No items.
+{% endif %}
+
+{% extends "base.html" %}
+{% block content %}...{% endblock %}
+{% include "_footer.html" %}
+```
+
+## বিল্ট-ইন filter
+
+`upper`, `lower`, `length`, `default`, `escape` (auto), `safe`, `join`, `replace`।
+
+## আরও দেখুন
+- [`web`](/bn/docs/v1.0.0/modules/web-module) — `web.view(path, ctx)`।
+</I18nBangla>

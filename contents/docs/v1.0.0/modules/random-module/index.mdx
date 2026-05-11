@@ -1,0 +1,72 @@
+---
+title: random module
+description: Non-cryptographic pseudo-random number generation. For tests, games, and sampling.
+bnTitle: random মডিউল
+bnDescription: Non-crypto pseudo-random। টেস্ট, গেম, sampling।
+---
+
+# <I18nEnglish>`random` module</I18nEnglish>
+# <I18nBangla>`random` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Seedable, non-cryptographic RNG. **Don't use this for tokens or password resets** — use [`crypto`](/en/docs/v1.0.0/modules/crypto-module) for those. Good for shuffling, sampling, and tests with reproducible randomness.
+
+```bnl
+import "random" as random;
+
+random.seed(42);                       // reproducible
+
+print(random.float());                 // 0.0 ≤ x < 1.0
+print(random.int(1, 6));               // dice roll, 1..6 inclusive
+print(random.choice(["a","b","c"]));   // pick one
+print(random.shuffle([1,2,3,4,5]));    // shuffled copy
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `random.seed(n)` | Seed the RNG. Same seed → same sequence. |
+| `random.next()` → number | Uniform `[0.0, 1.0)`. (Same as `random.float()`.) |
+| `random.float()` → number | Alias for `random.next()`. |
+| `random.bool()` → bool | True / false with equal probability. |
+| `random.probability(p)` → bool | True with probability `p` (0.0–1.0). |
+| `random.int(min, max)` → number | Integer in `[min, max]` (inclusive both sides). |
+| `random.range(lo, hi)` → number | Uniform float in `[lo, hi)`. |
+| `random.bytes(n)` → string | `n` random bytes (still **not** cryptographic). |
+| `random.choice(xs)` → element | Pick one element uniformly at random. |
+| `random.shuffle(xs)` → list | Fisher-Yates shuffle (new list). |
+| `random.sample(xs, k)` → list | `k` distinct elements without replacement. |
+</I18nEnglish>
+
+<I18nBangla>
+Seedable, non-cryptographic RNG। **Token বা password reset-এর জন্য ব্যবহার করবেন না** — সেক্ষেত্রে [`crypto`](/bn/docs/v1.0.0/modules/crypto-module)। Shuffle, sample, এবং reproducible randomness-সহ টেস্টের জন্য ভালো।
+
+```bnl
+import "random" as random;
+
+random.seed(42);                       // reproducible
+
+print(random.float());                 // 0.0 ≤ x < 1.0
+print(random.int(1, 6));               // dice roll, 1..6
+print(random.choice(["a","b","c"]));
+print(random.shuffle([1,2,3,4,5]));
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `random.seed(n)` | RNG seed। একই seed → একই sequence। |
+| `random.next()` → number | Uniform `[0.0, 1.0)`। |
+| `random.float()` → number | `random.next()` এর alias। |
+| `random.bool()` → bool | সমান সম্ভাবনায় true/false। |
+| `random.probability(p)` → bool | `p` সম্ভাবনায় true। |
+| `random.int(min, max)` → number | `[min, max]` সমেত। |
+| `random.range(lo, hi)` → number | Uniform float `[lo, hi)`। |
+| `random.bytes(n)` → string | `n` র‍্যান্ডম বাইট (cryptographic **নয়**)। |
+| `random.choice(xs)` → element | একটি element uniformly। |
+| `random.shuffle(xs)` → list | Fisher-Yates shuffle। |
+| `random.sample(xs, k)` → list | Without-replacement `k` element। |
+</I18nBangla>

@@ -47,43 +47,38 @@ function HeroCodeBox() {
               <SingleCodeBlock
                 className="rounded-none max-h-80 overflow-auto scrollbar-dark"
                 mode="dark"
-                code={`// Some example code with english
+                code={`// Some example code in English
 print("Hello, World!");
-print('My golden Bengal, thee I love!');
+print("My golden Bengal, thee I love!");
 
-let score = 75;
+var score = 75;
 
 if (score >= 80) {
-  print("Grade: A+");
+    print("Grade: A+");
 } else {
-  print("Grade: Below A+");
+    print("Grade: below A+");
 }
 
 switch (score / 10) {
-  case 7:
-    print("Grade: B");
-    break;
-  case 6:
-    print("Grade: C");
-    break;
-  default:
-    print("Other grade");
+    case 7: { print("Grade: B"); }
+    case 6: { print("Grade: C"); }
+    default: { print("Other grade"); }
 }
 
-for (let i = 1; i <= 3; i++) {
-  print("For loop:", i);
+for (var i of [1, 2, 3]) {
+    print("for loop:", i);
 }
 
-let n = 3;
+var n = 3;
 while (n > 0) {
-  print("While loop:", n);
-  n--;
+    print("while loop:", n);
+    n = n - 1;
 }
 
 try {
-  throw "Example error!";
+    throw "Example error!";
 } catch (e) {
-  print("Caught error:", e);
+    print("Caught error:", e);
 }`}
                 language="bnl"
                 showLineNumbers={true}
@@ -102,39 +97,34 @@ try {
 লিখুন("হ্যালো, বিশ্ব!");
 লিখুন("আমার সোনার বাংলা। আমি তোমায় ভালোবাসি।");
 
-ধরি নম্বর = ৭৫;
+চলক নম্বর = 75;
 
-যদি (নম্বর >= ৮০) {
-  লিখুন("গ্রেড: A+");
+যদি (নম্বর >= 80) {
+    লিখুন("গ্রেড: A+");
 } নাহলে {
-  লিখুন("গ্রেড: A+ এর নিচে");
+    লিখুন("গ্রেড: A+ এর নিচে");
 }
 
-বিকল্প (নম্বর / ১০) {
-  অবস্থা ৭:
-    লিখুন("গ্রেড: B");
-    থামুন;
-  অবস্থা ৬:
-    লিখুন("গ্রেড: C");
-    থামুন;
-  অন্যথায়:
-    লিখুন("অন্য গ্রেড");
+বিকল্প (নম্বর / 10) {
+    অবস্থা 7: { লিখুন("গ্রেড: B"); }
+    অবস্থা 6: { লিখুন("গ্রেড: C"); }
+    অন্যথায়:  { লিখুন("অন্য গ্রেড"); }
 }
 
-প্রতি (ধরি i = ১; i <= ৩; i++) {
-  লিখুন("প্রতি লুপ:", i);
+প্রতি (চলক i এর [1, 2, 3]) {
+    লিখুন("প্রতি লুপ:", i);
 }
 
-ধরি গণনা = ৩;
-যতক্ষণ (গণনা > ০) {
-  লিখুন("যতক্ষণ লুপ:", গণনা);
-  গণনা--;
+চলক গণনা = 3;
+যতক্ষণ (গণনা > 0) {
+    লিখুন("যতক্ষণ লুপ:", গণনা);
+    গণনা = গণনা - 1;
 }
 
 চেষ্টা {
-  নিক্ষেপ "উদাহরণ ত্রুটি!";
+    নিক্ষেপ "উদাহরণ ত্রুটি!";
 } ধরুন (e) {
-  লিখুন("ধরা পড়া ত্রুটি:", e);
+    লিখুন("ধরা পড়া ত্রুটি:", e);
 }`}
                 language="bnl"
                 showLineNumbers={true}

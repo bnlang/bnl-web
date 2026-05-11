@@ -1,9 +1,9 @@
 ---
 title: Usage and Examples
-description: Practical usage and examples of Bnlang
+description: Hello-world, variables, control flow, functions, and a small async example in Bnlang.
 
 bnTitle: ব্যবহার ও উদাহরণ
-bnDescription: Bnlang এর ব্যবহার ও উদাহরণ
+bnDescription: হ্যালো-ওয়ার্ল্ড, ভ্যারিয়েবল, কন্ট্রোল ফ্লো, ফাংশন, এবং একটি ছোট async উদাহরণ।
 
 ---
 
@@ -12,149 +12,301 @@ bnDescription: Bnlang এর ব্যবহার ও উদাহরণ
 
 
 <I18nEnglish>
-Welcome to the **Usage and Examples** page of Bnlang.
+A whirlwind tour of Bnlang — every snippet here runs as-is with `bnl <file>.bnl`.
 
-## Writing your first program
-
-```bnl
-function main() {
-  print("Hello, World!");
-}
-```
-
-Run it with:
-
-```bash
-bnl main.bnl
-```
-
-## Using variables and types
+## Hello, World
 
 ```bnl
-let name = "Mamun";
-let age = 25;
-let isDeveloper = true;
+print("Hello, World!");
+```
 
-print("Name:", name);
-print("Age:", age);
-print("Developer?", isDeveloper);
+Run it:
+
+```sh
+bnl hello.bnl
+```
+
+## Variables and basic types
+
+Bnlang has one declaration keyword: `var`. Values are dynamically typed but predictable.
+
+```bnl
+var name        = "Alice";
+var age         = 25;
+var is_admin    = true;
+var nothing     = null;
+var items       = [1, 2, 3];
+var user        = { id: 1, name: "Alice" };
+
+print(name, age, is_admin);
+print("items:", items.length);
+print("user id:", user.id);
 ```
 
 ## Control flow
 
 ```bnl
-let score = 85;
+var score = 85;
 
 if (score >= 80) {
-  print("Grade: A+");
+    print("Grade: A+");
 } else if (score >= 70) {
-  print("Grade: A");
+    print("Grade: A");
 } else {
-  print("Grade: Below A");
+    print("Grade: below A");
 }
 ```
 
 ## Loops
 
 ```bnl
-for (let i = 1; i <= 5; i++) {
-  print("Number:", i);
+// for ... of — iterate over a list
+for (var n of [1, 2, 3, 4, 5]) {
+    print(n);
+}
+
+// classic while
+var i = 0;
+while (i < 3) {
+    print("tick", i);
+    i = i + 1;
 }
 ```
+
+There is **no** `for (i = 0; i < n; i++)` C-style loop and no `++`/`--`. Use `for ... of` over a list, or `while` for counter-driven loops. `break` and `continue` work in both.
 
 ## Functions
 
 ```bnl
-function greet(user) {
-  return "Hello, " + user + "!";
+function greet(name) {
+    return "Hello, " + name + "!";
 }
 
-print(greet("Mamun"));
+print(greet("Alice"));
 ```
 
-## Using modules
+Functions are fixed-arity — no defaults, no overloads, no varargs. Split into separately-named functions if you need different shapes.
+
+## Importing the standard library
 
 ```bnl
-const fs = require('fs');
+import "io"   as io;
+import "path" as path;
 
-let data = fs.readFileSync("notes.txt");
-print("File content:", data);
+var text = io.read_file("notes.txt");
+print("read", text.byte_length, "bytes from", path.basename("notes.txt"));
 ```
 
----
+## Async (callback-style)
+
+There are no `async`/`await` keywords. Async I/O takes a final callback that fires when the work is done:
+
+```bnl
+import "io" as io;
+
+io.read_file_async("notes.txt", function (err, data) {
+    if (err != null) {
+        print("read failed:", err);
+        return;
+    }
+    print("got", data.byte_length, "bytes");
+});
+
+print("scheduled");
+```
+
+For composing many async steps, use the `async` library:
+
+```bnl
+import "async" as async;
+
+async.parallel([
+    function (cb) { io.read_file_async("a.txt", cb); },
+    function (cb) { io.read_file_async("b.txt", cb); }
+], function (err, results) {
+    print("got", results.length, "files");
+});
+```
+
+## Error handling
+
+```bnl
+function divide(a, b) {
+    if (b == 0) { throw "divide by zero"; }
+    return a / b;
+}
+
+try {
+    print(divide(10, 0));
+} catch (e) {
+    print("caught:", e);
+} finally {
+    print("done");
+}
+```
+
+## A tiny web server
+
+```bnl
+import "web" as web;
+
+var app = web.app();
+app.get("/", function (req) { return "Hello from Bnlang!"; });
+app.get("/echo/:name", function (req) {
+    return "Hi, " + req.params.name;
+});
+app.listen({ port: 3000 });
+```
+
+That's the language end-to-end. Browse the rest of the docs for module references and the keyword pages for syntax details.
 </I18nEnglish>
 
 <I18nBangla>
-**ব্যবহার ও উদাহরণ** অংশে আপনাকে স্বাগতম।
+Bnlang-এর সংক্ষিপ্ত পরিচয় — প্রতিটি স্নিপেট সরাসরি `bnl <file>.bnl` দিয়ে চলে।
 
-## আপনার প্রথম প্রোগ্রাম
-
-```bnl
-ফাংশন main() {
-  লিখুন("হ্যালো, বিশ্ব!");
-}
-```
-
-চালাতে ব্যবহার করুন:
-
-```bash
-bnl main.bnl
-```
-
-## ভ্যারিয়েবল ও টাইপ
+## হ্যালো, ওয়ার্ল্ড
 
 ```bnl
-ধরি নাম = "মামুন";
-ধরি বয়স = 25;
-ধরি ডেভেলপার = true;
-
-লিখুন("নাম:", নাম);
-লিখুন("বয়স:", বয়স);
-লিখুন("ডেভেলপার?", ডেভেলপার);
+print("Hello, World!");
 ```
 
-## শর্তাধারী (Control Flow)
+চালান:
+
+```sh
+bnl hello.bnl
+```
+
+## ভ্যারিয়েবল এবং বেসিক টাইপ
+
+Bnlang-এ একটিই ডিক্লেয়ারেশন কীওয়ার্ড: `var`। মান ডায়নামিকালি টাইপড কিন্তু পূর্বানুমানযোগ্য।
 
 ```bnl
-ধরি নম্বর = 85;
+var name        = "আলিস";
+var age         = 25;
+var is_admin    = true;
+var nothing     = null;
+var items       = [1, 2, 3];
+var user        = { id: 1, name: "আলিস" };
 
-যদি (নম্বর >= 80) {
-  লিখুন("গ্রেড: A+");
-} নাহলে যদি (নম্বর >= 70) {
-  লিখুন("গ্রেড: A");
-} নাহলে {
-  লিখুন("গ্রেড: নিচে A");
+print(name, age, is_admin);
+print("items:", items.length);
+print("user id:", user.id);
+```
+
+## কন্ট্রোল ফ্লো
+
+```bnl
+var score = 85;
+
+if (score >= 80) {
+    print("গ্রেড: A+");
+} else if (score >= 70) {
+    print("গ্রেড: A");
+} else {
+    print("গ্রেড: A-এর নিচে");
 }
 ```
 
 ## লুপ
 
 ```bnl
-প্রতি (ধরি i = 1; i <= 5; i++) {
-  লিখুন("সংখ্যা:", i);
+// for ... of — একটি লিস্ট ইটারেট
+for (var n of [1, 2, 3, 4, 5]) {
+    print(n);
+}
+
+// সাধারণ while
+var i = 0;
+while (i < 3) {
+    print("tick", i);
+    i = i + 1;
 }
 ```
+
+C-স্টাইলের `for (i = 0; i < n; i++)` লুপ **নেই**, `++`/`--` নেই। একটি list-এর উপর `for ... of`, অথবা counter-চালিত loop-এর জন্য `while` ব্যবহার করুন। দু'টোতেই `break` ও `continue` কাজ করে।
 
 ## ফাংশন
 
 ```bnl
-ফাংশন অভিবাদন(ব্যবহারকারী) {
-  ফেরত "হ্যালো, " + ব্যবহারকারী + "!";
+function greet(name) {
+    return "হ্যালো, " + name + "!";
 }
 
-লিখুন(অভিবাদন("মামুন"));
+print(greet("আলিস"));
 ```
 
-## মডিউল ব্যবহার
+ফাংশন ফিক্সড-অ্যারিটি — কোনো ডিফল্ট নেই, কোনো ওভারলোড নেই, কোনো varargs নেই। ভিন্ন শেপ দরকার হলে আলাদা নামের ফাংশনে ভাগ করুন।
+
+## স্ট্যান্ডার্ড লাইব্রেরি ইমপোর্ট
 
 ```bnl
-ধ্রুবক fs = প্রয়োজন("fs");
+import "io"   as io;
+import "path" as path;
 
-let data = fs.readFileSync("notes.txt");
-লিখুন("ফাইল কনটেন্ট:", data);
+var text = io.read_file("notes.txt");
+print("read", text.byte_length, "bytes from", path.basename("notes.txt"));
 ```
 
----
+## Async (কলব্যাক-স্টাইল)
+
+কোনো `async`/`await` কীওয়ার্ড নেই। Async I/O একটি ফাইনাল কলব্যাক নেয় যা কাজ শেষ হলে ফায়ার হয়:
+
+```bnl
+import "io" as io;
+
+io.read_file_async("notes.txt", function (err, data) {
+    if (err != null) {
+        print("read failed:", err);
+        return;
+    }
+    print("got", data.byte_length, "bytes");
+});
+
+print("scheduled");
+```
+
+একাধিক async স্টেপ কম্পোজ করতে `async` লাইব্রেরি ব্যবহার করুন:
+
+```bnl
+import "async" as async;
+
+async.parallel([
+    function (cb) { io.read_file_async("a.txt", cb); },
+    function (cb) { io.read_file_async("b.txt", cb); }
+], function (err, results) {
+    print("got", results.length, "files");
+});
+```
+
+## এরর হ্যান্ডলিং
+
+```bnl
+function divide(a, b) {
+    if (b == 0) { throw "divide by zero"; }
+    return a / b;
+}
+
+try {
+    print(divide(10, 0));
+} catch (e) {
+    print("caught:", e);
+} finally {
+    print("done");
+}
+```
+
+## একটি ছোট ওয়েব সার্ভার
+
+```bnl
+import "web" as web;
+
+var app = web.app();
+app.get("/", function (req) { return "Hello from Bnlang!"; });
+app.get("/echo/:name", function (req) {
+    return "Hi, " + req.params.name;
+});
+app.listen({ port: 3000 });
+```
+
+এটাই হলো ভাষা এন্ড-টু-এন্ড। মডিউল রেফারেন্স এবং সিনট্যাক্স বিস্তারিতের জন্য বাকি ডক্স ও কীওয়ার্ড পেজ ঘুরে দেখুন।
 </I18nBangla>
-
-

@@ -1,150 +1,140 @@
 ---
-title: Using the Bnlang Test Runner
-description: A practical guide on how to use the Bnlang Test Runner with Bangla and English examples.
-bnTitle: Bnlang টেস্ট রানার ব্যবহার
-bnDescription: Bnlang টেস্ট রানার ব্যবহার করার প্রায়োগিক গাইড, উদাহরণসহ।
+title: Using the Bnlang Test Framework
+description: Practical patterns for running and structuring tests with Bnlang's `test` library.
+bnTitle: Bnlang টেস্ট ফ্রেমওয়ার্ক ব্যবহার
+bnDescription: Bnlang এর `test` লাইব্রেরি দিয়ে টেস্ট চালানো ও স্ট্রাকচার করার ব্যবহারিক প্যাটার্ন।
 ---
 
-# <I18nEnglish>Using the Bnlang Test Runner</I18nEnglish>
-# <I18nBangla>Bnlang টেস্ট রানার ব্যবহার</I18nBangla>
-
+# <I18nEnglish>Using the Bnlang Test Framework</I18nEnglish>
+# <I18nBangla>Bnlang টেস্ট ফ্রেমওয়ার্ক ব্যবহার</I18nBangla>
 
 <I18nEnglish>
-The **Bnlang Test Runner** helps you run and manage tests for your Bnlang applications.  
-It supports running individual files, watching for changes, and integrating with CI/CD systems.  
-This guide explains how to run tests effectively.
+A test file in Bnlang is just a normal script. You import `test`, register some cases with `t.test(name, fn)`, and finish with `t.run()`. This page covers the practical bits — how to organize tests, how to run them, and how to wire them into CI.
 </I18nEnglish>
 
 <I18nBangla>
-**Bnlang টেস্ট রানার** ব্যবহার করে সহজে আপনার Bnlang অ্যাপ্লিকেশনের টেস্ট চালানো যায়।  
-এটি আলাদা ফাইল চালানো, পরিবর্তন মনিটর করা এবং CI/CD সিস্টেমের সাথে ইন্টিগ্রেশন সাপোর্ট করে।  
-এই গাইডে টেস্ট সঠিকভাবে চালানোর নিয়ম দেখানো হয়েছে।
+Bnlang-এ একটি টেস্ট ফাইল একটি সাধারণ স্ক্রিপ্টই। আপনি `test` ইমপোর্ট করেন, `t.test(name, fn)` দিয়ে কিছু কেস রেজিস্টার করেন, এবং `t.run()` দিয়ে শেষ করেন। এই পেজ ব্যবহারিক অংশ কাভার করে — টেস্ট কীভাবে অর্গানাইজ করবেন, কীভাবে চালাবেন, এবং কীভাবে CI-তে ওয়্যার করবেন।
 </I18nBangla>
-
-
 
 ---
 
-## Running Tests
-
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-  </TabsList>
-
-  <TabsContent value="english">
+## Running One Test File
 
 ```sh
-# Run all tests in the project
-bnl --test
-
-# Run a specific test file
-bnl --test tests/math.test.bnl
+bnl tests/math_spec.bnl
 ```
-  </TabsContent>
 
-  <TabsContent value="bangla">
+<I18nEnglish>
+`t.run()` prints a summary and exits with code `1` if any test failed — that's the only signal CI needs.
+</I18nEnglish>
+
+<I18nBangla>
+`t.run()` একটি সারমর্ম প্রিন্ট করে, এবং কোনো টেস্ট ব্যর্থ হলে কোড `1`-এ এক্সিট করে — CI-এর জন্য এটাই একমাত্র সিগনাল।
+</I18nBangla>
+
+---
+
+## Running a Whole Folder
+
+<I18nEnglish>
+There's no built-in glob, but your shell already has one. Run every spec file with:
+</I18nEnglish>
+
+<I18nBangla>
+কোনো বিল্ট-ইন গ্লব নেই, কিন্তু আপনার শেলে একটি আছে। প্রতিটি spec ফাইল চালান:
+</I18nBangla>
 
 ```sh
-# প্রজেক্টের সব টেস্ট চালান
-bnl --test
+# POSIX shells
+for f in tests/*.bnl; do bnl "$f" || exit 1; done
 
-# নির্দিষ্ট টেস্ট ফাইল চালান
-bnl --test tests/math.test.bnl
+# PowerShell
+foreach ($f in Get-ChildItem tests\*.bnl) { bnl $f.FullName; if ($LASTEXITCODE) { exit $LASTEXITCODE } }
 ```
-  </TabsContent>
-
-  
-</Tabs>
 
 ---
 
-## Watching for Changes
+## Layout Conventions
 
 <I18nEnglish>
-You can run the test runner in **watch mode**, which automatically reruns tests when files change.
+A typical project keeps tests next to the code they exercise:
 </I18nEnglish>
 
 <I18nBangla>
-আপনি টেস্ট রানারকে **watch mode** এ চালাতে পারেন, যা ফাইল পরিবর্তন হলে স্বয়ংক্রিয়ভাবে টেস্ট চালায়।
+একটি সাধারণ প্রজেক্ট টেস্টগুলো সেই কোডের পাশে রাখে, যা টেস্ট করছে:
 </I18nBangla>
 
-
-
----
-
-## Filtering Tests
-
-<I18nEnglish>
-Use the `--only` flag or `.only` in test definitions to run specific tests.  
-Mark tests with `.skip` to temporarily disable them.
-</I18nEnglish>
-
-<I18nBangla>
-`--only` ফ্ল্যাগ বা টেস্ট ডেফিনিশনে `.only` ব্যবহার করে নির্দিষ্ট টেস্ট চালাতে পারেন।  
-`.skip` ব্যবহার করলে টেস্ট সাময়িকভাবে এড়ানো যায়।
-</I18nBangla>
-
-
-
----
-
-## Example: Filtering
-
-<Tabs defaultValue="english" className="w-full">
-  <TabsList>
-    <TabsTrigger value="english">English</TabsTrigger>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-  </TabsList>
-
-  <TabsContent value="english">
-
-```js
-import test from "bnlang:test";
-
-test.only("runs this test only", (t) => {
-  t.ok(true);
-});
-
-test.skip("skips this test", (t) => {
-  t.ok(false);
-});
 ```
-  </TabsContent>
+my-app/
+  bnl.json
+  bnl.lock
+  src/
+    parser.bnl
+    formatter.bnl
+  tests/
+    parser_spec.bnl
+    formatter_spec.bnl
+```
 
-  <TabsContent value="bangla">
+---
+
+## A Multi-Case Spec
 
 ```bnl
-import test from "bnlang:test";
+// file: tests/parser_spec.bnl
+import "test"   as t;
+import "parser" as parser;
 
-test.only("শুধু এই টেস্ট চলবে", (t) => {
-  t.ok(true);
+t.test("parses integers", function () {
+    t.equal(parser.parse("42"), 42);
 });
 
-test.skip("এই টেস্ট এড়ানো হবে", (t) => {
-  t.ok(false);
+t.test("parses negatives", function () {
+    t.equal(parser.parse("-3"), -3);
 });
+
+t.test("rejects garbage", function () {
+    t.throws_with(function () { parser.parse("not a number"); }, "expected number");
+});
+
+t.run();
 ```
-  </TabsContent>
 
-  
-</Tabs>
+---
+
+## CI Integration
+
+<I18nEnglish>
+Because each test file exits with `0` on success and `1` on any failure, plugging into CI is trivial. Example GitHub Actions step:
+</I18nEnglish>
+
+<I18nBangla>
+যেহেতু প্রতিটি টেস্ট ফাইল সফল হলে `0` দিয়ে এবং যেকোনো ব্যর্থতায় `1` দিয়ে এক্সিট করে, CI-এ প্লাগ ইন করা সহজ। GitHub Actions উদাহরণ স্টেপ:
+</I18nBangla>
+
+```
+- name: Run Bnlang tests
+  shell: bash
+  run: |
+    for f in tests/*.bnl; do
+      bnl "$f" || exit 1
+    done
+```
 
 ---
 
 ## Best Practices
 
 <I18nEnglish>
-- Keep test files in a `tests/` directory.  
-- Integrate test runs into CI/CD pipelines.
+- Keep test files short and focused. One subject, one spec file.
+- Make test names *describe* the behavior — `"parses negatives"` beats `"test 3"`.
+- Use `t.throws_with` to nail down which error you expect; bare `t.throws` accepts any throw and can mask bugs.
+- Run tests on every commit. The earlier you find a regression, the cheaper it is to fix.
 </I18nEnglish>
 
 <I18nBangla>
-- টেস্ট ফাইলগুলো `tests/` ডিরেক্টরিতে রাখুন।  
-- CI/CD পাইপলাইনে টেস্ট অন্তর্ভুক্ত করুন।
+- টেস্ট ফাইল ছোট ও ফোকাস্ড রাখুন। একটি বিষয়, একটি স্পেক ফাইল।
+- টেস্ট নাম বিহেভিয়র *বর্ণনা* করুক — `"parses negatives"` `"test 3"` এর চেয়ে ভালো।
+- কোন এরর আপনি আশা করছেন সেটা পিন করতে `t.throws_with` ব্যবহার করুন; খালি `t.throws` যেকোনো থ্রো গ্রহণ করে এবং বাগ লুকাতে পারে।
+- প্রতিটি কমিটে টেস্ট চালান। যত আগে রিগ্রেশন ধরা পড়ে, ঠিক করতে তত কম খরচ।
 </I18nBangla>
-
-

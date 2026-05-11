@@ -1,0 +1,248 @@
+---
+title: Global functions
+description: Built-in functions available in every Bnlang program without an `import` — print, str, type, to_number, chr, try_call, pretty, dump, input.
+
+bnTitle: গ্লোবাল ফাংশন
+bnDescription: প্রতিটি Bnlang প্রোগ্রামে `import` ছাড়াই উপলব্ধ বিল্ট-ইন ফাংশন।
+
+---
+
+# <I18nEnglish>Global functions</I18nEnglish>
+# <I18nBangla>গ্লোবাল ফাংশন</I18nBangla>
+
+
+<I18nEnglish>
+These functions are registered in the global scope at startup. You can call them from any file without an `import`. Where an English name has a Bangla synonym, both bind to the same callable.
+
+## I/O and display
+
+### `print(...args)` / `লিখুন(...args)`
+
+Write each argument's display string to standard output, separated by single spaces, terminated by a newline. Variadic — takes any number of arguments.
+
+```bnl
+print("hello", 42, true);    // hello 42 true
+লিখুন("নম্বর:", 7);          // নম্বর: 7
+```
+
+Returns `null`.
+
+### `input(prompt?)` / `ইনপুট(prompt?)`
+
+Read one line from standard input. If `prompt` is given, write it to stdout (no trailing newline) before reading.
+
+The returned string does **not** include the trailing newline. Returns `null` on EOF (Ctrl-Z + Enter on Windows, Ctrl-D on POSIX), so you can detect end-of-input with `if (line == null) { ... }`.
+
+```bnl
+var name = input("Name? ");
+if (name == null) { return; }
+print("Hello,", name);
+```
+
+## Type conversion
+
+### `str(value)`
+
+Convert any value to its display string — the same form `print` would emit.
+
+```bnl
+print(str(42));         // "42"
+print(str([1, 2, 3]));  // "[1, 2, 3]"
+print(str(null));       // "null"
+```
+
+### `to_number(s)`
+
+Parse a string to a number. Returns `null` on failure rather than throwing — pair with an `== null` check. Whitespace around the number is tolerated. Numbers pass through unchanged.
+
+```bnl
+print(to_number("3.14"));    // 3.14
+print(to_number("  42 "));   // 42
+print(to_number("abc"));     // null
+print(to_number(7));         // 7
+```
+
+### `chr(n)`
+
+Build a single-byte string from a byte value. `n` must be a number in `0..255`. Throws otherwise.
+
+```bnl
+print(chr(65));     // "A"
+print(chr(10));     // "\n"
+```
+
+## Reflection
+
+### `type(value)` / `ধরণ(value)`
+
+Return the value's type name as a string. Possible results: `"null"`, `"bool"`, `"number"`, `"string"`, `"list"`, `"map"`, `"function"`, `"class"`, `"instance"`, `"module"`.
+
+```bnl
+print(type(null));        // null
+print(type(true));        // bool
+print(type(42));          // number
+print(type("hi"));        // string
+print(type([1, 2]));      // list
+print(type({a: 1}));      // map
+print(type(print));       // function
+```
+
+## Error recovery
+
+### `try_call(thunk, on_err)`
+
+Call `thunk()` with no arguments. If it returns normally, return its value. If it throws, call `on_err(<message-or-thrown-value>)` and return what that returns.
+
+`try_call` is useful in places where `try` / `catch` syntax is awkward — for example, expression-level recovery inside another call, or inside a library that needs to turn handler exceptions into responses without crashing the loop.
+
+```bnl
+var result = try_call(
+    function () { return risky_op(); },
+    function (err) { print("recovered:", err); return null; }
+);
+```
+
+## Debugging
+
+### `pretty(value)`
+
+Pretty-print a value into a multi-line string with nested indentation. Strings are shown in quotes (so `"x"` is visibly distinct from a bare identifier). Output is truncated at `BNL_PRINT_LIMIT` codepoints (default 100; set `BNL_PRINT_LIMIT=0` to disable, or any positive integer to override) with a trailing `"..."` when cut.
+
+```bnl
+print(pretty({ user: "alice", roles: ["admin", "editor"], age: 30 }));
+```
+
+Intended for use as `print(pretty(x));` when you want a quick legible view of nested data.
+
+### `dump(value)`
+
+Same formatter as `pretty`, but with no truncation. Use when you need to see the entire value during debugging.
+
+```bnl
+print(dump(big_response));
+```
+
+## Notes
+
+- `print`, `type`, and `input` have Bangla synonyms (`লিখুন`, `ধরণ`, `ইনপুট`). `str`, `to_number`, `chr`, `try_call`, `pretty`, and `dump` are English-only.
+- These are real `function` values — you can pass them around: `var p = print; p("hi");`.
+- They live in the global scope, so any user-defined variable with the same name in the same scope will shadow them.
+</I18nEnglish>
+
+<I18nBangla>
+এই ফাংশনগুলো স্টার্টআপে গ্লোবাল স্কোপে রেজিস্টার হয়। আপনি `import` ছাড়াই যেকোনো ফাইল থেকে এদের কল করতে পারেন। যেখানে একটি ইংরেজি নামের বাংলা সমার্থক আছে, দুটিই একই callable-এ bind হয়।
+
+## I/O ও display
+
+### `print(...args)` / `লিখুন(...args)`
+
+প্রতিটি আর্গুমেন্টের display স্ট্রিং standard output-এ লেখে, একটি স্পেস দিয়ে আলাদা করে, শেষে একটি নতুন লাইন যোগ করে। Variadic — যেকোনো সংখ্যক আর্গুমেন্ট নেয়।
+
+```bnl
+print("hello", 42, true);    // hello 42 true
+লিখুন("নম্বর:", 7);          // নম্বর: 7
+```
+
+`null` ফেরত দেয়।
+
+### `input(prompt?)` / `ইনপুট(prompt?)`
+
+Standard input থেকে একটি লাইন পড়ে। `prompt` দিলে পড়ার আগে stdout-এ লেখে (trailing newline ছাড়া)।
+
+ফেরত স্ট্রিং-এ trailing newline থাকে **না**। EOF-এ (Windows-এ Ctrl-Z + Enter, POSIX-এ Ctrl-D) `null` ফেরত দেয়, তাই `if (line == null) { ... }` দিয়ে end-of-input detect করতে পারেন।
+
+```bnl
+var name = input("নাম? ");
+if (name == null) { return; }
+print("হ্যালো,", name);
+```
+
+## টাইপ কনভার্শন
+
+### `str(value)`
+
+যেকোনো মান-কে তার display স্ট্রিং-এ রূপান্তর — `print` যে ফর্মে দেখাতো সেই একই।
+
+```bnl
+print(str(42));         // "42"
+print(str([1, 2, 3]));  // "[1, 2, 3]"
+print(str(null));       // "null"
+```
+
+### `to_number(s)`
+
+একটি স্ট্রিং-কে সংখ্যায় parse করে। ব্যর্থ হলে throw না করে `null` ফেরত দেয় — `== null` চেক-এর সাথে pair করুন। সংখ্যার চারপাশের whitespace tolerate করে। সংখ্যা যেমন আছে তেমনই pass through হয়।
+
+```bnl
+print(to_number("3.14"));    // 3.14
+print(to_number("  42 "));   // 42
+print(to_number("abc"));     // null
+print(to_number(7));         // 7
+```
+
+### `chr(n)`
+
+একটি byte value থেকে একটি single-byte স্ট্রিং বানায়। `n` `0..255`-এ একটি সংখ্যা হতে হবে। অন্যথায় throw করে।
+
+```bnl
+print(chr(65));     // "A"
+print(chr(10));     // "\n"
+```
+
+## Reflection
+
+### `type(value)` / `ধরণ(value)`
+
+মানের টাইপ-নাম একটি স্ট্রিং হিসেবে ফেরত দেয়। সম্ভাব্য ফলাফল: `"null"`, `"bool"`, `"number"`, `"string"`, `"list"`, `"map"`, `"function"`, `"class"`, `"instance"`, `"module"`।
+
+```bnl
+print(type(null));        // null
+print(type(true));        // bool
+print(type(42));          // number
+print(type("hi"));        // string
+print(type([1, 2]));      // list
+print(type({a: 1}));      // map
+print(type(print));       // function
+```
+
+## এরর recovery
+
+### `try_call(thunk, on_err)`
+
+`thunk()` কে কোনো আর্গুমেন্ট ছাড়াই কল করে। স্বাভাবিকভাবে return করলে তার মান ফেরত দেয়। Throw করলে `on_err(<message-or-thrown-value>)` কল করে এবং সেটি যা ফেরত দেয় তা ফেরত দেয়।
+
+`try_call` সেইসব জায়গায় কাজে আসে যেখানে `try` / `catch` syntax awkward — যেমন expression-level recovery কোনো call-এর ভেতরে, অথবা একটি লাইব্রেরির ভেতরে যেখানে handler exception-কে response-এ রূপান্তর করতে হবে।
+
+```bnl
+var result = try_call(
+    function () { return risky_op(); },
+    function (err) { print("recovered:", err); return null; }
+);
+```
+
+## ডিবাগিং
+
+### `pretty(value)`
+
+একটি মান-কে nested indentation সহ multi-line স্ট্রিং-এ pretty-print করে। স্ট্রিং quotes-এ দেখানো হয় (তাই `"x"` একটি bare identifier থেকে আলাদাভাবে দৃশ্যমান)। আউটপুট `BNL_PRINT_LIMIT` codepoints-এ truncate হয় (default 100; disable করতে `BNL_PRINT_LIMIT=0` সেট করুন), কাটা হলে শেষে `"..."` যোগ হয়।
+
+```bnl
+print(pretty({ user: "alice", roles: ["admin", "editor"], age: 30 }));
+```
+
+`print(pretty(x));` হিসেবে ব্যবহার্য — যখন nested ডাটার দ্রুত legible view চান।
+
+### `dump(value)`
+
+`pretty`-এর মতই একই formatter, কিন্তু truncation ছাড়া। যখন debug করার সময় পুরো মান দেখতে চান তখন ব্যবহার করুন।
+
+```bnl
+print(dump(big_response));
+```
+
+## নোট
+
+- `print`, `type`, এবং `input`-এর বাংলা সমার্থক আছে (`লিখুন`, `ধরণ`, `ইনপুট`)। `str`, `to_number`, `chr`, `try_call`, `pretty`, এবং `dump` শুধু ইংরেজি।
+- এগুলো সত্যিকারের `function` value — আপনি এদের pass around করতে পারেন: `var p = print; p("hi");`।
+- এরা গ্লোবাল স্কোপে থাকে, তাই একই স্কোপে একই নামের যেকোনো user-defined variable এদের shadow করবে।
+</I18nBangla>

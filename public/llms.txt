@@ -1,0 +1,197 @@
+# Bnlang
+
+> Bnlang is a dual-language programming language and runtime — write code in English or Bangla, side by side. It runs as a native, embeddable tree-walking interpreter written in modern C++ with libuv, OpenSSL, llhttp, SQLite/PostgreSQL/MySQL/MongoDB drivers, a templating engine, WebSockets, and an HTTP client — all in the standard library.
+
+Source files (`.bnl`) run directly with the `bnl` CLI. The interpreter and every built-in module are C++20 code linked into one binary. A small package manager (`bpm`) handles dependencies via `bnl.json` / `bnl.lock`.
+
+The language is deliberately small and regular. There is one declaration keyword (`var`). Equality is `==`. Logical operators are spelled as words (`and`, `or`, `not`). Async I/O is callback-based; functions are fixed-arity (no defaults, no overloads). `switch` has no fall-through — each case is its own block. English and Bangla keywords map to the same syntax tree.
+
+## Keywords
+
+- **Project names**: Bnlang, bnl, BNL, bnlang.dev, Bangla Programming Language, Bengali programming language
+- **Language category**: programming language, scripting language, dual-language, bilingual programming, dual-script source code, English keywords, Bangla keywords, বাংলা
+- **Implementation**: native interpreter, tree-walking interpreter, embeddable runtime, C++20, libuv, OpenSSL, llhttp, zlib, single-binary runtime, no transpilation step
+- **Design principles**: small surface area, fixed-arity functions (no defaults, no overloading), callback-based async, switch with no fall-through, word-form logical operators (`and`/`or`/`not`), single declaration keyword `var`, explicit `self` method receiver
+- **Built-in stdlib**: HTTP/HTTPS server, HTTP client, WebSocket server, templating engine (with blocks, filters, inheritance, whitespace control), JSON, CSV, regex, crypto (SHA, HMAC, base64), UUID v4, file I/O (sync/async/streaming), path manipulation, timers, child processes, leveled logging, `.env` parsing, CLI argument parser, built-in test framework, async composition (`series`/`parallel`/`waterfall`/`map`/`each`)
+- **Database drivers**: SQLite (embedded), PostgreSQL (libpq), MySQL/MariaDB (libmariadb), MongoDB (mongo-c-driver)
+- **Tooling**: `bnl` CLI, REPL, `bpm` package manager, `bnl.json` manifest, `bnl.lock` lockfile, VS Code extension `bnlang.bnl-vscode`, FFI plugin loader for `.dll`/`.so`/`.dylib`
+- **Platforms**: Windows (x64, x86), Linux (x64), macOS (Apple Silicon)
+- **Audience**: Bangla-speaking developers, students, educators, programming-in-mother-tongue advocates; also general-purpose users embedding a small scripting language in C++ hosts
+- **File extension**: `.bnl`
+
+## Language tokens
+
+Every English keyword has a Bangla synonym — both forms parse to the same `TokenType` and produce the same AST.
+
+### Reserved keywords (English / Bangla)
+
+- **Declarations**: `var` / `চলক`, `function` / `ফাংশন`, `class` / `শ্রেণী`, `extends` / `প্রসারিত`, `super` / `উপরের`, `import` / `আমদানি`, `as` / `যেমন`
+- **Control flow**: `if` / `যদি`, `else` / `নাহলে`, `for` / `প্রতি`, `of` / `এর`, `while` / `যতক্ষণ`, `return` / `ফেরত`
+- **Switch**: `switch` / `বিকল্প`, `case` / `অবস্থা`, `default` / `অন্যথায়`
+- **Loop / switch flow**: `break` / `থামুন`, `continue` / `চলুন`
+- **Error handling**: `try` / `চেষ্টা`, `catch` / `ধরুন`, `throw` / `নিক্ষেপ`, `finally` / `অবশেষে`
+- **Literals**: `true` / `সত্য`, `false` / `মিথ্যা`, `null` / `নাই`
+- **Word-form logical operators**: `and` / `এবং`, `or` / `অথবা`, `not` / `না`
+
+### NOT reserved (deliberately absent)
+
+`let`, `const`, `do`, `async`, `await`, `yield`, `typeof`, `instanceof`, `in`, `void`, `delete`, `this`, `new`, `with`, `debugger`, `static`. The bnl equivalents are: `var` covers any variable declaration; `for ... of` covers iteration; method definitions take `self` as the explicit first parameter; classes are instantiated by calling them (`Counter(10)`); the `type()` global returns a value's type name as a string.
+
+### Operators
+
+`+`  `-`  `*`  `/`  `%`  (arithmetic, with `-` also unary; `+` also string concat)
+`==`  `!=`  `<`  `<=`  `>`  `>=`  (comparison)
+`=`  (assignment — no compound forms)
+`.`  `[ ]`  `( )`  (member, index, call)
+`and`  `or`  `not`  (logical word operators)
+
+The language has no symbolic logical operators, no bitwise operators, no increment/decrement, no ternary, no null-coalescing, no optional chaining, no spread/rest, and no template-string interpolation. Build strings with `+` or pass multiple arguments to `print`.
+
+### Built-in global functions
+
+Available in every program without an `import`:
+
+- `print(...args)` / `লিখুন(...args)` — variadic, space-separated, trailing newline
+- `input(prompt?)` / `ইনপুট(prompt?)` — read one line from stdin; `null` on EOF
+- `str(value)` — value → display string
+- `to_number(s)` — parse string to number; `null` on failure
+- `chr(n)` — single-byte string from byte value `0..255`
+- `type(value)` / `ধরণ(value)` — type name as string (`"null"`, `"bool"`, `"number"`, `"string"`, `"list"`, `"map"`, `"function"`, `"class"`, `"instance"`, `"module"`)
+- `try_call(thunk, on_err)` — call `thunk()`; on throw, call `on_err(message)` and return its result
+- `pretty(value)` — pretty-formatted multi-line display string (truncates at `BNL_PRINT_LIMIT`, default 100 codepoints)
+- `dump(value)` — same as `pretty` but no truncation
+
+### Built-in types
+
+`number` (double-precision float — no integer/float distinction), `string` (UTF-8 bytes; double-quoted only, no single quotes, no backtick templates), `bool`, `null`, `list` (`[...]`), `map` (`{key: value, ...}`), `function` (first-class), `class`, `instance`, `module`
+
+### Importable standard-library modules
+
+Core: `sys`, `io`, `path`, `time`, `timers`
+Async: `async`
+Data: `json`, `csv`, `regex`
+Crypto / math: `crypto`, `random`, `math`, `zlib`
+Network: `net`, `dns`, `tls`, `url`
+HTTP / web: `web`, `request`, `ws`, `cookie`, `session`, `multipart`, `template`
+Database: `sqlite`, `pg`, `mysql`, `mongo`
+Utilities: `log`, `dotenv`, `cli`, `uuid`, `exec`, `test`
+
+Import syntax is always `import "name" as alias;` — direct path imports (`import "./plugins/mathx.dll" as m;`) load FFI plugins; bare names resolve against the stdlib first, then `./deps/<name>/` for BPM packages.
+
+### File extension
+
+`.bnl`. Run with `bnl path/to/file.bnl`. Inline source via `bnl -e '<code>'`. Interactive REPL by running `bnl` with no arguments.
+
+## Getting started
+
+- [Introduction](https://bnlang.dev/en/docs/v1.0.0/introduction): what bnl is, runtime stack, install, project layout
+- [Usage and examples](https://bnlang.dev/en/docs/v1.0.0/usage-and-example): hello world through a small web server, in one page
+- [Get Started — Learn](https://bnlang.dev/en/learn/get-started): tutorial path from first program to embedding
+- [How Bnlang works internally](https://bnlang.dev/en/learn/get-started/how-bnlang-works-internally): lexer → parser → tree-walking interpreter → libuv event loop
+- [Use cases](https://bnlang.dev/en/learn/get-started/usecase-of-bnlang)
+
+## Language reference
+
+- [Keywords overview](https://bnlang.dev/en/docs/v1.0.0/keywords): every bnl keyword with English/Bangla forms
+- [Operators](https://bnlang.dev/en/docs/v1.0.0/operators): arithmetic, comparison, word-form logical operators; explicit list of what's NOT in the language
+- [Global functions](https://bnlang.dev/en/docs/v1.0.0/globals): `print`, `input`, `str`, `type`, `to_number`, `chr`, `try_call`, `pretty`, `dump` — available without `import`
+
+### Keyword detail pages
+
+- [var](https://bnlang.dev/en/docs/v1.0.0/keywords/var-keyword): variable declaration (no `let`/`const`)
+- [function](https://bnlang.dev/en/docs/v1.0.0/keywords/function-keyword): fixed-arity, first-class, closures
+- [class / extends / super](https://bnlang.dev/en/docs/v1.0.0/keywords/class-keyword): explicit `self` first parameter, no `this`, no `new`
+- [import / as](https://bnlang.dev/en/docs/v1.0.0/keywords/import-keyword): stdlib, BPM packages, direct FFI plugin paths
+- [if](https://bnlang.dev/en/docs/v1.0.0/keywords/if-keyword) / [else](https://bnlang.dev/en/docs/v1.0.0/keywords/else-keyword)
+- [for / of](https://bnlang.dev/en/docs/v1.0.0/keywords/for-keyword): `for (var x of list) { ... }` only — no C-style
+- [while](https://bnlang.dev/en/docs/v1.0.0/keywords/while-keyword)
+- [switch / case / default](https://bnlang.dev/en/docs/v1.0.0/keywords/switch-case-keyword): no fall-through; stacked cases share a body
+- [break](https://bnlang.dev/en/docs/v1.0.0/keywords/break-keyword): exits the nearest loop or switch
+- [continue](https://bnlang.dev/en/docs/v1.0.0/keywords/continue-keyword): skips to next iteration; passes through enclosing switch to outer loop
+- [return](https://bnlang.dev/en/docs/v1.0.0/keywords/return-keyword): bare `return;` yields null
+- [throw](https://bnlang.dev/en/docs/v1.0.0/keywords/throw-keyword): throws any value (strings, maps, …)
+- [try / catch / finally](https://bnlang.dev/en/docs/v1.0.0/keywords/try-catch-finally-keyword)
+
+## Standard library
+
+- [Modules index](https://bnlang.dev/en/docs/v1.0.0/modules): grouped reference for every stdlib module
+
+### Core
+
+- [sys](https://bnlang.dev/en/docs/v1.0.0/modules/sys-module): `argc`, `arg`, `env`, `envs`, `cwd`, `exit`, `platform`
+- [io](https://bnlang.dev/en/docs/v1.0.0/modules/io-module): file I/O — sync, async (`_async` variants), and streaming (`open_read`/`open_write`)
+- [path](https://bnlang.dev/en/docs/v1.0.0/modules/path-module): `join`, `dirname`, `basename`, `stem`, `extname`, `normalize`, `is_absolute`
+- [timers](https://bnlang.dev/en/docs/v1.0.0/modules/timers-module): `set(ms, fn)` and `interval(ms, fn)` — no `setTimeout` / `setImmediate` / `setInterval` separately
+- [time](https://bnlang.dev/en/docs/v1.0.0/modules/time-module): clocks, calendar components, ISO 8601, duration arithmetic
+
+### Async composition
+
+- [async](https://bnlang.dev/en/docs/v1.0.0/modules/async-module): `series`, `parallel`, `waterfall`, `each`, `each_series`, `map`, `map_series`, plus `apply_*` for plain sync functions
+
+### Data
+
+- [json](https://bnlang.dev/en/docs/v1.0.0/modules/json-module): `parse(text)`, `stringify(value)`
+- [csv](https://bnlang.dev/en/docs/v1.0.0/modules/csv-module): `parse`, `parse_records`, `stringify`
+- [regex](https://bnlang.dev/en/docs/v1.0.0/modules/regex-module): `test`, `match`, `match_all`, `replace`, `replace_all`, `split`, `escape`
+
+### Crypto, math, compression
+
+- [crypto](https://bnlang.dev/en/docs/v1.0.0/modules/crypto-module): SHA/MD5 hashes, HMAC, base64 / base64url / hex codecs, secure `random_bytes`, constant-time `equals`
+- [random](https://bnlang.dev/en/docs/v1.0.0/modules/random-module): seedable non-cryptographic RNG, `int`, `float`, `bool`, `choice`, `shuffle`, `sample`
+- [math](https://bnlang.dev/en/docs/v1.0.0/modules/math-module): trig, logs, powers, rounding, `clamp`, `lerp`, list aggregates
+- [zlib](https://bnlang.dev/en/docs/v1.0.0/modules/zlib-module): `gzip`/`gunzip`, raw `deflate`/`inflate`
+
+### Network
+
+- [net](https://bnlang.dev/en/docs/v1.0.0/modules/net-module): `tcp_listen`, `tcp_connect`
+- [dns](https://bnlang.dev/en/docs/v1.0.0/modules/dns-module): `lookup`, `lookup_all`, `reverse`, IP-literal helpers
+- [tls](https://bnlang.dev/en/docs/v1.0.0/modules/tls-module): TLS-encrypted server/client (used internally by `web` and `request`)
+- [url](https://bnlang.dev/en/docs/v1.0.0/modules/url-module): `parse`, `encode`, `decode`, `build_query`, `parse_query`
+
+### HTTP / web
+
+- [web](https://bnlang.dev/en/docs/v1.0.0/modules/web-module): HTTP/HTTPS server framework — `app()` builder with `app.get`/`.post`/etc, before/after middleware, automatic response coercion, static file serving, `web.upgrade(req)` for WebSocket
+- [request](https://bnlang.dev/en/docs/v1.0.0/modules/request-module): HTTP client — `get`/`post`/`put`/`patch`/`delete`, `create(defaults)`, file `upload`/`download`, connection pool
+- [ws](https://bnlang.dev/en/docs/v1.0.0/modules/ws-module): WebSocket server — `accept(conn, req)` pairs with `web.upgrade(req)`
+- [cookie](https://bnlang.dev/en/docs/v1.0.0/modules/cookie-module): parse `Cookie:` headers; build `Set-Cookie` values
+- [session](https://bnlang.dev/en/docs/v1.0.0/modules/session-module): in-memory session middleware (pluggable for Redis/DB)
+- [multipart](https://bnlang.dev/en/docs/v1.0.0/modules/multipart-module): `multipart/form-data` encode/decode (streaming variant for huge uploads)
+- [template](https://bnlang.dev/en/docs/v1.0.0/modules/template-module): templating engine — `{{ var }}`, `{% if %}`, `{% for %}`, `{% block %}`, filters, inheritance, whitespace control
+
+### Database
+
+- [sqlite](https://bnlang.dev/en/docs/v1.0.0/modules/sqlite-module): embedded SQLite — `open`, `exec`, `query`, `query_one`, transactions, migrations
+- [pg](https://bnlang.dev/en/docs/v1.0.0/modules/pg-module): PostgreSQL via libpq (`$1`, `$2` parameter placeholders)
+- [mysql](https://bnlang.dev/en/docs/v1.0.0/modules/mysql-module): MySQL/MariaDB via libmariadb (`?` placeholders)
+- [mongo](https://bnlang.dev/en/docs/v1.0.0/modules/mongo-module): MongoDB via mongo-c-driver
+
+### Utilities
+
+- [log](https://bnlang.dev/en/docs/v1.0.0/modules/log-module): leveled logging with swappable formatter and sink
+- [dotenv](https://bnlang.dev/en/docs/v1.0.0/modules/dotenv-module): `.env` file parser
+- [cli](https://bnlang.dev/en/docs/v1.0.0/modules/cli-module): declarative CLI argument parser — flags, options, positionals, auto `--help`
+- [uuid](https://bnlang.dev/en/docs/v1.0.0/modules/uuid-module): v4 UUIDs, `is_valid`, `is_v4`
+- [exec](https://bnlang.dev/en/docs/v1.0.0/modules/exec-module): child processes — high-level `run`/`run_with_input`, low-level `spawn` with stream control
+- [test](https://bnlang.dev/en/docs/v1.0.0/modules/test-module): built-in test framework — `test()`, `equal`/`is_true`/`contains`/`throws`/`throws_with`, `run()`
+
+## Tutorials (long-form `/learn`)
+
+- [Asynchronous flow control](https://bnlang.dev/en/learn/asynchronous-work/asynchronous-flow-control): callbacks, error-first convention, composing async steps
+- [Blocking vs non-blocking](https://bnlang.dev/en/learn/asynchronous-work/overview-of-blocking-vs-non-blocking)
+- [The Bnlang event loop](https://bnlang.dev/en/learn/asynchronous-work/the-bnlang-event-loop)
+- [Timers in Bnlang](https://bnlang.dev/en/learn/asynchronous-work/timers-in-bnlang)
+- [Manipulating files](https://bnlang.dev/en/learn/manipulating-files): stats, paths, sync/async/streaming reads + writes, directories
+- [Command line](https://bnlang.dev/en/learn/command-line): running scripts, env vars, console output, CLI input
+- [BPM — the package manager](https://bnlang.dev/en/learn/bnlang-package-manager): `bnl.json`, `bnl.lock`, install/publish workflow
+- [Test framework](https://bnlang.dev/en/learn/bnlang-test-runner)
+
+## About
+
+- [About Bnlang](https://bnlang.dev/en/about): goals, design philosophy, runtime stack
+- [Releases](https://bnlang.dev/en/releases): platform binaries (Windows, Linux, macOS)
+- [Download](https://bnlang.dev/en/download)
+
+## Optional
+
+- [Bangla locale (বাংলা)](https://bnlang.dev/bn): the same docs and learn content rendered with Bangla titles and code samples; URL pattern is identical with `/bn/` in place of `/en/`
+- [GitHub](https://github.com/bnlang): source repositories — `bnl` (runtime), `bpm` (package manager), `bnl-vscode` (editor extension), `bnl-web` (this website)

@@ -1,8 +1,8 @@
 ---
 title: Bnlang File Paths
-description: Learn how to work with file paths in Bnlang, including relative and absolute paths, and cross-platform handling.
+description: Build, join, and split file paths portably in Bnlang using the `path` module.
 bnTitle: Bnlang ফাইল পাথ
-bnDescription: Bnlang এ ফাইল পাথ নিয়ে কাজ করা শিখুন, রিলেটিভ এবং অ্যাবসোলিউট পাথসহ ক্রস-প্ল্যাটফর্ম ব্যবহার।
+bnDescription: "path মডিউল দিয়ে Bnlang-এ ক্রস-প্ল্যাটফর্মে ফাইল পাথ তৈরি, জয়েন ও ভাগ করুন।"
 ---
 
 # <I18nEnglish>Bnlang File Paths</I18nEnglish>
@@ -10,97 +10,109 @@ bnDescription: Bnlang এ ফাইল পাথ নিয়ে কাজ ক�
 
 
 <I18nEnglish>
-Working with **file paths** is an important part of file system operations in Bnlang.  
-File paths can be **absolute** (starting from the root of the file system) or **relative** (starting from the current working directory).  
-Bnlang provides built-in modules to handle file paths in a cross-platform way, so your programs work on Windows, Linux, and macOS.
+Working with file paths portably means not hard-coding `/` or `\` and not relying on a particular working directory.
+The built-in `path` module gives you helpers that work the same way on Windows, Linux, and macOS, and accept either separator on input.
 </I18nEnglish>
 
 <I18nBangla>
-Bnlang এ **ফাইল পাথ** নিয়ে কাজ করা ফাইল সিস্টেম অপারেশনের একটি গুরুত্বপূর্ণ অংশ।  
-ফাইল পাথ হতে পারে **অ্যাবসোলিউট** (ফাইল সিস্টেমের রুট থেকে শুরু) অথবা **রিলেটিভ** (বর্তমান কাজের ডিরেক্টরি থেকে শুরু)।  
-Bnlang ক্রস-প্ল্যাটফর্ম উপায়ে ফাইল পাথ হ্যান্ডল করার জন্য বিল্ট-ইন মডিউল সরবরাহ করে, যাতে আপনার প্রোগ্রাম Windows, Linux এবং macOS এ কাজ করে।
+ক্রস-প্ল্যাটফর্ম ফাইল পাথ মানে `/` বা `\` হার্ডকোড না করা, এবং কোনো নির্দিষ্ট ওয়ার্কিং ডিরেক্টরির উপর নির্ভর না করা।
+বিল্ট-ইন `path` মডিউল আপনাকে হেল্পার দেয় যা Windows, Linux ও macOS-এ একই ভাবে কাজ করে, এবং ইনপুটে দু'টা সেপারেটরই গ্রহণ করে।
 </I18nBangla>
 
 
 
 ---
 
-## Types of Paths
+## Common Operations
 
-<I18nEnglish>
-- **Absolute Path** → Specifies the full path from the root of the file system.  
-- **Relative Path** → Specifies the path relative to the current working directory.  
-- **Cross-Platform Paths** → Use helpers to handle different separators (e.g., `/` in Linux, `\` in Windows).
-</I18nEnglish>
-
-<I18nBangla>
-- **অ্যাবসোলিউট পাথ** → ফাইল সিস্টেমের রুট থেকে পুরো পাথ উল্লেখ করে।  
-- **রিলেটিভ পাথ** → বর্তমান কাজের ডিরেক্টরি থেকে পাথ উল্লেখ করে।  
-- **ক্রস-প্ল্যাটফর্ম পাথ** → আলাদা সিস্টেমের সেপারেটর (যেমন Linux এ `/`, Windows এ `\`) হ্যান্ডল করার জন্য হেল্পার ব্যবহার করুন।
-</I18nBangla>
-
-
-
----
-
-## Example: Using File Paths
-
-<Tabs defaultValue="bangla" className="w-full">
+<Tabs defaultValue="english" className="w-full">
   <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
     <TabsTrigger value="english">English</TabsTrigger>
+    <TabsTrigger value="bangla">Bangla</TabsTrigger>
   </TabsList>
 
   <TabsContent value="english">
 
-```js
-const path = require("path");
+```bnl
+import "path" as path;
 
-// Absolute path
-const absolutePath = path.resolve("/user/docs/file.txt");
-console.log("Absolute:", absolutePath);
+// Build a path from segments.
+print(path.join(["data", "users", "alice.json"]));
+// → "data/users/alice.json"
 
-// Relative path
-const relativePath = path.join("docs", "file.txt");
-console.log("Relative:", relativePath);
+// Take a path apart.
+print(path.dirname("/var/log/app.log"));   // → "/var/log"
+print(path.basename("/var/log/app.log"));  // → "app.log"
+print(path.stem("/var/log/app.log"));      // → "app"
+print(path.extname("/var/log/app.log"));   // → ".log"
+
+// Normalize a messy path.
+print(path.normalize("/foo/./bar/../baz")); // → "/foo/baz"
+
+// Is this an absolute path?
+print(path.is_absolute("/etc/hosts"));      // → true
+print(path.is_absolute("C:/Users/zo"));     // → true
+print(path.is_absolute("./local"));         // → false
 ```
   </TabsContent>
 
   <TabsContent value="bangla">
 
 ```bnl
-const path = require("path");
+আমদানি "path" যেমন path;
 
-// অ্যাবসোলিউট পাথ
-const পূর্ণপাথ = path.resolve("/user/docs/file.txt");
-কনসোল.লগ("পূর্ণ:", পূর্ণপাথ);
+// সেগমেন্ট থেকে একটি পাথ তৈরি করুন।
+লিখুন(path.join(["data", "users", "alice.json"]));
+// → "data/users/alice.json"
 
-// রিলেটিভ পাথ
-const আপেক্ষিক = path.join("docs", "file.txt");
-কনসোল.লগ("আপেক্ষিক:", আপেক্ষিক);
+// পাথ ভাগ করুন।
+লিখুন(path.dirname("/var/log/app.log"));   // → "/var/log"
+লিখুন(path.basename("/var/log/app.log"));  // → "app.log"
+লিখুন(path.stem("/var/log/app.log"));      // → "app"
+লিখুন(path.extname("/var/log/app.log"));   // → ".log"
+
+// একটি এলোমেলো পাথ নর্মালাইজ করুন।
+লিখুন(path.normalize("/foo/./bar/../baz")); // → "/foo/baz"
+
+// এটি কি অ্যাবসোলিউট পাথ?
+লিখুন(path.is_absolute("/etc/hosts"));      // → সত্য
+লিখুন(path.is_absolute("C:/Users/zo"));     // → সত্য
+লিখুন(path.is_absolute("./local"));         // → মিথ্যা
 ```
   </TabsContent>
-
-  
 </Tabs>
+
+---
+
+## Platform-Native Separator
+
+<I18nEnglish>
+The helpers emit `/` on all platforms — that works fine for Windows filesystem APIs too. If you specifically need the platform-native separator (e.g. for shell scripts), read `path.sep`.
+</I18nEnglish>
+
+<I18nBangla>
+হেল্পারগুলো সব প্ল্যাটফর্মে `/` ইমিট করে — যা Windows ফাইলসিস্টেম API-তেও ঠিক কাজ করে। আপনি যদি বিশেষভাবে প্ল্যাটফর্ম-নেটিভ সেপারেটর চান (যেমন শেল স্ক্রিপ্টের জন্য), `path.sep` পড়ুন।
+</I18nBangla>
+
+```bnl
+import "path" as path;
+print("native separator:", path.sep);   // "/" on POSIX, "\\" on Windows
+```
 
 ---
 
 ## Best Practices
 
 <I18nEnglish>
-- Always use the `path` module for portability.  
-- Avoid hardcoding separators (`/` or `\`) in your code.  
-- Use `path.resolve()` for absolute paths and `path.join()` for building relative paths.  
-- Test file operations on multiple platforms if your project targets cross-platform environments.
+- Use `path.join` instead of string concatenation — it handles trailing slashes and empty segments for you.
+- Use `path.normalize` to collapse `..` and `.` segments after combining user-provided pieces.
+- Don't hard-code separators in string literals; let the `path` module pick the right form.
 </I18nEnglish>
 
 <I18nBangla>
-- সর্বদা `path` মডিউল ব্যবহার করুন যাতে পোর্টেবিলিটি বজায় থাকে।  
-- কোডে সেপারেটর (`/` বা `\`) হার্ডকোড করা এড়িয়ে চলুন।  
-- অ্যাবসোলিউট পাথের জন্য `path.resolve()` এবং রিলেটিভ পাথ তৈরির জন্য `path.join()` ব্যবহার করুন।  
-- যদি আপনার প্রজেক্ট ক্রস-প্ল্যাটফর্ম হয় তবে একাধিক প্ল্যাটফর্মে ফাইল অপারেশন টেস্ট করুন।
+- স্ট্রিং কনক্যাট না করে `path.join` ব্যবহার করুন — এটা ট্রেইলিং স্ল্যাশ ও খালি সেগমেন্ট সামলায়।
+- ব্যবহারকারী-প্রদত্ত পার্ট কম্বাইন করার পরে `..` ও `.` সেগমেন্ট কোলাপ্স করতে `path.normalize` ব্যবহার করুন।
+- স্ট্রিং লিটারালে সেপারেটর হার্ডকোড করবেন না; `path` মডিউলকে সঠিক ফর্ম বেছে নিতে দিন।
 </I18nBangla>
 
 

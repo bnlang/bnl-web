@@ -1,9 +1,9 @@
 ---
 title: Keywords
-description: List of all Bnlang keywords in English, Bangla with descriptions.
+description: Every Bnlang keyword in English and Bangla, with one-line descriptions and links to detail pages.
 
 bnTitle: কীওয়ার্ড
-bnDescription: বাংলা এবং ইংরেজিতে Bnlang এর সব কীওয়ার্ড ও বর্ণনা
+bnDescription: Bnlang-এর প্রতিটি কীওয়ার্ড — ইংরেজি ও বাংলা, এক-লাইনের বর্ণনা ও বিস্তারিত পেজের লিংকসহ।
 
 ---
 
@@ -12,131 +12,125 @@ bnDescription: বাংলা এবং ইংরেজিতে Bnlang এর 
 
 
 <I18nEnglish>
-Bnlang provides a rich set of **keywords** that can be used in three forms: **English**, **Bangla**.  
-All three map to the same meaning, so developers can code in the style they are most comfortable with.
+Bnlang has a small, fixed set of keywords. Each English form has a Bangla synonym; both parse to the same token, so the language semantics are identical regardless of which form you use.
+
+## Declarations
+| English | Bangla | Description |
+|---------|--------|-------------|
+| `var` | `চলক` | Declare a variable. |
+| `function` | `ফাংশন` | Define a function. |
+| `class` | `শ্রেণী` | Define a class. |
+| `extends` | `প্রসারিত` | Inherit from a parent class. |
+| `super` | `উপরের` | Refer to the parent class. |
+| `import` | `আমদানি` | Import a module or library. |
+| `as` | `যেমন` | Bind an imported module to a local name. |
 
 ## Control flow
 | English | Bangla | Description |
-|----------|--------|-------------|
-| if | যদি | Conditional branching. |
-| else | নাহলে | Alternative branch when condition fails. |
-| switch | বিকল্প | Multi-case branching. |
-| case | অবস্থা | A specific branch inside a switch. |
-| default | অন্যথায় | Default branch in switch if no case matches. |
-| for | প্রতি | Standard loop. |
-| while | যতক্ষণ | Loop while condition is true. |
-| do | করুন | Do-while loop, runs at least once. |
-| break | থামুন | Exit from loop/switch. |
-| continue | চলুন | Skip current loop iteration. |
-| return | ফেরত | Return from function. |
-| throw | নিক্ষেপ | Throw an exception. |
-| try | চেষ্টা | Start of error handling block. |
-| catch | ধরুন | Handle an error/exception. |
-| finally | অবশেষে | Cleanup block after try/catch. |
+|---------|--------|-------------|
+| `if` | `যদি` | Conditional branching. |
+| `else` | `নাহলে` | Alternative branch when condition fails. |
+| `for` | `প্রতি` | Iterate over a list. |
+| `of` | `এর` | Used inside `for ... of`. |
+| `while` | `যতক্ষণ` | Loop while a condition holds. |
+| `switch` | `বিকল্প` | Multi-way branching on a value. |
+| `case` | `অবস্থা` | A branch inside `switch`. |
+| `default` | `অন্যথায়` | Fallback branch inside `switch`. |
+| `break` | `থামুন` | Exit the nearest loop or switch. |
+| `continue` | `চলুন` | Skip to the next iteration of the nearest loop. |
+| `return` | `ফেরত` | Return a value from a function. |
 
-## Declarations / Classes
+## Error handling
 | English | Bangla | Description |
-|----------|--------|-------------|
-| var | চলক | Declare a variable (function-scoped). |
-| let | ধরি | Declare a block-scoped variable. |
-| const | ধ্রুবক | Declare a constant value. |
-| function | ফাংশন | Define a function. |
-| class | শ্রেণী | Define a class. |
-| extends | প্রসারিত | Extend a class (inheritance). |
-| super | অভিভাবক | Call the parent class. |
+|---------|--------|-------------|
+| `try` | `চেষ্টা` | Begin a block that may throw. |
+| `catch` | `ধরুন` | Handle a thrown value. |
+| `finally` | `অবশেষে` | Run after `try`/`catch`, throw or not. |
+| `throw` | `নিক্ষেপ` | Raise an error. |
 
-## Operators / Type
+## Literals
 | English | Bangla | Description |
-|----------|--------|-------------|
-| typeof | ধরন | Get the type of a variable. |
-| instanceof | উদাহরণ_হিসেবে | Check if an object is instance of a class. |
-| in | মধ্যে | Check if property exists in object. |
-| of | এর | Used in `for...of` loops. |
-| void | ফাঁকা | Evaluate expression without returning value. |
-| delete | মুছুন | Delete a property from object. |
+|---------|--------|-------------|
+| `true` | `সত্য` | Boolean true. |
+| `false` | `মিথ্যা` | Boolean false. |
+| `null` | `নাই` | The single null value. |
 
-## Async / Generators
+## Logical word operators
+These look like keywords but behave as operators. See the [Operators](/en/docs/v1.0.0/operators) page.
+
 | English | Bangla | Description |
-|----------|--------|-------------|
-| await | অপেক্ষা | Wait for an async operation. |
-| async | অসমলয় | Declare asynchronous function. |
-| yield | উৎপন্ন_করুন | Yield value from generator. |
+|---------|--------|-------------|
+| `and` | `এবং` | Logical and. |
+| `or` | `অথবা` | Logical or. |
+| `not` | `না` | Logical not. |
 
-## Miscellaneous
-| English | Bangla | Description |
-|----------|--------|-------------|
-| this | এটি | Current object context. |
-| new | নতুন | Create a new instance. |
-| with | সাথে | Extend scope chain. |
-| debugger | ডিবাগার | Invoke debugger breakpoint. |
-| static | স্থির | Define static property/method in class. |
+## What's *not* a keyword
 
----
+If you're coming from JavaScript or Python, these are **not** in Bnlang:
 
+`let`, `const`, `do`, `async`, `await`, `yield`, `typeof`, `instanceof`, `in`, `void`, `delete`, `this`, `new`, `with`, `debugger`, `static`.
+
+Many of these have an equivalent built-in or library function — see the **Operators** page and the **Get Started** guide in *Learn*.
 </I18nEnglish>
 
 <I18nBangla>
-Bnlang এ তিন রকমের **কীওয়ার্ড** ব্যবহার করা যায়—**ইংরেজি**, **বাংলা**, এবং **বাংলিশ**।  
-সবগুলো একই অর্থে কাজ করে, তাই ব্যবহারকারী যেটাতে স্বাচ্ছন্দ্য বোধ করেন সেটি ব্যবহার করতে পারেন।
+Bnlang-এর একটি ছোট, নির্দিষ্ট কীওয়ার্ড সেট আছে। প্রতিটি ইংরেজি রূপের একটি বাংলা সমার্থক আছে; দু'টোই একই টোকেনে পার্স হয়, ফলে আপনি যে রূপই ব্যবহার করুন না কেন ভাষার সেম্যান্টিক্স একই থাকে।
+
+## ডিক্লেয়ারেশন
+| ইংরেজি | বাংলা | বর্ণনা |
+|--------|-------|---------|
+| `var` | `চলক` | ভ্যারিয়েবল ডিক্লেয়ার করুন। |
+| `function` | `ফাংশন` | একটি ফাংশন ডিফাইন করুন। |
+| `class` | `শ্রেণী` | একটি ক্লাস ডিফাইন করুন। |
+| `extends` | `প্রসারিত` | প্যারেন্ট ক্লাস থেকে ইনহেরিট। |
+| `super` | `উপরের` | প্যারেন্ট ক্লাস উল্লেখ করুন। |
+| `import` | `আমদানি` | একটি মডিউল বা লাইব্রেরি ইমপোর্ট করুন। |
+| `as` | `যেমন` | ইমপোর্ট করা মডিউলকে লোকাল নামে বাইন্ড করুন। |
 
 ## কন্ট্রোল ফ্লো
-| ইংরেজি | বাংলা | বাংলিশ | বর্ণনা |
-|--------|--------|----------|---------|
-| if | যদি | jodi | শর্তাধীন branching। |
-| else | নাহলে | nahole | শর্ত ব্যর্থ হলে বিকল্প অংশ। |
-| switch | বিকল্প | bikolpo | একাধিক শর্ত পরীক্ষা। |
-| case | অবস্থা | obostha | switch এর নির্দিষ্ট শাখা। |
-| default | অন্যথায় | onnothay | কোন case না মিললে ডিফল্ট। |
-| for | প্রতি | proti | লুপ চালানো। |
-| while | যতক্ষণ | jotokkhon | শর্ত পূরণ হলে লুপ। |
-| do | করুন | korun | অন্তত একবার চলা do-while লুপ। |
-| break | থামুন | thamun | লুপ/সুইচ থেকে বের হওয়া। |
-| continue | চলুন | colun | বর্তমান iteration বাদ দিয়ে পরবর্তী। |
-| return | ফেরত | ferot | ফাংশন থেকে মান ফেরত। |
-| throw | নিক্ষেপ | nikkhep | ব্যতিক্রম ছোড়া। |
-| try | চেষ্টা | ceshta | ত্রুটি ধরার ব্লক শুরু। |
-| catch | ধরুন | dhorun | ত্রুটি ধরার অংশ। |
-| finally | অবশেষে | obosheshe | try/catch শেষে সবসময় চালানো ব্লক। |
+| ইংরেজি | বাংলা | বর্ণনা |
+|--------|-------|---------|
+| `if` | `যদি` | শর্তভিত্তিক ব্রাঞ্চিং। |
+| `else` | `নাহলে` | শর্ত ব্যর্থ হলে বিকল্প। |
+| `for` | `প্রতি` | একটি লিস্টের উপর ইটারেট করুন। |
+| `of` | `এর` | `for ... of`-এর ভেতরে ব্যবহার। |
+| `while` | `যতক্ষণ` | একটি শর্ত সত্য থাকলে লুপ। |
+| `switch` | `বিকল্প` | একটি মানের উপর মাল্টি-ওয়ে ব্রাঞ্চিং। |
+| `case` | `অবস্থা` | `switch`-এর ভেতরে একটি শাখা। |
+| `default` | `অন্যথায়` | `switch`-এর ভেতরে fallback শাখা। |
+| `break` | `থামুন` | নিকটতম loop বা switch থেকে exit। |
+| `continue` | `চলুন` | নিকটতম loop-এর পরের iteration-এ skip। |
+| `return` | `ফেরত` | একটি ফাংশন থেকে মান ফেরত। |
 
-## ঘোষনা / ক্লাস
-| ইংরেজি | বাংলা | বাংলিশ | বর্ণনা |
-|---------|--------|----------|---------|
-| var | চলক | cholok | ভ্যারিয়েবল ঘোষণা (function scope)। |
-| let | ধরি | dhori | ব্লক scoped ভ্যারিয়েবল। |
-| const | ধ্রুবক | dhrubok | ধ্রুবক মান ঘোষণা। |
-| function | ফাংশন | fankshon | ফাংশন তৈরি। |
-| class | শ্রেণী | shreni | ক্লাস তৈরি। |
-| extends | প্রসারিত | prosarito | প্যারেন্ট ক্লাস থেকে ইনহেরিট। |
-| super | অভিভাবক | obhibhabok | প্যারেন্ট ক্লাস কল। |
+## এরর হ্যান্ডলিং
+| ইংরেজি | বাংলা | বর্ণনা |
+|--------|-------|---------|
+| `try` | `চেষ্টা` | একটি ব্লক শুরু করুন যা থ্রো করতে পারে। |
+| `catch` | `ধরুন` | একটি থ্রো হওয়া মান হ্যান্ডল করুন। |
+| `finally` | `অবশেষে` | `try`/`catch`-এর পরে চলবে — থ্রো হোক বা না হোক। |
+| `throw` | `নিক্ষেপ` | একটি এরর রেইজ করুন। |
 
-## অপারেটর / টাইপ
-| ইংরেজি | বাংলা | বাংলিশ | বর্ণনা |
-|---------|--------|----------|---------|
-| typeof | ধরন | dhoron | ভ্যারিয়েবলের টাইপ জানা। |
-| instanceof | উদাহরণ_হিসেবে | udahoron_hisebe | কোন অবজেক্ট ক্লাসের উদাহরণ কিনা। |
-| in | মধ্যে | modhye | প্রপার্টি অবজেক্টে আছে কিনা। |
-| of | এর | er | `for...of` লুপে ব্যবহার। |
-| void | ফাঁকা | faka | রিটার্ন ছাড়া এক্সপ্রেশন চালানো। |
-| delete | মুছুন | muchun | অবজেক্ট থেকে প্রপার্টি মুছে ফেলা। |
+## লিটারাল
+| ইংরেজি | বাংলা | বর্ণনা |
+|--------|-------|---------|
+| `true` | `সত্য` | বুলিয়ান true। |
+| `false` | `মিথ্যা` | বুলিয়ান false। |
+| `null` | `নাই` | একমাত্র null মান। |
 
-## অ্যাসিঙ্ক / জেনারেটর
-| ইংরেজি | বাংলা | বাংলিশ | বর্ণনা |
-|---------|--------|----------|---------|
-| await | অপেক্ষা | opekkha | অ্যাসিঙ্ক অপারেশন শেষ হওয়া পর্যন্ত অপেক্ষা। |
-| async | অসমলয় | osomoloy | অ্যাসিঙ্ক ফাংশন ঘোষণা। |
-| yield | উৎপন্ন_করুন | utponno_korun | জেনারেটর থেকে মান প্রদান। |
+## লজিক্যাল শব্দ অপারেটর
+এগুলো কীওয়ার্ডের মতো দেখতে কিন্তু অপারেটরের মতো কাজ করে। [Operators](/bn/docs/v1.0.0/operators) পেজ দেখুন।
 
-## অন্যান্য
-| ইংরেজি | বাংলা | বাংলিশ | বর্ণনা |
-|---------|--------|----------|---------|
-| this | এটি | eti | বর্তমান অবজেক্ট কনটেক্সট। |
-| new | নতুন | notun | নতুন ইনস্ট্যান্স তৈরি। |
-| with | সাথে | sathe | scope বাড়ানো। |
-| debugger | ডিবাগার | dibagar | ডিবাগার চালানো। |
-| static | স্থির | sthir | ক্লাসের static প্রপার্টি/মেথড। |
+| ইংরেজি | বাংলা | বর্ণনা |
+|--------|-------|---------|
+| `and` | `এবং` | লজিক্যাল and। |
+| `or` | `অথবা` | লজিক্যাল or। |
+| `not` | `না` | লজিক্যাল not। |
 
----
+## যা *কীওয়ার্ড নয়*
 
+JavaScript বা Python থেকে আসলে, এগুলো Bnlang-এ **নেই**:
+
+`let`, `const`, `do`, `async`, `await`, `yield`, `typeof`, `instanceof`, `in`, `void`, `delete`, `this`, `new`, `with`, `debugger`, `static`।
+
+এদের অনেকের সমতুল্য বিল্ট-ইন বা লাইব্রেরি ফাংশন আছে — **Operators** পেজ এবং *Learn*-এ **Get Started** গাইড দেখুন।
 </I18nBangla>
-
-

@@ -1,9 +1,9 @@
 ---
 title: Modules
-description: Page for Modules
+description: Reference for every standard-library module shipped with Bnlang — grouped by purpose.
 
 bnTitle: মডিউলসমূহ
-bnDescription: মডিউলসমূহ পেজ
+bnDescription: Bnlang-এর সাথে শিপ হওয়া প্রতিটি স্ট্যান্ডার্ড লাইব্রেরি মডিউলের রেফারেন্স।
 
 ---
 
@@ -12,11 +12,179 @@ bnDescription: মডিউলসমূহ পেজ
 
 
 <I18nEnglish>
-Welcome to the Modules page.
+Bnlang ships with a batteries-included standard library — file I/O, HTTP server and client, templating, four database drivers, crypto, WebSockets, and more. Every module on this page is importable out of the box, no installation needed:
+
+```bnl
+import "io"   as io;
+import "web"  as web;
+import "json" as json;
+```
+
+## Core
+
+| Module | Purpose |
+|---|---|
+| [`sys`](/en/docs/v1.0.0/modules/sys-module) | Process info — argv, env, cwd, exit. |
+| [`io`](/en/docs/v1.0.0/modules/io-module) | File I/O — sync, async, and streaming. |
+| [`path`](/en/docs/v1.0.0/modules/path-module) | Cross-platform path manipulation. |
+| [`timers`](/en/docs/v1.0.0/modules/timers-module) | `set` / `interval` for deferred and repeated callbacks. |
+| [`time`](/en/docs/v1.0.0/modules/time-module) | Clocks, calendar conversion, ISO 8601. |
+
+## Async composition
+
+| Module | Purpose |
+|---|---|
+| [`async`](/en/docs/v1.0.0/modules/async-module) | series / parallel / waterfall / each / map / apply_*. |
+
+## Utilities
+
+| Module | Purpose |
+|---|---|
+| [`log`](/en/docs/v1.0.0/modules/log-module) | Leveled logging. |
+| [`dotenv`](/en/docs/v1.0.0/modules/dotenv-module) | Parse `.env` files. |
+| [`cli`](/en/docs/v1.0.0/modules/cli-module) | Declarative CLI argument parsing. |
+| [`uuid`](/en/docs/v1.0.0/modules/uuid-module) | Generate and validate UUIDs. |
+
+## Data
+
+| Module | Purpose |
+|---|---|
+| [`json`](/en/docs/v1.0.0/modules/json-module) | Encode and decode JSON. |
+| [`csv`](/en/docs/v1.0.0/modules/csv-module) | Parse and emit CSV. |
+| [`regex`](/en/docs/v1.0.0/modules/regex-module) | Regular expression matching, replacement, splitting. |
+
+## Crypto, math, compression
+
+| Module | Purpose |
+|---|---|
+| [`crypto`](/en/docs/v1.0.0/modules/crypto-module) | Hashing, HMAC, base64/hex, secure random. |
+| [`random`](/en/docs/v1.0.0/modules/random-module) | Non-cryptographic RNG. |
+| [`math`](/en/docs/v1.0.0/modules/math-module) | Trig, logs, rounding, list aggregations. |
+| [`zlib`](/en/docs/v1.0.0/modules/zlib-module) | gzip / deflate compression. |
+
+## Network (low level)
+
+| Module | Purpose |
+|---|---|
+| [`net`](/en/docs/v1.0.0/modules/net-module) | TCP sockets. |
+| [`dns`](/en/docs/v1.0.0/modules/dns-module) | Hostname resolution and reverse lookup. |
+| [`tls`](/en/docs/v1.0.0/modules/tls-module) | TLS-encrypted sockets. |
+| [`url`](/en/docs/v1.0.0/modules/url-module) | URL parsing and query-string serialization. |
+
+## HTTP / Web
+
+| Module | Purpose |
+|---|---|
+| [`web`](/en/docs/v1.0.0/modules/web-module) | HTTP/HTTPS server framework with routing and middleware. |
+| [`request`](/en/docs/v1.0.0/modules/request-module) | Axios-style HTTP client. |
+| [`ws`](/en/docs/v1.0.0/modules/ws-module) | WebSocket server. |
+| [`cookie`](/en/docs/v1.0.0/modules/cookie-module) | Parse and build cookies and `Set-Cookie` headers. |
+| [`session`](/en/docs/v1.0.0/modules/session-module) | Session middleware. |
+| [`multipart`](/en/docs/v1.0.0/modules/multipart-module) | `multipart/form-data` encode/decode. |
+| [`template`](/en/docs/v1.0.0/modules/template-module) | Jinja-flavored template engine. |
+
+## Database
+
+| Module | Purpose |
+|---|---|
+| [`sqlite`](/en/docs/v1.0.0/modules/sqlite-module) | Embedded SQLite. |
+| [`pg`](/en/docs/v1.0.0/modules/pg-module) | PostgreSQL client. |
+| [`mysql`](/en/docs/v1.0.0/modules/mysql-module) | MySQL / MariaDB client. |
+| [`mongo`](/en/docs/v1.0.0/modules/mongo-module) | MongoDB client. |
+
+## Process & test
+
+| Module | Purpose |
+|---|---|
+| [`exec`](/en/docs/v1.0.0/modules/exec-module) | Spawn child processes. |
+| [`test`](/en/docs/v1.0.0/modules/test-module) | Built-in test framework. |
 </I18nEnglish>
 
 <I18nBangla>
-মডিউলসমূহ পেজে স্বাগতম।
+Bnlang ব্যাটারি-ইনক্লুডেড স্ট্যান্ডার্ড লাইব্রেরি নিয়ে শিপ হয় — ফাইল I/O, HTTP সার্ভার ও ক্লায়েন্ট, টেমপ্লেটিং, চারটি ডাটাবেস ড্রাইভার, ক্রিপ্টো, WebSocket, এবং আরও অনেক কিছু। এই পেজের প্রতিটি মডিউল out of the box ইমপোর্টযোগ্য, কোনো ইনস্টলেশন দরকার নেই:
+
+```bnl
+import "io"   as io;
+import "web"  as web;
+import "json" as json;
+```
+
+## Core
+
+| মডিউল | উদ্দেশ্য |
+|---|---|
+| [`sys`](/bn/docs/v1.0.0/modules/sys-module) | প্রসেস তথ্য — argv, env, cwd, exit। |
+| [`io`](/bn/docs/v1.0.0/modules/io-module) | ফাইল I/O — sync, async, streaming। |
+| [`path`](/bn/docs/v1.0.0/modules/path-module) | ক্রস-প্ল্যাটফর্ম পাথ ম্যানিপুলেশন। |
+| [`timers`](/bn/docs/v1.0.0/modules/timers-module) | `set` / `interval`। |
+| [`time`](/bn/docs/v1.0.0/modules/time-module) | ক্লক, ক্যালেন্ডার, ISO 8601। |
+
+## Async composition
+
+| মডিউল | উদ্দেশ্য |
+|---|---|
+| [`async`](/bn/docs/v1.0.0/modules/async-module) | series / parallel / waterfall / each / map / apply_*। |
+
+## Utilities
+
+| মডিউল | উদ্দেশ্য |
+|---|---|
+| [`log`](/bn/docs/v1.0.0/modules/log-module) | লেভেলভিত্তিক লগিং। |
+| [`dotenv`](/bn/docs/v1.0.0/modules/dotenv-module) | `.env` ফাইল পার্সিং। |
+| [`cli`](/bn/docs/v1.0.0/modules/cli-module) | ডিক্লেয়ারেটিভ CLI পার্সিং। |
+| [`uuid`](/bn/docs/v1.0.0/modules/uuid-module) | UUID তৈরি ও যাচাই। |
+
+## Data
+
+| মডিউল | উদ্দেশ্য |
+|---|---|
+| [`json`](/bn/docs/v1.0.0/modules/json-module) | JSON encode/decode। |
+| [`csv`](/bn/docs/v1.0.0/modules/csv-module) | CSV পার্স ও emit। |
+| [`regex`](/bn/docs/v1.0.0/modules/regex-module) | রেগুলার এক্সপ্রেশন। |
+
+## Crypto, math, compression
+
+| মডিউল | উদ্দেশ্য |
+|---|---|
+| [`crypto`](/bn/docs/v1.0.0/modules/crypto-module) | হ্যাশিং, HMAC, base64/hex, সিকিউর র‍্যান্ডম। |
+| [`random`](/bn/docs/v1.0.0/modules/random-module) | Non-crypto RNG। |
+| [`math`](/bn/docs/v1.0.0/modules/math-module) | গাণিতিক ফাংশন। |
+| [`zlib`](/bn/docs/v1.0.0/modules/zlib-module) | gzip / deflate। |
+
+## Network (low level)
+
+| মডিউল | উদ্দেশ্য |
+|---|---|
+| [`net`](/bn/docs/v1.0.0/modules/net-module) | TCP সকেট। |
+| [`dns`](/bn/docs/v1.0.0/modules/dns-module) | Hostname রেজোলিউশন। |
+| [`tls`](/bn/docs/v1.0.0/modules/tls-module) | TLS সকেট। |
+| [`url`](/bn/docs/v1.0.0/modules/url-module) | URL পার্সিং। |
+
+## HTTP / Web
+
+| মডিউল | উদ্দেশ্য |
+|---|---|
+| [`web`](/bn/docs/v1.0.0/modules/web-module) | HTTP/HTTPS সার্ভার ফ্রেমওয়ার্ক। |
+| [`request`](/bn/docs/v1.0.0/modules/request-module) | Axios-স্টাইল HTTP ক্লায়েন্ট। |
+| [`ws`](/bn/docs/v1.0.0/modules/ws-module) | WebSocket সার্ভার। |
+| [`cookie`](/bn/docs/v1.0.0/modules/cookie-module) | কুকি পার্স ও বানানো। |
+| [`session`](/bn/docs/v1.0.0/modules/session-module) | Session middleware। |
+| [`multipart`](/bn/docs/v1.0.0/modules/multipart-module) | `multipart/form-data`। |
+| [`template`](/bn/docs/v1.0.0/modules/template-module) | Jinja-flavored টেমপ্লেট। |
+
+## ডাটাবেস
+
+| মডিউল | উদ্দেশ্য |
+|---|---|
+| [`sqlite`](/bn/docs/v1.0.0/modules/sqlite-module) | এমবেডেড SQLite। |
+| [`pg`](/bn/docs/v1.0.0/modules/pg-module) | PostgreSQL। |
+| [`mysql`](/bn/docs/v1.0.0/modules/mysql-module) | MySQL / MariaDB। |
+| [`mongo`](/bn/docs/v1.0.0/modules/mongo-module) | MongoDB। |
+
+## প্রসেস ও টেস্ট
+
+| মডিউল | উদ্দেশ্য |
+|---|---|
+| [`exec`](/bn/docs/v1.0.0/modules/exec-module) | চাইল্ড প্রসেস। |
+| [`test`](/bn/docs/v1.0.0/modules/test-module) | বিল্ট-ইন টেস্ট ফ্রেমওয়ার্ক। |
 </I18nBangla>
-
-

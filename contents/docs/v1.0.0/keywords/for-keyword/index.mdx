@@ -1,162 +1,140 @@
 ---
-title: for Loop
-description: The for loop in Bnlang for counting, iteration with for...of and for...in, including break/continue usage. Examples in Bangla and English.
-bnTitle: প্রতি লুপ
-bnDescription: Bnlang এ প্রতি (for) লুপ—গণনা, for...of, for...in এবং থামুন/চলুন ব্যবহারের উদাহরণ।
+title: for / of
+description: Iterate over a list using `for ... of` in Bnlang.
+bnTitle: প্রতি / এর
+bnDescription: Bnlang-এ `for ... of` দিয়ে একটি লিস্ট ইটারেট করা।
 ---
 
-# <I18nEnglish>for Loop</I18nEnglish>
-# <I18nBangla>প্রতি লুপ</I18nBangla>
+# <I18nEnglish>`for` / `of` keywords</I18nEnglish>
+# <I18nBangla>`প্রতি` / `এর` কীওয়ার্ড</I18nBangla>
 
 
 <I18nEnglish>
-The **`for`** loop repeats a block of code a specific number of times, or iterates over collections with **`for...of`** and **`for...in`**.  
-Use **`break`** to exit early and **`continue`** to skip the current iteration.
-</I18nEnglish>
+Bnlang has exactly one form of `for` loop: `for (var <name> of <list>) { ... }`. It binds `<name>` to each element of `<list>` in order. The English form is `for ... of`; the Bangla form is `প্রতি ... এর`.
 
-<I18nBangla>
-**`প্রতি`** (for) লুপ নির্দিষ্ট সংখ্যকবার কোড চালায়; আবার **`for...of`** দিয়ে iterable (array, string ইত্যাদি) ঘোরা যায় এবং **`for...in`** দিয়ে অবজেক্টের কী ঘোরা যায়।  
-আগেভাগে বের হতে **`থামুন`** এবং চলতি ধাপ স্কিপ করতে **`চলুন`** ব্যবহার করুন।
-</I18nBangla>
-
-
-
----
+There is **no** C-style `for (init; test; update)` loop. For counter-driven loops, use `while`.
 
 ## Syntax
 
-<I18nEnglish>
-
 ```bnl
-// Counting loop
-for (let i = start; i < end; i++) {
-  // body
-}
-
-// Iterate values from an iterable
-for (const item of iterable) {
-  // use item
-}
-
-// Iterate keys from an object
-for (const key in object) {
-  // use key, object[key]
+for (var <name> of <list>) {
+    // body
 }
 ```
-</I18nEnglish>
-
-<I18nBangla>
-
-```bnl
-// গণনাভিত্তিক লুপ
-প্রতি (let i = শুরু; i < শেষ; i++) {
-  // কাজ
-}
-
-// iterable থেকে মান ঘোরা
-প্রতি (const আইটেম এর iterable) {
-  // আইটেম ব্যবহার
-}
-
-// অবজেক্টের কী ঘোরা
-প্রতি (const কী মধ্যে অবজেক্ট) {
-  // কী এবং অবজেক্ট[কী]
-}
-```
-</I18nBangla>
-
-
-
----
 
 ## Examples
 
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="english">
-
 ```bnl
-// 1) Counting with break / continue
-let sum = 0;
-for (let i = 1; i <= 10; i++) {
-  if (i === 5) continue;         // skip 5
-  if (i > 8) break;               // stop at 9
-  sum += i;
-}
-console.log("sum =", sum);
-
-// 2) for...of over arrays and strings
-const nums = [2, 4, 6];
-for (const n of nums) {
-  print(n * n);
-}
-
-for (const ch of "ABC") {
-  console.log(ch);
-}
-
-// 3) for...in over object keys
-const user = { name: "Rafi", city: "Dhaka" };
-for (const k in user) {
-  console.info(k, "=>", user[k]);
+for (var n of [1, 2, 3, 4, 5]) {
+    print(n);
 }
 ```
-  </TabsContent>
 
-  <TabsContent value="bangla">
+Bangla form:
 
 ```bnl
-// ১) থামুন / চলুন সহ গণনা
-let যোগফল = 0;
-প্রতি (let i = 1; i <= 10; i++) {
-  যদি (i === 5) চলুন;      // ৫ স্কিপ
-  যদি (i > 8) থামুন;        // ৯ পর্যন্ত
-  যোগফল += i;
-}
-কনসোল.লগ("যোগফল =", যোগফল);
-
-// ২) for...of দিয়ে অ্যারে ও স্ট্রিং
-const সংখ্যা = [2, 4, 6];
-প্রতি (const n এর সংখ্যা) {
-  ছাপাও(n * n);
-}
-
-প্রতি (const ch এর "ABC") {
-  কনসোল.লগ(ch);
-}
-
-// ৩) for...in দিয়ে অবজেক্টের কী
-const ব্যবহারকারী = { নাম: "রাফি", শহর: "Dhaka" };
-প্রতি (const কী মধ্যে ব্যবহারকারী) {
-  কনসোল.তথ্য(কী, "=>", ব্যবহারকারী[কী]);
+প্রতি (চলক n এর [1, 2, 3, 4, 5]) {
+    print(n);
 }
 ```
-  </TabsContent>
 
-  
-</Tabs>
+## Iterating with an index
 
----
+If you need the index too, pair `for ... of` with a counter:
 
-## Notes
+```bnl
+var items = ["a", "b", "c"];
+var i = 0;
+for (var item of items) {
+    print(i, item);
+    i = i + 1;
+}
+```
 
-<I18nEnglish>
-- Prefer `let` in loop headers so the index is block‑scoped.  
-- Use **`for...of`** for array/iterable values; use **`for...in`** for object keys.  
-- Avoid using `for...in` on arrays (order is not guaranteed).  
-- Combine with **`break`** (exit) and **`continue`** (skip) when needed.
+## What's *not* here
+
+- **No C-style `for`.** `for (var i = 0; i < n; i++)` is not valid syntax — use `while`.
+- **No `for ... in`.** To iterate map keys, use `for (var k of m.keys()) { ... }`.
+
+## Early exit and skip
+
+Use [`break`](/en/docs/v1.0.0/keywords/break-keyword) to exit the loop and [`continue`](/en/docs/v1.0.0/keywords/continue-keyword) to skip to the next item:
+
+```bnl
+for (var n of [1, 2, 3, 4, 5]) {
+    if (n == 4) { break; }
+    if (n == 2) { continue; }
+    print(n);
+}
+// 1
+// 3
+```
+
+## See also
+- [`while`](/en/docs/v1.0.0/keywords/while-keyword) — for counter-driven or condition-driven loops.
 </I18nEnglish>
 
 <I18nBangla>
-- লুপ হেডারে `let` ব্যবহার করুন যাতে সূচকটি ব্লক‑স্কোপড থাকে।  
-- অ্যারে/ইটারেবল মানের জন্য **`for...of`**, অবজেক্টের কী‑এর জন্য **`for...in`**।  
-- অ্যারেতে **`for...in`** এড়িয়ে চলুন (অর্ডার নির্ভরযোগ্য নয়)।  
-- প্রয়োজনে **`থামুন`** (break) ও **`চলুন`** (continue) ব্যবহার করুন।
+Bnlang-এ ঠিক একটি `for` লুপ রূপ আছে: `for (var <name> of <list>) { ... }`। এটি `<name>`-কে `<list>`-এর প্রতিটি উপাদানে ক্রমে বাইন্ড করে। ইংরেজি রূপ `for ... of`; বাংলা রূপ `প্রতি ... এর`।
+
+C-স্টাইলের `for (init; test; update)` লুপ **নেই**। কাউন্টার-চালিত লুপের জন্য `while` ব্যবহার করুন।
+
+## সিনট্যাক্স
+
+```bnl
+for (var <name> of <list>) {
+    // body
+}
+```
+
+## উদাহরণ
+
+```bnl
+for (var n of [1, 2, 3, 4, 5]) {
+    print(n);
+}
+```
+
+বাংলা রূপ:
+
+```bnl
+প্রতি (চলক n এর [1, 2, 3, 4, 5]) {
+    print(n);
+}
+```
+
+## ইনডেক্স সহ ইটারেট
+
+ইনডেক্স দরকার হলে `for ... of`-এর সাথে একটি কাউন্টার পেয়ার করুন:
+
+```bnl
+var items = ["a", "b", "c"];
+var i = 0;
+for (var item of items) {
+    print(i, item);
+    i = i + 1;
+}
+```
+
+## যা *এখানে নেই*
+
+- **কোনো C-স্টাইল `for` নেই।** `for (var i = 0; i < n; i++)` ভ্যালিড সিনট্যাক্স নয় — `while` ব্যবহার করুন।
+- **কোনো `for ... in` নেই।** ম্যাপ কী ইটারেট করতে `for (var k of m.keys()) { ... }` ব্যবহার করুন।
+
+## Early exit ও skip
+
+Loop থেকে exit করতে [`break`](/bn/docs/v1.0.0/keywords/break-keyword) এবং পরের item-এ skip করতে [`continue`](/bn/docs/v1.0.0/keywords/continue-keyword) ব্যবহার করুন:
+
+```bnl
+for (var n of [1, 2, 3, 4, 5]) {
+    if (n == 4) { break; }
+    if (n == 2) { continue; }
+    print(n);
+}
+// 1
+// 3
+```
+
+## আরও দেখুন
+- [`while`](/bn/docs/v1.0.0/keywords/while-keyword) — কাউন্টার বা শর্ত-চালিত লুপের জন্য।
 </I18nBangla>
-
-

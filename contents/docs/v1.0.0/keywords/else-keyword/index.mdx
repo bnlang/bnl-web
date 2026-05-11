@@ -1,124 +1,128 @@
 ---
-title: else Keyword
-description: The else keyword in Bnlang with examples in Bangla and English.
+title: else keyword
+description: The fallback branch of an `if` statement in Bnlang.
 bnTitle: নাহলে কীওয়ার্ড
-bnDescription: Bnlang এ নাহলে কীওয়ার্ড এবং এর বাংলা উদাহরণ।
+bnDescription: Bnlang-এ একটি `if` স্টেটমেন্টের ফলব্যাক শাখা।
 ---
 
-# <I18nEnglish>else Keyword</I18nEnglish>
-# <I18nBangla>নাহলে কীওয়ার্ড</I18nBangla>
+# <I18nEnglish>`else` keyword</I18nEnglish>
+# <I18nBangla>`নাহলে` কীওয়ার্ড</I18nBangla>
 
 
 <I18nEnglish>
-The **`else`** keyword provides an alternative path when an `if` condition is **false**.  
-It is always attached after an `if` or `else if` block.  
-</I18nEnglish>
+`else` attaches a fallback branch to an `if`. The Bangla form `নাহলে` is equivalent.
 
-<I18nBangla>
-**`নাহলে`** কীওয়ার্ড ব্যবহার হয় যখন **`যদি`** এর শর্ত মিথ্যা হয়।  
-এটি সর্বদা **যদি** বা **নাহলে যদি**-এর পরে বসানো হয়।
-</I18nBangla>
-
-
-
----
+`else` always follows an `if`; it never stands on its own. For multi-way branching, chain `else if`.
 
 ## Syntax
 
-<I18nEnglish>
-
 ```bnl
-if (condition) {
-  // executes if condition true
+if (<condition>) {
+    // primary branch
 } else {
-  // executes if condition false
+    // runs when the condition was false
 }
 ```
-</I18nEnglish>
-
-<I18nBangla>
-
-```bnl
-যদি (শর্ত) {
-  // শর্ত সত্য হলে চালাও
-} নাহলে {
-  // শর্ত মিথ্যা হলে চালাও
-}
-```
-</I18nBangla>
-
-
-
----
 
 ## Examples
 
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="english">
-
 ```bnl
-let loggedIn = false;
+var is_admin = false;
 
-if (loggedIn) {
-  console.log("Welcome back!");
+if (is_admin) {
+    print("welcome, admin");
 } else {
-  console.warn("Please log in first.");
-}
-
-// Simple even check
-let number = 7;
-if (number % 2 === 0) {
-  print("Even number");
-} else {
-  print("Odd number");
+    print("guest access");
 }
 ```
-  </TabsContent>
 
-  <TabsContent value="bangla">
+Bangla:
 
 ```bnl
-let লগইন = false;
+চলক is_admin = false;
 
-যদি (লগইন) {
-  কনসোল.লগ("আবার স্বাগতম!");
+যদি (is_admin) {
+    print("welcome, admin");
 } নাহলে {
-  কনসোল.সতর্ক("প্রথমে লগইন করুন।");
-}
-
-// জোড়-বিজোড় চেক
-let সংখ্যা = 7;
-যদি (সংখ্যা % 2 === 0) {
-  ছাপাও("জোড় সংখ্যা");
-} নাহলে {
-  লিখো("বিজোড় সংখ্যা");
+    print("guest access");
 }
 ```
-  </TabsContent>
 
-  
-</Tabs>
+## Chained else if
 
----
+```bnl
+var status_code = 404;
 
-## Notes
+if (status_code == 200) {
+    print("ok");
+} else if (status_code == 404) {
+    print("not found");
+} else if (status_code >= 500) {
+    print("server error");
+} else {
+    print("other:", status_code);
+}
+```
 
-<I18nEnglish>
-- An `else` block has no condition; it runs only if all previous checks fail.  
-- Use `else if` when you need more than two branches.  
-- You can nest `if` + `else` blocks for complex logic.
+## See also
+- [`if`](/en/docs/v1.0.0/keywords/if-keyword) — the primary branch.
 </I18nEnglish>
 
 <I18nBangla>
-- **`নাহলে`**-এর কোনো শর্ত থাকে না; সব শর্ত ব্যর্থ হলে এটি চালানো হয়।  
-- একাধিক শর্তের জন্য **`নাহলে যদি`** ব্যবহার করুন।  
-- জটিল লজিকের জন্য **যদি + নাহলে** ব্লক নেস্ট করতে পারেন।
+`else` একটি `if`-এর সাথে একটি ফলব্যাক শাখা যুক্ত করে। বাংলা রূপ `নাহলে` সমার্থক।
+
+`else` সবসময় একটি `if`-এর পরে আসে; এটি একা দাঁড়ায় না। মাল্টি-ওয়ে ব্রাঞ্চিং-এর জন্য `else if` চেইন করুন।
+
+## সিনট্যাক্স
+
+```bnl
+if (<শর্ত>) {
+    // প্রাথমিক শাখা
+} else {
+    // শর্ত false হলে চলে
+}
+```
+
+## উদাহরণ
+
+```bnl
+var is_admin = false;
+
+if (is_admin) {
+    print("welcome, admin");
+} else {
+    print("guest access");
+}
+```
+
+বাংলা:
+
+```bnl
+চলক is_admin = false;
+
+যদি (is_admin) {
+    print("welcome, admin");
+} নাহলে {
+    print("guest access");
+}
+```
+
+## চেইনড else if
+
+```bnl
+var status_code = 404;
+
+if (status_code == 200) {
+    print("ok");
+} else if (status_code == 404) {
+    print("not found");
+} else if (status_code >= 500) {
+    print("server error");
+} else {
+    print("other:", status_code);
+}
+```
+
+## আরও দেখুন
+- [`if`](/bn/docs/v1.0.0/keywords/if-keyword) — প্রাথমিক শাখা।
 </I18nBangla>
-
-

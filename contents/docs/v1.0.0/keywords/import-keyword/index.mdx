@@ -1,0 +1,162 @@
+---
+title: import / as
+description: Importing modules in Bnlang — standard library, BPM packages, and native plugins.
+bnTitle: আমদানি / যেমন
+bnDescription: Bnlang-এ মডিউল ইমপোর্ট — স্ট্যান্ডার্ড লাইব্রেরি, BPM প্যাকেজ, এবং নেটিভ প্লাগইন।
+---
+
+# <I18nEnglish>`import` / `as` keywords</I18nEnglish>
+# <I18nBangla>`আমদানি` / `যেমন` কীওয়ার্ড</I18nBangla>
+
+
+<I18nEnglish>
+`import` brings a module into the current file. `as` binds it to a local name. Together they look like `import "name" as alias;`. The Bangla forms are `আমদানি` and `যেমন`.
+
+## Syntax
+
+```bnl
+import "<name>" as <alias>;
+```
+
+The string after `import` selects what to load. The identifier after `as` is the local name used for member access.
+
+## Standard library
+
+```bnl
+import "io"     as io;
+import "path"   as path;
+import "web"    as web;
+import "async"  as async;
+
+var text = io.read_file(path.join(["docs", "intro.md"]));
+print(text);
+```
+
+The standard library modules (`io`, `path`, `web`, `request`, `async`, `template`, `sqlite`, `pg`, `mysql`, `mongo`, `crypto`, `json`, `regex`, `time`, `timers`, `math`, `random`, `log`, `dotenv`, `cli`, `test`, …) ship with the runtime — no installation needed.
+
+## Packages installed via BPM
+
+```bnl
+import "some-package" as pkg;
+print(pkg.hello());
+```
+
+`bpm install some-package` drops the package into `./deps/some-package/`, and the import resolver finds it there. The package's entry point is declared in its `bnl.json` (`"main": "src/index.bnl"`).
+
+## Native plugins (FFI)
+
+For modules implemented in C/C++, import the shared library directly by path:
+
+```bnl
+import "./build/bin/mathx.dll" as m;
+
+print(m.cube(3));      // calls native cube()
+print(m.hypot(5, 12));
+```
+
+The same path works cross-platform if you ship `.dll` / `.so` / `.dylib` next to a `bnl.json` manifest under `deps/`.
+
+## Renaming
+
+Use `as` to pick a shorter or more contextual name:
+
+```bnl
+import "request" as req;
+import "io"      as fs;        // call it whatever reads best in this file
+
+req.get("https://example.com", function (err, resp) { /* ... */ });
+fs.read_file("notes.txt");
+```
+
+## Notes
+
+- The string after `import` is a literal — it **cannot** be a runtime expression. Imports are resolved statically.
+- Each `import` declares exactly one alias. There is no multi-name or wildcard import.
+- Imports are top-level. Don't put `import` inside a function or `if` block.
+
+## Bangla form
+
+```bnl
+আমদানি "io"   যেমন io;
+আমদানি "path" যেমন path;
+
+চলক text = io.read_file(path.join(["docs", "intro.md"]));
+print(text);
+```
+</I18nEnglish>
+
+<I18nBangla>
+`import` কারেন্ট ফাইলে একটি মডিউল আনে। `as` এটিকে একটি লোকাল নামে বাইন্ড করে। একসাথে এটি দেখতে `import "name" as alias;`। বাংলা রূপ `আমদানি` ও `যেমন`।
+
+## সিনট্যাক্স
+
+```bnl
+import "<name>" as <alias>;
+```
+
+`import`-এর পরের স্ট্রিং সিলেক্ট করে কী লোড হবে। `as`-এর পরের identifier হলো মেম্বার অ্যাক্সেসের জন্য লোকাল নাম।
+
+## স্ট্যান্ডার্ড লাইব্রেরি
+
+```bnl
+import "io"     as io;
+import "path"   as path;
+import "web"    as web;
+import "async"  as async;
+
+var text = io.read_file(path.join(["docs", "intro.md"]));
+print(text);
+```
+
+স্ট্যান্ডার্ড লাইব্রেরি মডিউল (`io`, `path`, `web`, `request`, `async`, `template`, `sqlite`, `pg`, `mysql`, `mongo`, `crypto`, `json`, `regex`, `time`, `timers`, `math`, `random`, `log`, `dotenv`, `cli`, `test`, …) রানটাইমের সাথে শিপ — কোনো ইনস্টলেশন দরকার নেই।
+
+## BPM দিয়ে ইনস্টল করা প্যাকেজ
+
+```bnl
+import "some-package" as pkg;
+print(pkg.hello());
+```
+
+`bpm install some-package` প্যাকেজকে `./deps/some-package/`-এ ড্রপ করে, এবং import resolver সেখানে খুঁজে পায়। প্যাকেজের এন্ট্রি পয়েন্ট তার `bnl.json`-এ ডিক্লেয়ার্ড (`"main": "src/index.bnl"`)।
+
+## নেটিভ প্লাগইন (FFI)
+
+C/C++ এ implement করা মডিউলের জন্য, শেয়ার্ড লাইব্রেরি সরাসরি path দিয়ে ইমপোর্ট করুন:
+
+```bnl
+import "./build/bin/mathx.dll" as m;
+
+print(m.cube(3));      // নেটিভ cube() কল
+print(m.hypot(5, 12));
+```
+
+একই পাথ ক্রস-প্ল্যাটফর্মে কাজ করে যদি আপনি `deps/`-এর অধীনে `bnl.json` ম্যানিফেস্টের পাশে `.dll` / `.so` / `.dylib` শিপ করেন।
+
+## Renaming
+
+`as` ব্যবহার করে একটি ছোট বা প্রাসঙ্গিক নাম বেছে নিন:
+
+```bnl
+import "request" as req;
+import "io"      as fs;        // এই ফাইলে যা পড়তে ভালো লাগে সেটাই দিন
+
+req.get("https://example.com", function (err, resp) { /* ... */ });
+fs.read_file("notes.txt");
+```
+
+## নোট
+
+- `import`-এর পরের স্ট্রিং একটি literal — এটি রানটাইম expression হতে **পারে না**। Import statically resolve হয়।
+- প্রতিটি `import` ঠিক একটি alias ডিক্লেয়ার করে। কোনো multi-name বা wildcard import নেই।
+- Import top-level। একটি ফাংশন বা `if` ব্লকের ভেতরে `import` রাখবেন না।
+
+## বাংলা রূপ
+
+```bnl
+আমদানি "io"   যেমন io;
+আমদানি "path" যেমন path;
+
+চলক text = io.read_file(path.join(["docs", "intro.md"]));
+print(text);
+```
+</I18nBangla>

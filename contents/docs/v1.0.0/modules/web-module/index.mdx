@@ -1,0 +1,143 @@
+---
+title: web module
+description: HTTP/HTTPS server framework — app builder, routing, middleware, streaming, WebSocket upgrade.
+bnTitle: web মডিউল
+bnDescription: HTTP/HTTPS সার্ভার ফ্রেমওয়ার্ক।
+---
+
+# <I18nEnglish>`web` module</I18nEnglish>
+# <I18nBangla>`web` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Bnlang's HTTP server framework. Declarative routing, before/after middleware, automatic response coercion, streaming, file serving, templating, and WebSocket upgrade in one module.
+
+```bnl
+import "web" as web;
+
+var app = web.app();
+app.get("/",            function (req) { return "Hello!"; });
+app.get("/users/:id",   function (req) { return { id: req.params.id }; });
+app.post("/upload",     function (req) { return web.json({ ok: true }); });
+app.listen({ port: 3000 });
+```
+
+## App builder
+
+| Method | Description |
+|---|---|
+| `web.app()` → app | Create a new app. |
+| `app.get(path, handler)` | Register a `GET` route. `path` supports `:param` segments. |
+| `app.post(path, handler)`, `.put`, `.patch`, `.delete`, `.head` | Same shape for other methods. |
+| `app.before(fn)` | Run `fn(req)` before each handler. Return non-null to short-circuit (treated as the response). |
+| `app.after(fn)` | Run `fn(resp, req)` after each handler. Mutate or replace `resp`. |
+| `app.not_found(fn)` | Custom 404. |
+| `app.on_error(fn)` | Catch handler exceptions. |
+| `app.static(prefix, dir)` | Serve files from `dir` at `prefix/...`. |
+| `app.listen(opts)` → server | Start. `opts`: `{port, host?, tls?, max_body_size?, idle_timeout?}`. Returns `{port, close()}`. |
+
+## Response builders
+
+Return any of these from a handler — or just a string / map / list and `web` coerces it.
+
+| Builder | Description |
+|---|---|
+| `web.text(s)` | `text/plain` response. |
+| `web.html(s)` | `text/html`. |
+| `web.json(value)` | `application/json` (serialized via the `json` module). |
+| `web.redirect(url)` | 302 redirect. |
+| `web.error(status, msg)` | Status-coded error. |
+| `web.file(path)` | Stream a file (sets content-type by extension). |
+| `web.view(path, ctx)` | Render a template via the `template` module. |
+
+## Request object
+
+`req` exposes:
+- `req.method`, `req.path`, `req.url`, `req.headers`
+- `req.params` — `:id` etc. from the route pattern
+- `req.query` — parsed `?a=b&c=d`
+- `req.body` — raw body string (for buffered serving)
+- `req.cookies` — parsed cookies map
+
+Helpers: `web.parse_form(req)`, `web.parse_json(req)`.
+
+## Streaming + WebSocket
+
+| Function | Description |
+|---|---|
+| `web.serve_stream(opts, handler)` | Server mode where the handler receives the request as a stream — handle huge bodies without buffering. |
+| `web.upgrade(req)` → conn | Upgrade an HTTP request to a raw connection (use with the `ws` module). |
+| `web.set_views(dir)` | Default directory for `web.view`. |
+
+## See also
+- [`request`](/en/docs/v1.0.0/modules/request-module) — the HTTP client side.
+- [`ws`](/en/docs/v1.0.0/modules/ws-module) — WebSocket protocol on an upgraded connection.
+- [`template`](/en/docs/v1.0.0/modules/template-module) — what `web.view` renders.
+- [`session`](/en/docs/v1.0.0/modules/session-module) / [`cookie`](/en/docs/v1.0.0/modules/cookie-module).
+</I18nEnglish>
+
+<I18nBangla>
+Bnlang-এর HTTP সার্ভার ফ্রেমওয়ার্ক। Declarative routing, before/after middleware, automatic response coercion, streaming, file serving, templating, এবং WebSocket upgrade।
+
+```bnl
+import "web" as web;
+
+var app = web.app();
+app.get("/",            function (req) { return "Hello!"; });
+app.get("/users/:id",   function (req) { return { id: req.params.id }; });
+app.post("/upload",     function (req) { return web.json({ ok: true }); });
+app.listen({ port: 3000 });
+```
+
+## App builder
+
+| মেথড | বর্ণনা |
+|---|---|
+| `web.app()` → app | নতুন app। |
+| `app.get(path, handler)` | `GET` রুট। `path`-এ `:param` segments। |
+| `app.post(path, handler)`, `.put`, `.patch`, `.delete`, `.head` | অন্যান্য method। |
+| `app.before(fn)` | `fn(req)` প্রতিটি handler-এর আগে। Non-null ফেরত = short-circuit। |
+| `app.after(fn)` | `fn(resp, req)` প্রতিটি handler-এর পরে। |
+| `app.not_found(fn)` | কাস্টম 404। |
+| `app.on_error(fn)` | Handler exception ধরা। |
+| `app.static(prefix, dir)` | `dir` থেকে `prefix/...`-এ ফাইল serve। |
+| `app.listen(opts)` → server | `opts`: `{port, host?, tls?, max_body_size?, idle_timeout?}`। `{port, close()}` ফেরত। |
+
+## Response builder
+
+হ্যান্ডলার থেকে এদের যেকোনো ফেরত দিন — অথবা plain string/map/list দিন এবং `web` coerce করবে।
+
+| Builder | বর্ণনা |
+|---|---|
+| `web.text(s)` | `text/plain`। |
+| `web.html(s)` | `text/html`। |
+| `web.json(value)` | `application/json`। |
+| `web.redirect(url)` | 302 redirect। |
+| `web.error(status, msg)` | Status-coded error। |
+| `web.file(path)` | ফাইল stream। |
+| `web.view(path, ctx)` | `template` দিয়ে রেন্ডার। |
+
+## Request object
+
+- `req.method`, `req.path`, `req.url`, `req.headers`
+- `req.params` — রুট pattern থেকে
+- `req.query` — parsed `?a=b&c=d`
+- `req.body` — raw body
+- `req.cookies` — parsed cookies map
+
+হেল্পার: `web.parse_form(req)`, `web.parse_json(req)`।
+
+## Streaming + WebSocket
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `web.serve_stream(opts, handler)` | Streaming server mode। বড় body buffer ছাড়াই। |
+| `web.upgrade(req)` → conn | HTTP রিকোয়েস্ট raw connection-এ upgrade। |
+| `web.set_views(dir)` | `web.view`-এর ডিফল্ট ডিরেক্টরি। |
+
+## আরও দেখুন
+- [`request`](/bn/docs/v1.0.0/modules/request-module) — HTTP client।
+- [`ws`](/bn/docs/v1.0.0/modules/ws-module) — WebSocket protocol।
+- [`template`](/bn/docs/v1.0.0/modules/template-module)।
+- [`session`](/bn/docs/v1.0.0/modules/session-module) / [`cookie`](/bn/docs/v1.0.0/modules/cookie-module)।
+</I18nBangla>

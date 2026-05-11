@@ -1,0 +1,74 @@
+---
+title: json module
+description: Encode and decode JSON.
+bnTitle: json মডিউল
+bnDescription: JSON encode ও decode।
+---
+
+# <I18nEnglish>`json` module</I18nEnglish>
+# <I18nBangla>`json` মডিউল</I18nBangla>
+
+
+<I18nEnglish>
+Two functions: parse JSON text into a bnl value, and serialize a bnl value to JSON text.
+
+```bnl
+import "json" as json;
+
+var obj = json.parse('{"name": "Alice", "age": 25}');
+print(obj.name);          // Alice
+
+var text = json.stringify({ ok: true, items: [1, 2, 3] });
+print(text);              // {"ok":true,"items":[1,2,3]}
+```
+
+## API
+
+| Function | Description |
+|---|---|
+| `json.parse(text)` → value | Parse JSON into bnl value (number / string / bool / null / list / map). On malformed input, prints to stderr and returns `null`. |
+| `json.stringify(value)` → string | Serialize a value to compact JSON. |
+
+## Type mapping
+
+| JSON | bnl |
+|---|---|
+| `number` | number |
+| `string` | string |
+| `true` / `false` | bool |
+| `null` | null |
+| `[...]` | list |
+| `{...}` | map |
+</I18nEnglish>
+
+<I18nBangla>
+দু'টি ফাংশন: JSON টেক্সট bnl মানে পার্স করুন, এবং bnl মান JSON টেক্সটে serialize করুন।
+
+```bnl
+import "json" as json;
+
+var obj = json.parse('{"name": "Alice", "age": 25}');
+print(obj.name);          // Alice
+
+var text = json.stringify({ ok: true, items: [1, 2, 3] });
+print(text);              // {"ok":true,"items":[1,2,3]}
+```
+
+## API
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `json.parse(text)` → value | JSON → bnl মান। Malformed হলে stderr-এ প্রিন্ট ও `null` ফেরত। |
+| `json.stringify(value)` → string | একটি মান compact JSON-এ serialize। |
+
+## টাইপ ম্যাপিং
+
+| JSON | bnl |
+|---|---|
+| `number` | number |
+| `string` | string |
+| `true` / `false` | bool |
+| `null` | null |
+| `[...]` | list |
+| `{...}` | map |
+</I18nBangla>

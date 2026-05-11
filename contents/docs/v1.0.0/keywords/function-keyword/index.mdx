@@ -1,206 +1,184 @@
 ---
-title: function Keyword
-description: Define and use functions in Bnlang — declarations, expressions, arrow functions, parameters, defaults, rest, recursion, and async.
+title: function keyword
+description: Defining functions in Bnlang — declarations, expressions, fixed arity, closures.
 bnTitle: ফাংশন কীওয়ার্ড
-bnDescription: Bnlang এ ফাংশন ঘোষণা, এক্সপ্রেশন, অ্যারো ফাংশন, প্যারামিটার, ডিফল্ট/রেস্ট, রিকার্শন ও অসমলয় ফাংশন।
+bnDescription: Bnlang-এ ফাংশন ডিফাইন করা — ডিক্লেয়ারেশন, এক্সপ্রেশন, ফিক্সড অ্যারিটি, ক্লোজার।
 ---
 
-# <I18nEnglish>function Keyword</I18nEnglish>
-# <I18nBangla>ফাংশন কীওয়ার্ড</I18nBangla>
+# <I18nEnglish>`function` keyword</I18nEnglish>
+# <I18nBangla>`ফাংশন` কীওয়ার্ড</I18nBangla>
 
 
 <I18nEnglish>
-Functions are reusable blocks of code.  
-Define them with **`function`** (declaration or expression) or with **arrow functions** `() => ...`.  
-They can take parameters, return values, and be **async**.
-</I18nEnglish>
+`function` introduces a function. Functions are first-class values — you can store them in variables, pass them as arguments, and return them from other functions. The Bangla form `ফাংশন` is equivalent.
 
-<I18nBangla>
-ফাংশন হলো পুনঃব্যবহারযোগ্য কোডের ব্লক।  
-**`ফাংশন`/`function`** দিয়ে ঘোষণা বা এক্সপ্রেশন হিসেবে লেখা যায়, এবং **অ্যারো ফাংশন** `() => ...` হিসেবেও লেখা যায়।  
-প্যারামিটার নিতে পারে, **ফেরত** দিতে পারে, এবং **অসমলয়**ও হতে পারে।
-</I18nBangla>
-
-
-
----
-
-## Syntax
-
-<I18nEnglish>
+## Declaration
 
 ```bnl
-// Declaration (hoisted)
 function add(a, b) {
-  return a + b;
+    return a + b;
 }
 
-// Function expression
-const mul = function (a, b) {
-  return a * b;
-};
+print(add(2, 3));   // 5
+```
 
-// Arrow function
-const sub = (a, b) => a - b;
+## Expression (anonymous function)
 
-// Default & rest parameters
-function greet(name = "Guest", ...tags) {
-  console.log("Hello", name, tags);
+```bnl
+var double = function (n) { return n * 2; };
+print(double(7));   // 14
+```
+
+You'll see this form a lot when passing callbacks:
+
+```bnl
+import "io" as io;
+
+io.read_file_async("notes.txt", function (err, data) {
+    if (err != null) { print("read err:", err); return; }
+    print("got", data.byte_length, "bytes");
+});
+```
+
+## Fixed arity
+
+Functions take **exactly** the declared number of arguments. There are no defaults, no overloads, no rest parameters, no `arguments` object.
+
+```bnl
+function greet(name) {
+    return "Hi, " + name;
 }
 
-// Async function
-async function load(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error("Bad response");
-  return await res.text();
+greet("Alice");        // ok
+// greet();            // error: expects 1 argument, got 0
+// greet("Alice", 1);  // error: expects 1 argument, got 2
+```
+
+If you need different shapes, split into separately-named functions:
+
+```bnl
+function greet(name)               { return "Hi, " + name; }
+function greet_formal(title, name) { return title + " " + name; }
+```
+
+## Closures
+
+Inner functions capture outer variables by reference:
+
+```bnl
+function make_counter() {
+    var n = 0;
+    return function () {
+        n = n + 1;
+        return n;
+    };
 }
+
+var c = make_counter();
+print(c());   // 1
+print(c());   // 2
+```
+
+## Return value
+
+`return <expr>;` returns the expression's value. A bare `return;` (or falling off the end) returns `null`.
+
+See [`return`](/en/docs/v1.0.0/keywords/return-keyword) for details.
+
+## Bangla form
+
+```bnl
+ফাংশন যোগ(a, b) {
+    ফেরত a + b;
+}
+
+print(যোগ(2, 3));   // 5
 ```
 </I18nEnglish>
 
 <I18nBangla>
+`function` একটি ফাংশন পরিচয় করায়। ফাংশন first-class মান — আপনি এদের ভ্যারিয়েবলে রাখতে পারেন, আর্গুমেন্ট হিসেবে পাস করতে পারেন, এবং অন্য ফাংশন থেকে ফেরত দিতে পারেন। বাংলা রূপ `ফাংশন` সমার্থক।
+
+## ডিক্লেয়ারেশন
 
 ```bnl
-// ঘোষণা (hoisted)
-ফাংশন যোগ(ক, খ) {
-  ফেরত ক + খ;
+function add(a, b) {
+    return a + b;
 }
 
-// ফাংশন এক্সপ্রেশন
-const গুণ = function (ক, খ) {
-  ফেরত ক * খ;
-};
+print(add(2, 3));   // 5
+```
 
-// অ্যারো ফাংশন
-const বিয়োগ = (ক, খ) => ক - খ;
+## এক্সপ্রেশন (anonymous function)
 
-// ডিফল্ট ও রেস্ট প্যারামিটার
-ফাংশন শুভেচ্ছা(নাম = "অতিথি", ...ট্যাগ) {
-  কনসোল.লগ("হ্যালো", নাম, ট্যাগ);
+```bnl
+var double = function (n) { return n * 2; };
+print(double(7));   // 14
+```
+
+কলব্যাক পাস করার সময় এই রূপটি প্রচুর দেখবেন:
+
+```bnl
+import "io" as io;
+
+io.read_file_async("notes.txt", function (err, data) {
+    if (err != null) { print("read err:", err); return; }
+    print("got", data.byte_length, "bytes");
+});
+```
+
+## ফিক্সড অ্যারিটি
+
+ফাংশন **ঠিক** ডিক্লেয়ার্ড সংখ্যক আর্গুমেন্ট নেয়। কোনো ডিফল্ট নেই, কোনো ওভারলোড নেই, কোনো rest parameter নেই, কোনো `arguments` অবজেক্ট নেই।
+
+```bnl
+function greet(name) {
+    return "Hi, " + name;
 }
 
-// অসমলয় ফাংশন
-অসমলয় ফাংশন লোড(url) {
-  const res = অপেক্ষা fetch(url);
-  যদি (!res.ok) নিক্ষেপ new Error("খারাপ রেসপন্স");
-  ফেরত অপেক্ষা res.text();
+greet("Alice");        // ok
+// greet();            // error: 1 argument expected, got 0
+// greet("Alice", 1);  // error: 1 argument expected, got 2
+```
+
+ভিন্ন শেপ দরকার হলে আলাদা নামের ফাংশনে ভাগ করুন:
+
+```bnl
+function greet(name)               { return "Hi, " + name; }
+function greet_formal(title, name) { return title + " " + name; }
+```
+
+## ক্লোজার
+
+ইনার ফাংশন আউটার ভ্যারিয়েবল রেফারেন্স দিয়ে ক্যাপচার করে:
+
+```bnl
+function make_counter() {
+    var n = 0;
+    return function () {
+        n = n + 1;
+        return n;
+    };
 }
+
+var c = make_counter();
+print(c());   // 1
+print(c());   // 2
+```
+
+## রিটার্ন ভ্যালু
+
+`return <expr>;` এক্সপ্রেশনের মান ফেরত দেয়। খালি `return;` (অথবা শেষ পর্যন্ত পৌঁছানো) `null` ফেরত দেয়।
+
+বিস্তারিত [`return`](/bn/docs/v1.0.0/keywords/return-keyword) দেখুন।
+
+## বাংলা রূপ
+
+```bnl
+ফাংশন যোগ(a, b) {
+    ফেরত a + b;
+}
+
+print(যোগ(2, 3));   // 5
 ```
 </I18nBangla>
-
-
-
----
-
-## Examples
-
-<Tabs defaultValue="bangla" className="w-full">
-  <TabsList>
-    <TabsTrigger value="bangla">Bangla</TabsTrigger>
-    
-    <TabsTrigger value="english">English</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="bangla">
-
-```bnl
-// ১) বেসিক প্যারামিটার ও ফেরত
-ফাংশন গ্রেড(নম্বর) {
-  যদি (নম্বর >= 80) ফেরত "A+";
-  নাহলে যদি (নম্বর >= 70) ফেরত "A";
-  নাহলে ফেরত "A-এর নিচে";
-}
-ছাপাও(গ্রেড(85));
-
-// ২) ডিফল্ট & রেস্ট প্যারামিটার
-ফাংশন লগ(লেভেল = "info", ...বার্তা) {
-  কনসোল.লগ("[", লেভেল, "]", ...বার্তা);
-}
-লগ();                      // [ info ]
-লগ("warn", "সতর্কতা", 42);
-
-// ৩) অবজেক্ট ডেস্ট্রাকচারিং প্যারামিটার
-ফাংশন ইউজার({ নাম, শহর = "Dhaka" }) {
-  ফেরত `${নাম} @ ${শহর}`;
-}
-দেখাও(ইউজার({ নাম: "Mamun" }));
-
-// ৪) হায়ার‑অর্ডার ফাংশন (map/filter)
-const সংখ্যা = [1, 2, 3, 4, 5];
-const জোড় = সংখ্যা.filter(n => n % 2 === 0);
-const বর্গ = সংখ্যা.map(n => n * n);
-কনসোল.লগ(জোড়, বর্গ);
-
-// ৫) রিকার্শন
-ফাংশন ফ্যাক্টোরিয়াল(n) {
-  যদি (n <= 1) ফেরত 1;
-  ফেরত n * ফ্যাক্টোরিয়াল(n - 1);
-}
-কনসোল.লগ(ফ্যাক্টোরিয়াল(5));
-```
-  </TabsContent>
-
-  
-
-  <TabsContent value="english">
-
-```bnl
-// 1) Params & return
-function grade(score) {
-  if (score >= 80) return "A+";
-  else if (score >= 70) return "A";
-  else return "Below A";
-}
-print(grade(85));
-
-// 2) Default & rest parameters
-function log(level = "info", ...msg) {
-  console.log("[", level, "]", ...msg);
-}
-log();
-log("warn", "caution", 42);
-
-// 3) Object destructuring parameter
-function user({ name, city = "Dhaka" }) {
-  return `${name} @ ${city}`;
-}
-console.info(user({ name: "Mamun" }));
-
-// 4) Higher‑order (map/filter)
-const nums = [1, 2, 3, 4, 5];
-const evens = nums.filter(n => n % 2 === 0);
-const squares = nums.map(n => n * n);
-console.log(evens, squares);
-
-// 5) Recursion
-function factorial(n) {
-  if (n <= 1) return 1;
-  return n * factorial(n - 1);
-}
-console.log(factorial(5));
-```
-  </TabsContent>
-</Tabs>
-
----
-
-## Notes
-
-<I18nEnglish>
-- **Declarations** are hoisted; **expressions/arrow** are not (bindings exist but `let/const` are in the **TDZ**).  
-- **Arrow functions** don’t have their own `this`, `arguments`, or `prototype`; avoid using them as constructors or methods needing dynamic `this`.  
-- **Default parameters** evaluate at call time; **rest** collects remaining args into an array.  
-- Prefer **early returns** to reduce nesting; name functions for clearer stack traces.  
-- Deep recursion may overflow—convert to loops or use stacks where necessary.  
-- Keep language style consistent per file (English/Bangla).
-</I18nEnglish>
-
-<I18nBangla>
-- **ঘোষণা** hoisted হয়; **এক্সপ্রেশন/অ্যারো** hoisted নয় (`let/const` থাকলে **TDZ** প্রযোজ্য)।  
-- **অ্যারো ফাংশন**‑এ নিজস্ব `this`/`arguments`/`prototype` থাকে না; কনস্ট্রাক্টর বা ডাইনামিক `this`‑কেন্দ্রিক মেথডে ব্যবহার এড়ান।  
-- **ডিফল্ট প্যারামিটার** কল‑টাইমে হিসাব হয়; **রেস্ট** বাকি আর্গুমেন্ট অ্যারেতে নেয়।  
-- নেস্টিং কমাতে **আগেভাগে ফেরত** দিন; ফাংশনের নাম দিন যেন স্ট্যাক ট্রেস পরিষ্কার থাকে।  
-- গভীর রিকার্শনে স্ট্যাক ওভারফ্লো হতে পারে—লুপ/স্ট্যাক ব্যবহার করুন।  
-- প্রতি ফাইলে একটিই ভাষা স্টাইল অনুসরণ করুন।
-</I18nBangla>
-
-

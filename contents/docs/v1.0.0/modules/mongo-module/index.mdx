@@ -10,20 +10,20 @@ bnDescription: MongoDB ক্লায়েন্ট।
 
 
 <I18nEnglish>
-MongoDB client backed by mongo-c-driver. Connect with a URI, drill down to `db.collection`, and CRUD with plain maps.
+MongoDB client backed by mongo-c-driver. Connect with a URI, drill down to `db.collection`, and CRUD with plain maps. Method names mirror the official MongoDB drivers (camelCase) so the API feels familiar.
 
 ```bnl
 import "mongo" as mongo;
 
 var client = mongo.connect("mongodb://localhost:27017");
-var coll   = client.db("myapp").collection("users");
+var users  = client.db("myapp").collection("users");
 
-coll.insert_one({ name: "Alice", roles: ["admin"] });
-var alice = coll.find_one({ name: "Alice" });
+users.insertOne({ name: "Alice", roles: ["admin"] });
+var alice = users.findOne({ name: "Alice" });
 print(alice.roles[0]);                 // admin
 
-coll.update_one({ name: "Alice" }, { roles: ["admin", "editor"] });
-coll.delete_one({ name: "Alice" });
+users.updateOne({ name: "Alice" }, { "$set": { roles: ["admin", "editor"] } });
+users.deleteOne({ name: "Alice" });
 
 client.close();
 ```
@@ -41,39 +41,80 @@ client.close();
 |---|---|
 | `client.db(name)` | Pick a database. Returns `{collection(name), drop(), ...}`. |
 | `client.collection(db_name, coll_name)` | Shortcut for `client.db(d).collection(c)`. |
+| `client.ping(db_name?)` | Force a handshake (defaults to `admin`). Throws on failure. |
 | `client.close()` | Drop the connection. |
 | `db.collection(name)` | Pick a collection. |
 | `db.drop()` | Drop the whole database. |
 
 ## Collection methods
 
-| Method | Description |
-|---|---|
-| `coll.insert_one(doc)` | Insert. |
-| `coll.find_one(filter)` → map \| null | First matching doc. |
-| `coll.update_one(filter, update)` | Apply `$set`-style update. |
-| `coll.delete_one(filter)` | |
-| `coll.drop()` | Drop the collection. |
+| Method | Returns | Description |
+|---|---|---|
+| `coll.find(filter, opts?)` | list of maps | All matching docs. `opts` may set `limit`, `skip`, `sort`, `projection`. |
+| `coll.findOne(filter)` | map \| null | First matching doc, or null. |
+| `coll.insertOne(doc)` | `{acknowledged, insertedId}` | Single insert. Generates `_id` if missing. |
+| `coll.insertMany(docs)` | `{acknowledged, insertedCount, insertedIds}` | Bulk insert. |
+| `coll.updateOne(filter, update)` | mongoc reply map | `$set`-style update. |
+| `coll.deleteOne(filter)` | `{deletedCount}` | Delete first match. |
+| `coll.deleteMany(filter)` | `{deletedCount}` | Delete every match. Pass `{}` to wipe. |
+| `coll.countDocuments(filter?)` | number | Server-side count. Filter defaults to `{}`. |
+| `coll.distinct(field, filter?)` | list | Unique values of `field`. |
+| `coll.aggregate(pipeline, opts?)` | list of maps | Run an aggregation pipeline. |
+| `coll.drop()` | null | Drop the collection. |
+
+### Examples
+
+```bnl
+// find with options
+var top10 = users.find(
+    { status: "active" },
+    {
+        projection: { name: 1, email: 1, _id: 0 },
+        sort:       { created_at: -1 },
+        limit:      10
+    }
+);
+
+// operators are quoted because of the leading $
+var adults = users.find({ age: { "$gte": 18 } });
+
+// bulk insert
+var r = users.insertMany([
+    { name: "A", age: 21 },
+    { name: "B", age: 35 }
+]);
+print(r.insertedCount);   // 2
+
+// distinct values
+var roles = users.distinct("role");
+
+// aggregation pipeline
+var by_role = users.aggregate([
+    { "$match": { status: "active" } },
+    { "$group": { _id: "$role", n: { "$sum": 1 } } },
+    { "$sort":  { n: -1 } }
+]);
+```
 
 ## See also
 - [`sqlite`](/en/docs/v1.0.0/modules/sqlite-module), [`pg`](/en/docs/v1.0.0/modules/pg-module), [`mysql`](/en/docs/v1.0.0/modules/mysql-module).
 </I18nEnglish>
 
 <I18nBangla>
-mongo-c-driver-চালিত MongoDB ক্লায়েন্ট। URI দিয়ে connect, `db.collection`-এ drill down, plain map দিয়ে CRUD।
+mongo-c-driver-চালিত MongoDB ক্লায়েন্ট। URI দিয়ে connect, `db.collection`-এ drill down, plain map দিয়ে CRUD। মেথডের নাম অফিসিয়াল MongoDB driver-এর মতই (camelCase) — তাই API পরিচিত মনে হবে।
 
 ```bnl
 import "mongo" as mongo;
 
 var client = mongo.connect("mongodb://localhost:27017");
-var coll   = client.db("myapp").collection("users");
+var users  = client.db("myapp").collection("users");
 
-coll.insert_one({ name: "Alice", roles: ["admin"] });
-var alice = coll.find_one({ name: "Alice" });
+users.insertOne({ name: "Alice", roles: ["admin"] });
+var alice = users.findOne({ name: "Alice" });
 print(alice.roles[0]);                 // admin
 
-coll.update_one({ name: "Alice" }, { roles: ["admin", "editor"] });
-coll.delete_one({ name: "Alice" });
+users.updateOne({ name: "Alice" }, { "$set": { roles: ["admin", "editor"] } });
+users.deleteOne({ name: "Alice" });
 
 client.close();
 ```
@@ -91,19 +132,60 @@ client.close();
 |---|---|
 | `client.db(name)` | একটি database বেছে নিন। |
 | `client.collection(db_name, coll_name)` | শর্টকাট। |
+| `client.ping(db_name?)` | Handshake force করে (default `admin`)। ব্যর্থ হলে throw। |
 | `client.close()` | Connection ড্রপ। |
 | `db.collection(name)` | একটি collection। |
 | `db.drop()` | পুরো database ড্রপ। |
 
 ## Collection মেথড
 
-| মেথড | বর্ণনা |
-|---|---|
-| `coll.insert_one(doc)` | Insert। |
-| `coll.find_one(filter)` → map \| null | প্রথম match। |
-| `coll.update_one(filter, update)` | `$set`-স্টাইল update। |
-| `coll.delete_one(filter)` | |
-| `coll.drop()` | Collection drop। |
+| মেথড | ফেরত | বর্ণনা |
+|---|---|---|
+| `coll.find(filter, opts?)` | list of maps | সব matching doc। `opts`-এ `limit`, `skip`, `sort`, `projection` দেওয়া যায়। |
+| `coll.findOne(filter)` | map \| null | প্রথম match, না পেলে null। |
+| `coll.insertOne(doc)` | `{acknowledged, insertedId}` | একটি doc insert। `_id` না থাকলে generate হয়। |
+| `coll.insertMany(docs)` | `{acknowledged, insertedCount, insertedIds}` | Bulk insert। |
+| `coll.updateOne(filter, update)` | mongoc reply map | `$set`-স্টাইল update। |
+| `coll.deleteOne(filter)` | `{deletedCount}` | প্রথম match delete। |
+| `coll.deleteMany(filter)` | `{deletedCount}` | সব match delete। সব মুছতে `{}` দিন। |
+| `coll.countDocuments(filter?)` | number | Server-side count। Filter default `{}`। |
+| `coll.distinct(field, filter?)` | list | `field`-এর unique value-গুলো। |
+| `coll.aggregate(pipeline, opts?)` | list of maps | Aggregation pipeline চালায়। |
+| `coll.drop()` | null | Collection drop। |
+
+### উদাহরণ
+
+```bnl
+// options সহ find
+var top10 = users.find(
+    { status: "active" },
+    {
+        projection: { name: 1, email: 1, _id: 0 },
+        sort:       { created_at: -1 },
+        limit:      10
+    }
+);
+
+// $ দিয়ে শুরু operator-গুলো quote-এর ভেতরে
+var adults = users.find({ age: { "$gte": 18 } });
+
+// bulk insert
+var r = users.insertMany([
+    { name: "A", age: 21 },
+    { name: "B", age: 35 }
+]);
+print(r.insertedCount);   // 2
+
+// distinct value
+var roles = users.distinct("role");
+
+// aggregation pipeline
+var by_role = users.aggregate([
+    { "$match": { status: "active" } },
+    { "$group": { _id: "$role", n: { "$sum": 1 } } },
+    { "$sort":  { n: -1 } }
+]);
+```
 
 ## আরও দেখুন
 - [`sqlite`](/bn/docs/v1.0.0/modules/sqlite-module), [`pg`](/bn/docs/v1.0.0/modules/pg-module), [`mysql`](/bn/docs/v1.0.0/modules/mysql-module)।

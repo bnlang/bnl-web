@@ -25,6 +25,31 @@ print("hello", 42, true);    // hello 42 true
 লিখুন("নম্বর:", 7);          // নম্বর: 7
 ```
 
+When an argument is a list or map, `print` formats it with the same layout as `pretty`: inline when short, multi-line with 4-space indent otherwise. Strings inside collections are quoted so they're visibly distinct from identifiers.
+
+```bnl
+print([1, 2, 3]);
+// [1, 2, 3]
+
+print({a: 1, b: "hello", c: [10, 20, 30]});
+// {a: 1, b: "hello", c: [10, 20, 30]}
+
+print([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
+// [
+//     1,
+//     2,
+//     ...
+//     20
+// ]
+```
+
+When stdout is an interactive terminal, collection contents are colored by type (numbers cyan, strings green, booleans yellow, `null` gray, map keys bright cyan). Override with:
+
+- `BNL_PRINT_COLOR=1` — force color on (useful in CI logs that support ANSI)
+- `BNL_PRINT_COLOR=0` or `NO_COLOR=1` — force color off
+
+Piping or redirecting (`bnl app.bnl > out.txt`) auto-disables color so files stay byte-clean.
+
 Returns `null`.
 
 ### `input(prompt?)` / `ইনপুট(prompt?)`
@@ -142,6 +167,23 @@ print(dump(big_response));
 print("hello", 42, true);    // hello 42 true
 লিখুন("নম্বর:", 7);          // নম্বর: 7
 ```
+
+কোনো আর্গুমেন্ট list বা map হলে `print` সেটাকে `pretty`-এর মতো ফরম্যাট করে: ছোট হলে inline, বড় হলে 4-space indent দিয়ে multi-line। Collection-এর ভেতরের স্ট্রিংগুলো quote-সহ দেখানো হয়, যাতে identifier থেকে আলাদা বোঝা যায়।
+
+```bnl
+print([1, 2, 3]);
+// [1, 2, 3]
+
+print({a: 1, b: "hello", c: [10, 20, 30]});
+// {a: 1, b: "hello", c: [10, 20, 30]}
+```
+
+stdout যখন interactive terminal, তখন collection-এর ভেতরের value-গুলো টাইপ অনুযায়ী রঙিন হয় (number cyan, string green, bool yellow, `null` gray, map key bright cyan)। নিয়ন্ত্রণ করতে:
+
+- `BNL_PRINT_COLOR=1` — force on
+- `BNL_PRINT_COLOR=0` বা `NO_COLOR=1` — force off
+
+Pipe বা redirect করলে (`bnl app.bnl > out.txt`) color আপনাআপনি বন্ধ হয়ে যায়, যাতে file byte-clean থাকে।
 
 `null` ফেরত দেয়।
 

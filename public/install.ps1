@@ -1,6 +1,7 @@
 # Bnlang installer for Windows.
 #
-# Usage:
+# Usage (run from an elevated PowerShell -- the default install location is
+# under Program Files and requires Administrator):
 #   irm https://bnlang.dev/install.ps1 | iex
 #
 # Pin a version:
@@ -8,13 +9,16 @@
 #
 # Environment overrides:
 #   BNL_VERSION       version to install (default: latest stable from GitHub)
-#   BNL_INSTALL_DIR   install location  (default: %USERPROFILE%\.bnlang\bin)
+#   BNL_INSTALL_DIR   install location
+#                     default x64: %ProgramFiles%\Bnlang
+#                     default x86: %ProgramFiles(x86)%\Bnlang
+#                     If you override to a user-writable path you can run
+#                     without Administrator.
 
 $ErrorActionPreference = "Stop"
 
-$Version    = if ($env:BNL_VERSION)     { $env:BNL_VERSION }     else { "" }
-$InstallDir = if ($env:BNL_INSTALL_DIR) { $env:BNL_INSTALL_DIR } else { Join-Path $env:USERPROFILE ".bnlang\bin" }
-$Repo       = "bnlang/bnl-release"
+$Version = if ($env:BNL_VERSION) { $env:BNL_VERSION } else { "" }
+$Repo    = "bnlang/bnl-release"
 
 # --- detect architecture ---
 # PROCESSOR_ARCHITEW6432 is set when running under WOW64 and holds the real OS arch.
@@ -31,6 +35,44 @@ switch ($archRaw.ToUpper()) {
 }
 
 $platform = "windows-$arch"
+
+# --- resolve install directory ---
+# Default: Program Files\Bnlang for x64, Program Files (x86)\Bnlang for x86.
+# Honour BNL_INSTALL_DIR if the caller set it. Note ${env:ProgramFiles(x86)}
+# uses ${} so PowerShell does not parse the parentheses as a subexpression.
+if ($env:BNL_INSTALL_DIR) {
+    $InstallDir = $env:BNL_INSTALL_DIR
+} else {
+    $progFiles = if ($arch -eq "x86") {
+        if (${env:ProgramFiles(x86)}) { ${env:ProgramFiles(x86)} } else { "C:\Program Files (x86)" }
+    } else {
+        if ($env:ProgramFiles)        { $env:ProgramFiles }        else { "C:\Program Files" }
+    }
+    $InstallDir = Join-Path $progFiles "Bnlang"
+}
+
+# --- elevation check ---
+# Writing under Program Files (and updating Machine PATH) needs admin.
+# A user-writable BNL_INSTALL_DIR override doesn't, so only error when the
+# chosen location actually requires it.
+$isAdmin = ([Security.Principal.WindowsPrincipal] `
+    [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(
+        [Security.Principal.WindowsBuiltInRole]::Administrator)
+
+$pf64 = if ($env:ProgramFiles)        { $env:ProgramFiles }        else { "C:\Program Files" }
+$pf86 = if (${env:ProgramFiles(x86)}) { ${env:ProgramFiles(x86)} } else { "C:\Program Files (x86)" }
+$needsAdmin = $InstallDir.StartsWith($pf64, [StringComparison]::OrdinalIgnoreCase) -or `
+              $InstallDir.StartsWith($pf86, [StringComparison]::OrdinalIgnoreCase)
+
+if ($needsAdmin -and -not $isAdmin) {
+    Write-Error ("Installing to '$InstallDir' requires Administrator.`n" +
+                 "Re-open PowerShell as Administrator and run:`n" +
+                 "    irm https://bnlang.dev/install.ps1 | iex`n" +
+                 "Or override to a user-writable path, e.g.:`n" +
+                 "    `$env:BNL_INSTALL_DIR = `"`$env:LOCALAPPDATA\Programs\Bnlang`"`n" +
+                 "    irm https://bnlang.dev/install.ps1 | iex")
+    exit 1
+}
 
 # TLS 1.2 for older Windows PowerShell that still defaults to TLS 1.0.
 try {
@@ -102,11 +144,15 @@ try {
     }
     Write-Host "Installed bnl to $InstallDir"
 
-    # --- add to user PATH if missing ---
-    $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+    # --- add to PATH if missing ---
+    # System-wide install (Program Files) uses Machine PATH so every user
+    # picks it up. User-writable override uses User PATH so admin isn't
+    # needed.
+    $pathScope = if ($needsAdmin) { "Machine" } else { "User" }
+    $existing  = [Environment]::GetEnvironmentVariable("Path", $pathScope)
     $alreadyOnPath = $false
-    if ($userPath) {
-        foreach ($p in $userPath -split ';') {
+    if ($existing) {
+        foreach ($p in $existing -split ';') {
             if ($p.Trim().TrimEnd('\') -ieq $InstallDir.TrimEnd('\')) {
                 $alreadyOnPath = $true
                 break
@@ -115,9 +161,9 @@ try {
     }
 
     if (-not $alreadyOnPath) {
-        $newPath = if ([string]::IsNullOrEmpty($userPath)) { $InstallDir } else { "$userPath;$InstallDir" }
-        [Environment]::SetEnvironmentVariable("Path", $newPath, "User")
-        Write-Host "Added $InstallDir to your user PATH."
+        $newPath = if ([string]::IsNullOrEmpty($existing)) { $InstallDir } else { "$existing;$InstallDir" }
+        [Environment]::SetEnvironmentVariable("Path", $newPath, $pathScope)
+        Write-Host "Added $InstallDir to the $pathScope PATH."
         Write-Host "Open a new terminal for it to take effect."
     }
 

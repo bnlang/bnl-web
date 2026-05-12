@@ -155,6 +155,11 @@ export const DOC_ROUTES: VersionMap = {
         { slug: "test-module",     title: "test",     titleBn: "test" },
       ],
     },
+    {
+      slug: "plugins",
+      title: "Plugin development",
+      titleBn: "প্লাগইন ডেভেলপমেন্ট",
+    },
   ],
 };
 

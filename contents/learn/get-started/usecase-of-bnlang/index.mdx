@@ -10,12 +10,12 @@ bnDescription: শিক্ষা, লোকাল ডেভেলপমেন�
 
 
 <I18nEnglish>
-Bnlang is more than a syntax experiment — it is designed to be a practical, embeddable programming language with a real standard library.
+Bnlang is more than a syntax experiment — it is designed to be a practical, extensible programming language with a real standard library.
 Because the same code can be expressed in Bangla or English with identical semantics, it opens up a few use cases that other languages don't address well.
 </I18nEnglish>
 
 <I18nBangla>
-Bnlang শুধু সিনট্যাক্স-এক্সপেরিমেন্ট নয় — এটি একটি ব্যবহারিক, এমবেডেবল প্রোগ্রামিং ভাষা, যার একটি প্রকৃত স্ট্যান্ডার্ড লাইব্রেরি আছে।
+Bnlang শুধু সিনট্যাক্স-এক্সপেরিমেন্ট নয় — এটি একটি ব্যবহারিক, এক্সটেনসিবল প্রোগ্রামিং ভাষা, যার একটি প্রকৃত স্ট্যান্ডার্ড লাইব্রেরি আছে।
 যেহেতু একই কোড বাংলা বা ইংরেজিতে একই সেম্যান্টিক্সে প্রকাশ করা যায়, এটি এমন কিছু ব্যবহার ক্ষেত্র খুলে দেয় যা অন্য ভাষাগুলো ভালোভাবে সামলায় না।
 </I18nBangla>
 
@@ -29,7 +29,7 @@ Bnlang শুধু সিনট্যাক্স-এক্সপেরিম�
 1. **Education** — students learn programming concepts in their native language without fighting English syntax.
 2. **Local development** — internal tools, scripts, and small services for Bangla-speaking teams.
 3. **Web development** — `web` and `request` standard library modules cover servers, clients, file upload/download, WebSockets, and templating.
-4. **Embedding** — drop `bnl_core` into a C++ host application and expose scripting to your users.
+4. **Native extension** — extend the runtime by writing a `.dll` / `.so` / `.dylib` plugin in C, C++, Rust, Go, Zig, or any C-ABI language. Plugins use a single drop-in header and `import` like any other module.
 5. **Rapid prototyping** — write a quick CLI, parse some CSV, hit a database, ship.
 6. **Bilingual collaboration** — one team member can write in Bangla, another in English; the AST is the same.
 </I18nEnglish>
@@ -38,7 +38,7 @@ Bnlang শুধু সিনট্যাক্স-এক্সপেরিম�
 ১. **শিক্ষা** — শিক্ষার্থীরা মাতৃভাষায় প্রোগ্রামিং কনসেপ্ট শেখে, ইংরেজি সিনট্যাক্সের সাথে যুদ্ধ না করে।
 ২. **লোকাল ডেভেলপমেন্ট** — বাংলা-ভাষী টিমের জন্য ইন্টারনাল টুল, স্ক্রিপ্ট ও ছোট সার্ভিস।
 ৩. **ওয়েব ডেভেলপমেন্ট** — `web` ও `request` স্ট্যান্ডার্ড লাইব্রেরি মডিউল সার্ভার, ক্লায়েন্ট, ফাইল আপলোড/ডাউনলোড, WebSocket ও টেমপ্লেটিং কাভার করে।
-৪. **এমবেডিং** — C++ হোস্ট অ্যাপ্লিকেশনে `bnl_core` এমবেড করে ব্যবহারকারীদের জন্য স্ক্রিপ্টিং এক্সপোজ করুন।
+৪. **নেটিভ এক্সটেনশন** — C, C++, Rust, Go, Zig বা যেকোনো C-ABI ভাষায় `.dll` / `.so` / `.dylib` প্লাগইন লিখে রানটাইম এক্সটেন্ড করুন। প্লাগইন একটি একক drop-in হেডার ব্যবহার করে এবং অন্য যেকোনো মডিউলের মতই `import` হয়।
 ৫. **দ্রুত প্রোটোটাইপিং** — একটা CLI বানান, কিছু CSV পার্স করুন, ডাটাবেসে হিট করুন, শিপ করুন।
 ৬. **দ্বিভাষিক সহযোগিতা** — এক টিম-মেম্বার বাংলায় লিখছেন, আরেকজন ইংরেজিতে; AST একই থাকে।
 </I18nBangla>
@@ -105,12 +105,12 @@ print("line count:", lines.length);
 ## Summary
 
 <I18nEnglish>
-Bnlang lowers the barrier to programming for Bangla speakers while keeping the language general-purpose enough to build real tools, services, and embedded scripting.
+Bnlang lowers the barrier to programming for Bangla speakers while keeping the language general-purpose enough to build real tools, services, and native extensions.
 Whether you're writing your first program in a classroom or shipping a database-backed web service, Bnlang has the syntax — and the standard library — to support it.
 </I18nEnglish>
 
 <I18nBangla>
-Bnlang বাংলা-ভাষীদের জন্য প্রোগ্রামিং-এর বাধা কমায়, এবং একই সাথে এতটা জেনারেল-পারপাস থাকে যাতে প্রকৃত টুল, সার্ভিস ও এমবেডেড স্ক্রিপ্টিং বানানো যায়।
+Bnlang বাংলা-ভাষীদের জন্য প্রোগ্রামিং-এর বাধা কমায়, এবং একই সাথে এতটা জেনারেল-পারপাস থাকে যাতে প্রকৃত টুল, সার্ভিস ও নেটিভ এক্সটেনশন বানানো যায়।
 ক্লাসরুমে প্রথম প্রোগ্রাম লিখুন, বা ডাটাবেস-চালিত ওয়েব সার্ভিস শিপ করুন — Bnlang-এ সিনট্যাক্স এবং স্ট্যান্ডার্ড লাইব্রেরি দু'টোই আপনার পাশে আছে।
 </I18nBangla>
 

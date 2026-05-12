@@ -1,0 +1,515 @@
+---
+title: Plugin development
+description: Authoring a native plugin for Bnlang — write a shared library in C, C++, Rust, Go, or any C-ABI language; import it like any other module.
+
+bnTitle: প্লাগইন ডেভেলপমেন্ট
+bnDescription: Bnlang-এর জন্য নেটিভ প্লাগইন লেখা — C, C++, Rust, Go, বা C-ABI সমর্থিত যেকোনো ভাষায় শেয়ার্ড লাইব্রেরি তৈরি করে অন্য যেকোনো মডিউলের মতই `import` করুন।
+
+---
+
+# <I18nEnglish>Plugin development</I18nEnglish>
+# <I18nBangla>প্লাগইন ডেভেলপমেন্ট</I18nBangla>
+
+
+<I18nEnglish>
+A bnl plugin is a `.dll` / `.so` / `.dylib` shared library that implements bnl's C plugin contract. Plugins extend the runtime — wrap a C library (libcurl, SQLite, OpenCV…), expose a hardware SDK, or implement a fast inner loop in a compiled language. They `import` into bnl exactly like a standard-library module.
+
+The contract is **a single C header**, `bnl/plugin.h`. Drop it into your project, write one C function, compile to a shared library. There is no bnl runtime to link against; everything goes through a function-pointer table bnl hands the plugin at load time.
+
+## When to write a plugin
+
+| You want to… | Tool |
+|---|---|
+| Use a third-party C library (libcurl, OpenSSL, SDL, etc.) from bnl | Plugin |
+| Implement an algorithm that's too slow in interpreted bnl | Plugin |
+| Bridge a hardware/OS SDK that has no bnl bindings | Plugin |
+| Ship a reusable module on bpm | Plugin |
+| Just call one function from a system library | Plugin (still — there's no FFI module in v1) |
+
+## What you need
+
+| File | Source |
+|---|---|
+| `bnl/plugin.h` | Single drop-in C header. Get it from a release archive or copy it from the bnl repo's `include/bnl/`. |
+| Your plugin source (`.c` / `.cpp` / `.rs` / `.go` / `.zig`) | You write it. ~50 lines for a simple module. |
+| A compiler for your language | Whatever you choose. No bnl-specific toolchain. |
+| `bnl` (to run your plugin) | Already installed. |
+
+You do **not** need: `bnl_core.lib`, other bnl headers, a matching bnl version (within the same `BNL_PLUGIN_API_VERSION`), or a matching MSVC version.
+
+## Quickstart
+
+```
+my-plugin/
+├── bnl/
+│   └── plugin.h        ← drop-in header
+└── mathx.c             ← plugin source
+```
+
+**`mathx.c`** — a minimum-viable plugin:
+
+```c
+#include <math.h>
+#include "bnl/plugin.h"
+
+static bnl_value* cube(const bnl_api* api,
+                       int argc, bnl_value** argv, void* ud) {
+    (void)argc; (void)ud;
+    double x = api->get_number(argv[0]);
+    return api->make_number(api, x * x * x);
+}
+
+static bnl_value* hypot_fn(const bnl_api* api,
+                           int argc, bnl_value** argv, void* ud) {
+    (void)argc; (void)ud;
+    double a = api->get_number(argv[0]);
+    double b = api->get_number(argv[1]);
+    return api->make_number(api, sqrt(a*a + b*b));
+}
+
+BNL_EXPORT bnl_module* bnl_load(const bnl_api* api) {
+    bnl_module* m = api->module_new(api, "mathx");
+    api->module_add_function(m, "cube",  1, cube,      0);
+    api->module_add_function(m, "hypot", 2, hypot_fn,  0);
+    api->module_add_value   (m, "greeting",
+                              api->make_string(api, "hi from C", 9));
+    return m;
+}
+```
+
+**Compile** — one line per OS:
+
+```sh
+# Windows (MSVC, x64 Developer Command Prompt)
+cl /LD /O2 /I. mathx.c
+
+# Linux (gcc)
+gcc -shared -fPIC -O2 -I. -o mathx.so mathx.c -lm
+
+# macOS (clang)
+clang -shared -O2 -I. -o mathx.dylib mathx.c -lm
+```
+
+**Import** — drop the `.dll`/`.so`/`.dylib` next to a bnl script:
+
+```bnl
+import "./mathx.dll" as m;     // or "./mathx.so" / "./mathx.dylib"
+
+print(m.cube(4));              // 64
+print(m.hypot(3, 4));          // 5
+print(m.greeting);             // hi from C
+```
+
+That's the whole loop. The plugin's only ABI surface is the four exported names (`bnl_load`, `cube`, `hypot_fn`, ...) and the bnl_api function-pointer table it receives.
+
+## The bnl_api reference
+
+`bnl_load` receives a pointer to a `bnl_api` struct of function pointers. The plugin uses these to construct values, inspect arguments, build the module, and raise errors. Every call goes through the table — there are no direct linker references to bnl.
+
+### Values
+
+| Constructor | Returns |
+|---|---|
+| `api->make_null(api)` | bnl `null` |
+| `api->make_bool(api, b)` | bnl `bool` (0/1) |
+| `api->make_number(api, n)` | bnl `number` (double) |
+| `api->make_string(api, s, len)` | bnl `string` (byte-counted; not NUL-terminated) |
+| `api->make_list(api)` | empty bnl `list` |
+| `api->make_map(api)` | empty bnl `map` |
+
+| Inspector | Returns |
+|---|---|
+| `api->get_type(v)` | `BNL_TYPE_NULL`/`BOOL`/`NUMBER`/`STRING`/`LIST`/`MAP`/`OTHER` |
+| `api->get_bool(v)` | `int` (0/1) |
+| `api->get_number(v)` | `double` |
+| `api->get_string(v, &len)` | byte pointer + length (not NUL-terminated) |
+
+### Lists
+
+| Function | Effect |
+|---|---|
+| `api->list_length(list)` | size_t |
+| `api->list_get(api, list, i)` | element at i, or NULL if out of range |
+| `api->list_push(list, item)` | append (deep-copies into the list) |
+
+### Maps
+
+| Function | Effect |
+|---|---|
+| `api->map_size(map)` | size_t |
+| `api->map_has(map, key)` | 0 or 1 |
+| `api->map_get(api, map, key)` | value or NULL |
+| `api->map_set(map, key, value)` | upsert (deep-copies into the map) |
+| `api->map_key_at(map, i, &key, &len)` | iterate keys by index |
+
+### Module construction
+
+| Function | Effect |
+|---|---|
+| `api->module_new(api, name)` | start a module |
+| `api->module_add_function(m, name, arity, fn, ud)` | bind a function (arity is the fixed arg count, or `-1` for variadic) |
+| `api->module_add_value(m, name, v)` | bind a constant (string / number / map / list) |
+
+### Errors
+
+```c
+api->throw_error(api, "useful message");
+return 0;   // any further work is undefined
+```
+
+The error surfaces in bnl as a normal exception caught by `try / catch`:
+
+```bnl
+try {
+    m.must_be_pos(-1);
+} catch (e) {
+    print(e);   // "plugin function 'must_be_pos': must_be_pos: value is negative"
+}
+```
+
+## Memory ownership
+
+These rules are the most important to internalize:
+
+1. **`bnl_value*` returned by `api->make_*` is owned by bnl.** It lives until the current native-function call returns. **Never free it yourself.**
+2. **`list_push` and `map_set` deep-copy.** After attaching a value to a list or map, the original handle is harmless to drop — bnl manages the copy.
+3. **`argv[i]` is valid only during the call.** Don't stash pointers between calls. If you need to remember a value, copy its contents into your own state.
+4. **`bnl_module*` from `module_new` is owned by bnl.** You do not free the module; just return it from `bnl_load`.
+
+If you obey these rules you cannot leak or double-free anything bnl-side.
+
+## Errors and exceptions
+
+`api->throw_error(api, msg)` records an error in the current call's context. The plugin function should then `return 0` (NULL). When the call unwinds, bnl raises a runtime exception with your message. Do not use C `longjmp`, C++ `throw`, or other unwinding mechanisms — they bypass bnl's error path and may crash the interpreter.
+
+## Cross-platform shipping
+
+A plugin built on Linux only loads on Linux; you need one binary per OS. Two common patterns:
+
+**Pattern A — multiple archives, one per OS.** Each archive contains the matching binary and a `bnl.json` whose `native` field names that file:
+
+```
+mathx-1.0.0-windows-x64.zip    →  bnl.json (native: "mathx.dll")    + mathx.dll
+mathx-1.0.0-linux-x64.tar.gz   →  bnl.json (native: "libmathx.so")  + libmathx.so
+mathx-1.0.0-macos-arm64.tar.gz →  bnl.json (native: "libmathx.dylib") + libmathx.dylib
+```
+
+The user downloads the archive matching their OS. `bpm` follows the same pattern: it picks the correct archive for the host platform at install time.
+
+**Pattern B — single fat archive.** One archive contains all three binaries plus per-OS `bnl.json` overrides. Requires runtime per-OS resolution support; not in the v1 contract but planned.
+
+For now, Pattern A is the recommended publishing format.
+
+## Installing via bpm
+
+A native plugin installs into a bnl project exactly like a pure-bnl package:
+
+```sh
+bpm add mathx
+```
+
+bpm fetches the platform archive, extracts it into `deps/mathx/`, leaving a layout like:
+
+```
+my-app/
+├── bnl.json                  ← project marker
+├── main.bnl
+└── deps/
+    └── mathx/
+        ├── bnl.json          ← {"name": "mathx", "native": "mathx.dll"}
+        └── mathx.dll
+```
+
+From `main.bnl`:
+
+```bnl
+import "mathx" as m;
+print(m.cube(4));    // 64
+```
+
+The bnl module resolver walks up from `main.bnl`'s directory, finds `deps/mathx/`, reads `bnl.json`, sees the `native` field, and loads the shared library. Identical user-facing experience whether the dep was hand-placed or installed by bpm.
+
+## Rules at a glance
+
+| # | Rule |
+|---|---|
+| 1 | Export exactly one symbol: `bnl_load`. Use the `BNL_EXPORT` macro. |
+| 2 | The plugin's only compile-time bnl dependency is `bnl/plugin.h`. Do not link against bnl. |
+| 3 | All `bnl_value*` returned by `make_*` are arena-owned by bnl. Never free them. |
+| 4 | `list_push` and `map_set` deep-copy into the parent. |
+| 5 | `argv[i]` values are valid only during the call. |
+| 6 | Errors: `api->throw_error(...)`, then `return 0`. No C++ throw, no longjmp. |
+| 7 | bnl is single-threaded. Don't call `api->*` from a thread other than the one that called your function. |
+| 8 | Plugin DLLs are loaded once per process and never unloaded. |
+| 9 | `bnl_load` is called exactly once per plugin per process. Register everything inside it. |
+| 10 | Check `api->version` if you care about ABI compatibility. New fields may be appended without bumping the version. |
+| 11 | Module name in `module_new` should match the import name. |
+| 12 | Don't block the interpreter for long. Slow work goes through libuv or a worker thread (using only your own state). |
+
+## Languages other than C
+
+The contract is C ABI, so anything that produces a C-callable shared library works:
+
+| Language | Build mode | Notes |
+|---|---|---|
+| **C** | `cl /LD` or `gcc -shared` | Simplest path. |
+| **C++** | `cl /LD` or `g++ -shared` | Use `extern "C"` on `bnl_load` and any function pointers. |
+| **Rust** | `crate-type = ["cdylib"]` | `extern "C" fn bnl_load(...)` + `#[no_mangle]`. |
+| **Go** | `-buildmode=c-shared` | Use cgo. Requires gcc on Windows (mingw-w64). |
+| **Zig** | `build-lib -dynamic` | `export fn bnl_load(...)`. |
+| **Pascal**, **D**, **Nim**, **Crystal** | language-specific shared-library output | Anything with C FFI works. |
+
+The same `bnl/plugin.h` and the same compiled binary semantics apply to all of them.
+</I18nEnglish>
+
+
+<I18nBangla>
+একটি bnl প্লাগইন হলো `.dll` / `.so` / `.dylib` শেয়ার্ড লাইব্রেরি যা bnl-এর C প্লাগইন কন্ট্রাক্ট implement করে। প্লাগইন রানটাইম এক্সটেন্ড করে — কোনো C লাইব্রেরি wrap করুন (libcurl, SQLite, OpenCV…), হার্ডওয়্যার SDK expose করুন, বা কোনো compiled ভাষায় দ্রুত inner loop implement করুন। স্ট্যান্ডার্ড লাইব্রেরি মডিউলের মতই এগুলো bnl-এ `import` হয়।
+
+কন্ট্রাক্ট হলো **একটি একক C হেডার**, `bnl/plugin.h`। নিজের প্রজেক্টে drop করুন, একটি C ফাংশন লিখুন, শেয়ার্ড লাইব্রেরিতে compile করুন। কোনো bnl রানটাইমের সাথে link করতে হয় না; load time-এ bnl একটি function-pointer table দেয়, সব কিছু সেটার মাধ্যমে হয়।
+
+## কখন প্লাগইন লিখবেন
+
+| আপনি চান… | টুল |
+|---|---|
+| bnl থেকে কোনো third-party C লাইব্রেরি (libcurl, OpenSSL, SDL ইত্যাদি) ব্যবহার করতে | প্লাগইন |
+| interpreted bnl-এ ধীর কোনো algorithm implement করতে | প্লাগইন |
+| bnl binding না-থাকা কোনো হার্ডওয়্যার/OS SDK bridge করতে | প্লাগইন |
+| bpm-এ reusable মডিউল ship করতে | প্লাগইন |
+| system লাইব্রেরির একটি ফাংশন কল করতে | প্লাগইন (v1-এ আলাদা FFI মডিউল নেই) |
+
+## যা যা লাগবে
+
+| ফাইল | উৎস |
+|---|---|
+| `bnl/plugin.h` | একক drop-in C হেডার। release archive থেকে নিন, বা bnl repo-এর `include/bnl/` থেকে copy করুন। |
+| আপনার প্লাগইন সোর্স (`.c` / `.cpp` / `.rs` / `.go` / `.zig`) | নিজে লিখুন। সাধারণ মডিউলের জন্য ~50 লাইন। |
+| আপনার ভাষার compiler | যেটাই বেছে নিন। কোনো bnl-specific toolchain নেই। |
+| `bnl` (প্লাগইন run করতে) | ইনস্টল করা আছে। |
+
+আপনার দরকার **নেই**: `bnl_core.lib`, অন্য কোনো bnl হেডার, একই bnl version (একই `BNL_PLUGIN_API_VERSION` থাকলেই হলো), বা একই MSVC version।
+
+## কুইকস্টার্ট
+
+```
+my-plugin/
+├── bnl/
+│   └── plugin.h        ← drop-in header
+└── mathx.c             ← প্লাগইন সোর্স
+```
+
+**`mathx.c`** — সবচেয়ে ছোট কার্যকর প্লাগইন:
+
+```c
+#include <math.h>
+#include "bnl/plugin.h"
+
+static bnl_value* cube(const bnl_api* api,
+                       int argc, bnl_value** argv, void* ud) {
+    (void)argc; (void)ud;
+    double x = api->get_number(argv[0]);
+    return api->make_number(api, x * x * x);
+}
+
+static bnl_value* hypot_fn(const bnl_api* api,
+                           int argc, bnl_value** argv, void* ud) {
+    (void)argc; (void)ud;
+    double a = api->get_number(argv[0]);
+    double b = api->get_number(argv[1]);
+    return api->make_number(api, sqrt(a*a + b*b));
+}
+
+BNL_EXPORT bnl_module* bnl_load(const bnl_api* api) {
+    bnl_module* m = api->module_new(api, "mathx");
+    api->module_add_function(m, "cube",  1, cube,      0);
+    api->module_add_function(m, "hypot", 2, hypot_fn,  0);
+    api->module_add_value   (m, "greeting",
+                              api->make_string(api, "hi from C", 9));
+    return m;
+}
+```
+
+**Compile** — প্রতি OS-এ এক লাইন:
+
+```sh
+# Windows (MSVC, x64 Developer Command Prompt)
+cl /LD /O2 /I. mathx.c
+
+# Linux (gcc)
+gcc -shared -fPIC -O2 -I. -o mathx.so mathx.c -lm
+
+# macOS (clang)
+clang -shared -O2 -I. -o mathx.dylib mathx.c -lm
+```
+
+**Import** — `.dll`/`.so`/`.dylib` কোনো bnl স্ক্রিপ্টের পাশে রেখে দিন:
+
+```bnl
+import "./mathx.dll" as m;     // বা "./mathx.so" / "./mathx.dylib"
+
+print(m.cube(4));              // 64
+print(m.hypot(3, 4));          // 5
+print(m.greeting);             // hi from C
+```
+
+এই পুরো loop এতটুকুই। প্লাগইনের ABI surface শুধু export করা নামগুলো (`bnl_load`, `cube`, `hypot_fn`, …) এবং সেটা যে bnl_api function-pointer table পায়।
+
+## bnl_api রেফারেন্স
+
+`bnl_load` একটি `bnl_api` struct-এর pointer পায় যাতে function pointer থাকে। প্লাগইন value তৈরি, argument inspect, মডিউল গঠন, ও error raise — সব এই table-এর মাধ্যমে করে। bnl-এর কোনো direct linker reference নেই।
+
+### Values
+
+| Constructor | ফেরত |
+|---|---|
+| `api->make_null(api)` | bnl `null` |
+| `api->make_bool(api, b)` | bnl `bool` (0/1) |
+| `api->make_number(api, n)` | bnl `number` (double) |
+| `api->make_string(api, s, len)` | bnl `string` (byte-গণনাকৃত; NUL-terminated না) |
+| `api->make_list(api)` | খালি bnl `list` |
+| `api->make_map(api)` | খালি bnl `map` |
+
+| Inspector | ফেরত |
+|---|---|
+| `api->get_type(v)` | `BNL_TYPE_NULL`/`BOOL`/`NUMBER`/`STRING`/`LIST`/`MAP`/`OTHER` |
+| `api->get_bool(v)` | `int` (0/1) |
+| `api->get_number(v)` | `double` |
+| `api->get_string(v, &len)` | byte pointer + length (NUL-terminated না) |
+
+### Lists
+
+| ফাংশন | কাজ |
+|---|---|
+| `api->list_length(list)` | size_t |
+| `api->list_get(api, list, i)` | i-তে element, বা out of range হলে NULL |
+| `api->list_push(list, item)` | append (deep-copy করে list-এ) |
+
+### Maps
+
+| ফাংশন | কাজ |
+|---|---|
+| `api->map_size(map)` | size_t |
+| `api->map_has(map, key)` | 0 বা 1 |
+| `api->map_get(api, map, key)` | value বা NULL |
+| `api->map_set(map, key, value)` | upsert (deep-copy করে map-এ) |
+| `api->map_key_at(map, i, &key, &len)` | index দিয়ে key iterate |
+
+### মডিউল গঠন
+
+| ফাংশন | কাজ |
+|---|---|
+| `api->module_new(api, name)` | মডিউল শুরু |
+| `api->module_add_function(m, name, arity, fn, ud)` | ফাংশন bind (arity হলো fixed arg count, বা variadic-এর জন্য `-1`) |
+| `api->module_add_value(m, name, v)` | constant bind (string / number / map / list) |
+
+### Errors
+
+```c
+api->throw_error(api, "useful message");
+return 0;   // এর পরে আর কোনো কাজ undefined
+```
+
+bnl-এ error সাধারণ exception হিসেবে surface হয়, যা `try / catch` দিয়ে ধরা যায়:
+
+```bnl
+try {
+    m.must_be_pos(-1);
+} catch (e) {
+    print(e);   // "plugin function 'must_be_pos': must_be_pos: value is negative"
+}
+```
+
+## মেমরি ownership
+
+এই নিয়মগুলো সবচেয়ে গুরুত্বপূর্ণ:
+
+1. **`api->make_*` থেকে পাওয়া `bnl_value*` bnl-এর owned।** এটি বর্তমান native-function call শেষ হওয়া পর্যন্ত থাকে। **নিজে কখনো free করবেন না।**
+2. **`list_push` ও `map_set` deep-copy করে।** কোনো value list বা map-এ attach করার পর original handle drop করা নিরাপদ — bnl copy-টা manage করে।
+3. **`argv[i]` শুধু call-এর সময় valid।** call-গুলোর মাঝখানে pointer stash করবেন না। কোনো value মনে রাখতে চাইলে এর content আপনার নিজের state-এ copy করুন।
+4. **`module_new` থেকে পাওয়া `bnl_module*` bnl-এর owned।** আপনি মডিউল free করবেন না; শুধু `bnl_load` থেকে return করবেন।
+
+এই নিয়মগুলো মেনে চললে bnl-side কোনো leak বা double-free হবে না।
+
+## Error ও exception
+
+`api->throw_error(api, msg)` বর্তমান call-এর context-এ error record করে। তারপর প্লাগইন ফাংশন `return 0` (NULL) দেবে। call unwind হলে bnl আপনার message সহ runtime exception raise করে। C `longjmp`, C++ `throw`, বা অন্য কোনো unwinding mechanism ব্যবহার করবেন না — সেগুলো bnl-এর error path bypass করে এবং interpreter crash করাতে পারে।
+
+## ক্রস-প্ল্যাটফর্ম shipping
+
+Linux-এ build করা প্লাগইন শুধু Linux-এ load হয়; প্রতি OS-এর জন্য একটি করে binary লাগবে। দু'টি সাধারণ pattern:
+
+**Pattern A — প্রতি OS-এর জন্য আলাদা archive।** প্রতিটি archive-এ মিলে যাওয়া binary ও একটি `bnl.json` থাকে যেখানে `native` field সেই file-এর নাম বলে:
+
+```
+mathx-1.0.0-windows-x64.zip    →  bnl.json (native: "mathx.dll")    + mathx.dll
+mathx-1.0.0-linux-x64.tar.gz   →  bnl.json (native: "libmathx.so")  + libmathx.so
+mathx-1.0.0-macos-arm64.tar.gz →  bnl.json (native: "libmathx.dylib") + libmathx.dylib
+```
+
+ব্যবহারকারী তার OS-এর সাথে মিলে যাওয়া archive download করেন। `bpm`-ও একই pattern follow করে: install time-এ host platform-এর সঠিক archive বেছে নেয়।
+
+**Pattern B — একটি fat archive।** একটি archive-এ সব OS-এর binary + per-OS `bnl.json` override থাকে। runtime per-OS resolution support দরকার; v1 contract-এ নেই, পরিকল্পিত।
+
+আপাতত Pattern A হলো recommended publishing format।
+
+## bpm দিয়ে install
+
+native plugin একটি bnl প্রজেক্টে pure-bnl প্যাকেজের মতই install হয়:
+
+```sh
+bpm add mathx
+```
+
+bpm platform-অনুযায়ী archive fetch করে `deps/mathx/`-এ extract করে, এমন layout রেখে:
+
+```
+my-app/
+├── bnl.json                  ← project marker
+├── main.bnl
+└── deps/
+    └── mathx/
+        ├── bnl.json          ← {"name": "mathx", "native": "mathx.dll"}
+        └── mathx.dll
+```
+
+`main.bnl` থেকে:
+
+```bnl
+import "mathx" as m;
+print(m.cube(4));    // 64
+```
+
+bnl-এর module resolver `main.bnl`-এর directory থেকে walk up করে, `deps/mathx/` পায়, `bnl.json` পড়ে, `native` field দেখে, এবং shared library load করে। dep হাতে রাখা হোক বা bpm install করা হোক — user-facing experience একই।
+
+## এক নজরে নিয়ম
+
+| # | নিয়ম |
+|---|---|
+| 1 | ঠিক একটি symbol export করুন: `bnl_load`। `BNL_EXPORT` macro ব্যবহার করুন। |
+| 2 | প্লাগইনের একমাত্র compile-time bnl dependency হলো `bnl/plugin.h`। bnl-এর সাথে link করবেন না। |
+| 3 | `make_*` থেকে পাওয়া সব `bnl_value*` bnl-এর arena-owned। কখনো free করবেন না। |
+| 4 | `list_push` ও `map_set` parent-এ deep-copy করে। |
+| 5 | `argv[i]` value শুধু call-এর সময় valid। |
+| 6 | Error: `api->throw_error(...)`, তারপর `return 0`। C++ throw বা longjmp না। |
+| 7 | bnl single-threaded। যে thread আপনার ফাংশন কল করেছে, সেটি ছাড়া অন্য থেকে `api->*` কল করবেন না। |
+| 8 | প্লাগইন DLL process-এ একবার load হয়, কখনো unload হয় না। |
+| 9 | `bnl_load` প্রতি প্লাগইন প্রতি process-এ ঠিক একবার কল হয়। সব registration এর ভেতরে রাখুন। |
+| 10 | ABI compatibility-এর প্রয়োজন থাকলে `api->version` চেক করুন। Version না বাড়িয়ে নতুন field append হতে পারে। |
+| 11 | `module_new`-এ মডিউলের নাম import name-এর সাথে মেলানো উচিত। |
+| 12 | interpreter বেশিক্ষণ block করবেন না। ধীর কাজ libuv-এর মাধ্যমে বা নিজের state ব্যবহার করে worker thread-এ। |
+
+## C ছাড়া অন্য ভাষা
+
+কন্ট্রাক্ট C ABI, তাই C-callable shared library তৈরি করতে পারে — এমন যেকোনো কিছুই কাজ করে:
+
+| ভাষা | Build mode | নোট |
+|---|---|---|
+| **C** | `cl /LD` বা `gcc -shared` | সবচেয়ে সহজ পথ। |
+| **C++** | `cl /LD` বা `g++ -shared` | `bnl_load` ও function pointer-এ `extern "C"` ব্যবহার করুন। |
+| **Rust** | `crate-type = ["cdylib"]` | `extern "C" fn bnl_load(...)` + `#[no_mangle]`। |
+| **Go** | `-buildmode=c-shared` | cgo লাগবে। Windows-এ gcc (mingw-w64) দরকার। |
+| **Zig** | `build-lib -dynamic` | `export fn bnl_load(...)`। |
+| **Pascal**, **D**, **Nim**, **Crystal** | language-specific shared-library output | C FFI সমর্থিত যেকোনো ভাষা চলবে। |
+
+একই `bnl/plugin.h` এবং compiled binary-এর একই semantics সব ভাষায় প্রযোজ্য।
+</I18nBangla>

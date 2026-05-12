@@ -20,10 +20,10 @@ Bnlang is **native**: a tree-walking interpreter written in modern C++ with a li
 - **Predictable semantics.** Small, regular syntax. Fixed-arity functions. No surprising overloads, no implicit type coercions worth memorizing.
 - **One way to do it.** No `let`/`const`/`var` trio — just `var`. No `===` and `==` debate — just `==`. No `null` and `undefined` split — just `null`.
 - **Batteries included.** File I/O, HTTP/WebSocket server and client, templating, SQLite/PostgreSQL/MySQL/MongoDB, crypto, timers, JSON, regex — all in the standard library.
-- **Embeddable.** `bnl_core` is a C++ library that drops into a host application. Native plugins (`.dll`/`.so`/`.dylib`) extend the runtime without a transpile step.
+- **Extensible.** Drop a `.dll` / `.so` / `.dylib` next to a `bnl.json` and `import` it like any other module. Plugins use a single drop-in C header — they can be written in C, C++, Rust, Go, Zig, or anything with a C ABI.
 
 ## Runtime stack (under the hood)
-- **C++20** — the interpreter, value model, embedding API, and every built-in module.
+- **C++20** — the interpreter, value model, and every built-in module.
 - **libuv** — cross-platform event loop and async I/O primitives.
 - **OpenSSL** — TLS for HTTPS / WebSocket-over-TLS, plus hashing, HMAC, base64/hex codecs.
 - **llhttp** — fast HTTP/1.1 parser used by the built-in web server and client.
@@ -76,10 +76,10 @@ Bnlang একটি **নেটিভ ভাষা**: আধুনিক C++ এ
 - **পূর্বানুমানযোগ্য সেম্যান্টিক্স।** ছোট, নিয়মিত সিনট্যাক্স। ফিক্সড-অ্যারিটি ফাংশন। কোনো বিভ্রান্তিকর ওভারলোড নেই।
 - **একটাই পথ।** `let`/`const`/`var` ত্রিভুজ নেই — শুধু `var`। `===` বনাম `==` বিতর্ক নেই — শুধু `==`। `null` ও `undefined` ভাগ নেই — শুধু `null`।
 - **ব্যাটারি ইনক্লুডেড।** ফাইল I/O, HTTP/WebSocket সার্ভার ও ক্লায়েন্ট, টেমপ্লেটিং, SQLite/PostgreSQL/MySQL/MongoDB, ক্রিপ্টো, টাইমার, JSON, regex — সবই স্ট্যান্ডার্ড লাইব্রেরিতে।
-- **এমবেডেবল।** `bnl_core` একটি C++ লাইব্রেরি যা হোস্ট অ্যাপ্লিকেশনে ড্রপ-ইন করা যায়। নেটিভ প্লাগইন (`.dll`/`.so`/`.dylib`) রানটাইম এক্সটেন্ড করে — কোনো ট্রান্সপাইল ছাড়াই।
+- **এক্সটেনসিবল।** একটি `bnl.json`-এর পাশে `.dll` / `.so` / `.dylib` রেখে যেকোনো অন্য মডিউলের মতই `import` করুন। প্লাগইন একটি একক drop-in C হেডার ব্যবহার করে — এগুলো C, C++, Rust, Go, Zig, বা C ABI সমর্থিত যেকোনো ভাষায় লেখা যায়।
 
 ## রানটাইম স্ট্যাক (অভ্যন্তরে)
-- **C++20** — ইন্টারপ্রেটার, ভ্যালু মডেল, এমবেডিং API, এবং প্রতিটি বিল্ট-ইন মডিউল।
+- **C++20** — ইন্টারপ্রেটার, ভ্যালু মডেল, এবং প্রতিটি বিল্ট-ইন মডিউল।
 - **libuv** — ক্রস-প্ল্যাটফর্ম ইভেন্ট লুপ ও অ্যাসিঙ্ক I/O প্রিমিটিভ।
 - **OpenSSL** — HTTPS / WebSocket-over-TLS এর জন্য TLS, এবং হ্যাশিং, HMAC, base64/hex কোডেক।
 - **llhttp** — দ্রুত HTTP/1.1 পার্সার, বিল্ট-ইন ওয়েব সার্ভার ও ক্লায়েন্ট ব্যবহার করে।

@@ -43,18 +43,23 @@ print(pkg.hello());
 
 `bpm install some-package` drops the package into `./deps/some-package/`, and the import resolver finds it there. The package's entry point is declared in its `bnl.json` (`"main": "src/index.bnl"`).
 
-## Native plugins (FFI)
+## Native plugins
 
-For modules implemented in C/C++, import the shared library directly by path:
+Native modules — `.dll` / `.so` / `.dylib` shared libraries that implement bnl's C plugin contract — can be imported by direct path or installed via bpm and imported by name. Plugins use a single drop-in C header (`bnl/plugin.h`) and can be written in C, C++, Rust, Go, Zig, or any language with C FFI. See [Plugin development](/en/docs/v1.0.0/plugins) for the full guide.
 
 ```bnl
+// Direct path (script next to the .dll):
 import "./build/bin/mathx.dll" as m;
 
 print(m.cube(3));      // calls native cube()
 print(m.hypot(5, 12));
+
+// Installed by bpm (resolved through deps/my-plugin/bnl.json):
+import "my-plugin" as p;
+print(p.greet("world"));
 ```
 
-The same path works cross-platform if you ship `.dll` / `.so` / `.dylib` next to a `bnl.json` manifest under `deps/`.
+A native dep's `bnl.json` declares the shared library filename in its `native` field; the import resolver finds it the same way it finds pure-bnl deps.
 
 ## Renaming
 
@@ -119,18 +124,23 @@ print(pkg.hello());
 
 `bpm install some-package` প্যাকেজকে `./deps/some-package/`-এ ড্রপ করে, এবং import resolver সেখানে খুঁজে পায়। প্যাকেজের এন্ট্রি পয়েন্ট তার `bnl.json`-এ ডিক্লেয়ার্ড (`"main": "src/index.bnl"`)।
 
-## নেটিভ প্লাগইন (FFI)
+## নেটিভ প্লাগইন
 
-C/C++ এ implement করা মডিউলের জন্য, শেয়ার্ড লাইব্রেরি সরাসরি path দিয়ে ইমপোর্ট করুন:
+নেটিভ মডিউল — bnl-এর C প্লাগইন কন্ট্রাক্ট implement করা `.dll` / `.so` / `.dylib` শেয়ার্ড লাইব্রেরি — সরাসরি পাথ দিয়ে বা bpm দিয়ে install করে নাম দিয়ে import করা যায়। প্লাগইন একটি একক drop-in C হেডার (`bnl/plugin.h`) ব্যবহার করে এবং C, C++, Rust, Go, Zig, বা C FFI সমর্থিত যেকোনো ভাষায় লেখা যায়। সম্পূর্ণ গাইডের জন্য [প্লাগইন ডেভেলপমেন্ট](/bn/docs/v1.0.0/plugins) দেখুন।
 
 ```bnl
+// সরাসরি পাথ (স্ক্রিপ্ট .dll-এর পাশে):
 import "./build/bin/mathx.dll" as m;
 
 print(m.cube(3));      // নেটিভ cube() কল
 print(m.hypot(5, 12));
+
+// bpm দিয়ে install করা (deps/my-plugin/bnl.json দিয়ে resolve হয়):
+import "my-plugin" as p;
+print(p.greet("world"));
 ```
 
-একই পাথ ক্রস-প্ল্যাটফর্মে কাজ করে যদি আপনি `deps/`-এর অধীনে `bnl.json` ম্যানিফেস্টের পাশে `.dll` / `.so` / `.dylib` শিপ করেন।
+একটি নেটিভ dep-এর `bnl.json` তার `native` ফিল্ডে শেয়ার্ড লাইব্রেরির ফাইলনেম declare করে; import resolver pure-bnl dep-এর মতোই এটি খুঁজে পায়।
 
 ## Renaming
 

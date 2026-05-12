@@ -31,7 +31,7 @@ The language is designed for learners, educators, and working developers who wan
 - 📚 **Educational** — built so students can pick up programming concepts in their native language.
 - ⚡ **Predictable** — small, regular syntax. Fixed-arity functions, no surprising overloads.
 - 🛠 **Batteries included** — file I/O, HTTP, WebSocket, SQLite/PostgreSQL/MySQL/MongoDB, templating, crypto, and more in the standard library.
-- 🧩 **Embeddable** — `bnl_core` is a C++ library you can embed directly into a host application, and native plugins extend the runtime without any transpile step.
+- 🧩 **Extensible** — drop a `.dll` / `.so` / `.dylib` next to a `bnl.json` and `import` it like any other module. Plugins use a single drop-in C header and can be written in C, C++, Rust, Go, Zig, or any language with a C ABI.
 
 ---
 
@@ -100,7 +100,7 @@ Bnlang একটি **দ্বিভাষিক প্রোগ্রামি
 - 📚 **শিক্ষামূলক** — মাতৃভাষায় প্রোগ্রামিং কনসেপ্ট শেখার জন্য তৈরি।
 - ⚡ **পূর্বানুমানযোগ্য** — ছোট, নিয়মিত সিনট্যাক্স। ফিক্সড-অ্যারিটি ফাংশন, কোনো বিভ্রান্তিকর ওভারলোড নেই।
 - 🛠 **ব্যাটারি ইনক্লুডেড** — ফাইল I/O, HTTP, WebSocket, SQLite/PostgreSQL/MySQL/MongoDB, টেমপ্লেটিং, ক্রিপ্টো — সবই স্ট্যান্ডার্ড লাইব্রেরিতে।
-- 🧩 **এমবেডেবল** — `bnl_core` একটি C++ লাইব্রেরি, যা সরাসরি হোস্ট অ্যাপ্লিকেশনে এমবেড করা যায়; নেটিভ প্লাগইন দিয়ে রানটাইম এক্সটেন্ড করুন কোনো ট্রান্সপাইল ছাড়াই।
+- 🧩 **এক্সটেনসিবল** — একটি `bnl.json`-এর পাশে `.dll` / `.so` / `.dylib` রেখে যেকোনো মডিউলের মতই `import` করুন। প্লাগইন একটি একক drop-in C হেডার ব্যবহার করে — C, C++, Rust, Go, Zig, বা C ABI সমর্থিত যেকোনো ভাষায় লেখা যায়।
 
 ---
 

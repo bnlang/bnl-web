@@ -13,10 +13,11 @@ export async function getBnlHighlighter() {
     _highlighter = await createHighlighter({
         themes: ["github-dark", "github-light"] as BundledTheme[],
         langs: [
-
             "js",
             "bash",
             "json",
+            "c",
+            "cpp",
             {
                 ...(bnlGrammar as any),
                 name: "bnl",

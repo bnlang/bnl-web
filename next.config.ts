@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source:
-          "/:path((?!en|bn|api|_next|favicon\\.ico|favicon\\.png|robots\\.txt|sitemap\\.xml|sitemap-0\\.xml|sitemap-1\\.xml|sitemap-2\\.xml|static|images|fonts).+)",
+          "/:path((?!en|bn|api|_next|favicon\\.ico|favicon\\.png|robots\\.txt|sitemap\\.xml|sitemap-0\\.xml|sitemap-1\\.xml|sitemap-2\\.xml|llms\\.txt|install\\.sh|install\\.ps1|static|images|fonts).+)",
         destination: "/en/:path*",
         permanent: false,
       },

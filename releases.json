@@ -1,0 +1,89 @@
+{
+    "baseUrl": "https://github.com/bnlang/bnl-release/releases/download/",
+    "latest": "v1.0.0",
+    "releases": [
+        {
+            "version": "v1.0.0",
+            "date": "2025-09-18",
+            "status": "stable",
+            "channel": "stable",
+            "noteEnglish": "First stable release of Bnlang runtime. Multilingual syntax (Bangla/English), BPM lockfiles, stdlib (IO/HTTP/crypto/text), and polished tooling.",
+            "noteBangla": "Bnlang-এর প্রথম স্থিতিশীল রিলিজ। ত্রিভাষিক সিনট্যাক্স (বাংলা/ইংরেজি), BPM lockfile, stdlib (IO/HTTP/crypto/text), এবং উন্নত টুলিং।",
+            "noteBanglish": "Bnlang-er prothom stable release. Trivashik syntax (Bangla/English), BPM lockfile, stdlib (IO/HTTP/crypto/text), aar polished tooling.",
+            "files": [
+                {
+                    "name": "bnlang-linux-x64-v1.0.0.tar.gz",
+                    "type": "binary",
+                    "platform": "linux",
+                    "arch": "x64",
+                    "sizeLabel": "5.66 MB",
+                    "sha256": "sha256:bbaef09ce3880a5944c3c6455edc8fe50b1d32edd6b6fdd47d8c2fc657071cb0",
+                    "contentType": "application/gzip"
+                },
+                {
+                    "name": "bnlang-linux-x86-v1.0.0.tar.gz",
+                    "type": "binary",
+                    "platform": "linux",
+                    "arch": "x86",
+                    "sizeLabel": "5.76 MB",
+                    "sha256": "sha256:0a193423e062ecb215ad272c6ceea0b42a767914774d5ca34a36c63de158fff4",
+                    "contentType": "application/gzip"
+                },
+                {
+                    "name": "bnlang-macos-arm64-v1.0.0.tar.gz",
+                    "type": "binary",
+                    "platform": "macos",
+                    "arch": "arm64",
+                    "sizeLabel": "4.12 MB",
+                    "sha256": "sha256:a75af2410508024d85799d014724af393679e3b05e9c7e5f2322359964b90ac9",
+                    "contentType": "application/gzip"
+                },
+                {
+                    "name": "bnlang-macos-x64-v1.0.0.tar.gz",
+                    "type": "binary",
+                    "platform": "macos",
+                    "arch": "x64",
+                    "sizeLabel": "3.94 MB",
+                    "sha256": "sha256:3e3e126c2afe61e933ae58aba54a550b52ae5f2eb85141c6561a241b37919061",
+                    "contentType": "application/gzip"
+                },
+                {
+                    "name": "bnlang-windows-x64-v1.0.0.zip",
+                    "type": "binary",
+                    "platform": "windows",
+                    "arch": "x64",
+                    "sizeLabel": "3.87 MB",
+                    "sha256": "sha256:6809185f3f3d99c11dd5149ab41f7212f87d5898de496c6f380b52ca93ade61b",
+                    "contentType": "application/zip"
+                },
+                {
+                    "name": "bnlang-windows-x86-v1.0.0.zip",
+                    "type": "binary",
+                    "platform": "windows",
+                    "arch": "x86",
+                    "sizeLabel": "3.24 MB",
+                    "sha256": "sha256:aed7eeb239ae59efc8cf0dcabbf5799824e6709d07c93b3199f112e3b8e7ec0d",
+                    "contentType": "application/zip"
+                },
+                {
+                    "name": "bnlang-windows-x64-v1.0.0-installer.exe",
+                    "type": "installer",
+                    "platform": "windows",
+                    "arch": "x64",
+                    "sizeLabel": "3.13 MB",
+                    "sha256": "sha256:8b32f72af702fd22c1acc37f3b507ff25440a6f9ce5c4340dca5e2c95ced70d9",
+                    "contentType": "application/vnd.microsoft.portable-executable"
+                },
+                {
+                    "name": "bnlang-windows-x86-v1.0.0-installer.exe",
+                    "type": "installer",
+                    "platform": "windows",
+                    "arch": "x86",
+                    "sizeLabel": "2.71 MB",
+                    "sha256": "sha256:464b011b487130a3b882f3764b4d140ec1fbae2d02a11ada433096e7861b8891",
+                    "contentType": "application/vnd.microsoft.portable-executable"
+                }
+            ]
+        }
+    ]
+}

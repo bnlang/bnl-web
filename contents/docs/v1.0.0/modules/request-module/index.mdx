@@ -1,8 +1,8 @@
 ---
 title: request module
-description: HTTP/HTTPS client — get/post/put/etc, file upload/download, instances, middleware, connection pooling.
+description: HTTP/HTTPS client — Future-returning verbs (get/post/put/etc), axios-style config arg, file upload/download, instances, middleware, connection pooling.
 bnTitle: request মডিউল
-bnDescription: HTTP/HTTPS ক্লায়েন্ট।
+bnDescription: HTTP/HTTPS ক্লায়েন্ট — Future-returning verb, axios-স্টাইল config।
 ---
 
 # <I18nEnglish>`request` module</I18nEnglish>
@@ -10,116 +10,208 @@ bnDescription: HTTP/HTTPS ক্লায়েন্ট।
 
 
 <I18nEnglish>
-Axios-style HTTP client. Verb methods, an `axios.create()`-style instance constructor, before/after hooks, JSON/form auto-encoding, file upload/download helpers, and a connection pool for keep-alive.
+Axios-style HTTP client. Every verb returns a [`Future`](/en/docs/v1.0.0/modules/future-module) — pair with `wait` for straight-line code. An optional `config` map per call carries headers/params/timeout/etc. JSON and form bodies auto-encode. Connection pooling, before/after interceptors, file upload/download.
 
 ```bnl
-import "request" as req;
+import "request" as r;
 
-req.get("https://api.example.com/users/1", function (err, resp) {
-    if (err != null) { print("err:", err); return; }
+function main() {
+    var resp = wait r.get("https://api.example.com/users/1");
     print(resp.status, resp.body);
-});
 
-req.post("https://api.example.com/users",
-    { json: { name: "Alice" } },
-    function (err, resp) { /* ... */ });
+    var created = wait r.post(
+        "https://api.example.com/users",
+        { name: "Alice" },                              // auto-JSON
+        { headers: { "X-Trace": "abc" }, timeout: 5000 }
+    );
+    print("created id:", created.data.id);
+}
+main().fail(function (e) { print("err:", e); });
 ```
 
 ## Verb shortcuts
 
+Every verb accepts an optional `config` map for `headers`, `params` (query), `timeout`, etc. The verb's URL, method, and body always win over config — config is purely additive.
+
 | Function | Description |
 |---|---|
-| `req.get(url, cb)` | `cb(err, resp)`. |
-| `req.head(url, cb)` | |
-| `req.delete(url, cb)` | |
-| `req.post(url, data, cb)` | `data` can be a string, map (auto-JSON), or `{json}`/`{form}`/`{file}` shape. |
-| `req.put(url, data, cb)` | |
-| `req.patch(url, data, cb)` | |
-| `req.request(opts, cb)` | Full options form: `{url, method, headers, body, timeout, ...}`. |
-| `req.post_form(url, fields, cb)` | URL-encoded form body. |
+| `r.get(url, config?)` | Returns `Future<resp>`. |
+| `r.head(url, config?)` | |
+| `r.delete(url, config?)` | |
+| `r.post(url, data, config?)` | `data` can be a string (raw body) or a map (auto-JSON). |
+| `r.put(url, data, config?)` | |
+| `r.patch(url, data, config?)` | |
+| `r.post_form(url, fields, config?)` | URL-encoded form body. |
+| `r.request(config)` | Full-options form: `{url, method, headers, body, json, form, params, timeout, ...}`. |
+
+## Config keys
+
+| Key | Description |
+|---|---|
+| `headers` | Map of header name → value. Merged with instance defaults. |
+| `params` | Map serialized as query string and appended to the URL. |
+| `timeout` | Milliseconds. Rejected with a timeout error if exceeded. |
+| `json` | Map sent as JSON body (sets `Content-Type: application/json`). |
+| `form` | Map sent as `application/x-www-form-urlencoded`. |
+| `body` | Raw string body. You set `Content-Type` yourself. |
+| `data` | Smart: map → JSON, string → `text/plain`. |
+| `pool` | `true` to use keep-alive pool for this request. |
+| `tls` | TLS options (e.g. `{ verify: false }` for self-signed). |
+| `base_url` | (instance only) prepended to relative URLs. |
 
 ## Instances
 
+```bnl
+var api = r.create({
+    base_url: "https://api.example.com",
+    headers:  { "Authorization": "Bearer " + token }
+});
+
+var users = wait api.get("/users", { params: { limit: 10 } });
+```
+
 | Function | Description |
 |---|---|
-| `req.create(defaults)` → instance | Bind a base URL, default headers, timeout, etc. Has `.get`, `.post`, … same as the module. |
-| `req.before(fn)` / `req.after(fn)` | Hooks on the default instance. `before(opts) → opts`; `after(resp) → resp`. |
+| `r.create(defaults)` → instance | Bind a base URL, default headers/timeout/etc. Instance has the same verb shape as the module. |
+| `r.before(fn)` / `api.before(fn)` | Hook `before(cfg) → cfg` — modify config before send. |
+| `r.after(fn)` / `api.after(fn)` | Hook `after(resp) → resp` — modify response before return. |
 
 ## File transfer
 
 | Function | Description |
 |---|---|
-| `req.download(url, dest, cb)` | Stream `url` to file `dest`. |
-| `req.download_with(opts, cb)` | `opts.url`, `opts.dest`, plus headers, query, etc. |
-| `req.upload(url, file_path, cb)` | POST file as multipart. |
-| `req.upload_with(opts, cb)` | `opts.url`, `opts.file`, `opts.fields`, etc. |
+| `r.download(url, dest, config?)` → Future | Stream `url` to file `dest`. Resolves with `{status, headers, dest, bytes_written, ok}`. |
+| `r.upload(url, file, config?)` → Future | POST `file` as multipart. `file` is a path string or a spec map `{path, name, filename, content_type}`. Extra fields via `config.fields`. |
+
+```bnl
+var dl = wait r.download("https://example.com/big.zip", "./big.zip");
+print("downloaded", dl.bytes_written, "bytes to", dl.dest);
+
+var up = wait r.upload(
+    "https://example.com/upload",
+    { path: "./report.pdf", name: "report", content_type: "application/pdf" },
+    { fields: { user: "alice" }, headers: { "X-Trace": "abc" } }
+);
+```
 
 ## Connection pool
 
-`request` keeps a keep-alive pool per `scheme://host:port`. Call `req.shutdown()` at process end to drain it cleanly.
+`request` keeps a keep-alive pool per `scheme://host:port`. Enable per-request via `config.pool: true` or default via `r.create({...pool: true})`. Call `r.shutdown()` at process end to drain it cleanly.
 
 ## Response object
 
-`resp` exposes: `status`, `headers` (lowercased keys), `body`, plus parsed helpers (`resp.json()` when content-type is JSON).
+`resp` exposes:
+
+- `status` — HTTP status code.
+- `headers` — map with lowercased keys.
+- `body` — raw response body string.
+- `data` — parsed body when content-type is JSON; otherwise same as `body`.
+- `ok` — `true` if `status` is 2xx.
+- `json()` — re-parse `body` as JSON on demand.
+
+A 4xx/5xx response **fulfills the Future** (you get a `resp` with `ok=false`). The Future only rejects on transport-level errors (DNS, TCP, TLS, timeout, malformed response).
+
+```bnl
+try {
+    var resp = wait r.get(url, { timeout: 3000 });
+    if (resp.ok) { print("got:", resp.body); }
+    else        { print("server said:", resp.status); }
+} catch (e) {
+    print("transport error:", e);
+}
+```
 
 ## See also
+- [`Future`](/en/docs/v1.0.0/modules/future-module) — what the verbs return.
 - [`web`](/en/docs/v1.0.0/modules/web-module) — the server side.
 - [`multipart`](/en/docs/v1.0.0/modules/multipart-module) — what `upload` builds under the hood.
 </I18nEnglish>
 
 <I18nBangla>
-Axios-স্টাইল HTTP client। Verb method, instance constructor, before/after hook, JSON/form auto-encoding, ফাইল আপলোড/ডাউনলোড, keep-alive connection pool।
+Axios-স্টাইল HTTP client। প্রতিটি verb [`Future`](/bn/docs/v1.0.0/modules/future-module) ফেরত দেয় — straight-line কোডের জন্য `wait`-এর সাথে ব্যবহার। প্রতিটি call-এ optional `config` map (headers/params/timeout ইত্যাদি)। JSON ও form body auto-encode। Connection pooling, before/after interceptor, ফাইল upload/download।
 
 ```bnl
-import "request" as req;
+import "request" as r;
 
-req.get("https://api.example.com/users/1", function (err, resp) {
-    if (err != null) { print("err:", err); return; }
+function main() {
+    var resp = wait r.get("https://api.example.com/users/1");
     print(resp.status, resp.body);
-});
 
-req.post("https://api.example.com/users",
-    { json: { name: "Alice" } },
-    function (err, resp) { /* ... */ });
+    var created = wait r.post(
+        "https://api.example.com/users",
+        { name: "Alice" },                              // auto-JSON
+        { headers: { "X-Trace": "abc" }, timeout: 5000 }
+    );
+    print("created id:", created.data.id);
+}
+main().fail(function (e) { print("err:", e); });
 ```
 
-## Verb shortcut
+## Verb শর্টকাট
+
+প্রতিটি verb optional `config` map নেয় (headers, params, timeout ইত্যাদি)। verb-এর URL, method, এবং body সবসময় config-এর উপরে — config additive।
 
 | ফাংশন | বর্ণনা |
 |---|---|
-| `req.get(url, cb)` | `cb(err, resp)`। |
-| `req.head(url, cb)` | |
-| `req.delete(url, cb)` | |
-| `req.post(url, data, cb)` | `data` = string / map (auto-JSON) / `{json}` / `{form}` / `{file}`। |
-| `req.put(url, data, cb)`, `req.patch(url, data, cb)` | |
-| `req.request(opts, cb)` | পূর্ণ option ফর্ম। |
-| `req.post_form(url, fields, cb)` | URL-encoded form। |
+| `r.get(url, config?)` | `Future<resp>` ফেরত দেয়। |
+| `r.head(url, config?)` | |
+| `r.delete(url, config?)` | |
+| `r.post(url, data, config?)` | `data` string (raw body) বা map (auto-JSON)। |
+| `r.put(url, data, config?)` | |
+| `r.patch(url, data, config?)` | |
+| `r.post_form(url, fields, config?)` | URL-encoded form। |
+| `r.request(config)` | পূর্ণ option ফর্ম। |
 
-## Instances
+## Config key
+
+| Key | বর্ণনা |
+|---|---|
+| `headers` | Header name → value map। |
+| `params` | Query string-এ serialize হয়। |
+| `timeout` | Millisecond। অতিক্রম করলে timeout error দিয়ে reject। |
+| `json` | Map — JSON body (Content-Type auto)। |
+| `form` | Map — `application/x-www-form-urlencoded`। |
+| `body` | Raw string body। `Content-Type` নিজে সেট করুন। |
+| `data` | Smart: map → JSON, string → text/plain। |
+| `pool` | Keep-alive pool ব্যবহার করতে `true`। |
+| `tls` | TLS option (যেমন self-signed-এর জন্য `{verify: false}`)। |
+| `base_url` | (শুধু instance) relative URL-এ prepend। |
+
+## Instance
+
+```bnl
+var api = r.create({
+    base_url: "https://api.example.com",
+    headers:  { "Authorization": "Bearer " + token }
+});
+var users = wait api.get("/users", { params: { limit: 10 } });
+```
 
 | ফাংশন | বর্ণনা |
 |---|---|
-| `req.create(defaults)` → instance | Base URL, ডিফল্ট header, timeout ইত্যাদি। |
-| `req.before(fn)` / `req.after(fn)` | ডিফল্ট instance-এ hook। |
+| `r.create(defaults)` → instance | Base URL, default header/timeout ইত্যাদি। |
+| `r.before(fn)` / `api.before(fn)` | `before(cfg) → cfg` — পাঠানোর আগে config পরিবর্তন। |
+| `r.after(fn)` / `api.after(fn)` | `after(resp) → resp` — ফেরতের আগে response পরিবর্তন। |
 
 ## ফাইল ট্রান্সফার
 
 | ফাংশন | বর্ণনা |
 |---|---|
-| `req.download(url, dest, cb)` | ফাইলে stream। |
-| `req.download_with(opts, cb)` | `opts.url`, `opts.dest`, headers, query ইত্যাদি। |
-| `req.upload(url, file_path, cb)` | Multipart POST। |
-| `req.upload_with(opts, cb)` | `opts.url`, `opts.file`, `opts.fields` ইত্যাদি। |
+| `r.download(url, dest, config?)` → Future | ফাইলে stream। `{status, headers, dest, bytes_written, ok}` দিয়ে resolve। |
+| `r.upload(url, file, config?)` → Future | Multipart POST। `file` path string বা spec map। Extra field: `config.fields`। |
 
 ## Connection pool
 
-`request` `scheme://host:port` প্রতি keep-alive pool রাখে। প্রসেস শেষে clean drain-এর জন্য `req.shutdown()` কল করুন।
+`scheme://host:port` প্রতি keep-alive pool। প্রতি call-এ `config.pool: true` দিয়ে বা `r.create({...pool: true})` দিয়ে। প্রসেস শেষে clean drain-এর জন্য `r.shutdown()`।
 
 ## Response object
 
-`resp` এক্সপোজ করে: `status`, `headers` (lowercased), `body`, এবং parsed helper।
+`resp`-এ থাকে: `status`, `headers` (lowercased), `body`, `data` (JSON হলে parsed), `ok` (2xx?), `json()` (on-demand re-parse)।
+
+4xx/5xx response **Future fulfill** করে (resp.ok=false পাবেন)। শুধু transport-level error-এ (DNS, TCP, TLS, timeout) reject হয়।
 
 ## আরও দেখুন
+- [`Future`](/bn/docs/v1.0.0/modules/future-module)।
 - [`web`](/bn/docs/v1.0.0/modules/web-module)।
 - [`multipart`](/bn/docs/v1.0.0/modules/multipart-module)।
 </I18nBangla>

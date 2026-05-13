@@ -25,12 +25,24 @@ var cancel = timers.interval(500, function () { print("every half second"); });
 
 | Function | Description |
 |---|---|
-| `timers.set(delay_ms, fn)` | Run `fn` **once**, `delay_ms` from now. Pass `0` to defer to the next tick. |
+| `timers.set(delay_ms, fn)` | Run `fn` **once**, `delay_ms` from now. Pass `0` to defer to the next tick. Returns a cancel fn. |
+| `timers.delay(delay_ms)` → Future | Future-returning sleep. `wait timers.delay(100);` suspends an async function without writing a callback. |
 | `timers.interval(delay_ms, fn)` → cancel-fn | Run `fn` **every** `delay_ms`. Returns a function — call it to stop. |
+
+```bnl
+function paced() {
+    print("a");
+    wait timers.delay(100);
+    print("b after 100ms");
+    wait timers.delay(100);
+    print("c after another 100ms");
+}
+```
 
 ## Notes
 
 - `timers.set(0, fn)` is the bnl equivalent of Node's `setImmediate` and `process.nextTick`.
+- `timers.delay(0)` is the Future-returning equivalent — `wait timers.delay(0)` yields to the loop once.
 - Hold on to the cancel handle returned by `interval` — otherwise the timer keeps your process alive forever.
 - Callbacks share the event loop with every other in-flight task. Keep them short.
 
@@ -54,12 +66,22 @@ var cancel = timers.interval(500, function () { print("every half second"); });
 
 | ফাংশন | বর্ণনা |
 |---|---|
-| `timers.set(delay_ms, fn)` | `delay_ms` পরে `fn` **একবার** চালান। `0` দিলে পরের tick-এ defer হয়। |
+| `timers.set(delay_ms, fn)` | `delay_ms` পরে `fn` **একবার** চালান। `0` দিলে পরের tick-এ defer। Cancel fn ফেরত দেয়। |
+| `timers.delay(delay_ms)` → Future | Future-returning sleep। `wait timers.delay(100);` async ফাংশন callback ছাড়া suspend করে। |
 | `timers.interval(delay_ms, fn)` → cancel-fn | প্রতি `delay_ms`-এ `fn` চালান। একটি ফাংশন ফেরত দেয় — থামাতে কল করুন। |
+
+```bnl
+function paced() {
+    print("a");
+    wait timers.delay(100);
+    print("b 100ms পরে");
+}
+```
 
 ## নোট
 
 - `timers.set(0, fn)` = Node-এর `setImmediate` / `process.nextTick`।
+- `wait timers.delay(0)` Future-returning equivalent — একবার loop-এ yield করে।
 - `interval`-এর cancel handle ধরে রাখুন — না করলে টাইমার আপনার প্রসেস চিরকাল জীবিত রাখবে।
 - কলব্যাক ইভেন্ট লুপ শেয়ার করে। ছোট রাখুন।
 

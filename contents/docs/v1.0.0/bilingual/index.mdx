@@ -1,0 +1,218 @@
+---
+title: Bilingual aliases
+description: Every English ↔ Bangla pair in one place — keywords, globals, and module names. The two forms parse to the same token / bind to the same callable / module.
+bnTitle: দ্বিভাষিক নাম
+bnDescription: ইংরেজি ↔ বাংলা প্রতিটি জোড়া এক জায়গায় — কীওয়ার্ড, গ্লোবাল, মডিউল।
+---
+
+# <I18nEnglish>Bilingual aliases</I18nEnglish>
+# <I18nBangla>দ্বিভাষিক নাম</I18nBangla>
+
+
+<I18nEnglish>
+Bnlang lets you write any program in English, Bangla, or a mix of the two. For every common identifier in the language — keywords, built-in globals, and standard-library module names — there's an English form and a Bangla form, and the runtime treats them as the same thing.
+
+You can use whichever form reads more naturally for what you're writing. Mixing within a single file is fine; both forms can appear in the same line if you want.
+
+```bnl
+ফাংশন main() {
+    লিখুন("Hello, world!");
+}
+main();
+```
+
+## Keywords
+
+See the dedicated [Keywords](/en/docs/v1.0.0/keywords) page. Every keyword has a Bangla synonym (e.g. `function` / `ফাংশন`, `if` / `যদি`, `wait` / `অপেক্ষা`); they're handled at lexing time, so the parser sees the same token regardless of which form you wrote.
+
+## Global functions
+
+These names are bound in the global scope at interpreter startup. Both names point to the **same callable**.
+
+| English | Bangla |
+|---|---|
+| `print` | `লিখুন` |
+| `input` | `ইনপুট` |
+| `str` | `স্ট্রিং` |
+| `to_number` | `সংখ্যা` |
+| `chr` | `অক্ষর` |
+| `type` | `ধরণ` |
+| `try_call` | `নিরাপদ_কল` |
+| `pretty` | `সুন্দর` |
+| `dump` | `বিস্তারিত` |
+| `Future` | `ভবিষ্যৎ` |
+| `futurify` | `ভবিষ্যৎকর` |
+
+See the [Globals](/en/docs/v1.0.0/globals) page for behavior details.
+
+## Module names
+
+`import "X"` and `import "Y"` resolve to the **same Module instance** when `X` and `Y` are aliases. So an instance imported under one name is identical to one imported under the other — comparing them with `==` returns `true`.
+
+### Native modules
+
+| English | Bangla |
+|---|---|
+| `_io` | `_ফাইল` |
+| `timers` | `টাইমার` |
+| `net` | `নেট` |
+| `json` | `জেসন` |
+| `sys` | `সিস্টেম` |
+| `time` | `সময়` |
+| `path` | `পথ` |
+| `math` | `গণিত` |
+| `random` | `এলোমেলো` |
+| `crypto` | `ক্রিপ্টো` |
+| `regex` | `প্যাটার্ন` |
+| `http` | `এইচটিটিপি` |
+| `tls` | `টিএলএস` |
+
+### Lib (embedded) modules
+
+| English | Bangla |
+|---|---|
+| `io` | `ফাইল` |
+| `request` | `অনুরোধ` |
+| `web` | `ওয়েব` |
+| `url` | `ইউআরএল` |
+| `log` | `লগ` |
+| `test` | `টেস্ট` |
+| `zlib` | `সংকোচন` |
+| `sqlite` | `এসকিউলাইট` |
+| `pg` | `পোস্টগ্রেস` |
+| `mysql` | `মাইএসকিউএল` |
+| `mongo` | `মঙ্গো` |
+| `exec` | `চালান` |
+| `dns` | `ডিএনএস` |
+| `template` | `টেমপ্লেট` |
+| `ws` | `ওয়েবসকেট` |
+| `cookie` | `কুকি` |
+| `session` | `অধিবেশন` |
+| `multipart` | `মাল্টিপার্ট` |
+| `dotenv` | `ডটএনভ` |
+| `cli` | `কমান্ড` |
+| `uuid` | `ইউইউআইডি` |
+| `csv` | `সিএসভি` |
+
+## Verifying
+
+You can confirm two forms resolve to the same value at runtime:
+
+```bnl
+import "এলোমেলো" as rng_bn;
+import "random"     as rng_en;
+print(rng_bn == rng_en);   // true
+
+print(Future == ভবিষ্যৎ);   // true
+```
+
+## Why this exists
+
+Bnlang's goal is to let writers stay in the language they think in, without forcing a fork in the ecosystem. Programs written in either form are perfectly equivalent; libraries written in one form are usable from the other; you never have to choose globally.
+
+The full alias table lives in [`src/runtime/bn_aliases.h`](https://github.com/) — one file, one source of truth. Adding a new alias is a one-line change.
+</I18nEnglish>
+
+<I18nBangla>
+Bnlang-এ আপনি যেকোনো প্রোগ্রাম ইংরেজি, বাংলা, বা দু'টোর মিশ্রণে লিখতে পারেন। ভাষার প্রতিটি সাধারণ identifier-এর — কীওয়ার্ড, built-in global, ও standard-library module — একটি ইংরেজি ও একটি বাংলা রূপ আছে; runtime তাদের অভিন্ন বিবেচনা করে।
+
+আপনি যেটা স্বাভাবিক মনে হয় সেটাই ব্যবহার করুন। একই ফাইলে মিশ্রণ ঠিক আছে; এক লাইনে দু'টোই থাকতে পারে।
+
+```bnl
+ফাংশন main() {
+    লিখুন("নমস্কার বিশ্ব!");
+}
+main();
+```
+
+## কীওয়ার্ড
+
+বিস্তারিত [Keywords](/bn/docs/v1.0.0/keywords) পেজে। প্রতিটি কীওয়ার্ডের একটি বাংলা সমার্থক আছে (যেমন `function` / `ফাংশন`, `if` / `যদি`, `wait` / `অপেক্ষা`) — lexer-এ একই token-এ পার্স হয়।
+
+## গ্লোবাল ফাংশন
+
+এই নামগুলো startup-এ গ্লোবাল স্কোপে bind হয়। দুই নাম একই **callable**-কে নির্দেশ করে।
+
+| ইংরেজি | বাংলা |
+|---|---|
+| `print` | `লিখুন` |
+| `input` | `ইনপুট` |
+| `str` | `স্ট্রিং` |
+| `to_number` | `সংখ্যা` |
+| `chr` | `অক্ষর` |
+| `type` | `ধরণ` |
+| `try_call` | `নিরাপদ_কল` |
+| `pretty` | `সুন্দর` |
+| `dump` | `বিস্তারিত` |
+| `Future` | `ভবিষ্যৎ` |
+| `futurify` | `ভবিষ্যৎকর` |
+
+behavior-এর জন্য [Globals](/bn/docs/v1.0.0/globals) পেজ।
+
+## মডিউল নাম
+
+`import "X"` এবং `import "Y"` যদি একই মডিউলের alias হয় — তবে তারা একই **Module instance** ফেরত দেয়। `==` দিয়ে comparing-এ `true`।
+
+### Native module
+
+| ইংরেজি | বাংলা |
+|---|---|
+| `_io` | `_ফাইল` |
+| `timers` | `টাইমার` |
+| `net` | `নেট` |
+| `json` | `জেসন` |
+| `sys` | `সিস্টেম` |
+| `time` | `সময়` |
+| `path` | `পথ` |
+| `math` | `গণিত` |
+| `random` | `এলোমেলো` |
+| `crypto` | `ক্রিপ্টো` |
+| `regex` | `প্যাটার্ন` |
+| `http` | `এইচটিটিপি` |
+| `tls` | `টিএলএস` |
+
+### Lib (embedded) module
+
+| ইংরেজি | বাংলা |
+|---|---|
+| `io` | `ফাইল` |
+| `request` | `অনুরোধ` |
+| `web` | `ওয়েব` |
+| `url` | `ইউআরএল` |
+| `log` | `লগ` |
+| `test` | `টেস্ট` |
+| `zlib` | `সংকোচন` |
+| `sqlite` | `এসকিউলাইট` |
+| `pg` | `পোস্টগ্রেস` |
+| `mysql` | `মাইএসকিউএল` |
+| `mongo` | `মঙ্গো` |
+| `exec` | `চালান` |
+| `dns` | `ডিএনএস` |
+| `template` | `টেমপ্লেট` |
+| `ws` | `ওয়েবসকেট` |
+| `cookie` | `কুকি` |
+| `session` | `অধিবেশন` |
+| `multipart` | `মাল্টিপার্ট` |
+| `dotenv` | `ডটএনভ` |
+| `cli` | `কমান্ড` |
+| `uuid` | `ইউইউআইডি` |
+| `csv` | `সিএসভি` |
+
+## যাচাই
+
+দু'টি রূপ runtime-এ একই value-তে resolve হয় তা যাচাই করতে পারেন:
+
+```bnl
+import "এলোমেলো" as rng_bn;
+import "random"     as rng_en;
+print(rng_bn == rng_en);   // true
+
+print(Future == ভবিষ্যৎ);   // true
+```
+
+## কেন এই ব্যবস্থা
+
+Bnlang-এর লক্ষ্য — লেখক যে ভাষায় চিন্তা করেন সেই ভাষায়ই কাজ করতে পারবেন, ecosystem-এ fork তৈরি না করে। দুই রূপে লেখা প্রোগ্রাম পুরোপুরি equivalent; এক রূপে লেখা library অন্য রূপ থেকে ব্যবহারযোগ্য; কখনোই global ভাবে একটা বেছে নিতে হবে না।
+
+পূর্ণ alias table থাকে [`src/runtime/bn_aliases.h`](https://github.com/)-এ — এক ফাইল, এক source of truth। নতুন alias যোগ এক-লাইনের পরিবর্তন।
+</I18nBangla>

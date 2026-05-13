@@ -14,6 +14,8 @@ bnDescription: Bnlang-এর প্রতিটি কীওয়ার্ড �
 <I18nEnglish>
 Bnlang has a small, fixed set of keywords. Each English form has a Bangla synonym; both parse to the same token, so the language semantics are identical regardless of which form you use.
 
+For the full alias catalog — keywords, globals, and module names — see [Bilingual aliases](/en/docs/v1.0.0/bilingual).
+
 ## Declarations
 | English | Bangla | Description |
 |---------|--------|-------------|
@@ -48,6 +50,11 @@ Bnlang has a small, fixed set of keywords. Each English form has a Bangla synony
 | `finally` | `অবশেষে` | Run after `try`/`catch`, throw or not. |
 | `throw` | `নিক্ষেপ` | Raise an error. |
 
+## Asynchronous
+| English | Bangla | Description |
+|---------|--------|-------------|
+| `wait` | `অপেক্ষা` | Suspend the current function until a `Future` settles, then yield its value (or throw its rejection). See the [`Future`](/en/docs/v1.0.0/modules/future-module) page. |
+
 ## Literals
 | English | Bangla | Description |
 |---------|--------|-------------|
@@ -70,11 +77,13 @@ If you're coming from JavaScript or Python, these are **not** in Bnlang:
 
 `let`, `const`, `do`, `async`, `await`, `yield`, `typeof`, `instanceof`, `in`, `void`, `delete`, `this`, `new`, `with`, `debugger`, `static`.
 
-Many of these have an equivalent built-in or library function — see the **Operators** page and the **Get Started** guide in *Learn*.
+Note: Bnlang uses `wait` (no `async` marker) for asynchronous values — see the [`Future`](/en/docs/v1.0.0/modules/future-module) page.
 </I18nEnglish>
 
 <I18nBangla>
 Bnlang-এর একটি ছোট, নির্দিষ্ট কীওয়ার্ড সেট আছে। প্রতিটি ইংরেজি রূপের একটি বাংলা সমার্থক আছে; দু'টোই একই টোকেনে পার্স হয়, ফলে আপনি যে রূপই ব্যবহার করুন না কেন ভাষার সেম্যান্টিক্স একই থাকে।
+
+পূর্ণ alias catalog-এর জন্য — কীওয়ার্ড, গ্লোবাল, ও মডিউল নাম — [দ্বিভাষিক নাম](/bn/docs/v1.0.0/bilingual) পেজ দেখুন।
 
 ## ডিক্লেয়ারেশন
 | ইংরেজি | বাংলা | বর্ণনা |
@@ -110,6 +119,11 @@ Bnlang-এর একটি ছোট, নির্দিষ্ট কীওয�
 | `finally` | `অবশেষে` | `try`/`catch`-এর পরে চলবে — থ্রো হোক বা না হোক। |
 | `throw` | `নিক্ষেপ` | একটি এরর রেইজ করুন। |
 
+## অ্যাসিনক্রোনাস
+| ইংরেজি | বাংলা | বর্ণনা |
+|--------|-------|---------|
+| `wait` | `অপেক্ষা` | একটি `Future` settle না হওয়া পর্যন্ত বর্তমান ফাংশন suspend রাখে; তারপর তার মান ফেরত দেয় (rejection হলে throw করে)। [`Future`](/bn/docs/v1.0.0/modules/future-module) পেজ দেখুন। |
+
 ## লিটারাল
 | ইংরেজি | বাংলা | বর্ণনা |
 |--------|-------|---------|
@@ -132,5 +146,5 @@ JavaScript বা Python থেকে আসলে, এগুলো Bnlang-এ *
 
 `let`, `const`, `do`, `async`, `await`, `yield`, `typeof`, `instanceof`, `in`, `void`, `delete`, `this`, `new`, `with`, `debugger`, `static`।
 
-এদের অনেকের সমতুল্য বিল্ট-ইন বা লাইব্রেরি ফাংশন আছে — **Operators** পেজ এবং *Learn*-এ **Get Started** গাইড দেখুন।
+নোট: Bnlang `wait` ব্যবহার করে (কোনো `async` marker নেই) — [`Future`](/bn/docs/v1.0.0/modules/future-module) পেজ দেখুন।
 </I18nBangla>

@@ -1,8 +1,7 @@
-import { VersionMap } from "@/types/doc.types";
+import { DocItem, VersionMap } from "@/types/doc.types";
 import { LearnItem } from "@/types/learn.types";
 
-export const DOC_ROUTES: VersionMap = {
-  "v1.0.0": [
+const DOC_TREE: DocItem[] = [
     {
       slug: "introduction",
       title: "Introduction",
@@ -92,6 +91,12 @@ export const DOC_ROUTES: VersionMap = {
           title: "try / catch / finally",
           titleBn: "চেষ্টা / ধরুন / অবশেষে",
         },
+        // ===================== Asynchronous =====================
+        {
+          slug: "wait-keyword",
+          title: "wait",
+          titleBn: "অপেক্ষা",
+        },
       ],
     },
     {
@@ -116,8 +121,8 @@ export const DOC_ROUTES: VersionMap = {
         { slug: "path-module",     title: "path",     titleBn: "path" },
         { slug: "timers-module",   title: "timers",   titleBn: "timers" },
         { slug: "time-module",     title: "time",     titleBn: "time" },
-        // Async composition
-        { slug: "async-module",    title: "async",    titleBn: "async" },
+        // Async
+        { slug: "future-module",   title: "Future + wait", titleBn: "Future + wait" },
         // Utilities
         { slug: "log-module",      title: "log",      titleBn: "log" },
         { slug: "dotenv-module",   title: "dotenv",   titleBn: "dotenv" },
@@ -156,11 +161,20 @@ export const DOC_ROUTES: VersionMap = {
       ],
     },
     {
+      slug: "bilingual",
+      title: "Bilingual aliases",
+      titleBn: "দ্বিভাষিক নাম",
+    },
+    {
       slug: "plugins",
       title: "Plugin development",
       titleBn: "প্লাগইন ডেভেলপমেন্ট",
     },
-  ],
+];
+
+export const DOC_ROUTES: VersionMap = {
+  "v1.0.0": DOC_TREE,
+  "v2.0.0": DOC_TREE,
 };
 
 export function getLatestVersionString() {

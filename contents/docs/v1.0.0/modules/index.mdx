@@ -20,6 +20,8 @@ import "web"  as web;
 import "json" as json;
 ```
 
+Every module also has a **Bangla alias** — `import "ফাইল"`, `import "ওয়েব"`, `import "জেসন"` resolve to the same Module instances. See [Bilingual aliases](/en/docs/v1.0.0/bilingual) for the full mapping.
+
 ## Core
 
 | Module | Purpose |
@@ -30,11 +32,11 @@ import "json" as json;
 | [`timers`](/en/docs/v1.0.0/modules/timers-module) | `set` / `interval` for deferred and repeated callbacks. |
 | [`time`](/en/docs/v1.0.0/modules/time-module) | Clocks, calendar conversion, ISO 8601. |
 
-## Async composition
+## Asynchronous
 
 | Module | Purpose |
 |---|---|
-| [`async`](/en/docs/v1.0.0/modules/async-module) | series / parallel / waterfall / each / map / apply_*. |
+| [`Future`](/en/docs/v1.0.0/modules/future-module) | Built-in async value + `wait` keyword. The primary way to compose async work. |
 
 ## Utilities
 
@@ -109,6 +111,8 @@ import "web"  as web;
 import "json" as json;
 ```
 
+প্রতিটি মডিউলের একটি **বাংলা alias** আছে — `import "ফাইল"`, `import "ওয়েব"`, `import "জেসন"` একই Module instance-এ resolve হয়। পূর্ণ mapping-এর জন্য [দ্বিভাষিক নাম](/bn/docs/v1.0.0/bilingual) দেখুন।
+
 ## Core
 
 | মডিউল | উদ্দেশ্য |
@@ -119,11 +123,11 @@ import "json" as json;
 | [`timers`](/bn/docs/v1.0.0/modules/timers-module) | `set` / `interval`। |
 | [`time`](/bn/docs/v1.0.0/modules/time-module) | ক্লক, ক্যালেন্ডার, ISO 8601। |
 
-## Async composition
+## অ্যাসিনক্রোনাস
 
 | মডিউল | উদ্দেশ্য |
 |---|---|
-| [`async`](/bn/docs/v1.0.0/modules/async-module) | series / parallel / waterfall / each / map / apply_*। |
+| [`Future`](/bn/docs/v1.0.0/modules/future-module) | Built-in async value + `wait` কীওয়ার্ড। async composition-এর primary উপায়। |
 
 ## Utilities
 

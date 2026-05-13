@@ -29,17 +29,44 @@ print(io.read_file("greeting.txt"));
 
 ## Async file I/O
 
+`*_async` functions return a [`Future`](/en/docs/v1.0.0/modules/future-module) — pair with `wait`.
+
 | Function | Description |
 |---|---|
-| `io.read_file_async(path, cb)` | Callback `cb(err, data)`. |
-| `io.write_file_async(path, data, cb)` | Callback `cb(err)`. |
+| `io.read_file_async(path)` → Future&lt;string&gt; | Read off the main thread; suitable for large files. |
+| `io.write_file_async(path, data)` → Future&lt;null&gt; | Write off the main thread. |
+
+```bnl
+function copy() {
+    var data = wait io.read_file_async("big.bin");
+    wait io.write_file_async("big.copy.bin", data);
+}
+```
 
 ## Streaming
 
+`open_read` / `open_write` return a stream object whose `read` / `write` are themselves Future-returning. The underlying callback-style methods are still available on the native `_io` module for low-level code.
+
 | Function | Description |
 |---|---|
-| `io.open_read(path)` → stream | Returns `{read(size, cb), close()}`. `cb(err, chunk)`; `chunk == null` means EOF. |
-| `io.open_write(path)` → stream | Returns `{write(data, cb), close(cb)}`. Always `close()` to flush. |
+| `io.open_read(path)` → stream | `stream.read(size)` returns `Future<chunk>`; `chunk == null` means EOF. `stream.close()` is sync. |
+| `io.open_write(path)` → stream | `stream.write(data)` returns `Future<null>`. `stream.close()` is sync — call it to flush. |
+
+```bnl
+function read_chunks(path) {
+    var src = io.open_read(path);
+    var chunk = wait src.read(4096);
+    while (chunk != null) {
+        print(chunk);
+        chunk = wait src.read(4096);
+    }
+    src.close();
+}
+```
+
+## Native `_io` (advanced)
+
+The native module is also available as `_io` for low-level callback-style code (used by the lib internally). User code should prefer `import "io"`.
 
 ## Metadata
 
@@ -85,17 +112,32 @@ print(io.read_file("greeting.txt"));
 
 ## Async ফাইল I/O
 
+`*_async` ফাংশন একটি [`Future`](/bn/docs/v1.0.0/modules/future-module) ফেরত দেয় — `wait`-এর সাথে ব্যবহার করুন।
+
 | ফাংশন | বর্ণনা |
 |---|---|
-| `io.read_file_async(path, cb)` | কলব্যাক `cb(err, data)`। |
-| `io.write_file_async(path, data, cb)` | কলব্যাক `cb(err)`। |
+| `io.read_file_async(path)` → Future&lt;string&gt; | Main thread-এর বাইরে পড়ে; বড় ফাইলের জন্য। |
+| `io.write_file_async(path, data)` → Future&lt;null&gt; | Main thread-এর বাইরে লেখে। |
+
+```bnl
+function copy() {
+    var data = wait io.read_file_async("big.bin");
+    wait io.write_file_async("big.copy.bin", data);
+}
+```
 
 ## Streaming
 
+`open_read` / `open_write` এমন stream ফেরত দেয় যার `read` / `write` নিজেও Future-returning। নিচু-স্তরের কোডের জন্য callback-style পদ্ধতিগুলো native `_io` module-এ এখনো পাওয়া যায়।
+
 | ফাংশন | বর্ণনা |
 |---|---|
-| `io.open_read(path)` → stream | `{read(size, cb), close()}`। `chunk == null` মানে EOF। |
-| `io.open_write(path)` → stream | `{write(data, cb), close(cb)}`। ফ্লাশ করতে সবসময় `close()`। |
+| `io.open_read(path)` → stream | `stream.read(size)` → `Future<chunk>`; `chunk == null` মানে EOF। `stream.close()` sync। |
+| `io.open_write(path)` → stream | `stream.write(data)` → `Future<null>`। `stream.close()` sync — flush-এর জন্য কল করুন। |
+
+## Native `_io` (advanced)
+
+Native module-টা `_io` নামেও উপলব্ধ — নিচু-স্তরের callback-style কোডের জন্য (lib ভেতরে এটা ব্যবহার করে)। সাধারণত `import "io"` ব্যবহার করুন।
 
 ## মেটাডেটা
 

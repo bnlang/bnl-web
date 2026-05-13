@@ -66,7 +66,7 @@
             "patterns": [
                 {
                     "name": "meta.function-call.bnl",
-                    "match": "(?<![\\p{L}\\p{N}_])(?!(?:if|\\u09AF\\u09A6\\u09BF|else|\\u09A8\\u09BE\\u09B9\\u09B2\\u09C7|while|\\u09AF\\u09A4\\u0995\\u09CD\\u09B7\\u09A3|for|\\u09AA\\u09CD\\u09B0\\u09A4\\u09BF|of|\\u098F\\u09B0|return|\\u09AB\\u09C7\\u09B0\\u09A4|var|\\u099A\\u09B2\\u0995|function|\\u09AB\\u09BE\\u0982\\u09B6\\u09A8|class|\\u09B6\\u09CD\\u09B0\\u09C7\\u09A3\\u09C0|extends|\\u09AA\\u09CD\\u09B0\\u09B8\\u09BE\\u09B0\\u09BF\\u09A4|super|\\u0989\\u09AA\\u09B0\\u09C7\\u09B0|import|\\u0986\\u09AE\\u09A6\\u09BE\\u09A8\\u09BF|as|\\u09AF\\u09C7\\u09AE\\u09A8|and|\\u098F\\u09AC\\u0982|or|\\u0985\\u09A5\\u09AC\\u09BE|not|\\u09A8\\u09BE|true|\\u09B8\\u09A4\\u09CD\\u09AF|false|\\u09AE\\u09BF\\u09A5\\u09CD\\u09AF\\u09BE|null|\\u09A8\\u09BE\\u0987|try|\\u099A\\u09C7\\u09B7\\u09CD\\u099F\\u09BE|catch|\\u09A7\\u09B0\\u09C1\\u09A8|throw|\\u09A8\\u09BF\\u0995\\u09CD\\u09B7\\u09C7\\u09AA|finally|\\u0985\\u09AC\\u09B6\\u09C7\\u09B7\\u09C7|switch|\\u09AC\\u09BF\\u0995\\u09B2\\u09CD\\u09AA|case|\\u0985\\u09AC\\u09B8\\u09CD\\u09A5\\u09BE|default|\\u0985\\u09A8\\u09CD\\u09AF\\u09A5\\u09BE\\u09DF|\\u0985\\u09A8\\u09CD\\u09AF\\u09A5\\u09BE\\u09AF\\u09BC|break|\\u09A5\\u09BE\\u09AE\\u09C1\\u09A8|continue|\\u099A\\u09B2\\u09C1\\u09A8)\\b)(?:[A-Za-z_][A-Za-z0-9_]*|[\\u0980-\\u09FF_][\\u0980-\\u09FF0-9_]*)\\s*(?=\\()",
+                    "match": "(?<![\\p{L}\\p{N}_])(?!(?:if|\\u09AF\\u09A6\\u09BF|else|\\u09A8\\u09BE\\u09B9\\u09B2\\u09C7|while|\\u09AF\\u09A4\\u0995\\u09CD\\u09B7\\u09A3|for|\\u09AA\\u09CD\\u09B0\\u09A4\\u09BF|of|\\u098F\\u09B0|return|\\u09AB\\u09C7\\u09B0\\u09A4|var|\\u099A\\u09B2\\u0995|function|\\u09AB\\u09BE\\u0982\\u09B6\\u09A8|class|\\u09B6\\u09CD\\u09B0\\u09C7\\u09A3\\u09C0|extends|\\u09AA\\u09CD\\u09B0\\u09B8\\u09BE\\u09B0\\u09BF\\u09A4|super|\\u0989\\u09AA\\u09B0\\u09C7\\u09B0|import|\\u0986\\u09AE\\u09A6\\u09BE\\u09A8\\u09BF|as|\\u09AF\\u09C7\\u09AE\\u09A8|and|\\u098F\\u09AC\\u0982|or|\\u0985\\u09A5\\u09AC\\u09BE|not|\\u09A8\\u09BE|true|\\u09B8\\u09A4\\u09CD\\u09AF|false|\\u09AE\\u09BF\\u09A5\\u09CD\\u09AF\\u09BE|null|\\u09A8\\u09BE\\u0987|try|\\u099A\\u09C7\\u09B7\\u09CD\\u099F\\u09BE|catch|\\u09A7\\u09B0\\u09C1\\u09A8|throw|\\u09A8\\u09BF\\u0995\\u09CD\\u09B7\\u09C7\\u09AA|finally|\\u0985\\u09AC\\u09B6\\u09C7\\u09B7\\u09C7|switch|\\u09AC\\u09BF\\u0995\\u09B2\\u09CD\\u09AA|case|\\u0985\\u09AC\\u09B8\\u09CD\\u09A5\\u09BE|default|\\u0985\\u09A8\\u09CD\\u09AF\\u09A5\\u09BE\\u09DF|\\u0985\\u09A8\\u09CD\\u09AF\\u09A5\\u09BE\\u09AF\\u09BC|break|\\u09A5\\u09BE\\u09AE\\u09C1\\u09A8|continue|\\u099A\\u09B2\\u09C1\\u09A8|wait|\\u0985\\u09AA\\u09C7\\u0995\\u09CD\\u09B7\\u09BE)\\b)(?:[A-Za-z_][A-Za-z0-9_]*|[\\u0980-\\u09FF_][\\u0980-\\u09FF0-9_]*)\\s*(?=\\()",
                     "captures": {
                         "0": { "name": "entity.name.function.bnl" }
                     }
@@ -126,6 +126,10 @@
                     "match": "(?<![\\p{L}\\p{N}_])(return|\\u09AB\\u09C7\\u09B0\\u09A4|break|\\u09A5\\u09BE\\u09AE\\u09C1\\u09A8|continue|\\u099A\\u09B2\\u09C1\\u09A8)(?![\\p{L}\\p{N}_])"
                 },
                 {
+                    "name": "keyword.control.async.bnl",
+                    "match": "(?<![\\p{L}\\p{N}_])(wait|\\u0985\\u09AA\\u09C7\\u0995\\u09CD\\u09B7\\u09BE)(?![\\p{L}\\p{N}_])"
+                },
+                {
                     "name": "keyword.control.switch.bnl",
                     "match": "(?<![\\p{L}\\p{N}_])(switch|\\u09AC\\u09BF\\u0995\\u09B2\\u09CD\\u09AA|case|\\u0985\\u09AC\\u09B8\\u09CD\\u09A5\\u09BE|default|\\u0985\\u09A8\\u09CD\\u09AF\\u09A5\\u09BE\\u09DF|\\u0985\\u09A8\\u09CD\\u09AF\\u09A5\\u09BE\\u09AF\\u09BC)(?![\\p{L}\\p{N}_])"
                 },
@@ -151,7 +155,11 @@
             "patterns": [
                 {
                     "name": "support.function.builtin.bnl",
-                    "match": "(?<![\\p{L}\\p{N}_])(print|\\u09B2\\u09BF\\u0996\\u09C1\\u09A8|str|\\u09B2\\u09C7\\u0996|type|\\u09A7\\u09B0\\u09A3|to_number|chr|try_call)(?=\\s*\\()"
+                    "match": "(?<![\\p{L}\\p{N}_])(print|\\u09B2\\u09BF\\u0996\\u09C1\\u09A8|input|\\u0987\\u09A8\\u09AA\\u09C1\\u099F|str|\\u09B8\\u09CD\\u099F\\u09CD\\u09B0\\u09BF\\u0982|type|\\u09A7\\u09B0\\u09A3|to_number|\\u09B8\\u0982\\u0996\\u09CD\\u09AF\\u09BE|chr|\\u0985\\u0995\\u09CD\\u09B7\\u09B0|try_call|\\u09A8\\u09BF\\u09B0\\u09BE\\u09AA\\u09A6_\\u0995\\u09B2|pretty|\\u09B8\\u09C1\\u09A8\\u09CD\\u09A6\\u09B0|dump|\\u09AC\\u09BF\\u09B8\\u09CD\\u09A4\\u09BE\\u09B0\\u09BF\\u09A4|futurify|\\u09AD\\u09AC\\u09BF\\u09B7\\u09CD\\u09AF\\u09CE\\u0995\\u09B0)(?=\\s*\\()"
+                },
+                {
+                    "name": "support.class.builtin.bnl",
+                    "match": "(?<![\\p{L}\\p{N}_])(Future|\\u09AD\\u09AC\\u09BF\\u09B7\\u09CD\\u09AF\\u09CE)(?![\\p{L}\\p{N}_])"
                 }
             ]
         },

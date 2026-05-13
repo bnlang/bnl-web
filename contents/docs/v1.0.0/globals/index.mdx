@@ -1,6 +1,6 @@
 ---
 title: Global functions
-description: Built-in functions available in every Bnlang program without an `import` — print, str, type, to_number, chr, try_call, pretty, dump, input.
+description: Built-in functions available in every Bnlang program without an `import` — print, str, type, to_number, chr, try_call, pretty, dump, input, Future, futurify.
 
 bnTitle: গ্লোবাল ফাংশন
 bnDescription: প্রতিটি Bnlang প্রোগ্রামে `import` ছাড়াই উপলব্ধ বিল্ট-ইন ফাংশন।
@@ -100,7 +100,7 @@ print(chr(10));     // "\n"
 
 ### `type(value)` / `ধরণ(value)`
 
-Return the value's type name as a string. Possible results: `"null"`, `"bool"`, `"number"`, `"string"`, `"list"`, `"map"`, `"function"`, `"class"`, `"instance"`, `"module"`.
+Return the value's type name as a string. Possible results: `"null"`, `"bool"`, `"number"`, `"string"`, `"list"`, `"map"`, `"function"`, `"class"`, `"instance"`, `"module"`, `"future"`.
 
 ```bnl
 print(type(null));        // null
@@ -147,9 +147,66 @@ Same formatter as `pretty`, but with no truncation. Use when you need to see the
 print(dump(big_response));
 ```
 
+## Asynchronous values
+
+### `Future`
+
+Built-in type representing a value that will eventually settle (fulfill or reject). Pair with the [`wait`](/en/docs/v1.0.0/keywords) keyword to compose asynchronous code as straight-line scripts.
+
+`Future` is both **callable** (invoke as a constructor) and exposes **static methods**:
+
+```bnl
+// Construct a Future from an executor.
+var f = Future(function (resolve, reject) {
+    timers.set(0, function () { resolve("done"); });
+});
+
+// Static factories.
+Future.of(7);                    // already fulfilled with 7
+Future.err("nope");              // already rejected with "nope"
+Future.all([f1, f2, f3]);        // fulfills with [v1, v2, v3]; rejects on first error
+Future.race([f1, f2]);           // settles with the first one to settle
+Future.all_settled([f1, f2]);    // fulfills with a list of {ok, value?, error?} maps; never rejects
+```
+
+Instance methods chain on any Future:
+
+| Method | Description |
+|---|---|
+| `f.next(on_ok)` / `f.next(on_ok, on_err)` | Run `on_ok` on fulfillment. Returns a new Future of its result. |
+| `f.fail(on_err)` | Run `on_err` on rejection. |
+| `f.always(fn)` | Run `fn` regardless of outcome. Doesn't alter the carried value. |
+| `f.state` | `"pending"`, `"fulfilled"`, or `"rejected"`. |
+
+Inside any function, `wait f` suspends the call until `f` settles and yields its value (or throws its rejection). See the [`Future`](/en/docs/v1.0.0/modules/future-module) module page for the full reference.
+
+```bnl
+function fetch_user(id) {
+    var resp = wait request.get("/users/" + str(id));
+    return resp.data;
+}
+```
+
+### `futurify(fn)`
+
+Wrap a callback-style function (one whose last argument is an `(err, result)` callback) so it returns a `Future` instead. Useful for bridging legacy APIs or your own callback-driven code into the wait/Future world.
+
+```bnl
+function legacy_read(path, cb) {
+    timers.set(0, function () { cb(null, "data from " + path); });
+}
+
+var read_async = futurify(legacy_read);
+read_async("file.txt").next(function (data) { print(data); });
+// or
+var data = wait read_async("file.txt");
+```
+
+`futurify` returns a function whose arity is "all the original args minus the trailing callback." Multiple-arg callbacks (`cb(err, a, b)`) are not supported — only the standard `cb(err, result)` shape.
+
 ## Notes
 
-- `print`, `type`, and `input` have Bangla synonyms (`লিখুন`, `ধরণ`, `ইনপুট`). `str`, `to_number`, `chr`, `try_call`, `pretty`, and `dump` are English-only.
+- Every global on this page has a Bangla synonym pointing at the same callable: `print`/`লিখুন`, `input`/`ইনপুট`, `str`/`স্ট্রিং`, `to_number`/`সংখ্যা`, `chr`/`অক্ষর`, `type`/`ধরণ`, `try_call`/`নিরাপদ_কল`, `pretty`/`সুন্দর`, `dump`/`বিস্তারিত`, `Future`/`ভবিষ্যৎ`, `futurify`/`ভবিষ্যৎকর`. See [Bilingual aliases](/en/docs/v1.0.0/bilingual) for the full table.
 - These are real `function` values — you can pass them around: `var p = print; p("hi");`.
 - They live in the global scope, so any user-defined variable with the same name in the same scope will shadow them.
 </I18nEnglish>
@@ -235,7 +292,7 @@ print(chr(10));     // "\n"
 
 ### `type(value)` / `ধরণ(value)`
 
-মানের টাইপ-নাম একটি স্ট্রিং হিসেবে ফেরত দেয়। সম্ভাব্য ফলাফল: `"null"`, `"bool"`, `"number"`, `"string"`, `"list"`, `"map"`, `"function"`, `"class"`, `"instance"`, `"module"`।
+মানের টাইপ-নাম একটি স্ট্রিং হিসেবে ফেরত দেয়। সম্ভাব্য ফলাফল: `"null"`, `"bool"`, `"number"`, `"string"`, `"list"`, `"map"`, `"function"`, `"class"`, `"instance"`, `"module"`, `"future"`।
 
 ```bnl
 print(type(null));        // null
@@ -282,9 +339,64 @@ print(pretty({ user: "alice", roles: ["admin", "editor"], age: 30 }));
 print(dump(big_response));
 ```
 
+## অ্যাসিনক্রোনাস মান
+
+### `Future`
+
+ভবিষ্যতে settle হবে (fulfill বা reject) এমন মানের জন্য built-in টাইপ। [`wait`](/bn/docs/v1.0.0/keywords) কীওয়ার্ড দিয়ে straight-line script-এর মতো async কোড লেখা যায়।
+
+`Future` callable (constructor হিসেবে কল করা যায়) এবং তার static method-ও আছে:
+
+```bnl
+var f = Future(function (resolve, reject) {
+    timers.set(0, function () { resolve("done"); });
+});
+
+Future.of(7);                    // ইতিমধ্যেই 7 দিয়ে fulfilled
+Future.err("nope");              // ইতিমধ্যেই rejected
+Future.all([f1, f2, f3]);        // সবগুলো fulfill হলে [v1, v2, v3]; প্রথম error-এ reject
+Future.race([f1, f2]);           // প্রথম settle হওয়াটা জেতে
+Future.all_settled([f1, f2]);    // সবসময় fulfill হয় — প্রতিটার {ok, value?, error?} map-এর তালিকা
+```
+
+প্রতিটি Future-এ chain করার method:
+
+| Method | বর্ণনা |
+|---|---|
+| `f.next(on_ok)` / `f.next(on_ok, on_err)` | Fulfill হলে `on_ok` চলে। নতুন Future ফেরত দেয়। |
+| `f.fail(on_err)` | Reject হলে `on_err` চলে। |
+| `f.always(fn)` | যাই হোক, `fn` চলে। মান বদলায় না। |
+| `f.state` | `"pending"`, `"fulfilled"`, বা `"rejected"`। |
+
+যেকোনো ফাংশনের ভেতরে `wait f` কলটিকে suspend করে যতক্ষণ না `f` settle হয়; তারপর মান ফেরত দেয় (rejection হলে throw করে)। সম্পূর্ণ রেফারেন্স — [`Future`](/bn/docs/v1.0.0/modules/future-module) মডিউল পেজ।
+
+```bnl
+function fetch_user(id) {
+    var resp = wait request.get("/users/" + str(id));
+    return resp.data;
+}
+```
+
+### `futurify(fn)`
+
+কলব্যাক-স্টাইল ফাংশন (যার শেষ আর্গুমেন্ট একটি `(err, result)` callback) wrap করে — তার পরিবর্তে একটি `Future` ফেরত দেয়। legacy API বা নিজের callback-driven কোড-কে wait/Future-এ আনার জন্য।
+
+```bnl
+function legacy_read(path, cb) {
+    timers.set(0, function () { cb(null, "data from " + path); });
+}
+
+var read_async = futurify(legacy_read);
+read_async("file.txt").next(function (data) { print(data); });
+// অথবা
+var data = wait read_async("file.txt");
+```
+
+`futurify` একটি ফাংশন ফেরত দেয় যার arity = "মূলের আর্গুমেন্ট − trailing callback"। শুধুমাত্র `cb(err, result)` shape সাপোর্ট করে।
+
 ## নোট
 
-- `print`, `type`, এবং `input`-এর বাংলা সমার্থক আছে (`লিখুন`, `ধরণ`, `ইনপুট`)। `str`, `to_number`, `chr`, `try_call`, `pretty`, এবং `dump` শুধু ইংরেজি।
+- এই পেজের প্রতিটি global-এর একটি বাংলা সমার্থক আছে — সবগুলো একই callable-কে নির্দেশ করে: `print`/`লিখুন`, `input`/`ইনপুট`, `str`/`স্ট্রিং`, `to_number`/`সংখ্যা`, `chr`/`অক্ষর`, `type`/`ধরণ`, `try_call`/`নিরাপদ_কল`, `pretty`/`সুন্দর`, `dump`/`বিস্তারিত`, `Future`/`ভবিষ্যৎ`, `futurify`/`ভবিষ্যৎকর`। পূর্ণ table-এর জন্য [দ্বিভাষিক নাম](/bn/docs/v1.0.0/bilingual)।
 - এগুলো সত্যিকারের `function` value — আপনি এদের pass around করতে পারেন: `var p = print; p("hi");`।
 - এরা গ্লোবাল স্কোপে থাকে, তাই একই স্কোপে একই নামের যেকোনো user-defined variable এদের shadow করবে।
 </I18nBangla>

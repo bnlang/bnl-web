@@ -1,0 +1,250 @@
+---
+title: wait keyword
+description: Suspend the current function until a Future settles, then continue with its value (or throw its rejection).
+bnTitle: অপেক্ষা কীওয়ার্ড
+bnDescription: একটি Future settle না হওয়া পর্যন্ত বর্তমান ফাংশন suspend রাখে, তারপর তার মান ফেরত দেয় (rejection হলে throw করে)।
+---
+
+# <I18nEnglish>`wait` keyword</I18nEnglish>
+# <I18nBangla>`অপেক্ষা` কীওয়ার্ড</I18nBangla>
+
+
+<I18nEnglish>
+`wait` is bnlang's asynchronous-value operator. Given a [`Future`](/en/docs/v1.0.0/modules/future-module), `wait` suspends the current function frame until the Future settles, then resumes with the resolved value. If the Future rejected, `wait` throws the rejection value — catchable with `try` / `catch`. The Bangla form `অপেক্ষা` is equivalent.
+
+There is **no `async` marker**. Any function whose body contains a `wait` automatically returns a Future to its caller; the caller either `wait`s on it or chains with `.next` / `.fail`.
+
+## Syntax
+
+```bnl
+wait <future_expr>
+```
+
+`<future_expr>` is any expression that evaluates to a `Future`. A non-Future value is auto-wrapped (so `wait 7` evaluates to `7`).
+
+## Where `wait` is legal
+
+`wait` is parsed wherever an expression is legal, but the *runtime* supports it only at these positions inside a function body:
+
+- As the initializer of a `var` declaration: `var x = wait expr;`
+- As a bare expression statement: `wait expr;`
+- Nested in `if` / `else` branches, `while` loops, `for-of` loops, and `try` / `catch` blocks — each at top-level inside that block.
+
+Not yet supported: `wait` as a sub-expression (e.g. `f(wait g())`), inside a `finally` block, inside C-style `for (init; cond; update)`, or at the top level of a script body. Use a `var` to land the result first.
+
+## Examples
+
+### Basic — one network call
+
+```bnl
+import "request" as r;
+
+function fetch_user(id) {
+    var resp = wait r.get("https://api.example.com/users/" + str(id));
+    return resp.data;
+}
+
+function main() {
+    var user = wait fetch_user(7);
+    print("hello,", user.name);
+}
+main().fail(function (e) { print("error:", e); });
+```
+
+### Catching a rejection
+
+`try` / `catch` works seamlessly with `wait` — a rejected Future surfaces as a thrown value.
+
+```bnl
+function safe_fetch(url) {
+    try {
+        var resp = wait r.get(url);
+        return resp.body;
+    } catch (e) {
+        return "fallback: " + str(e);
+    }
+}
+```
+
+### Sequential vs. parallel
+
+Calls in sequence wait one after another:
+
+```bnl
+var a = wait r.get(url_a);
+var b = wait r.get(url_b);   // starts only after a finishes
+```
+
+For parallelism, kick off the Futures first, then `wait` on the combined one:
+
+```bnl
+var pending_a = r.get(url_a);
+var pending_b = r.get(url_b);
+var both = wait Future.all([pending_a, pending_b]);
+```
+
+### Sleep
+
+```bnl
+import "timers" as timers;
+
+function paced() {
+    print("a");
+    wait timers.delay(100);
+    print("b after 100ms");
+}
+```
+
+## Implicit Future return
+
+A function whose body contains `wait` automatically returns a `Future` to its caller. This is **not** opt-in via an `async` keyword — it's purely determined by whether the body uses `wait`.
+
+```bnl
+function plain()      { return 7; }           // returns 7
+function uses_wait()  { return wait Future.of(7); }   // returns a Future fulfilling with 7
+```
+
+A sync function that calls `uses_wait()` and ignores the wait will get back a `Future`, not the value. So inside an async-using flow, always `wait` the calls you depend on:
+
+```bnl
+function caller() {
+    var x = wait uses_wait();   // x is 7
+    print(x);
+}
+```
+
+## Bangla form
+
+```bnl
+ফাংশন fetch() {
+    চলক resp = অপেক্ষা r.get(url);
+    ফেরত resp.body;
+}
+```
+
+## See also
+
+- [`Future`](/en/docs/v1.0.0/modules/future-module) — what `wait` operates on.
+- [`try` / `catch`](/en/docs/v1.0.0/keywords/try-catch-finally-keyword) — catching rejections.
+- [`request`](/en/docs/v1.0.0/modules/request-module), [`io`](/en/docs/v1.0.0/modules/io-module), [`timers`](/en/docs/v1.0.0/modules/timers-module) — stdlib that returns Futures.
+</I18nEnglish>
+
+<I18nBangla>
+`wait` হলো bnlang-এর asynchronous-value অপারেটর। একটি [`Future`](/bn/docs/v1.0.0/modules/future-module) দেওয়া হলে, `wait` বর্তমান ফাংশন frame-কে suspend রাখে যতক্ষণ না Future settle হয়; তারপর resolved value সহ continue করে। Future reject হলে `wait` সেই rejection value throw করে — `try` / `catch`-এ ধরা যায়। বাংলা রূপ `অপেক্ষা` সমার্থক।
+
+কোনো **`async` marker নেই**। যে ফাংশনের body-তে `wait` আছে — সে স্বয়ংক্রিয়ভাবে caller-কে একটি Future ফেরত দেয়; caller হয় `wait` করে, নয়তো `.next` / `.fail` chain করে।
+
+## Syntax
+
+```bnl
+wait <future_expr>
+```
+
+`<future_expr>` হলো এমন যেকোনো expression যা একটি `Future`-এ evaluate হয়। Future নয় এমন মান auto-wrap হয় (`wait 7` → `7`)।
+
+## কোথায় `wait` ব্যবহার যায়
+
+`wait` কোনো expression-যোগ্য জায়গায় parse হয়, কিন্তু *runtime*-এ এই পজিশনগুলোই সাপোর্ট করে (ফাংশন body-র ভেতরে):
+
+- `var` ডিক্লেয়ারেশনের initializer-এ: `var x = wait expr;`
+- বেয়ার expression statement: `wait expr;`
+- `if` / `else` শাখা, `while`, `for-of`, ও `try` / `catch` ব্লকের ভেতরে — প্রতিটির top-level-এ।
+
+এখনো নেই: sub-expression (`f(wait g())`), `finally` ব্লক, C-style `for (init; cond; update)`, বা script body-র top-level-এ। আগে একটি `var`-এ ফল রাখুন।
+
+## উদাহরণ
+
+### সাধারণ — একটি network call
+
+```bnl
+import "request" as r;
+
+function fetch_user(id) {
+    var resp = wait r.get("https://api.example.com/users/" + str(id));
+    return resp.data;
+}
+
+function main() {
+    var user = wait fetch_user(7);
+    print("hello,", user.name);
+}
+main().fail(function (e) { print("error:", e); });
+```
+
+### Rejection ধরা
+
+`try` / `catch` `wait`-এর সাথে নির্বিঘ্নে কাজ করে — rejected Future thrown value হিসেবে আসে।
+
+```bnl
+function safe_fetch(url) {
+    try {
+        var resp = wait r.get(url);
+        return resp.body;
+    } catch (e) {
+        return "fallback: " + str(e);
+    }
+}
+```
+
+### Sequential বনাম parallel
+
+পরপর call wait করলে একের পর এক চলে:
+
+```bnl
+var a = wait r.get(url_a);
+var b = wait r.get(url_b);   // a শেষ হলে শুরু
+```
+
+Parallel-এর জন্য আগে Future-গুলো শুরু করুন, তারপর combined-এ `wait`:
+
+```bnl
+var pending_a = r.get(url_a);
+var pending_b = r.get(url_b);
+var both = wait Future.all([pending_a, pending_b]);
+```
+
+### Sleep
+
+```bnl
+import "timers" as timers;
+
+function paced() {
+    print("a");
+    wait timers.delay(100);
+    print("b 100ms পরে");
+}
+```
+
+## স্বয়ংক্রিয় Future return
+
+যে ফাংশনের body-তে `wait` আছে — সে caller-কে একটি `Future` ফেরত দেয়। এটি `async` কীওয়ার্ড দিয়ে opt-in **নয়** — body `wait` ব্যবহার করছে কি না সেটাই নির্ধারক।
+
+```bnl
+function plain()      { return 7; }                   // 7 ফেরত
+function uses_wait()  { return wait Future.of(7); }   // 7-এ fulfilled Future ফেরত
+```
+
+Sync ফাংশন `uses_wait()` কল করে wait উপেক্ষা করলে value পাবে না, `Future` পাবে। তাই যেখানে value দরকার, সেখানে `wait`-ই করুন:
+
+```bnl
+function caller() {
+    var x = wait uses_wait();   // x = 7
+    print(x);
+}
+```
+
+## বাংলা রূপ
+
+```bnl
+ফাংশন fetch() {
+    চলক resp = অপেক্ষা r.get(url);
+    ফেরত resp.body;
+}
+```
+
+## আরও দেখুন
+
+- [`Future`](/bn/docs/v1.0.0/modules/future-module) — `wait` যার উপর কাজ করে।
+- [`try` / `catch`](/bn/docs/v1.0.0/keywords/try-catch-finally-keyword) — rejection ধরা।
+- [`request`](/bn/docs/v1.0.0/modules/request-module), [`io`](/bn/docs/v1.0.0/modules/io-module), [`timers`](/bn/docs/v1.0.0/modules/timers-module) — Future-returning stdlib।
+</I18nBangla>

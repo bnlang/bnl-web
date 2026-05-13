@@ -1,0 +1,287 @@
+---
+title: Future + wait
+description: Built-in async value type. Pair with `wait` to write straight-line code that suspends on I/O — request, file, network, anything that's eventually-resolved.
+bnTitle: Future + wait
+bnDescription: Built-in async value type। `wait` কীওয়ার্ডের সাথে straight-line কোড লিখুন যা I/O-তে suspend হয়।
+---
+
+# <I18nEnglish>`Future` + `wait`</I18nEnglish>
+# <I18nBangla>`Future` + `wait`</I18nBangla>
+
+
+<I18nEnglish>
+`Future` is bnlang's representation of an asynchronous value. It's a global builtin — no `import` needed. Combined with the `wait` keyword, it lets async code read top-to-bottom like synchronous code.
+
+```bnl
+import "request" as r;
+
+function fetch_user(id) {
+    var resp = wait r.get("https://api.example.com/users/" + str(id));
+    return resp.data;
+}
+
+function main() {
+    var user = wait fetch_user(7);
+    print("hello,", user.name);
+}
+main().fail(function (e) { print("error:", e); });
+```
+
+A `Future` is **pending**, **fulfilled** with a value, or **rejected** with an error. It transitions exactly once.
+
+## Constructing
+
+### `Future(executor)`
+
+Run `executor(resolve, reject)` synchronously. Whichever of those is called first determines the Future's outcome.
+
+```bnl
+var f = Future(function (resolve, reject) {
+    timers.set(0, function () { resolve("from timer"); });
+});
+```
+
+If the executor itself throws, the Future rejects with the thrown value.
+
+### `Future.of(value)`
+
+An already-fulfilled Future. If `value` is itself a Future, the new one adopts its eventual state.
+
+```bnl
+Future.of(7).next(function (v) { print(v); });   // 7
+```
+
+### `Future.err(error)`
+
+An already-rejected Future.
+
+```bnl
+Future.err("nope").fail(function (e) { print(e); });   // nope
+```
+
+## Combinators
+
+### `Future.all(list)`
+
+Wait for every input to fulfill, then fulfill with a list of their values in input order. Reject as soon as any input rejects.
+
+```bnl
+var all = Future.all([
+    r.get(url_a),
+    r.get(url_b),
+    r.get(url_c)
+]);
+all.next(function (resps) { print(resps[0].body, resps[1].body, resps[2].body); });
+// or inside an async fn:
+var resps = wait Future.all([r.get(url_a), r.get(url_b)]);
+```
+
+Elements that aren't Futures are auto-wrapped with `Future.of`, so you can mix.
+
+### `Future.race(list)`
+
+Settle with the **first** input to settle (fulfill or reject). Other pending inputs keep running but their outcomes are ignored.
+
+### `Future.all_settled(list)`
+
+Never rejects. Always fulfills with a list of result maps, one per input:
+
+```bnl
+Future.all_settled([Future.of("a"), Future.err("b")])
+    .next(function (rs) {
+        print(rs[0].ok, rs[0].value);     // true a
+        print(rs[1].ok, rs[1].error);     // false b
+    });
+```
+
+## Chain methods
+
+| Method | Description |
+|---|---|
+| `f.next(on_ok)` / `f.next(on_ok, on_err)` | Run `on_ok` on fulfillment. Returns a new Future of `on_ok`'s return. If `on_err` is given, also handles rejection. |
+| `f.fail(on_err)` | Run `on_err` on rejection. |
+| `f.always(fn)` | Run `fn` regardless of outcome. |
+| `f.state` | Snapshot string: `"pending"`, `"fulfilled"`, or `"rejected"`. |
+
+Callbacks that throw cause the downstream Future to reject with the thrown value. Callbacks that return a Future cause the downstream to adopt its state — so you can chain async work step by step.
+
+```bnl
+Future.of(10)
+    .next(function (v) { return v * 2; })           // returns 20
+    .next(function (v) { return Future.of(v + 1); }) // adopts → 21
+    .next(function (v) { print(v); });              // 21
+```
+
+## `wait`
+
+`wait future_expr` suspends the current function until the Future settles, then continues with its value. If the Future rejected, `wait` throws the rejection value (catchable with `try`/`catch`).
+
+Supported positions: top-level statement (`var x = wait expr;` or `wait expr;`), inside blocks, `if`/`else`, `while`, `for-of`, and `try`/`catch`. Not yet: sub-expression position, `finally`, C-style `for`, top-level of a script body.
+
+Any function whose body contains a `wait` automatically returns a `Future`. Callers either `wait` on it or chain with `.next`/`.fail`.
+
+```bnl
+function load() {
+    try {
+        var resp = wait r.get(url);          // can throw
+        return resp.body;
+    } catch (e) {
+        return "fallback";                   // rejection handled
+    }
+}
+load().next(function (body) { print(body); });
+```
+
+## Bridging callback-style APIs
+
+### `futurify(fn)`
+
+Wrap a function whose last argument is an `(err, result)` callback so it returns a Future:
+
+```bnl
+function legacy(x, cb) {
+    timers.set(0, function () { cb(null, x * 100); });
+}
+var f = futurify(legacy);
+f(5).next(function (v) { print(v); });     // 500
+// or:
+var v = wait f(5);
+```
+
+Most lib stdlib modules with async operations already expose a Future-returning surface (`request`, `io`, `timers.delay`, …), so you rarely need `futurify` directly — it's for your own callback code or third-party native modules.
+
+## See also
+- [`request`](/en/docs/v1.0.0/modules/request-module) — HTTP verbs return Futures.
+- [`io`](/en/docs/v1.0.0/modules/io-module) — `*_async` file ops return Futures.
+- [`timers`](/en/docs/v1.0.0/modules/timers-module) — `timers.delay(ms)` is a Future-returning sleep.
+- [Keywords](/en/docs/v1.0.0/keywords) — the `wait` reference.
+</I18nEnglish>
+
+<I18nBangla>
+`Future` হলো bnlang-এর async মানের প্রতিনিধিত্ব। এটি একটি global builtin — `import` লাগে না। `wait` কীওয়ার্ডের সাথে মিলে async কোড synchronous-এর মতো top-to-bottom পড়া যায়।
+
+```bnl
+import "request" as r;
+
+function fetch_user(id) {
+    var resp = wait r.get("https://api.example.com/users/" + str(id));
+    return resp.data;
+}
+
+function main() {
+    var user = wait fetch_user(7);
+    print("hello,", user.name);
+}
+main().fail(function (e) { print("error:", e); });
+```
+
+একটি `Future` হয় **pending**, **fulfilled** (একটি মান সহ), অথবা **rejected** (একটি error সহ)। ঠিক একবার transition হয়।
+
+## Construct করা
+
+### `Future(executor)`
+
+`executor(resolve, reject)` synchronously চালায়। প্রথমে যেটা কল হয় সেটাই Future-এর outcome নির্ধারণ করে।
+
+```bnl
+var f = Future(function (resolve, reject) {
+    timers.set(0, function () { resolve("from timer"); });
+});
+```
+
+Executor নিজে throw করলে Future সেই value দিয়ে reject হয়।
+
+### `Future.of(value)`
+
+ইতিমধ্যেই fulfilled একটি Future। `value` নিজেই একটি Future হলে নতুনটা তার eventual state adopt করে।
+
+```bnl
+Future.of(7).next(function (v) { print(v); });   // 7
+```
+
+### `Future.err(error)`
+
+ইতিমধ্যেই rejected একটি Future।
+
+```bnl
+Future.err("nope").fail(function (e) { print(e); });   // nope
+```
+
+## কম্বিনেটর
+
+### `Future.all(list)`
+
+প্রতিটি input fulfill না হওয়া পর্যন্ত অপেক্ষা; তারপর input order-এ মানের list দিয়ে fulfill। যেকোনো একটি reject করলেই সাথে সাথে reject।
+
+```bnl
+var resps = wait Future.all([r.get(url_a), r.get(url_b)]);
+```
+
+### `Future.race(list)`
+
+যে input **সবার আগে** settle হবে (fulfill বা reject), তার সাথে settle হবে।
+
+### `Future.all_settled(list)`
+
+কখনো reject করে না। প্রতিটি input-এর জন্য একটি result map দিয়ে সবসময় fulfill করে:
+
+```bnl
+Future.all_settled([Future.of("a"), Future.err("b")])
+    .next(function (rs) {
+        print(rs[0].ok, rs[0].value);     // true a
+        print(rs[1].ok, rs[1].error);     // false b
+    });
+```
+
+## Chain method
+
+| Method | বর্ণনা |
+|---|---|
+| `f.next(on_ok)` / `f.next(on_ok, on_err)` | Fulfill হলে `on_ok` চলে। নতুন Future ফেরত দেয়। |
+| `f.fail(on_err)` | Reject হলে `on_err` চলে। |
+| `f.always(fn)` | যাই হোক, `fn` চলে। মান বা state বদলায় না। |
+| `f.state` | snapshot: `"pending"`, `"fulfilled"`, বা `"rejected"`। |
+
+Callback throw করলে downstream Future সেই মান দিয়ে reject হয়। Callback Future ফেরত দিলে downstream তার state adopt করে।
+
+## `wait`
+
+`wait future_expr` Future settle না হওয়া পর্যন্ত বর্তমান ফাংশন suspend রাখে; তারপর তার মান ফেরত দেয়। Reject হলে `wait` throw করে — `try`/`catch`-এ ধরা যায়।
+
+সাপোর্টেড পজিশন: top-level statement (`var x = wait expr;` বা `wait expr;`), block-এর ভেতরে, `if`/`else`, `while`, `for-of`, এবং `try`/`catch`। এখনো নেই: sub-expression, `finally`, C-style `for`, top-level script body।
+
+যেকোনো ফাংশন যার body-তে `wait` আছে — সে স্বয়ংক্রিয়ভাবে একটি `Future` ফেরত দেয়। Caller হয় `wait` করে, নয়তো `.next`/`.fail` chain করে।
+
+```bnl
+function load() {
+    try {
+        var resp = wait r.get(url);
+        return resp.body;
+    } catch (e) {
+        return "fallback";
+    }
+}
+```
+
+## Callback-style API bridge
+
+### `futurify(fn)`
+
+শেষ আর্গুমেন্ট `(err, result)` callback এমন একটি ফাংশন wrap করে — Future ফেরত দেয়:
+
+```bnl
+function legacy(x, cb) {
+    timers.set(0, function () { cb(null, x * 100); });
+}
+var f = futurify(legacy);
+var v = wait f(5);     // 500
+```
+
+বেশিরভাগ stdlib (`request`, `io`, `timers.delay`, …) ইতিমধ্যেই Future-returning surface দেয়, তাই `futurify` সাধারণত নিজের callback কোড বা third-party module-এর জন্য।
+
+## আরও দেখুন
+- [`request`](/bn/docs/v1.0.0/modules/request-module) — HTTP verb Future ফেরত দেয়।
+- [`io`](/bn/docs/v1.0.0/modules/io-module) — `*_async` ফাইল অপারেশন।
+- [`timers`](/bn/docs/v1.0.0/modules/timers-module) — `timers.delay(ms)` async sleep।
+- [Keywords](/bn/docs/v1.0.0/keywords) — `wait` রেফারেন্স।
+</I18nBangla>

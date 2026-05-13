@@ -29,32 +29,45 @@ var double = function (n) { return n * 2; };
 print(double(7));   // 14
 ```
 
-You'll see this form a lot when passing callbacks:
+You'll see this form a lot when passing callbacks or `.next` / `.fail` handlers:
 
 ```bnl
-import "io" as io;
+import "request" as r;
 
-io.read_file_async("notes.txt", function (err, data) {
-    if (err != null) { print("read err:", err); return; }
-    print("got", data.byte_length, "bytes");
-});
+r.get("https://example.com/data")
+    .next(function (resp) { print(resp.body); })
+    .fail(function (e)    { print("err:", e); });
 ```
 
-## Fixed arity
+## Fixed arity (with optional defaults)
 
-Functions take **exactly** the declared number of arguments. There are no defaults, no overloads, no rest parameters, no `arguments` object.
+Functions take a fixed number of arguments. There are no overloads, no rest parameters, no `arguments` object. Parameters at the *end* of the list may have **default values**; those become optional at the call site.
 
 ```bnl
-function greet(name) {
-    return "Hi, " + name;
+function greet(name, greeting = "Hi") {
+    return greeting + ", " + name;
 }
 
-greet("Alice");        // ok
-// greet();            // error: expects 1 argument, got 0
-// greet("Alice", 1);  // error: expects 1 argument, got 2
+greet("Alice");           // "Hi, Alice"
+greet("Alice", "Hello");  // "Hello, Alice"
+// greet();               // error: expects 1 to 2 arguments, got 0
+// greet("Alice", "x", "y"); // error: expects 1 to 2 arguments, got 3
 ```
 
-If you need different shapes, split into separately-named functions:
+Default rules:
+
+- Defaults must come at the **end** of the parameter list. `function bad(a = 1, b) { ... }` is a parse error.
+- Default expressions are evaluated **lazily, on each call**, in the function's local environment — so a later default can reference earlier params:
+
+  ```bnl
+  function range(start, end = start + 10) {
+      return [start, end];
+  }
+  range(0);     // [0, 10]
+  range(100);   // [100, 110]
+  ```
+
+For genuinely different shapes (different return type, different intent), still split into separately-named functions:
 
 ```bnl
 function greet(name)               { return "Hi, " + name; }
@@ -116,32 +129,44 @@ var double = function (n) { return n * 2; };
 print(double(7));   // 14
 ```
 
-কলব্যাক পাস করার সময় এই রূপটি প্রচুর দেখবেন:
+কলব্যাক বা `.next` / `.fail` handler পাস করার সময় এই রূপটি প্রচুর দেখবেন:
 
 ```bnl
-import "io" as io;
+import "request" as r;
 
-io.read_file_async("notes.txt", function (err, data) {
-    if (err != null) { print("read err:", err); return; }
-    print("got", data.byte_length, "bytes");
-});
+r.get("https://example.com/data")
+    .next(function (resp) { print(resp.body); })
+    .fail(function (e)    { print("err:", e); });
 ```
 
-## ফিক্সড অ্যারিটি
+## ফিক্সড অ্যারিটি (optional default-সহ)
 
-ফাংশন **ঠিক** ডিক্লেয়ার্ড সংখ্যক আর্গুমেন্ট নেয়। কোনো ডিফল্ট নেই, কোনো ওভারলোড নেই, কোনো rest parameter নেই, কোনো `arguments` অবজেক্ট নেই।
+ফাংশন নির্দিষ্ট সংখ্যক আর্গুমেন্ট নেয়। কোনো overload, rest parameter বা `arguments` object নেই। তবে **প্যারামিটার লিস্টের শেষে** ডিফল্ট মান দেওয়া যায় — সেগুলো call site-এ optional হয়ে যায়।
 
 ```bnl
-function greet(name) {
-    return "Hi, " + name;
+function greet(name, greeting = "Hi") {
+    return greeting + ", " + name;
 }
 
-greet("Alice");        // ok
-// greet();            // error: 1 argument expected, got 0
-// greet("Alice", 1);  // error: 1 argument expected, got 2
+greet("Alice");           // "Hi, Alice"
+greet("Alice", "Hello");  // "Hello, Alice"
+// greet();               // error: 1 to 2 arguments expected, got 0
 ```
 
-ভিন্ন শেপ দরকার হলে আলাদা নামের ফাংশনে ভাগ করুন:
+ডিফল্টের নিয়ম:
+
+- ডিফল্ট অবশ্যই প্যারামিটার লিস্টের **শেষে** থাকতে হবে। `function bad(a = 1, b) {...}` parse error।
+- ডিফল্ট এক্সপ্রেশন **প্রতি call-এ lazy** ভাবে evaluate হয়, ফাংশনের local env-এ — তাই পরের ডিফল্ট আগের প্যারামিটার রেফার করতে পারে:
+
+  ```bnl
+  function range(start, end = start + 10) {
+      return [start, end];
+  }
+  range(0);     // [0, 10]
+  range(100);   // [100, 110]
+  ```
+
+সত্যিকারের ভিন্ন intent থাকলে এখনো আলাদা নামের ফাংশনে ভাগ করুন:
 
 ```bnl
 function greet(name)               { return "Hi, " + name; }

@@ -142,7 +142,7 @@ export default function AboutPage({ locale }: Props) {
                 className="bg-bd-green hover:bg-bd-green/90"
                 aria-label={t("about.hero.cta.docs")}
               >
-                <Link href={`/${locale}/docs/v1.0.0/introduction`}>
+                <Link href={`/${locale}/docs/v2.0.0/introduction`}>
                   {t("about.hero.cta.docs")}
                 </Link>
               </Button>

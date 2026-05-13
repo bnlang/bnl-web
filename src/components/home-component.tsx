@@ -270,7 +270,7 @@ export function HomeComponent({ locale }: HomeProps) {
 
               <div className="mt-7 sm:mt-8 flex flex-wrap gap-3">
                 <Button asChild variant="bdGreen" size="lg">
-                  <Link href={`/${locale}/docs/v1.0.0/introduction`}>
+                  <Link href={`/${locale}/docs/v2.0.0/introduction`}>
                     {t("home.hero.cta.docs")}
                   </Link>
                 </Button>

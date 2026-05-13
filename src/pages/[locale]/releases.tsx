@@ -128,7 +128,7 @@ export default function ReleasesPage({ locale, data }: Props) {
                 </Label>
                 <Input
                   id="search"
-                  placeholder="e.g. v1.0.0"
+                  placeholder="e.g. v2.0.0"
                   value={query}
                   onChange={(e) =>
                     onFilterChange(() => setQuery(e.target.value))

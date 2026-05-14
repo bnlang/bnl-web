@@ -25,13 +25,13 @@ Every English keyword has a Bangla synonym — both forms parse to the same `Tok
 
 ### Reserved keywords (English / Bangla)
 
-- **Declarations**: `var` / `চলক`, `function` / `ফাংশন`, `class` / `শ্রেণী`, `extends` / `প্রসারিত`, `super` / `উপরের`, `import` / `আমদানি`, `as` / `যেমন`
+- **Declarations**: `var` / `চলক` / `ধরি`, `function` / `ফাংশন`, `class` / `শ্রেণী`, `extends` / `প্রসারিত`, `super` / `উপরের`, `import` / `আমদানি`, `as` / `যেমন`
 - **Control flow**: `if` / `যদি`, `else` / `নাহলে`, `for` / `প্রতি`, `of` / `এর`, `while` / `যতক্ষণ`, `return` / `ফেরত`
 - **Switch**: `switch` / `বিকল্প`, `case` / `অবস্থা`, `default` / `অন্যথায়`
 - **Loop / switch flow**: `break` / `থামুন`, `continue` / `চলুন`
 - **Error handling**: `try` / `চেষ্টা`, `catch` / `ধরুন`, `throw` / `নিক্ষেপ`, `finally` / `অবশেষে`
 - **Async**: `wait` / `অপেক্ষা` (suspend on a `Future` — works at top-level inside any function, no `async` marker required)
-- **Literals**: `true` / `সত্য`, `false` / `মিথ্যা`, `null` / `নাই`
+- **Literals**: `true` / `সত্য`, `false` / `মিথ্যা`, `null` / `নাই` / `নাল`
 - **Word-form logical operators**: `and` / `এবং`, `or` / `অথবা`, `not` / `না`
 
 ### NOT reserved (deliberately absent)
@@ -66,7 +66,7 @@ Available in every program without an `import`. Bangla aliases bind the same cal
 
 ### Built-in types
 
-`number` (double-precision float — no integer/float distinction), `string` (UTF-8 bytes; double-quoted only, no single quotes, no backtick templates), `bool`, `null`, `list` (`[...]`), `map` (`{key: value, ...}`), `function` (first-class), `class`, `instance`, `module`, `future` (from the `Future` global)
+`number` (double-precision float — no integer/float distinction; numeric literals accept ASCII digits `0-9`, Bangla digits `০-৯`, or a mix — `১২৩` and `123` are the same value), `string` (UTF-8 bytes; double-quoted only, no single quotes, no backtick templates), `bool`, `null`, `list` (`[...]`), `map` (`{key: value, ...}`), `function` (first-class), `class`, `instance`, `module`, `future` (from the `Future` global)
 
 ### Importable standard-library modules
 

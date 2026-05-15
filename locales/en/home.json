@@ -133,6 +133,10 @@
             }
         ]
     },
+    "video": {
+        "title": "See Bnlang in action",
+        "subtitle": "Watch real Bnlang code being written with Bangla keywords — যদি, যতক্ষণ, ফাংশন, শ্রেণী and more — and the terminal output show up live."
+    },
     "ecosystem": {
         "title": "Ecosystem",
         "subtitle": "Bnlang comes with strong foundations and an open package ecosystem—ready for classrooms, startups, and production systems alike.",

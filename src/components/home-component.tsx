@@ -22,6 +22,7 @@ import {
   GitBranch,
 } from "lucide-react";
 import SingleCodeBlock from "./SingleCodeblock";
+import { LiteYouTube } from "./lite-youtube";
 import { getLatestVersionString } from "@/lib/routes";
 
 interface HomeProps {
@@ -444,6 +445,26 @@ export function HomeComponent({ locale }: HomeProps) {
                   {t("home.why.cta_secondary")}
                 </Link>
               </Button>
+            </div>
+          </div>
+        </section>
+
+        <section className="w-full py-14 sm:py-20 border-t border-neutral-200/60 dark:border-neutral-800">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <header className={`text-center max-w-2xl mx-auto ${locale === "bn" ? "font-bn" : ""}`}>
+              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight bg-gradient-to-r from-bd-green to-bd-red bg-clip-text text-transparent">
+                {t("home.video.title")}
+              </h2>
+              <p className="mt-3 text-muted-foreground">
+                {t("home.video.subtitle")}
+              </p>
+            </header>
+
+            <div className="mt-8 relative rounded-2xl overflow-hidden ring-1 ring-black/5 dark:ring-white/10 shadow-xl">
+              <div className="absolute -z-10 inset-0 blur-3xl bg-gradient-to-tr from-bd-green/20 to-bd-red/20" />
+              <div className="relative aspect-video w-full">
+                <LiteYouTube id="Kya3221v1Y0" title="Bnlang in action" />
+              </div>
             </div>
           </div>
         </section>

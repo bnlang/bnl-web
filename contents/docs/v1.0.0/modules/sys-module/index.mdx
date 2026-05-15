@@ -10,57 +10,143 @@ bnDescription: প্রসেস তথ্য — argv, environment variables, 
 
 
 <I18nEnglish>
-Process-level information: command-line arguments, environment variables, current directory, and a way to exit with a status code.
+Process-level information and control: identity (platform, version, arch, pid, hostname, user), command-line arguments, environment variables, working directory, and process termination.
 
 ```bnl
 import "sys" as sys;
 
-print("argv count:", sys.argc());
-print("user:",       sys.env("USER"));
-print("cwd:",        sys.cwd());
+print("bnl",   sys.version, "on", sys.platform, sys.arch);
+print("pid:",  sys.pid());
+print("user:", sys.username());
+print("argv:", sys.argv());
+print("cwd:",  sys.cwd());
 ```
 
-## API
+## Constants
+
+| Name | Description |
+|---|---|
+| `sys.platform` | `"windows"`, `"linux"`, `"darwin"`, … |
+| `sys.version` | bnl interpreter version string. |
+| `sys.arch` | CPU architecture: `"x86_64"`, `"arm64"`, `"x86"`, `"arm"`, or `"unknown"`. |
+
+## Command-line arguments
 
 | Function | Description |
 |---|---|
-| `sys.argc()` → number | Count of arguments passed to the script (not counting `bnl` itself or the script path). |
-| `sys.arg(i)` → string | The *i*-th argument (0-indexed). Throws on out-of-range. |
+| `sys.argc()` → number | Count of args passed after the script path. |
+| `sys.arg(i)` → string \| null | The *i*-th argument (0-indexed), or null if out of range. |
+| `sys.argv()` → list | All CLI args as a list of strings. |
+
+## Environment variables
+
+| Function | Description |
+|---|---|
 | `sys.env(name)` → string \| null | Look up one environment variable. |
+| `sys.setenv(name, value)` → null | Set or overwrite an env var. Throws if name is empty or contains `=`. |
+| `sys.unsetenv(name)` → null | Remove an env var. No-op if it doesn't exist. |
 | `sys.envs()` → map | Snapshot of every environment variable as a `{KEY: value}` map. |
-| `sys.cwd()` → string | The process's current working directory. |
-| `sys.exit(code)` | Exit the process with the given status code. |
-| `sys.platform` | `"windows"`, `"linux"`, or `"macos"`. |
+
+## Process control
+
+| Function | Description |
+|---|---|
+| `sys.exit(code)` | Terminate with the given exit code. Runs atexit handlers. |
+| `sys.abort()` | Abnormal termination — no atexit handlers; dumps core on Unix. Use for "unrecoverable" cases where `exit` would be misleading. |
+
+## Process & host info
+
+| Function | Description |
+|---|---|
+| `sys.pid()` → number | Current process id. |
+| `sys.cpu_count()` → number | Number of logical CPUs, or 0 if unknown. |
+| `sys.hostname()` → string | Machine hostname. |
+| `sys.username()` → string \| null | Current user name, or null if unknown. |
+| `sys.home()` → string \| null | User home directory (`$HOME` on Unix, `%USERPROFILE%` on Windows), or null if unset. |
+| `sys.executable()` → string | Full path to the running bnl interpreter binary. |
+| `sys.script()` → string \| null | Path of the entry `.bnl` script, or null for REPL / `-e` inline code. |
+
+## Paths
+
+| Function | Description |
+|---|---|
+| `sys.cwd()` → string | Current working directory. UTF-8 on every OS. |
+| `sys.chdir(path)` → null | Change the working directory. Throws if the path is invalid. |
+| `sys.tempdir()` → string | OS temp directory (`%TEMP%` / `/tmp` / `$TMPDIR`). |
 
 ## See also
-- [`cli`](/en/docs/v1.0.0/modules/cli-module) — declarative CLI argument parsing on top of `sys.argc`/`sys.arg`.
+- [`cli`](/en/docs/v1.0.0/modules/cli-module) — declarative CLI argument parsing on top of `sys.argv` / `sys.arg`.
 - [`dotenv`](/en/docs/v1.0.0/modules/dotenv-module) — read `.env` files into env-style maps.
+- [`path`](/en/docs/v1.0.0/modules/path-module) — manipulate the strings returned by `sys.cwd` / `sys.executable` / `sys.script`.
 </I18nEnglish>
 
 <I18nBangla>
-প্রসেস-লেভেল তথ্য: কমান্ড-লাইন আর্গুমেন্ট, environment variables, কারেন্ট ডিরেক্টরি, এবং একটি status code নিয়ে exit করার উপায়।
+প্রসেস-লেভেল তথ্য ও নিয়ন্ত্রণ: identity (platform, version, arch, pid, hostname, user), কমান্ড-লাইন আর্গুমেন্ট, environment variables, working directory, এবং প্রসেস টার্মিনেশন।
 
 ```bnl
 import "sys" as sys;
 
-print("argv count:", sys.argc());
-print("user:",       sys.env("USER"));
-print("cwd:",        sys.cwd());
+print("bnl",   sys.version, "on", sys.platform, sys.arch);
+print("pid:",  sys.pid());
+print("user:", sys.username());
+print("argv:", sys.argv());
+print("cwd:",  sys.cwd());
 ```
 
-## API
+## কনস্ট্যান্ট
+
+| নাম | বর্ণনা |
+|---|---|
+| `sys.platform` | `"windows"`, `"linux"`, `"darwin"`, … |
+| `sys.version` | bnl ইন্টারপ্রেটারের ভার্সন স্ট্রিং। |
+| `sys.arch` | CPU আর্কিটেকচার: `"x86_64"`, `"arm64"`, `"x86"`, `"arm"`, বা `"unknown"`। |
+
+## কমান্ড-লাইন আর্গুমেন্ট
 
 | ফাংশন | বর্ণনা |
 |---|---|
-| `sys.argc()` → number | স্ক্রিপ্টে পাঠানো আর্গুমেন্টের সংখ্যা। |
-| `sys.arg(i)` → string | *i*-তম আর্গুমেন্ট (0-ইনডেক্সড)। |
+| `sys.argc()` → number | স্ক্রিপ্ট পাথের পরে পাঠানো আর্গুমেন্টের সংখ্যা। |
+| `sys.arg(i)` → string \| null | *i*-তম আর্গুমেন্ট (0-ইনডেক্সড), বা out-of-range হলে null। |
+| `sys.argv()` → list | সব CLI আর্গুমেন্ট স্ট্রিং-এর list হিসেবে। |
+
+## Environment variables
+
+| ফাংশন | বর্ণনা |
+|---|---|
 | `sys.env(name)` → string \| null | একটি environment variable পড়ুন। |
-| `sys.envs()` → map | সব environment variables-এর snapshot। |
-| `sys.cwd()` → string | কারেন্ট ওয়ার্কিং ডিরেক্টরি। |
-| `sys.exit(code)` | প্রদত্ত status code দিয়ে exit। |
-| `sys.platform` | `"windows"`, `"linux"`, বা `"macos"`। |
+| `sys.setenv(name, value)` → null | একটি env var সেট/ওভাররাইট করুন। নাম খালি বা `=` থাকলে throw করে। |
+| `sys.unsetenv(name)` → null | একটি env var রিমুভ করুন। না থাকলে no-op। |
+| `sys.envs()` → map | সব environment variables-এর `{KEY: value}` map snapshot। |
+
+## প্রসেস কন্ট্রোল
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `sys.exit(code)` | প্রদত্ত exit code দিয়ে terminate। atexit handlers চলে। |
+| `sys.abort()` | অস্বাভাবিক টার্মিনেশন — atexit handlers চলে না; Unix-এ core dump। "Unrecoverable" পরিস্থিতিতে `exit`-এর বদলে। |
+
+## প্রসেস ও হোস্ট তথ্য
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `sys.pid()` → number | বর্তমান process id। |
+| `sys.cpu_count()` → number | লজিকাল CPU সংখ্যা, অজানা হলে 0। |
+| `sys.hostname()` → string | মেশিনের hostname। |
+| `sys.username()` → string \| null | বর্তমান user-এর নাম, অজানা হলে null। |
+| `sys.home()` → string \| null | User home directory (`$HOME` Unix-এ, `%USERPROFILE%` Windows-এ), unset হলে null। |
+| `sys.executable()` → string | রানিং bnl ইন্টারপ্রেটার বাইনারির full path। |
+| `sys.script()` → string \| null | এন্ট্রি `.bnl` script-এর path, REPL / `-e` ইনলাইন কোডের জন্য null। |
+
+## পাথ
+
+| ফাংশন | বর্ণনা |
+|---|---|
+| `sys.cwd()` → string | কারেন্ট ওয়ার্কিং ডিরেক্টরি। সব OS-এ UTF-8। |
+| `sys.chdir(path)` → null | ওয়ার্কিং ডিরেক্টরি পরিবর্তন। পাথ invalid হলে throw। |
+| `sys.tempdir()` → string | OS temp ডিরেক্টরি (`%TEMP%` / `/tmp` / `$TMPDIR`)। |
 
 ## আরও দেখুন
-- [`cli`](/bn/docs/v1.0.0/modules/cli-module) — `sys.argc`/`sys.arg` এর উপর ডিক্লেয়ারেটিভ CLI পার্সিং।
+- [`cli`](/bn/docs/v1.0.0/modules/cli-module) — `sys.argv` / `sys.arg`-এর উপর ডিক্লেয়ারেটিভ CLI পার্সিং।
 - [`dotenv`](/bn/docs/v1.0.0/modules/dotenv-module) — `.env` ফাইল env-স্টাইল ম্যাপে পড়ুন।
+- [`path`](/bn/docs/v1.0.0/modules/path-module) — `sys.cwd` / `sys.executable` / `sys.script` থেকে পাওয়া স্ট্রিং নিয়ে কাজ করুন।
 </I18nBangla>

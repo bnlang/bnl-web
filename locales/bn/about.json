@@ -63,7 +63,7 @@
     },
     "how": {
         "title": "কীভাবে কাজ করে (এবং কেন)",
-        "lead": "Bnlang হলো আধুনিক C++ এ লেখা একটি নেটিভ, ট্রি-ওয়াকিং ইন্টারপ্রেটার। এটি libuv ব্যবহার করে অ্যাসিঙ্ক I/O চালায় এবং OpenSSL, llhttp, zlib, SQLite, libpq, libmariadb, mongo-c-driver এর মতো প্রমাণিত লাইব্রেরির সাথে মিলিত হয়—তাই স্কুল ও কোম্পানি Windows, Linux ও macOS-এ একটি স্বনির্ভর বাইনারি পায় যা সরাসরি চলে।",
+        "lead": "Bnlang হলো আধুনিক C++ এ লেখা একটি নেটিভ, ট্রি-ওয়াকিং ইন্টারপ্রেটার। এটি libuv ব্যবহার করে অ্যাসিঙ্ক I/O চালায় এবং OpenSSL, llhttp, zlib, SQLite, libpq, mongo-c-driver এর মতো প্রমাণিত লাইব্রেরির সাথে মিলিত হয়—তাই স্কুল ও কোম্পানি Windows, Linux ও macOS-এ একটি স্বনির্ভর বাইনারি পায় যা সরাসরি চলে।",
         "frontend": {
             "title": "ফ্রন্টএন্ড: Lexer, Parser, Checker",
             "points": [
@@ -108,8 +108,8 @@
                     "desc": "দ্রুত, সিকিউরিটি-অডিটেড HTTP/1.1 পার্সার — বিল্ট-ইন ওয়েব সার্ভার ও ক্লায়েন্ট ব্যবহার করে।"
                 },
                 {
-                    "name": "SQLite / libpq / libmariadb / mongo-c-driver",
-                    "desc": "বিল্ট-ইন ডাটাবেস ড্রাইভার — এমবেডেড SQLite এবং PostgreSQL, MySQL/MariaDB, MongoDB এর জন্য প্রথম-শ্রেণির ক্লায়েন্ট।"
+                    "name": "SQLite / libpq / mongo-c-driver",
+                    "desc": "বিল্ট-ইন ডাটাবেস ড্রাইভার — এমবেডেড SQLite এবং PostgreSQL, MongoDB এর জন্য প্রথম-শ্রেণির ক্লায়েন্ট।"
                 },
                 {
                     "name": "zlib",
@@ -259,8 +259,8 @@
             "desc": "দ্রুত, সিকিউরিটি-অডিটেড HTTP/1.1 পার্সার। বিল্ট-ইন HTTP রিকোয়েস্ট ও রেসপন্স পার্সার চালায়, যা ওয়েব সার্ভার ও ক্লায়েন্ট ব্যবহার করে।"
         },
         {
-            "name": "SQLite · libpq · libmariadb · mongo-c-driver",
-            "desc": "ডাটাবেস ড্রাইভার কম্পাইল ইন। এমবেডেড SQLite; PostgreSQL এর জন্য libpq; MySQL/MariaDB এর জন্য libmariadb (LGPL); MongoDB এর জন্য mongo-c-driver — সবই একই `import \"pg\"` / `import \"mysql\"` ইত্যাদি API এর পিছনে।"
+            "name": "SQLite · libpq · mongo-c-driver",
+            "desc": "ডাটাবেস ড্রাইভার কম্পাইল ইন। এমবেডেড SQLite; PostgreSQL এর জন্য libpq; MongoDB এর জন্য mongo-c-driver — সবই একই `import \"pg\"` / `import \"sqlite\"` ইত্যাদি API এর পিছনে।"
         },
         {
             "name": "zlib",

@@ -153,7 +153,6 @@ const DOC_TREE: DocItem[] = [
         // Database
         { slug: "sqlite-module",   title: "sqlite",   titleBn: "sqlite" },
         { slug: "pg-module",       title: "pg",       titleBn: "pg" },
-        { slug: "mysql-module",    title: "mysql",    titleBn: "mysql" },
         { slug: "mongo-module",    title: "mongo",    titleBn: "mongo" },
         // Process & test
         { slug: "exec-module",     title: "exec",     titleBn: "exec" },

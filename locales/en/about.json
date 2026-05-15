@@ -63,7 +63,7 @@
     },
     "how": {
         "title": "How it works (why these choices)",
-        "lead": "Bnlang is a native, tree-walking interpreter written in modern C++. It embeds libuv for async I/O and pairs with proven libraries — OpenSSL, llhttp, zlib, SQLite, libpq, libmariadb, mongo-c-driver — so schools and companies get one self-contained binary that just runs on Windows, Linux, and macOS.",
+        "lead": "Bnlang is a native, tree-walking interpreter written in modern C++. It embeds libuv for async I/O and pairs with proven libraries — OpenSSL, llhttp, zlib, SQLite, libpq, mongo-c-driver — so schools and companies get one self-contained binary that just runs on Windows, Linux, and macOS.",
         "frontend": {
             "title": "Frontend: Lexer, Parser, Checker",
             "points": [
@@ -108,8 +108,8 @@
                     "desc": "Fast, security-audited HTTP/1.1 parser used by the built-in web server and client."
                 },
                 {
-                    "name": "SQLite / libpq / libmariadb / mongo-c-driver",
-                    "desc": "Built-in database drivers — embedded SQLite plus first-class clients for PostgreSQL, MySQL/MariaDB, and MongoDB."
+                    "name": "SQLite / libpq / mongo-c-driver",
+                    "desc": "Built-in database drivers — embedded SQLite plus first-class clients for PostgreSQL and MongoDB."
                 },
                 {
                     "name": "zlib",
@@ -259,8 +259,8 @@
         "desc": "Fast, security-audited HTTP/1.1 parser. Powers the built-in HTTP request + response parsers used by the web server and client."
       },
       {
-        "name": "SQLite · libpq · libmariadb · mongo-c-driver",
-        "desc": "Database drivers compiled in. SQLite for embedded use; libpq for PostgreSQL; libmariadb (LGPL) for MySQL/MariaDB; mongo-c-driver for MongoDB — all behind a uniform `import \"pg\"` / `import \"mysql\"` / etc. API."
+        "name": "SQLite · libpq · mongo-c-driver",
+        "desc": "Database drivers compiled in. SQLite for embedded use; libpq for PostgreSQL; mongo-c-driver for MongoDB — all behind a uniform `import \"pg\"` / `import \"sqlite\"` / etc. API."
       },
       {
         "name": "zlib",

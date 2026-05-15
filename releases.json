@@ -99,8 +99,8 @@
                     "type": "binary",
                     "platform": "linux",
                     "arch": "x64",
-                    "sizeLabel": "5.72 MB",
-                    "sha256": "sha256:b6289a4182def0dd0df1cc044250d28e313e1ff0e21f5d7c2c5f9594c1b78141",
+                    "sizeLabel": "5.6 MB",
+                    "sha256": "sha256:305b04872325f07b04d1c2e163c9e61f64a1a6fc110597bcb6e8a007bcdc59a5",
                     "contentType": "application/gzip"
                 },
                 {
@@ -108,8 +108,8 @@
                     "type": "binary",
                     "platform": "linux",
                     "arch": "x86",
-                    "sizeLabel": "5.83 MB",
-                    "sha256": "sha256:31a644fff66d19702f34177ca6a4b7c69ef27a7a8dfd1bf6cfe813b41cb099f9",
+                    "sizeLabel": "5.71 MB",
+                    "sha256": "sha256:2c284b8ece07fd51ac2fb064c8539e77ac8bd882313c937706e8a4834318e650",
                     "contentType": "application/gzip"
                 },
                 {
@@ -117,8 +117,8 @@
                     "type": "binary",
                     "platform": "macos",
                     "arch": "arm64",
-                    "sizeLabel": "4.18 MB",
-                    "sha256": "sha256:de19e895248f4828afcddd8883dc2bb3ca4bb13d867d71d9a1bb8fc4f99a9bd2",
+                    "sizeLabel": "4.09 MB",
+                    "sha256": "sha256:9337a4f41e0cae6f84f6eb407f0a72bc9c8e63785d4dac87be803ab82342675b",
                     "contentType": "application/gzip"
                 },
                 {
@@ -126,8 +126,8 @@
                     "type": "binary",
                     "platform": "macos",
                     "arch": "x64",
-                    "sizeLabel": "4 MB",
-                    "sha256": "sha256:58f7726242bf42ec9345a718de2f1622c083f72c34903d70c3a661b4df1c42b2",
+                    "sizeLabel": "3.91 MB",
+                    "sha256": "sha256:4f03473539332b71408f7f5d6ade98d5c27731664341a6237b54d3d777c169c7",
                     "contentType": "application/gzip"
                 },
                 {
@@ -135,8 +135,8 @@
                     "type": "binary",
                     "platform": "windows",
                     "arch": "x64",
-                    "sizeLabel": "3.90 MB",
-                    "sha256": "sha256:d1f6c0503e1701787094bb2ff215de1cf4692525a7679b35bba0163a74cb66f5",
+                    "sizeLabel": "3.82 MB",
+                    "sha256": "sha256:b3809620be0c438a02569146e921070536f214b34734fcd992d987a3ee225112",
                     "contentType": "application/zip"
                 },
                 {
@@ -144,8 +144,8 @@
                     "type": "binary",
                     "platform": "windows",
                     "arch": "x86",
-                    "sizeLabel": "3.28 MB",
-                    "sha256": "sha256:233957b620e5a1e0fddef07eb4adc422791b3b8865fc353e26f55ae8ef991a37",
+                    "sizeLabel": "3.21 MB",
+                    "sha256": "sha256:46d74aeb3d190578db36dc913a10ce0390314a840fb6a90b390cc299c93a6a02",
                     "contentType": "application/zip"
                 },
                 {
@@ -153,8 +153,8 @@
                     "type": "installer",
                     "platform": "windows",
                     "arch": "x64",
-                    "sizeLabel": "3.16 MB",
-                    "sha256": "sha256:c482949fc1fb198a3123a519dc6149827032cb59839d3ae6366c6ba399c8cc2e",
+                    "sizeLabel": "3.08 MB",
+                    "sha256": "sha256:71f56817941e04a3443cef5c9154537e9b2f40166478411cab197b78bf598a56",
                     "contentType": "application/vnd.microsoft.portable-executable"
                 },
                 {
@@ -162,8 +162,8 @@
                     "type": "installer",
                     "platform": "windows",
                     "arch": "x86",
-                    "sizeLabel": "2.73 MB",
-                    "sha256": "sha256:5dc1b0235f52b5c330dbb8aab9764d451b8ae780349e809b977633ffdec82cf1",
+                    "sizeLabel": "2.67 MB",
+                    "sha256": "sha256:e39dea397112e3cc6a8f1d5ee038e50355ff8e59a15269e1bc9513a04db3aad2",
                     "contentType": "application/vnd.microsoft.portable-executable"
                 }
             ]

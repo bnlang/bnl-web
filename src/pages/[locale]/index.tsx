@@ -42,8 +42,8 @@ export default function HomePage({ locale }: Props) {
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       description:
         locale === "bn"
-          ? "Bnlang হলো একটি প্রোগ্রামিং ভাষা যা বাংলা এবং ইংরেজি উভয় ভাষায় কোড লেখা এবং চালানোর সুবিধা দেয়।"
-          : "Bnlang is a programming language that lets you write code in Bangla or English and run it effortlessly.",
+          ? "Bnlang হলো একটি আধুনিক বাংলা প্রোগ্রামিং ভাষা ও রানটাইম, যেখানে বাংলা ও ইংরেজি উভয় ভাষায় কোড লেখা এবং রান করা যায়।"
+          : "Bnlang is a modern Bangla programming language and runtime where you can write and run code in both Bangla and English.",
     },
   ];
 

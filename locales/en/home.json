@@ -6,7 +6,7 @@
     "hero": {
         "badge": "Bnlang · Programming Language",
         "title": "Write code in",
-        "subtitle": "Bnlang is a practical, expressive language and runtime made with Bangladesh in mind. Learn and build in your mother language without losing engineering rigor—clear syntax, predictable semantics, and production-ready tooling.",
+        "subtitle": "Bnlang is a modern Bangla programming language and runtime where developers can write code in both Bangla and English. It makes learning programming, understanding code, and building software in a native language more accessible and intuitive. With clean syntax, powerful tooling, and a reliable runtime, Bnlang provides a simple yet professional experience for modern software development.",
         "cta": {
             "docs": "Documentation",
             "getStarted": "Get Started",

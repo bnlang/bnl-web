@@ -250,16 +250,16 @@ export function HomeComponent({ locale }: HomeProps) {
 
               {locale === "en" ? (
                 <h1 className="text-4xl font-extrabold">
-                  <span className="text-bd-green">Write code in</span>{" "}
+                  <span className="text-bd-green">Programming in Your</span>{" "}
                   <span className="text-bd-red">
-                    বাংলা এবং English
+                    Mother Language, Bangla
                   </span>
                 </h1>
               ) : locale === "bn" ? (
                 <h1 className="text-4xl font-extrabold">
-                  <span className="text-bd-green font-bn">কোড লিখুন</span>{" "}
+                  <span className="text-bd-green font-bn">প্রোগ্রামিং করুন</span>{" "}
                   <span className="text-bd-red">
-                    <span className="font-bn">বাংলা</span>,<span className="font-bn">এবং</span> English <span className="font-bn">ভাষায়</span>
+                    <span className="font-bn">মাতৃভাষা বাংলায়</span>
                   </span>
                 </h1>
               ) : (
@@ -664,7 +664,7 @@ export function HomeComponent({ locale }: HomeProps) {
         <section className="w-full py-14 sm:py-16 border-t">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <Users className="mx-auto h-10 w-10 text-bd-green" />
-            <h2 className="text-2xl sm:text-3xl font-bold mt-2 bg-gradient-to-r from-bd-green to-bd-red bg-clip-text text-transparent">
+            <h2 className="text-2xl sm:text-3xl font-bold mt-2 pt-2 bg-gradient-to-r from-bd-green to-bd-red bg-clip-text text-transparent">
               {t("home.community.title")}
             </h2>
             <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">

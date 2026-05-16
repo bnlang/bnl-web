@@ -5,15 +5,37 @@
 #   curl -fsSL https://bnlang.dev/install.sh | sh
 #   curl -fsSL https://bnlang.dev/install.sh | sh -s -- v1.0.0
 #
+# When run as root (or via sudo), Bnlang installs system-wide to
+# /usr/local/bin (which is already on PATH for all users). Otherwise it
+# installs into the invoking user's $HOME/.bnlang/bin and adds that
+# directory to PATH via the user's shell rc file.
+#
 # Environment overrides:
 #   BNL_VERSION       version to install (default: latest stable from GitHub)
-#   BNL_INSTALL_DIR   install location  (default: $HOME/.bnlang/bin)
+#   BNL_INSTALL_DIR   install location
+#                     default (root):     /usr/local/bin
+#                     default (non-root): $HOME/.bnlang/bin
 
 set -e
 
 BNL_VERSION="${BNL_VERSION:-${1:-}}"
-INSTALL_DIR="${BNL_INSTALL_DIR:-$HOME/.bnlang/bin}"
 REPO="bnlang/bnl-release"
+
+# --- detect privilege ---
+# `id -u` is POSIX; 0 == root.
+if [ "$(id -u 2>/dev/null || echo 1000)" = "0" ]; then
+    is_root=1
+else
+    is_root=0
+fi
+
+if [ -n "$BNL_INSTALL_DIR" ]; then
+    INSTALL_DIR="$BNL_INSTALL_DIR"
+elif [ "$is_root" = "1" ]; then
+    INSTALL_DIR="/usr/local/bin"
+else
+    INSTALL_DIR="$HOME/.bnlang/bin"
+fi
 
 # --- detect OS ---
 os_raw="$(uname -s)"
@@ -118,48 +140,52 @@ done
 echo "Installed bnl to $INSTALL_DIR"
 
 # --- wire up PATH ---
+# Skip PATH wire-up if the install dir is already on PATH, or if we did a
+# root install to a default system location (already on every user's PATH).
 case ":$PATH:" in
-    *":$INSTALL_DIR:"*)
-        path_already_set=1
-        ;;
-    *)
-        path_already_set=0
-        shell_name="$(basename "${SHELL:-/bin/sh}")"
-        case "$shell_name" in
-            zsh)
-                rc="$HOME/.zshrc"
-                ;;
-            bash)
-                if [ "$os" = "macos" ] && [ -f "$HOME/.bash_profile" ]; then
-                    rc="$HOME/.bash_profile"
-                else
-                    rc="$HOME/.bashrc"
-                fi
-                ;;
-            fish)
-                rc="$HOME/.config/fish/config.fish"
-                mkdir -p "$(dirname "$rc")"
-                ;;
-            *)
-                rc="$HOME/.profile"
-                ;;
-        esac
-
-        if [ "$shell_name" = "fish" ]; then
-            line="fish_add_path \"$INSTALL_DIR\""
-        else
-            line="export PATH=\"$INSTALL_DIR:\$PATH\""
-        fi
-
-        if [ -f "$rc" ] && grep -Fqs "$INSTALL_DIR" "$rc"; then
-            :
-        else
-            printf '\n# bnlang\n%s\n' "$line" >> "$rc"
-            echo "Added $INSTALL_DIR to PATH in $rc"
-            echo "Open a new shell, or run: source \"$rc\""
-        fi
-        ;;
+    *":$INSTALL_DIR:"*) path_already_set=1 ;;
+    *)                  path_already_set=0 ;;
 esac
+
+if [ "$path_already_set" -eq 0 ] && { [ "$is_root" != "1" ] || [ -n "$BNL_INSTALL_DIR" ]; }; then
+    shell_name="$(basename "${SHELL:-/bin/sh}")"
+    case "$shell_name" in
+        zsh)
+            rc="$HOME/.zshrc"
+            ;;
+        bash)
+            if [ "$os" = "macos" ] && [ -f "$HOME/.bash_profile" ]; then
+                rc="$HOME/.bash_profile"
+            else
+                rc="$HOME/.bashrc"
+            fi
+            ;;
+        fish)
+            rc="$HOME/.config/fish/config.fish"
+            mkdir -p "$(dirname "$rc")"
+            ;;
+        *)
+            rc="$HOME/.profile"
+            ;;
+    esac
+
+    if [ "$shell_name" = "fish" ]; then
+        line="fish_add_path \"$INSTALL_DIR\""
+    else
+        line="export PATH=\"$INSTALL_DIR:\$PATH\""
+    fi
+
+    if [ -f "$rc" ] && grep -Fqs "$INSTALL_DIR" "$rc"; then
+        :
+    else
+        printf '\n# bnlang\n%s\n' "$line" >> "$rc"
+        echo "Added $INSTALL_DIR to PATH in $rc"
+        echo "Open a new shell, or run: source \"$rc\""
+    fi
+elif [ "$path_already_set" -eq 0 ]; then
+    # Root install to system location — already on PATH for everyone.
+    path_already_set=1
+fi
 
 echo
 echo "Done. Verify with:"

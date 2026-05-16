@@ -153,12 +153,27 @@ try {
     # System-wide install (Program Files) uses Machine PATH so every user
     # picks it up. User-writable override uses User PATH so admin isn't
     # needed.
+    #
+    # Duplicate detection runs each entry through Normalize-PathEntry so that
+    # malformed legacy entries (extra backslashes, trailing slash, mixed
+    # whitespace) collapse to the same key as the canonical form -- otherwise
+    # a reinstall over an older buggy install would append a second copy.
+    function Normalize-PathEntry {
+        param([string]$s)
+        if ([string]::IsNullOrWhiteSpace($s)) { return '' }
+        $s = $s.Trim()
+        if ($s.StartsWith('\\')) { $s = '\\' + (($s.TrimStart('\')) -replace '\\+','\') }
+        else { $s = $s -replace '\\+','\' }
+        return $s.TrimEnd('\')
+    }
+
     $pathScope = if ($needsAdmin) { "Machine" } else { "User" }
     $existing  = [Environment]::GetEnvironmentVariable("Path", $pathScope)
+    $installDirN = Normalize-PathEntry $InstallDir
     $alreadyOnPath = $false
     if ($existing) {
         foreach ($p in $existing -split ';') {
-            if ($p.Trim().TrimEnd('\') -ieq $InstallDir.TrimEnd('\')) {
+            if ((Normalize-PathEntry $p) -ieq $installDirN) {
                 $alreadyOnPath = $true
                 break
             }
@@ -166,15 +181,15 @@ try {
     }
 
     if (-not $alreadyOnPath) {
-        $newPath = if ([string]::IsNullOrEmpty($existing)) { $InstallDir } else { "$existing;$InstallDir" }
+        $newPath = if ([string]::IsNullOrEmpty($existing)) { $installDirN } else { "$existing;$installDirN" }
         [Environment]::SetEnvironmentVariable("Path", $newPath, $pathScope)
-        Write-Host "Added $InstallDir to the $pathScope PATH."
+        Write-Host "Added $installDirN to the $pathScope PATH."
         Write-Host "Open a new terminal for it to take effect."
     }
 
     # Make it usable in the current session too.
-    if (-not (($env:Path -split ';') -contains $InstallDir)) {
-        $env:Path = "$env:Path;$InstallDir"
+    if (-not (($env:Path -split ';' | ForEach-Object { Normalize-PathEntry $_ }) -contains $installDirN)) {
+        $env:Path = "$env:Path;$installDirN"
     }
 }
 finally {

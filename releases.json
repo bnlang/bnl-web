@@ -153,8 +153,8 @@
                     "type": "installer",
                     "platform": "windows",
                     "arch": "x64",
-                    "sizeLabel": "3.08 MB",
-                    "sha256": "sha256:36d119bb97e2ff1959dbf96799725675fd8d25a141ecfeeee6f3eb32f04516d5",
+                    "sizeLabel": "3.09 MB",
+                    "sha256": "sha256:f5c08ca1a730c5ec6f5c5f626e3443b03618998f029df89c04692c8703ba0890",
                     "contentType": "application/vnd.microsoft.portable-executable"
                 },
                 {
@@ -163,7 +163,7 @@
                     "platform": "windows",
                     "arch": "x86",
                     "sizeLabel": "2.67 MB",
-                    "sha256": "sha256:01554b150ed98760afb4183727f2a5eb46598b2e2e3bc38473788046f33bdccb",
+                    "sha256": "sha256:232a4ee20025560cb66ecb2219670687675d0c6fa71e89686f3848e1bd4901ff",
                     "contentType": "application/vnd.microsoft.portable-executable"
                 }
             ]

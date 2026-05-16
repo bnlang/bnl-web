@@ -10,7 +10,7 @@ import { formatReadableDate } from "@/lib/utils";
 import { Blog } from "@/types/blogs.types";
 import HeadComponent from "@/components/head-component";
 import type { GetServerSideProps } from "next";
-import { normalizeLocale } from "@/lib/i18n";
+import { normalizeLocale, localeHref } from "@/lib/i18n";
 import { loadMdxWithRawContent } from "@/lib/mdx";
 import { MDXRemote } from "next-mdx-remote";
 import CodeBlock from "@/components/CodeBlock";
@@ -143,7 +143,7 @@ function RelatedPosts({
         ) : (
           relatedPosts.map((r) => {
             const title = pickByLocale(r.title, locale);
-            const href = `/${locale}/blogs/${r.slug}`;
+            const href = localeHref(locale, `blogs/${r.slug}`);
             return (
               <div key={String(r._id)} className="space-y-1">
                 <Link
@@ -175,8 +175,36 @@ export default function BlogDetailsSSR({
   source,
   headings,
 }: Props) {
-  const title = pickByLocale(blog?.title, locale);
-  const summary = pickByLocale(blog?.summary, locale);
+  const title = pickByLocale(blog?.title, locale) || "Bnlang Blog";
+  const summary = pickByLocale(blog?.summary, locale) || "Bnlang Blog";
+
+  const ogImage = blog?.thumbnail
+    ? `${process.env.NEXT_PUBLIC_STATIC_CDN_URL || ""}/uploads/blogs/${blog.thumbnail}`
+    : undefined;
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bnlang.dev";
+
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: title,
+      description: summary,
+      inLanguage: locale === "bn" ? "bn-BD" : "en",
+      mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
+      url: canonicalUrl,
+      image: ogImage,
+      datePublished: blog?.createdAt,
+      dateModified: blog?.updatedAt || blog?.createdAt,
+      articleSection: blog?.category,
+      author: { "@type": "Organization", name: "Bnlang" },
+      publisher: {
+        "@type": "Organization",
+        name: "Bnlang",
+        logo: { "@type": "ImageObject", url: `${siteUrl}/images/logo.png` },
+      },
+    },
+  ];
 
   const onTocClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -190,26 +218,17 @@ export default function BlogDetailsSSR({
   return (
     <>
       <HeadComponent
-        title={
-          locale === "bn"
-            ? blog?.title?.bangla
-            : blog?.title?.english || "Bnlang Blog"
-        }
-        description={
-          locale === "bn"
-            ? blog?.summary?.bangla
-            : blog?.summary?.english || "Bnlang Blog"
-        }
+        title={title}
+        description={summary}
         locale={locale}
-        pathname={`/${locale}/blogs/${slug}`}
-        ogImage={`${
-          process.env.NEXT_PUBLIC_STATIC_CDN_URL || ""
-        }/uploads/blogs/${blog?.thumbnail || ""}`}
+        pathname={`blogs/${slug}`}
+        ogImage={ogImage}
         type="article"
+        structuredData={structuredData}
       />
 
       <div className="min-h-screen">
-        <Header />
+        <Header locale={locale} />
         <div className="mx-auto max-w-7xl px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
           <article className="lg:col-span-8">
             <div className="space-y-3">
@@ -299,7 +318,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
 
   const canonicalUrl = `${
     process.env.NEXT_PUBLIC_SITE_URL
-  }/${locale}/blogs/${encodeURIComponent(slug)}`;
+  }${localeHref(locale, `blogs/${encodeURIComponent(slug)}`)}`;
 
   const loaded = await loadMdxWithRawContent(
     locale === "bn"

@@ -21,7 +21,7 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
-import { useT, normalizeLocale } from "@/lib/i18n";
+import { useT, normalizeLocale, localeHref } from "@/lib/i18n";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import HeadComponent from "@/components/head-component";
@@ -232,7 +232,7 @@ function DocNavigation({
       ? filteredSiblings[idx + 1]
       : null;
 
-  const makeFullHref = (href: string) => `/${locale}/docs/${version}/${href}`;
+  const makeFullHref = (href: string) => localeHref(locale, `docs/${version}/${href}`);
 
   return (
     <nav
@@ -288,7 +288,7 @@ type Props =
 export default function DocPage(props: Props) {
   const { locale, version, slug, sidebar, title, description } = props;
   const t = useT(locale);
-  const base = `/${locale}/docs/${version}`;
+  const base = localeHref(locale, `docs/${version}`);
   const heading = title || slug[slug.length - 1];
 
   const I18nEnglish = makeShowIf(locale, "en");
@@ -314,7 +314,7 @@ export default function DocPage(props: Props) {
   }
 
   function getPathBySlug(slug: string): string {
-    return `/${locale}/docs/${version}/${slug}`;
+    return localeHref(locale, `docs/${version}/${slug}`);
   }
 
   return (
@@ -323,7 +323,7 @@ export default function DocPage(props: Props) {
         locale={locale}
         title={`${heading} | Bnlang`}
         description={description}
-        pathname={`/${locale}/docs/${version}/${slug.join("/")}`}
+        pathname={`docs/${version}/${slug.join("/")}`}
       />
       <Header locale={locale} isFullWidth />
 
@@ -357,7 +357,7 @@ export default function DocPage(props: Props) {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${locale}/docs/${version}/introduction`}>
+                  <Link href={localeHref(locale, `docs/${version}/introduction`)}>
                     Docs
                   </Link>
                 </BreadcrumbLink>
@@ -423,7 +423,7 @@ export default function DocPage(props: Props) {
               </p>
               <div className="mt-4">
                 <Button asChild variant="secondary" size="sm">
-                  <a href={`/${locale}/docs/${version}`}>
+                  <a href={localeHref(locale, `docs/${version}`)}>
                     {t("common.docsHome")}
                   </a>
                 </Button>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Logo from "./Logo";
-import { useT } from "@/lib/i18n";
+import { localeHref, useT } from "@/lib/i18n";
 
 export function Footer({
   locale,
@@ -137,14 +137,14 @@ export function Footer({
                     key={`${
                       link.href.startsWith("http")
                         ? link.href
-                        : `/${locale}${link.href}`
+                        : localeHref(locale, link.href)
                     }`}
                   >
                     <Link
                       href={`${
                         link.href.startsWith("http")
                           ? link.href
-                          : `/${locale}${link.href}`
+                          : localeHref(locale, link.href)
                       }`}
                       className="hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
                     >
@@ -169,7 +169,7 @@ export function Footer({
             </p>
             <ul className="flex gap-5 mt-4">
               <li>
-                <Link href={`/${locale}/download`}>
+                <Link href={localeHref(locale, "download")}>
                   <svg
                     width="28"
                     height="28"
@@ -185,7 +185,7 @@ export function Footer({
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/download`}>
+                <Link href={localeHref(locale, "download")}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="28"
@@ -218,7 +218,7 @@ export function Footer({
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/download`}>
+                <Link href={localeHref(locale, "download")}>
                   <img src="/images/linux.png" width={28} alt="Linux" />
                 </Link>
               </li>

@@ -97,7 +97,7 @@ export default function ReleasesPage({ locale, data }: Props) {
         title={title}
         description={description}
         locale={locale}
-        pathname={`/${locale}/releases`}
+        pathname="releases"
       />
       <Header locale={locale} />
 

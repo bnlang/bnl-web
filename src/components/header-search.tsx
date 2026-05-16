@@ -13,6 +13,7 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import { DOC_ROUTES, getLatestVersionString, LEARN_ROUTE } from "@/lib/routes";
+import { localeHref } from "@/lib/i18n";
 
 type SupportedLocale = "en" | "bn";
 
@@ -87,8 +88,8 @@ export function HeaderSearch({
   const docRoutes = DOC_ROUTES[version] as RouteNode[];
 
   const { docsItems, learnItems } = React.useMemo(() => {
-    const docsBase = `/${locale}/docs/${version}`;
-    const learnBase = `/${locale}/learn`;
+    const docsBase = localeHref(locale, `docs/${version}`);
+    const learnBase = localeHref(locale, "learn");
     return {
       docsItems: flattenTree(
         docRoutes as RouteNode[],
@@ -127,19 +128,19 @@ export function HeaderSearch({
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Suggestions">
-          <CommandItem onSelect={() => onSelectHref(`/${locale}/about`)}>
+          <CommandItem onSelect={() => onSelectHref(localeHref(locale, "about"))}>
             <Info className="mr-2 h-4 w-4" />
             <span>About</span>
           </CommandItem>
           <CommandItem
-            onSelect={() => onSelectHref(`/${locale}/learn/get-started`)}
+            onSelect={() => onSelectHref(localeHref(locale, "learn/get-started"))}
           >
             <Book className="mr-2 h-4 w-4" />
             <span>Learn</span>
           </CommandItem>
           <CommandItem
             onSelect={() =>
-              onSelectHref(`/${locale}/docs/${version}/introduction`)
+              onSelectHref(localeHref(locale, `docs/${version}/introduction`))
             }
           >
             <BookOpen className="mr-2 h-4 w-4" />

@@ -20,7 +20,7 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
-import { useT, normalizeLocale } from "@/lib/i18n";
+import { useT, normalizeLocale, localeHref } from "@/lib/i18n";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import HeadComponent from "@/components/head-component";
@@ -208,7 +208,7 @@ function SidebarTree({
 export default function LearnPage(props: Props) {
   const { locale, slug, title, description, sidebar } = props;
   const t = useT(locale);
-  const base = `/${locale}/learn`;
+  const base = localeHref(locale, "learn");
   const heading = title || slug[slug.length - 1];
 
   const I18nEnglish = makeI18nBlock(locale, "en", "I18nEnglish");
@@ -243,7 +243,7 @@ export default function LearnPage(props: Props) {
   }
 
   function getPathBySlug(slug: string): string {
-    return `/${locale}/learn/${slug}`;
+    return localeHref(locale, `learn/${slug}`);
   }
 
   return (
@@ -257,7 +257,7 @@ export default function LearnPage(props: Props) {
         locale={locale}
         title={`${heading} | Bnlang`}
         description={description}
-        pathname={`/${locale}/learn/${slug.join("/")}`}
+        pathname={`learn/${slug.join("/")}`}
       />
       <Header locale={locale} isFullWidth />
 
@@ -277,7 +277,7 @@ export default function LearnPage(props: Props) {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${locale}/learn/get-started`}>Learn</Link>
+                  <Link href={localeHref(locale, "learn/get-started")}>Learn</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
 

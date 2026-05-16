@@ -11,7 +11,7 @@ import { Tutorial } from "@/types/tutorials.types";
 import { formatReadableDate } from "@/lib/utils";
 import HeadComponent from "@/components/head-component";
 import type { GetServerSideProps } from "next";
-import { normalizeLocale } from "@/lib/i18n";
+import { normalizeLocale, localeHref } from "@/lib/i18n";
 import { loadMdxWithRawContent } from "@/lib/mdx";
 import { MDXRemote } from "next-mdx-remote";
 import CodeBlock from "@/components/CodeBlock";
@@ -144,7 +144,7 @@ function RelatedPosts({
         ) : (
           relatedPosts.map((r) => {
             const title = pickByLocale(r.title, locale);
-            const href = `/${locale}/tutorials/${r.slug}`;
+            const href = localeHref(locale, `tutorials/${r.slug}`);
             return (
               <div key={String(r._id)} className="space-y-1">
                 <Link
@@ -185,8 +185,38 @@ export default function TutorialDetailsSSR({
   source,
   headings,
 }: Props) {
-  const title = pickByLocale(tutorial?.title, locale);
-  const summary = pickByLocale(tutorial?.summary, locale);
+  const title = pickByLocale(tutorial?.title, locale) || "Bnlang Tutorials";
+  const summary = pickByLocale(tutorial?.summary, locale) || "Bnlang Tutorials";
+
+  const ogImage = tutorial?.thumbnail
+    ? `${process.env.NEXT_PUBLIC_STATIC_CDN_URL || ""}/uploads/tutorials/${tutorial.thumbnail}`
+    : undefined;
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bnlang.dev";
+
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: title,
+      description: summary,
+      inLanguage: locale === "bn" ? "bn-BD" : "en",
+      mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
+      url: canonicalUrl,
+      image: ogImage,
+      datePublished: tutorial?.createdAt,
+      dateModified: tutorial?.updatedAt || tutorial?.createdAt,
+      articleSection: tutorial?.category,
+      keywords:
+        tutorial?.tags && tutorial.tags.length ? tutorial.tags.join(", ") : undefined,
+      author: { "@type": "Organization", name: "Bnlang" },
+      publisher: {
+        "@type": "Organization",
+        name: "Bnlang",
+        logo: { "@type": "ImageObject", url: `${siteUrl}/images/logo.png` },
+      },
+    },
+  ];
 
   const onTocClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -200,26 +230,17 @@ export default function TutorialDetailsSSR({
   return (
     <>
       <HeadComponent
-        title={
-          locale === "bn"
-            ? tutorial?.title?.bangla
-            : tutorial?.title?.english || "Bnlang Tutorials"
-        }
-        description={
-          locale === "bn"
-            ? tutorial?.summary?.bangla
-            : tutorial?.summary?.english || "Bnlang Tutorials"
-        }
+        title={title}
+        description={summary}
         locale={locale}
-        pathname={`/${locale}/tutorials/${slug}`}
-        ogImage={`${process.env.NEXT_PUBLIC_STATIC_CDN_URL || ""}/uploads/tutorials/${
-          tutorial?.thumbnail || ""
-        }`}
+        pathname={`tutorials/${slug}`}
+        ogImage={ogImage}
         type="article"
+        structuredData={structuredData}
       />
 
       <div className="min-h-screen">
-        <Header />
+        <Header locale={locale} />
         <div className="mx-auto max-w-7xl px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
           <article className="lg:col-span-8">
             <div className="space-y-3">
@@ -322,7 +343,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   if (!data?.result?.status) return { notFound: true };
   const canonicalUrl = `${
     process.env.NEXT_PUBLIC_SITE_URL
-  }/${locale}/tutorials/${encodeURIComponent(slug)}`;
+  }${localeHref(locale, `tutorials/${encodeURIComponent(slug)}`)}`;
 
   const loaded = await loadMdxWithRawContent(
     locale === "bn"

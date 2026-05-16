@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Menu, X } from "lucide-react";
 import Logo from "./Logo";
-import { useT } from "@/lib/i18n";
+import { localeHref, useT } from "@/lib/i18n";
 import Link from "next/link";
 import { ModeToggle } from "./mode-toggle";
 import { LangSwitcher } from "./lang-switcher";
@@ -18,7 +18,7 @@ interface HeaderProps {
   locale?: string;
 }
 
-export function Header({ isFullWidth, locale = "en" }: HeaderProps) {
+export function Header({ isFullWidth, locale = "bn" }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const t = useT(locale);
@@ -32,7 +32,7 @@ export function Header({ isFullWidth, locale = "en" }: HeaderProps) {
           }`}
         >
           <div className="flex items-center space-x-4">
-            <Link href={`/${locale}`}>
+            <Link href={localeHref(locale)}>
               <Logo width={88} />
             </Link>
 
@@ -42,25 +42,25 @@ export function Header({ isFullWidth, locale = "en" }: HeaderProps) {
               }`}
             >
               <Link
-                href={`/${locale}`}
+                href={localeHref(locale)}
                 className="text-md hover:text-bd-green transition-colors"
               >
                 {t("header.home")}
               </Link>
               <Link
-                href={`/${locale}/about`}
+                href={localeHref(locale, "about")}
                 className="text-md hover:text-bd-green transition-colors"
               >
                 {t("header.about")}
               </Link>
               <Link
-                href={`/${locale}/learn/get-started`}
+                href={localeHref(locale, "learn/get-started")}
                 className="text-md hover:text-bd-green transition-colors"
               >
                 {t("header.learn")}
               </Link>
               <Link
-                href={`/${locale}/docs/${getLatestVersionString()}/introduction`}
+                href={localeHref(locale, `docs/${getLatestVersionString()}/introduction`)}
                 className="text-md hover:text-bd-green transition-colors"
               >
                 {t("header.docs")}
@@ -73,7 +73,7 @@ export function Header({ isFullWidth, locale = "en" }: HeaderProps) {
                 {t("header.contribute")}
               </Link>
               <Link
-                href={`/${locale}/tutorials`}
+                href={localeHref(locale, "tutorials")}
                 className="text-md hover:text-bd-green transition-colors"
               >
                 {t("header.tutorials")}
@@ -121,7 +121,7 @@ export function Header({ isFullWidth, locale = "en" }: HeaderProps) {
             <LangSwitcher locale={locale} />
             <ModeToggle />
             <Button variant="bdGreen" asChild className="hidden md:inline-flex">
-              <Link href={`/${locale}/download`}>{t("header.download")}</Link>
+              <Link href={localeHref(locale, "download")}>{t("header.download")}</Link>
             </Button>
             <Button
               variant="ghost"
@@ -142,25 +142,25 @@ export function Header({ isFullWidth, locale = "en" }: HeaderProps) {
           <div className="md:hidden border-t bg-background">
             <nav className="container flex flex-col space-y-4 px-4 py-4">
               <Link
-                href={`/${locale}`}
+                href={localeHref(locale)}
                 className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {t("header.home")}
               </Link>
               <Link
-                href={`/${locale}/about`}
+                href={localeHref(locale, "about")}
                 className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {t("header.about")}
               </Link>
               <Link
-                href={`/${locale}/learn/get-started`}
+                href={localeHref(locale, "learn/get-started")}
                 className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {t("header.learn")}
               </Link>
               <Link
-                href={`/${locale}/docs/${getLatestVersionString()}/introduction`}
+                href={localeHref(locale, `docs/${getLatestVersionString()}/introduction`)}
                 className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {t("header.docs")}
@@ -173,7 +173,7 @@ export function Header({ isFullWidth, locale = "en" }: HeaderProps) {
                 {t("header.contribute")}
               </Link>
               <Link
-                href={`/${locale}/tutorials`}
+                href={localeHref(locale, "tutorials")}
                 className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {t("header.tutorials")}
@@ -185,7 +185,7 @@ export function Header({ isFullWidth, locale = "en" }: HeaderProps) {
                 BPM
               </Link>
               <Link
-                href={`/${locale}/download`}
+                href={localeHref(locale, "download")}
                 className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {t("header.download")}

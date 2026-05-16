@@ -1,4 +1,4 @@
-import { useT } from "@/lib/i18n";
+import { localeHref, useT } from "@/lib/i18n";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -277,12 +277,12 @@ export function HomeComponent({ locale }: HomeProps) {
 
               <div className="mt-7 sm:mt-8 flex flex-wrap gap-3">
                 <Button asChild variant="bdGreen" size="lg">
-                  <Link href={`/${locale}/docs/v2.0.0/introduction`}>
+                  <Link href={localeHref(locale, "docs/v2.0.0/introduction")}>
                     {t("home.hero.cta.docs")}
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="outline">
-                  <Link href={`/${locale}/download`}>Get Bnlang</Link>
+                  <Link href={localeHref(locale, "download")}>Get Bnlang</Link>
                 </Button>
               </div>
 
@@ -433,14 +433,14 @@ export function HomeComponent({ locale }: HomeProps) {
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Button variant="bdGreen" size="lg" asChild>
                 <Link
-                  href={`/${locale}/docs/${getLatestVersionString()}/introduction`}
+                  href={localeHref(locale, `docs/${getLatestVersionString()}/introduction`)}
                 >
                   {t("home.why.cta_primary")}
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
                 <Link
-                  href={`/${locale}/learn/get-started/introduction-to-bnlang`}
+                  href={localeHref(locale, "learn/get-started/introduction-to-bnlang")}
                 >
                   {t("home.why.cta_secondary")}
                 </Link>
@@ -623,12 +623,12 @@ export function HomeComponent({ locale }: HomeProps) {
 
             <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Button asChild variant="bdGreen" size="lg">
-                <Link href={`/${locale}/docs/${getLatestVersionString()}/introduction`}>
+                <Link href={localeHref(locale, `docs/${getLatestVersionString()}/introduction`)}>
                   {t("home.features.cta_primary")}
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link href={`/${locale}/learn/get-started`}>
+                <Link href={localeHref(locale, "learn/get-started")}>
                   {t("home.features.cta_secondary")}
                 </Link>
               </Button>

@@ -89,6 +89,18 @@ export function normalizeLocale(raw?: string): Locale {
   return LOCALE_ALIASES[key] ?? "en";
 }
 
+/**
+ * Build a public URL for the given locale.
+ * - Bangla is unprefixed (canonical at /, /about, etc.)
+ * - English is prefixed with /en
+ */
+export function localeHref(locale: string, path: string = ""): string {
+  const trimmed = String(path).replace(/^\/+/, "").replace(/\/+$/, "");
+  const prefix = normalizeLocale(locale) === "en" ? "/en" : "";
+  if (!trimmed) return prefix || "/";
+  return `${prefix}/${trimmed}`;
+}
+
 function getPath(obj: any, path?: string): any {
   if (!obj || !path) return undefined;
   return path.split(".").reduce((o, k) => (o != null ? o[k] : undefined), obj);

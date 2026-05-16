@@ -25,7 +25,7 @@ export default function PrivacyPage({ locale }: Props) {
         title={title}
         description={description}
         locale={locale}
-        pathname={`/${locale}/privacy`}
+        pathname="privacy"
       />
       <Header locale={locale} />
       <main>

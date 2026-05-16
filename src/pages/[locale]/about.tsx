@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useT, normalizeLocale } from "@/lib/i18n";
+import { useT, normalizeLocale, localeHref } from "@/lib/i18n";
 import { Header } from "@/components/header";
 import HeadComponent from "@/components/head-component";
 import { Footer } from "@/components/footer";
@@ -108,7 +108,7 @@ export default function AboutPage({ locale }: Props) {
         title={title}
         description={description}
         locale={locale}
-        pathname={`/${locale}/about`}
+        pathname="about"
       />
       <Header locale={locale} />
       <main id="main">
@@ -142,7 +142,7 @@ export default function AboutPage({ locale }: Props) {
                 className="bg-bd-green hover:bg-bd-green/90"
                 aria-label={t("about.hero.cta.docs")}
               >
-                <Link href={`/${locale}/docs/v2.0.0/introduction`}>
+                <Link href={localeHref(locale, "docs/v2.0.0/introduction")}>
                   {t("about.hero.cta.docs")}
                 </Link>
               </Button>
@@ -458,7 +458,7 @@ export default function AboutPage({ locale }: Props) {
                 variant={"bdGreen"}
                 aria-label={roadmapCta.getStarted}
               >
-                <Link href={`/${locale}/docs/${getLatestVersionString()}/introduction`}>
+                <Link href={localeHref(locale, `docs/${getLatestVersionString()}/introduction`)}>
                   {roadmapCta.getStarted}
                 </Link>
               </Button>
@@ -513,7 +513,7 @@ export default function AboutPage({ locale }: Props) {
                 size={"lg"}
                 aria-label={t("about.community.cta.guide")}
               >
-                <Link href={`/${locale}/learn/get-started`}>
+                <Link href={localeHref(locale, "learn/get-started")}>
                   {t("about.community.cta.guide")}
                 </Link>
               </Button>

@@ -26,7 +26,7 @@ export default function TermsPage({ locale }: Props) {
         title={title}
         description={description}
         locale={locale}
-        pathname={`/${locale}/terms`}
+        pathname="terms"
       />
       <Header locale={locale} />
       <main className="min-h-screen">

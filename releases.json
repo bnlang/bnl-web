@@ -154,7 +154,7 @@
                     "platform": "windows",
                     "arch": "x64",
                     "sizeLabel": "3.08 MB",
-                    "sha256": "sha256:71f56817941e04a3443cef5c9154537e9b2f40166478411cab197b78bf598a56",
+                    "sha256": "sha256:36d119bb97e2ff1959dbf96799725675fd8d25a141ecfeeee6f3eb32f04516d5",
                     "contentType": "application/vnd.microsoft.portable-executable"
                 },
                 {
@@ -163,7 +163,7 @@
                     "platform": "windows",
                     "arch": "x86",
                     "sizeLabel": "2.67 MB",
-                    "sha256": "sha256:e39dea397112e3cc6a8f1d5ee038e50355ff8e59a15269e1bc9513a04db3aad2",
+                    "sha256": "sha256:01554b150ed98760afb4183727f2a5eb46598b2e2e3bc38473788046f33bdccb",
                     "contentType": "application/vnd.microsoft.portable-executable"
                 }
             ]

@@ -1,8 +1,11 @@
 # Bnlang installer for Windows.
 #
-# Usage (run from an elevated PowerShell -- the default install location is
-# under Program Files and requires Administrator):
+# Usage:
 #   irm https://bnlang.dev/install.ps1 | iex
+#
+# When run as Administrator, Bnlang installs system-wide under Program Files
+# and is added to the Machine PATH. Otherwise it installs into the current
+# user's %LOCALAPPDATA%\Programs\Bnlang and is added to the User PATH.
 #
 # Pin a version:
 #   $env:BNL_VERSION = "v1.0.0"; irm https://bnlang.dev/install.ps1 | iex
@@ -10,10 +13,9 @@
 # Environment overrides:
 #   BNL_VERSION       version to install (default: latest stable from GitHub)
 #   BNL_INSTALL_DIR   install location
-#                     default x64: %ProgramFiles%\Bnlang
-#                     default x86: %ProgramFiles(x86)%\Bnlang
-#                     If you override to a user-writable path you can run
-#                     without Administrator.
+#                     default (admin)     x64: %ProgramFiles%\Bnlang
+#                                         x86: %ProgramFiles(x86)%\Bnlang
+#                     default (non-admin): %LOCALAPPDATA%\Programs\Bnlang
 
 $ErrorActionPreference = "Stop"
 
@@ -36,28 +38,31 @@ switch ($archRaw.ToUpper()) {
 
 $platform = "windows-$arch"
 
+# --- elevation check ---
+# Writing under Program Files (and updating Machine PATH) needs admin; the
+# per-user fallback under %LOCALAPPDATA% does not.
+$isAdmin = ([Security.Principal.WindowsPrincipal] `
+    [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(
+        [Security.Principal.WindowsBuiltInRole]::Administrator)
+
 # --- resolve install directory ---
-# Default: Program Files\Bnlang for x64, Program Files (x86)\Bnlang for x86.
+# Admin: Program Files\Bnlang (x64) or Program Files (x86)\Bnlang (x86).
+# Non-admin: %LOCALAPPDATA%\Programs\Bnlang.
 # Honour BNL_INSTALL_DIR if the caller set it. Note ${env:ProgramFiles(x86)}
 # uses ${} so PowerShell does not parse the parentheses as a subexpression.
 if ($env:BNL_INSTALL_DIR) {
     $InstallDir = $env:BNL_INSTALL_DIR
-} else {
+} elseif ($isAdmin) {
     $progFiles = if ($arch -eq "x86") {
         if (${env:ProgramFiles(x86)}) { ${env:ProgramFiles(x86)} } else { "C:\Program Files (x86)" }
     } else {
         if ($env:ProgramFiles)        { $env:ProgramFiles }        else { "C:\Program Files" }
     }
     $InstallDir = Join-Path $progFiles "Bnlang"
+} else {
+    $localAppData = if ($env:LOCALAPPDATA) { $env:LOCALAPPDATA } else { Join-Path $env:USERPROFILE "AppData\Local" }
+    $InstallDir = Join-Path $localAppData "Programs\Bnlang"
 }
-
-# --- elevation check ---
-# Writing under Program Files (and updating Machine PATH) needs admin.
-# A user-writable BNL_INSTALL_DIR override doesn't, so only error when the
-# chosen location actually requires it.
-$isAdmin = ([Security.Principal.WindowsPrincipal] `
-    [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(
-        [Security.Principal.WindowsBuiltInRole]::Administrator)
 
 $pf64 = if ($env:ProgramFiles)        { $env:ProgramFiles }        else { "C:\Program Files" }
 $pf86 = if (${env:ProgramFiles(x86)}) { ${env:ProgramFiles(x86)} } else { "C:\Program Files (x86)" }

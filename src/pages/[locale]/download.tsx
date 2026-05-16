@@ -2,7 +2,7 @@ import type { GetStaticPaths, GetStaticProps } from "next";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import HeadComponent from "@/components/head-component";
-import { useT, normalizeLocale } from "@/lib/i18n";
+import { useT, normalizeLocale, localeHref } from "@/lib/i18n";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -24,6 +24,25 @@ type Props = {
   locale: SupportedLocale;
   data: ApiResponse;
 };
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
+function trackDownload(payload: {
+  version: string;
+  artifact_type: ArtifactType;
+  os: OSKey | "";
+  architecture: ArchKey | "";
+}) {
+  if (!API_URL) return;
+  try {
+    fetch(`${API_URL}/downloads`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    }).catch(() => {});
+  } catch {}
+}
 
 const OS_ICONS: Record<OSKey, React.ReactNode> = {
   windows: (
@@ -261,7 +280,7 @@ export default function DownloadPage({ locale, data }: Props) {
         title={pageTitle}
         description={pageDesc}
         locale={locale}
-        pathname={`/${locale}/download`}
+        pathname="download"
       />
       <Header locale={locale} />
 
@@ -429,7 +448,22 @@ export default function DownloadPage({ locale, data }: Props) {
                 className="bg-bd-green hover:bg-bd-green/90"
                 disabled={!selectedFile}
               >
-                <a href={url || "#"} aria-disabled={!selectedFile}>
+                <a
+                  href={url || "#"}
+                  aria-disabled={!selectedFile}
+                  onClick={() => {
+                    if (!selectedFile) return;
+                    trackDownload({
+                      version,
+                      artifact_type: artifact,
+                      os: artifact === "source" ? "" : os,
+                      architecture:
+                        artifact === "source" || !availableArches.length
+                          ? ""
+                          : arch,
+                    });
+                  }}
+                >
                   {selectedFile
                     ? t("download.selectors.downloadCta", { filename })
                     : t("download.selectors.downloadUnavailable")}
@@ -440,7 +474,7 @@ export default function DownloadPage({ locale, data }: Props) {
                 variant="outline"
                 className="border-bd-red text-bd-red"
               >
-                <Link href={`/${locale}/releases`}>
+                <Link href={localeHref(locale, "releases")}>
                   {t("download.selectors.allReleases")}
                 </Link>
               </Button>
@@ -459,7 +493,18 @@ export default function DownloadPage({ locale, data }: Props) {
                     variant="secondary"
                     size="sm"
                     className="border-bd-green text-bd-green"
-                    onClick={() => copy(chosenCmd, "cmd")}
+                    onClick={() => {
+                      copy(chosenCmd, "cmd");
+                      trackDownload({
+                        version,
+                        artifact_type: artifact,
+                        os: artifact === "source" ? "" : os,
+                        architecture:
+                          artifact === "source" || !availableArches.length
+                            ? ""
+                            : arch,
+                      });
+                    }}
                     title={t("download.terminal.copyTooltip")}
                     disabled={!release}
                   >

@@ -10,7 +10,7 @@ import { formatReadableDate } from "@/lib/utils";
 import { Blog } from "@/types/blogs.types";
 import HeadComponent from "@/components/head-component";
 import type { GetServerSideProps } from "next";
-import { normalizeLocale } from "@/lib/i18n";
+import { normalizeLocale, localeHref } from "@/lib/i18n";
 import { loadMdxWithRawContent } from "@/lib/mdx";
 import { MDXRemote } from "next-mdx-remote";
 import CodeBlock from "@/components/CodeBlock";
@@ -26,7 +26,7 @@ type Props = {
   slug: string;
   blog: Blog;
   relatedPosts: Array<
-    Pick<Blog, "_id" | "slug" | "title" | "createdAt" | "category">
+    Pick<Blog, "_id" | "slug" | "title" | "created_at" | "category">
   >;
   canonicalUrl: string;
   source: any;
@@ -128,7 +128,7 @@ function RelatedPosts({
   locale,
 }: {
   relatedPosts: Array<
-    Pick<Blog, "_id" | "slug" | "title" | "createdAt" | "category">
+    Pick<Blog, "_id" | "slug" | "title" | "created_at" | "category">
   >;
   locale: SupportedLocale;
 }) {
@@ -141,11 +141,11 @@ function RelatedPosts({
         {relatedPosts.length === 0 ? (
           <p className="text-sm text-muted-foreground">No related posts.</p>
         ) : (
-          relatedPosts.map((r) => {
+          relatedPosts.map((r, k) => {
             const title = pickByLocale(r.title, locale);
-            const href = `/${locale}/blogs/${r.slug}`;
+            const href = localeHref(locale, `blogs/${r.slug}`);
             return (
-              <div key={String(r._id)} className="space-y-1">
+              <div key={k} className="space-y-1">
                 <Link
                   href={href}
                   className="font-medium hover:underline line-clamp-1"
@@ -153,7 +153,7 @@ function RelatedPosts({
                   {title}
                 </Link>
                 <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                  <span>{formatReadableDate(r.createdAt)}</span>
+                  <span>{formatReadableDate(r.created_at)}</span>
                   <span>•</span>
                   <span className="capitalize">{r.category}</span>
                 </div>
@@ -175,8 +175,36 @@ export default function BlogDetailsSSR({
   source,
   headings,
 }: Props) {
-  const title = pickByLocale(blog?.title, locale);
-  const summary = pickByLocale(blog?.summary, locale);
+  const title = pickByLocale(blog?.title, locale) || "Bnlang Blog";
+  const summary = pickByLocale(blog?.summary, locale) || "Bnlang Blog";
+
+  const ogImage = blog?.thumbnail
+    ? `${process.env.NEXT_PUBLIC_STATIC_CDN_URL || ""}/blogs/${blog.thumbnail}`
+    : undefined;
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bnlang.dev";
+
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: title,
+      description: summary,
+      inLanguage: locale === "bn" ? "bn-BD" : "en",
+      mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
+      url: canonicalUrl,
+      image: ogImage,
+      datePublished: blog?.created_at,
+      dateModified: blog?.updated_at || blog?.created_at,
+      articleSection: blog?.category,
+      author: { "@type": "Organization", name: "Bnlang" },
+      publisher: {
+        "@type": "Organization",
+        name: "Bnlang",
+        logo: { "@type": "ImageObject", url: `${siteUrl}/images/logo.png` },
+      },
+    },
+  ];
 
   const onTocClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -190,26 +218,17 @@ export default function BlogDetailsSSR({
   return (
     <>
       <HeadComponent
-        title={
-          locale === "bn"
-            ? blog?.title?.bangla
-            : blog?.title?.english || "Bnlang Blog"
-        }
-        description={
-          locale === "bn"
-            ? blog?.summary?.bangla
-            : blog?.summary?.english || "Bnlang Blog"
-        }
+        title={title}
+        description={summary}
         locale={locale}
-        pathname={`/${locale}/blogs/${slug}`}
-        ogImage={`${
-          process.env.NEXT_PUBLIC_STATIC_CDN_URL || ""
-        }/uploads/blogs/${blog?.thumbnail || ""}`}
+        pathname={`blogs/${slug}`}
+        ogImage={ogImage}
         type="article"
+        structuredData={structuredData}
       />
 
       <div className="min-h-screen">
-        <Header />
+        <Header locale={locale} />
         <div className="mx-auto max-w-7xl px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
           <article className="lg:col-span-8">
             <div className="space-y-3">
@@ -217,7 +236,7 @@ export default function BlogDetailsSSR({
               <p className="text-muted-foreground">{summary}</p>
               <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
                 <span>
-                  Updated {formatReadableDate(blog.updatedAt || new Date())}
+                  Updated {formatReadableDate(blog.created_at || new Date())}
                 </span>
                 <span>•</span>
                 <span className="capitalize">Category: {blog.category}</span>
@@ -295,11 +314,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   if (!detailRes.ok) return { notFound: true };
   const data = await detailRes.json();
 
-  if (!data?.result?.status) return { notFound: true };
-
   const canonicalUrl = `${
     process.env.NEXT_PUBLIC_SITE_URL
-  }/${locale}/blogs/${encodeURIComponent(slug)}`;
+  }${localeHref(locale, `blogs/${encodeURIComponent(slug)}`)}`;
 
   const loaded = await loadMdxWithRawContent(
     locale === "bn"
@@ -315,7 +332,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
       slug,
       blog: data.result as Blog,
       relatedPosts: (data.relatedPosts || []) as Array<
-        Pick<Blog, "_id" | "slug" | "title" | "createdAt" | "category">
+        Pick<Blog, "_id" | "slug" | "title" | "created_at" | "category">
       >,
       canonicalUrl,
       source: loaded.mdx,

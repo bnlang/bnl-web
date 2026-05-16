@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { SupportedLocale } from "@/types/locale.types";
-import { normalizeLocale } from "@/lib/i18n";
+import { normalizeLocale, localeHref } from "@/lib/i18n";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import HeadComponent from "@/components/head-component";
@@ -303,7 +303,7 @@ export default function BlogsPage({ locale }: Props) {
 
       router.push(
         {
-          pathname: `/${locale}/blogs`,
+          pathname: localeHref(locale, "blogs"),
           query: Object.fromEntries(current),
         },
         undefined,
@@ -353,11 +353,11 @@ export default function BlogsPage({ locale }: Props) {
           "Explore a wide range of blogs to learn Bangla language, from basics to advanced topics."
         }
         locale={locale}
-        pathname={`/${locale}/blogs`}
+        pathname="blogs"
       />
 
       <div className="min-h-screen">
-        <Header />
+        <Header locale={locale} />
         <Hero qInput={qInput} setQInput={setQInput} onSubmit={onManualSearch} />
 
         <div className="mx-auto max-w-7xl px-4 pb-12">
@@ -431,7 +431,7 @@ export default function BlogsPage({ locale }: Props) {
                           ? tut.summary.bangla
                           : tut.summary.english;
 
-                      const href = `/${locale}/blogs/${tut.slug}`;
+                      const href = localeHref(locale, `blogs/${tut.slug}`);
 
                       return (
                         <Card
@@ -445,7 +445,7 @@ export default function BlogsPage({ locale }: Props) {
                           />
                           <div className="h-56 overflow-hidden">
                             <img
-                              src={`${process.env.NEXT_PUBLIC_STATIC_CDN_URL}/uploads/blogs/${tut.thumbnail}`}
+                              src={`${process.env.NEXT_PUBLIC_STATIC_CDN_URL}/blogs/${tut.thumbnail}`}
                               width="100%"
                               alt={title}
                             />
@@ -469,9 +469,9 @@ export default function BlogsPage({ locale }: Props) {
                                 </Badge>
                               )}
                             </div>
-                            {tut.updatedAt && (
+                            {tut.updated_at && (
                               <p className="text-xs text-muted-foreground">
-                                Updated {formatReadableDate(tut.updatedAt)}
+                                Updated {formatReadableDate(tut.updated_at)}
                               </p>
                             )}
                           </CardContent>

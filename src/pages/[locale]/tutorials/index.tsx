@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
 import { SupportedLocale } from "@/types/locale.types";
-import { normalizeLocale } from "@/lib/i18n";
+import { normalizeLocale, localeHref } from "@/lib/i18n";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { tutorialCategories } from "@/lib/data/tutorial-categories";
@@ -359,7 +359,7 @@ export default function TutorialsPage({ locale }: Props) {
 
       router.push(
         {
-          pathname: `/${locale}/tutorials`,
+          pathname: localeHref(locale, "tutorials"),
           query: Object.fromEntries(current),
         },
         undefined,
@@ -416,11 +416,11 @@ export default function TutorialsPage({ locale }: Props) {
           "Explore a wide range of tutorials to learn Bangla language, from basics to advanced topics."
         }
         locale={locale}
-        pathname={`/${locale}/tutorials`}
+        pathname="tutorials"
       />
 
       <div className="min-h-screen">
-        <Header />
+        <Header locale={locale} />
         <Hero qInput={qInput} setQInput={setQInput} onSubmit={onManualSearch} />
 
         <div className="mx-auto max-w-7xl px-4 pb-12">
@@ -504,7 +504,7 @@ export default function TutorialsPage({ locale }: Props) {
                           ? tut.summary.bangla
                           : tut.summary.english;
 
-                      const href = `/${locale}/tutorials/${tut.slug}`;
+                      const href = localeHref(locale, `tutorials/${tut.slug}`);
 
                       return (
                         <Card
@@ -518,7 +518,7 @@ export default function TutorialsPage({ locale }: Props) {
                           />
                           <div className="h-60 overflow-hidden">
                             <img
-                              src={`${process.env.NEXT_PUBLIC_STATIC_CDN_URL}/uploads/tutorials/${tut.thumbnail}`}
+                              src={`${process.env.NEXT_PUBLIC_STATIC_CDN_URL}/tutorials/${tut.thumbnail}`}
                               width="100%"
                               alt={title}
                             />
@@ -551,9 +551,9 @@ export default function TutorialsPage({ locale }: Props) {
                                 </Badge>
                               ))}
                             </div>
-                            {tut.updatedAt && (
+                            {tut.updated_at && (
                               <p className="text-xs text-muted-foreground">
-                                Updated {formatReadableDate(tut.updatedAt)}
+                                Updated {formatReadableDate(tut.updated_at)}
                               </p>
                             )}
                           </CardContent>

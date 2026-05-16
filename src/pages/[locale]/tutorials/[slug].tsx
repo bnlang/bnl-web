@@ -27,7 +27,7 @@ type Props = {
   slug: string;
   tutorial: Tutorial;
   relatedPosts: Array<
-    Pick<Tutorial, "_id" | "slug" | "title" | "createdAt" | "category" | "tags">
+    Pick<Tutorial, "_id" | "slug" | "title" | "created_at" | "category" | "tags">
   >;
   canonicalUrl: string;
   source: any;
@@ -129,7 +129,7 @@ function RelatedPosts({
   locale,
 }: {
   relatedPosts: Array<
-    Pick<Tutorial, "_id" | "slug" | "title" | "createdAt" | "category" | "tags">
+    Pick<Tutorial, "_id" | "slug" | "title" | "created_at" | "category" | "tags">
   >;
   locale: SupportedLocale;
 }) {
@@ -154,7 +154,7 @@ function RelatedPosts({
                   {title}
                 </Link>
                 <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                  <span>{formatReadableDate(r.createdAt)}</span>
+                  <span>{formatReadableDate(r.created_at)}</span>
                   <span>•</span>
                   <span className="capitalize">{r.category}</span>
                 </div>
@@ -189,7 +189,7 @@ export default function TutorialDetailsSSR({
   const summary = pickByLocale(tutorial?.summary, locale) || "Bnlang Tutorials";
 
   const ogImage = tutorial?.thumbnail
-    ? `${process.env.NEXT_PUBLIC_STATIC_CDN_URL || ""}/uploads/tutorials/${tutorial.thumbnail}`
+    ? `${process.env.NEXT_PUBLIC_STATIC_CDN_URL || ""}/tutorials/${tutorial.thumbnail}`
     : undefined;
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bnlang.dev";
@@ -204,8 +204,8 @@ export default function TutorialDetailsSSR({
       mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
       url: canonicalUrl,
       image: ogImage,
-      datePublished: tutorial?.createdAt,
-      dateModified: tutorial?.updatedAt || tutorial?.createdAt,
+      datePublished: tutorial?.created_at,
+      dateModified: tutorial?.updated_at || tutorial?.created_at,
       articleSection: tutorial?.category,
       keywords:
         tutorial?.tags && tutorial.tags.length ? tutorial.tags.join(", ") : undefined,
@@ -248,7 +248,7 @@ export default function TutorialDetailsSSR({
               <p className="text-muted-foreground">{summary}</p>
               <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
                 <span>
-                  Updated {formatReadableDate(tutorial.updatedAt || new Date())}
+                  Updated {formatReadableDate(tutorial.updated_at || new Date())}
                 </span>
                 <span>•</span>
                 <span className="capitalize">
@@ -340,7 +340,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   if (!detailRes.ok) return { notFound: true };
   const data = await detailRes.json();
 
-  if (!data?.result?.status) return { notFound: true };
   const canonicalUrl = `${
     process.env.NEXT_PUBLIC_SITE_URL
   }${localeHref(locale, `tutorials/${encodeURIComponent(slug)}`)}`;
@@ -361,7 +360,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
       relatedPosts: (data.relatedPosts || []) as Array<
         Pick<
           Tutorial,
-          "_id" | "slug" | "title" | "createdAt" | "category" | "tags"
+          "_id" | "slug" | "title" | "created_at" | "category" | "tags"
         >
       >,
       canonicalUrl,

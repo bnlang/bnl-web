@@ -518,7 +518,7 @@ export default function TutorialsPage({ locale }: Props) {
                           />
                           <div className="h-60 overflow-hidden">
                             <img
-                              src={`${process.env.NEXT_PUBLIC_STATIC_CDN_URL}/uploads/tutorials/${tut.thumbnail}`}
+                              src={`${process.env.NEXT_PUBLIC_STATIC_CDN_URL}/tutorials/${tut.thumbnail}`}
                               width="100%"
                               alt={title}
                             />
@@ -551,9 +551,9 @@ export default function TutorialsPage({ locale }: Props) {
                                 </Badge>
                               ))}
                             </div>
-                            {tut.updatedAt && (
+                            {tut.updated_at && (
                               <p className="text-xs text-muted-foreground">
-                                Updated {formatReadableDate(tut.updatedAt)}
+                                Updated {formatReadableDate(tut.updated_at)}
                               </p>
                             )}
                           </CardContent>

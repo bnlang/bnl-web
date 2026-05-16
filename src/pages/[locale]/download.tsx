@@ -25,6 +25,25 @@ type Props = {
   data: ApiResponse;
 };
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
+function trackDownload(payload: {
+  version: string;
+  artifact_type: ArtifactType;
+  os: OSKey | "";
+  architecture: ArchKey | "";
+}) {
+  if (!API_URL) return;
+  try {
+    fetch(`${API_URL}/downloads`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    }).catch(() => {});
+  } catch {}
+}
+
 const OS_ICONS: Record<OSKey, React.ReactNode> = {
   windows: (
     <svg
@@ -429,7 +448,22 @@ export default function DownloadPage({ locale, data }: Props) {
                 className="bg-bd-green hover:bg-bd-green/90"
                 disabled={!selectedFile}
               >
-                <a href={url || "#"} aria-disabled={!selectedFile}>
+                <a
+                  href={url || "#"}
+                  aria-disabled={!selectedFile}
+                  onClick={() => {
+                    if (!selectedFile) return;
+                    trackDownload({
+                      version,
+                      artifact_type: artifact,
+                      os: artifact === "source" ? "" : os,
+                      architecture:
+                        artifact === "source" || !availableArches.length
+                          ? ""
+                          : arch,
+                    });
+                  }}
+                >
                   {selectedFile
                     ? t("download.selectors.downloadCta", { filename })
                     : t("download.selectors.downloadUnavailable")}
@@ -459,7 +493,18 @@ export default function DownloadPage({ locale, data }: Props) {
                     variant="secondary"
                     size="sm"
                     className="border-bd-green text-bd-green"
-                    onClick={() => copy(chosenCmd, "cmd")}
+                    onClick={() => {
+                      copy(chosenCmd, "cmd");
+                      trackDownload({
+                        version,
+                        artifact_type: artifact,
+                        os: artifact === "source" ? "" : os,
+                        architecture:
+                          artifact === "source" || !availableArches.length
+                            ? ""
+                            : arch,
+                      });
+                    }}
                     title={t("download.terminal.copyTooltip")}
                     disabled={!release}
                   >

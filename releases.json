@@ -100,7 +100,7 @@
                     "platform": "linux",
                     "arch": "x64",
                     "sizeLabel": "5.6 MB",
-                    "sha256": "sha256:305b04872325f07b04d1c2e163c9e61f64a1a6fc110597bcb6e8a007bcdc59a5",
+                    "sha256": "sha256:2e8989c65b267ad6c235993953d468dc60693d59fadb1cdad79535f432573d9d",
                     "contentType": "application/gzip"
                 },
                 {
@@ -109,7 +109,7 @@
                     "platform": "linux",
                     "arch": "x86",
                     "sizeLabel": "5.71 MB",
-                    "sha256": "sha256:2c284b8ece07fd51ac2fb064c8539e77ac8bd882313c937706e8a4834318e650",
+                    "sha256": "sha256:bb7ab84a1615575dad3bf8b723ab6e70edd6bbfd7a2fc9d2d28b3b269f12b174",
                     "contentType": "application/gzip"
                 },
                 {
@@ -117,8 +117,8 @@
                     "type": "binary",
                     "platform": "macos",
                     "arch": "arm64",
-                    "sizeLabel": "4.09 MB",
-                    "sha256": "sha256:9337a4f41e0cae6f84f6eb407f0a72bc9c8e63785d4dac87be803ab82342675b",
+                    "sizeLabel": "4.1 MB",
+                    "sha256": "sha256:06b6e67c55d2c23ccddeac5c1997f3b75082160c7a8d91ac2996fa7bed24209f",
                     "contentType": "application/gzip"
                 },
                 {
@@ -127,7 +127,7 @@
                     "platform": "macos",
                     "arch": "x64",
                     "sizeLabel": "3.91 MB",
-                    "sha256": "sha256:4f03473539332b71408f7f5d6ade98d5c27731664341a6237b54d3d777c169c7",
+                    "sha256": "sha256:2952f08e0ec69520f6c07f78c7eaeb34e82eb10283c1ad08cc780258ab5ad4c6",
                     "contentType": "application/gzip"
                 },
                 {
@@ -135,8 +135,8 @@
                     "type": "binary",
                     "platform": "windows",
                     "arch": "x64",
-                    "sizeLabel": "3.82 MB",
-                    "sha256": "sha256:b3809620be0c438a02569146e921070536f214b34734fcd992d987a3ee225112",
+                    "sizeLabel": "3.83 MB",
+                    "sha256": "sha256:19ca1d1b2017d89a203318e3a1d36cf6358112e75b4b04ce77a8d5912a1dbd19",
                     "contentType": "application/zip"
                 },
                 {
@@ -145,7 +145,7 @@
                     "platform": "windows",
                     "arch": "x86",
                     "sizeLabel": "3.21 MB",
-                    "sha256": "sha256:46d74aeb3d190578db36dc913a10ce0390314a840fb6a90b390cc299c93a6a02",
+                    "sha256": "sha256:9eb061989e99b7be4ed66213e49a6859cd2ebfd336ae9e5b386d26111718de5c",
                     "contentType": "application/zip"
                 },
                 {
@@ -154,7 +154,7 @@
                     "platform": "windows",
                     "arch": "x64",
                     "sizeLabel": "3.09 MB",
-                    "sha256": "sha256:f5c08ca1a730c5ec6f5c5f626e3443b03618998f029df89c04692c8703ba0890",
+                    "sha256": "sha256:6b90cf628023e3fa7f9a37e99e82c16d7d19df388aa7791138f657927ac1f263",
                     "contentType": "application/vnd.microsoft.portable-executable"
                 },
                 {
@@ -162,8 +162,8 @@
                     "type": "installer",
                     "platform": "windows",
                     "arch": "x86",
-                    "sizeLabel": "2.67 MB",
-                    "sha256": "sha256:232a4ee20025560cb66ecb2219670687675d0c6fa71e89686f3848e1bd4901ff",
+                    "sizeLabel": "2.68 MB",
+                    "sha256": "sha256:bfe351994d1213176442141a9c1cf95324e0d985d4323006eb2edffd4ad563ee",
                     "contentType": "application/vnd.microsoft.portable-executable"
                 }
             ]

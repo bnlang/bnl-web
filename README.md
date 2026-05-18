@@ -53,10 +53,3 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for more details.
 - Documentation: [CC BY-SA 4.0](./LICENSE-DOCS)  
 
 ---
-
-## ™️ Trademark
-
-**Bnlang** and the **Bnlang logo** are trademarks of the Bnlang Project.  
-You may not use the name or logo to endorse or promote products derived from this project without prior written permission.
-
----

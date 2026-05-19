@@ -1,6 +1,6 @@
 {
     "baseUrl": "https://github.com/bnlang/bnl-release/releases/download/",
-    "latest": "v2.0.0",
+    "latest": "v2.1.0",
     "releases": [
         {
             "version": "v1.0.0",
@@ -164,6 +164,89 @@
                     "arch": "x86",
                     "sizeLabel": "2.68 MB",
                     "sha256": "sha256:bfe351994d1213176442141a9c1cf95324e0d985d4323006eb2edffd4ad563ee",
+                    "contentType": "application/vnd.microsoft.portable-executable"
+                }
+            ]
+        },
+        {
+            "version": "v2.1.0",
+            "date": "2026-05-19",
+            "status": "stable",
+            "channel": "stable",
+            "noteEnglish": "Current stable release of Bnlang runtime. Multilingual syntax (Bangla/English), BPM lockfiles, stdlib (IO/HTTP/crypto/text), and polished tooling.",
+            "noteBangla": "Bnlang-এর বর্তমান স্থিতিশীল রিলিজ। ত্রিভাষিক সিনট্যাক্স (বাংলা/ইংরেজি), BPM lockfile, stdlib (IO/HTTP/crypto/text), এবং উন্নত টুলিং।",
+            "noteBanglish": "Bnlang-er bortoman stable release. Trivashik syntax (Bangla/English), BPM lockfile, stdlib (IO/HTTP/crypto/text), aar polished tooling.",
+            "files": [
+                {
+                    "name": "bnlang-linux-x64-v2.1.0.tar.gz",
+                    "type": "binary",
+                    "platform": "linux",
+                    "arch": "x64",
+                    "sizeLabel": "5.61 MB",
+                    "sha256": "sha256:62df74eec7332e9b794ca2598507c59d74d8a959057b7317aaf4b26d98b3fe3f",
+                    "contentType": "application/gzip"
+                },
+                {
+                    "name": "bnlang-linux-x86-v2.1.0.tar.gz",
+                    "type": "binary",
+                    "platform": "linux",
+                    "arch": "x86",
+                    "sizeLabel": "5.71 MB",
+                    "sha256": "sha256:3e0a8475d94271b1c845068bb9d2294f748f8e5d128524acbaf3987768522ffe",
+                    "contentType": "application/gzip"
+                },
+                {
+                    "name": "bnlang-macos-arm64-v2.1.0.tar.gz",
+                    "type": "binary",
+                    "platform": "macos",
+                    "arch": "arm64",
+                    "sizeLabel": "4.1 MB",
+                    "sha256": "sha256:32bc51c4defca15a02c297b8545d1ae48c94da3d134048af513b694748d8bd25",
+                    "contentType": "application/gzip"
+                },
+                {
+                    "name": "bnlang-macos-x64-v2.1.0.tar.gz",
+                    "type": "binary",
+                    "platform": "macos",
+                    "arch": "x64",
+                    "sizeLabel": "3.91 MB",
+                    "sha256": "sha256:fa1f26233d1f1dd67f961260c2c7247dad1434bc96d27023eefed70df2f042fd",
+                    "contentType": "application/gzip"
+                },
+                {
+                    "name": "bnlang-windows-x64-v2.1.0.zip",
+                    "type": "binary",
+                    "platform": "windows",
+                    "arch": "x64",
+                    "sizeLabel": "3.83 MB",
+                    "sha256": "sha256:0929b0ab9101fa1f50d0c0c50432c2f73444048ba3e1dc7091c167901dfa54c6",
+                    "contentType": "application/zip"
+                },
+                {
+                    "name": "bnlang-windows-x86-v2.1.0.zip",
+                    "type": "binary",
+                    "platform": "windows",
+                    "arch": "x86",
+                    "sizeLabel": "3.21 MB",
+                    "sha256": "sha256:0b59e08b293a7b7eeeb768a6ec1700ef6e5dc265c398005489c3ad03fec0e125",
+                    "contentType": "application/zip"
+                },
+                {
+                    "name": "bnlang-windows-x64-v2.1.0-installer.exe",
+                    "type": "installer",
+                    "platform": "windows",
+                    "arch": "x64",
+                    "sizeLabel": "3.1 MB",
+                    "sha256": "sha256:8098839457c35be22004e2716ce488e5dbd3962720099e21ad67f279f2475a37",
+                    "contentType": "application/vnd.microsoft.portable-executable"
+                },
+                {
+                    "name": "bnlang-windows-x86-v2.1.0-installer.exe",
+                    "type": "installer",
+                    "platform": "windows",
+                    "arch": "x86",
+                    "sizeLabel": "2.68 MB",
+                    "sha256": "sha256:fb2ccd3a09e6b3f23fccb1076b6c82e8797d1e0813d00bc2dcd48ee1d0474ced",
                     "contentType": "application/vnd.microsoft.portable-executable"
                 }
             ]

@@ -183,7 +183,7 @@
                     "platform": "linux",
                     "arch": "x64",
                     "sizeLabel": "5.61 MB",
-                    "sha256": "sha256:62df74eec7332e9b794ca2598507c59d74d8a959057b7317aaf4b26d98b3fe3f",
+                    "sha256": "sha256:5e81a7d1fde05d418e9b2b4dbaf92d2de68c72b45b2938425e82828ff55d8441",
                     "contentType": "application/gzip"
                 },
                 {
@@ -192,7 +192,7 @@
                     "platform": "linux",
                     "arch": "x86",
                     "sizeLabel": "5.71 MB",
-                    "sha256": "sha256:3e0a8475d94271b1c845068bb9d2294f748f8e5d128524acbaf3987768522ffe",
+                    "sha256": "sha256:8889ea4fd1221cd225d0519cdf1fe8b0be39914f01c3444a870a4d66427b2594",
                     "contentType": "application/gzip"
                 },
                 {
@@ -201,7 +201,7 @@
                     "platform": "macos",
                     "arch": "arm64",
                     "sizeLabel": "4.1 MB",
-                    "sha256": "sha256:32bc51c4defca15a02c297b8545d1ae48c94da3d134048af513b694748d8bd25",
+                    "sha256": "sha256:dca34c57c042f5b111e55cd0f4b749d25adabaecb90617880b4896ae3afd2336",
                     "contentType": "application/gzip"
                 },
                 {
@@ -210,7 +210,7 @@
                     "platform": "macos",
                     "arch": "x64",
                     "sizeLabel": "3.91 MB",
-                    "sha256": "sha256:fa1f26233d1f1dd67f961260c2c7247dad1434bc96d27023eefed70df2f042fd",
+                    "sha256": "sha256:f7cc3cb9021a81ccba3bb6c28bdbac10db8562e1dbc2c612c8a680b3c8a1388d",
                     "contentType": "application/gzip"
                 },
                 {
@@ -219,7 +219,7 @@
                     "platform": "windows",
                     "arch": "x64",
                     "sizeLabel": "3.83 MB",
-                    "sha256": "sha256:0929b0ab9101fa1f50d0c0c50432c2f73444048ba3e1dc7091c167901dfa54c6",
+                    "sha256": "sha256:f7df58e0e1168a57d93887909ee1962c9dbb38e4ecd307761bf8f608154c5335",
                     "contentType": "application/zip"
                 },
                 {
@@ -228,7 +228,7 @@
                     "platform": "windows",
                     "arch": "x86",
                     "sizeLabel": "3.21 MB",
-                    "sha256": "sha256:0b59e08b293a7b7eeeb768a6ec1700ef6e5dc265c398005489c3ad03fec0e125",
+                    "sha256": "sha256:74e9f1a8d696bf61a8e7663b83a793238d82847febe8fa699ebb6b6cb11f0420",
                     "contentType": "application/zip"
                 },
                 {
@@ -237,7 +237,7 @@
                     "platform": "windows",
                     "arch": "x64",
                     "sizeLabel": "3.1 MB",
-                    "sha256": "sha256:8098839457c35be22004e2716ce488e5dbd3962720099e21ad67f279f2475a37",
+                    "sha256": "sha256:a81c2c1ff0b5c19a1541caa1398d6e29198572f4f38fd97b9aa088300ff4dd49",
                     "contentType": "application/vnd.microsoft.portable-executable"
                 },
                 {
@@ -246,7 +246,7 @@
                     "platform": "windows",
                     "arch": "x86",
                     "sizeLabel": "2.68 MB",
-                    "sha256": "sha256:fb2ccd3a09e6b3f23fccb1076b6c82e8797d1e0813d00bc2dcd48ee1d0474ced",
+                    "sha256": "sha256:1d0208d6441701951dc1c4e183f23494d952411e61edb57da667793a9aacca54",
                     "contentType": "application/vnd.microsoft.portable-executable"
                 }
             ]

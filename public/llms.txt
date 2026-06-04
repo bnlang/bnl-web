@@ -1,6 +1,6 @@
 # Bnlang
 
-> Bnlang is a dual-language programming language and runtime — write code in English or Bangla, side by side. It runs as a native, embeddable tree-walking interpreter written in modern C++ with libuv, OpenSSL, llhttp, SQLite/PostgreSQL/MongoDB drivers, a templating engine, WebSockets, and an HTTP client — all in the standard library.
+> Bnlang is a dual-language programming language and runtime — write code in English or Bangla, side by side. It runs as a native, embeddable tree-walking interpreter written in modern C++ with libuv, OpenSSL, llhttp, a templating engine, WebSockets, and an HTTP client — all in the standard library. Database clients (SQLite, PostgreSQL, MongoDB, MySQL) ship as separate bpm packages.
 
 Source files (`.bnl`) run directly with the `bnl` CLI. The interpreter and every built-in module are C++20 code linked into one binary. A small package manager (`bpm`) handles dependencies via `bnl.json` / `bnl.lock`.
 
@@ -13,7 +13,7 @@ The language is deliberately small and regular. There is one declaration keyword
 - **Implementation**: native interpreter, tree-walking interpreter, embeddable runtime, C++20, libuv, OpenSSL, llhttp, zlib, single-binary runtime, no transpilation step
 - **Design principles**: small surface area, fixed-arity functions (no defaults, no overloading), `Future` + `wait` async model with no `async` marker (callbacks still supported), switch with no fall-through, word-form logical operators (`and`/`or`/`not`), single declaration keyword `var`, explicit `self` method receiver
 - **Built-in stdlib**: HTTP/HTTPS server, HTTP client, WebSocket server, templating engine (with blocks, filters, inheritance, whitespace control), JSON, CSV, regex, crypto (SHA, HMAC, base64), UUID v4, file I/O (sync/async/streaming), path manipulation, timers, child processes, leveled logging, `.env` parsing, CLI argument parser, built-in test framework
-- **Database drivers**: SQLite (embedded), PostgreSQL (libpq), MongoDB (mongo-c-driver)
+- **Database drivers (bpm packages)**: `sqlite-cli` (shells to `sqlite3`), `pg` (pure-bnl Postgres wire), `mongodb` (pure-bnl Mongo wire), `mysql` (pure-bnl MySQL/MariaDB wire)
 - **Tooling**: `bnl` CLI, REPL, `bpm` package manager, `bnl.json` manifest, `bnl.lock` lockfile, VS Code extension `bnlang.bnl-vscode`, FFI plugin loader for `.dll`/`.so`/`.dylib`
 - **Platforms**: Windows (x64, x86), Linux (x64), macOS (Apple Silicon)
 - **Audience**: Bangla-speaking developers, students, educators, programming-in-mother-tongue advocates; also general-purpose users embedding a small scripting language in C++ hosts
@@ -75,12 +75,13 @@ Data: `json`, `csv`, `regex`
 Crypto / math: `crypto`, `random`, `math`, `zlib`
 Network: `net`, `dns`, `tls`, `url`
 HTTP / web: `web`, `request`, `ws`, `cookie`, `session`, `multipart`, `template`
-Database: `sqlite`, `pg`, `mongo`
 Utilities: `log`, `dotenv`, `cli`, `uuid`, `exec`, `test`
+
+Database clients are bpm packages (not stdlib): `sqlite-cli`, `pg`, `mongodb`, `mysql`. Install with `bpm install <name>` and `import "<name>" as ...`.
 
 There is no longer an `async` module — the old `series`/`parallel`/`waterfall`/`map`/`each` helpers were removed when `Future` + `wait` landed. Use `Future.all([...])` / `Future.race([...])` / `Future.all_settled([...])` and `for (var x of list) { wait fn(x); }` for the same patterns.
 
-Import syntax is always `import "name" as alias;` — direct path imports (`import "./plugins/mathx.dll" as m;`) load FFI plugins; bare names resolve against the stdlib first, then `./deps/<name>/` for BPM packages. Bare-name imports accept Bangla module names too: `import "অনুরোধ" as r;` resolves identically to `import "request" as r;`. Same for `ফাইল` (`io`), `ওয়েব` (`web`), `সময়` (`time`), `পথ` (`path`), `গণিত` (`math`), `জেসন` (`json`), `সিএসভি` (`csv`), `ক্রিপ্টো` (`crypto`), `এলোমেলো` (`random`), `প্যাটার্ন` (`regex`), `টাইমার` (`timers`), `নেট` (`net`), `ডিএনএস` (`dns`), `টিএলএস` (`tls`), `ইউআরএল` (`url`), `ওয়েবসকেট` (`ws`), `কুকি` (`cookie`), `অধিবেশন` (`session`), `মাল্টিপার্ট` (`multipart`), `টেমপ্লেট` (`template`), `এসকিউলাইট` (`sqlite`), `পোস্টগ্রেস` (`pg`), `মঙ্গো` (`mongo`), `লগ` (`log`), `ডটএনভ` (`dotenv`), `কমান্ড` (`cli`), `ইউইউআইডি` (`uuid`), `চালান` (`exec`), `টেস্ট` (`test`), `সংকোচন` (`zlib`), `সিস্টেম` (`sys`).
+Import syntax is always `import "name" as alias;` — direct path imports (`import "./plugins/mathx.dll" as m;`) load FFI plugins; bare names resolve against the stdlib first, then `./deps/<name>/` for BPM packages. Bare-name imports accept Bangla module names too: `import "অনুরোধ" as r;` resolves identically to `import "request" as r;`. Same for `ফাইল` (`io`), `ওয়েব` (`web`), `সময়` (`time`), `পথ` (`path`), `গণিত` (`math`), `জেসন` (`json`), `সিএসভি` (`csv`), `ক্রিপ্টো` (`crypto`), `এলোমেলো` (`random`), `প্যাটার্ন` (`regex`), `টাইমার` (`timers`), `নেট` (`net`), `ডিএনএস` (`dns`), `টিএলএস` (`tls`), `ইউআরএল` (`url`), `ওয়েবসকেট` (`ws`), `কুকি` (`cookie`), `অধিবেশন` (`session`), `মাল্টিপার্ট` (`multipart`), `টেমপ্লেট` (`template`), `লগ` (`log`), `ডটএনভ` (`dotenv`), `কমান্ড` (`cli`), `ইউইউআইডি` (`uuid`), `চালান` (`exec`), `টেস্ট` (`test`), `সংকোচন` (`zlib`), `সিস্টেম` (`sys`).
 
 ### File extension
 
@@ -170,12 +171,6 @@ There is no `async` keyword. Functions are one color — if a function uses `wai
 - [session](https://bnlang.dev/en/docs/v1.0.0/modules/session-module): in-memory session middleware (pluggable for Redis/DB)
 - [multipart](https://bnlang.dev/en/docs/v1.0.0/modules/multipart-module): `multipart/form-data` encode/decode (streaming variant for huge uploads)
 - [template](https://bnlang.dev/en/docs/v1.0.0/modules/template-module): templating engine — `{{ var }}`, `{% if %}`, `{% for %}`, `{% block %}`, filters, inheritance, whitespace control
-
-### Database
-
-- [sqlite](https://bnlang.dev/en/docs/v1.0.0/modules/sqlite-module): embedded SQLite — `open`, `exec`, `query`, `query_one`, transactions, migrations
-- [pg](https://bnlang.dev/en/docs/v1.0.0/modules/pg-module): PostgreSQL via libpq (`$1`, `$2` parameter placeholders)
-- [mongo](https://bnlang.dev/en/docs/v1.0.0/modules/mongo-module): MongoDB via mongo-c-driver
 
 ### Utilities
 

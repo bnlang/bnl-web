@@ -32,7 +32,7 @@ This page walks through what happens when you run `bnl your_script.bnl`.
 2. **Parser** — turns tokens into an AST (Abstract Syntax Tree). Pure recursive descent; no parser generator.
 3. **Interpreter** — walks the AST directly to produce values. No bytecode emission, no JIT.
 4. **Event loop** — libuv drives async I/O (file ops, sockets, timers, child processes) without blocking the main thread.
-5. **Standard library** — built-in modules (`io`, `web`, `request`, `template`, `sqlite`, `pg`, `mongo`, `crypto`, ...) live in C++ and register their functions with the interpreter at startup.
+5. **Standard library** — built-in modules (`io`, `web`, `request`, `template`, `crypto`, ...) live in C++ and register their functions with the interpreter at startup. Database clients (`sqlite-cli`, `pg`, `mongodb`, `mysql`) ship separately as bpm packages.
 </I18nEnglish>
 
 <I18nBangla>
@@ -40,7 +40,7 @@ This page walks through what happens when you run `bnl your_script.bnl`.
 ২. **পার্সার** — টোকেন থেকে AST (Abstract Syntax Tree) বানায়। পিউর রিকার্সিভ-ডিসেন্ট; কোনো পার্সার-জেনারেটর নেই।
 ৩. **ইন্টারপ্রেটার** — AST সরাসরি ওয়াক করে ভ্যালু তৈরি করে। কোনো বাইটকোড এমিশন বা JIT নেই।
 ৪. **ইভেন্ট লুপ** — libuv অ্যাসিঙ্ক I/O (ফাইল অপ, সকেট, টাইমার, চাইল্ড প্রসেস) চালায়, মূল থ্রেড ব্লক না করে।
-৫. **স্ট্যান্ডার্ড লাইব্রেরি** — বিল্ট-ইন মডিউল (`io`, `web`, `request`, `template`, `sqlite`, `pg`, `mongo`, `crypto`, ...) C++ এ লেখা, এবং স্টার্টআপে ইন্টারপ্রেটারের সাথে নিজেদের ফাংশন রেজিস্টার করে।
+৫. **স্ট্যান্ডার্ড লাইব্রেরি** — বিল্ট-ইন মডিউল (`io`, `web`, `request`, `template`, `crypto`, ...) C++ এ লেখা, এবং স্টার্টআপে ইন্টারপ্রেটারের সাথে নিজেদের ফাংশন রেজিস্টার করে। ডাটাবেস ক্লায়েন্ট (`sqlite-cli`, `pg`, `mongodb`, `mysql`) আলাদা bpm প্যাকেজ হিসেবে আসে।
 </I18nBangla>
 
 ---
@@ -97,7 +97,6 @@ Under the hood Bnlang stands on a small set of well-known C/C++ libraries:
 - **libuv** — cross-platform event loop and async I/O primitives.
 - **OpenSSL** — TLS for HTTPS / WebSocket-over-TLS, plus hashing, HMAC, and base64/hex codecs.
 - **llhttp** — fast HTTP/1.1 parser used by the built-in web server and client.
-- **SQLite / libpq / mongo-c-driver** — embedded SQLite plus first-class clients for PostgreSQL and MongoDB.
 - **zlib** — gzip/deflate for HTTP compression and general data processing.
 </I18nEnglish>
 
@@ -108,7 +107,6 @@ Under the hood Bnlang stands on a small set of well-known C/C++ libraries:
 - **libuv** — ক্রস-প্ল্যাটফর্ম ইভেন্ট লুপ ও অ্যাসিঙ্ক I/O প্রিমিটিভ।
 - **OpenSSL** — HTTPS / WebSocket-over-TLS এর জন্য TLS, এবং হ্যাশিং, HMAC, base64/hex কোডেক।
 - **llhttp** — দ্রুত HTTP/1.1 পার্সার, বিল্ট-ইন ওয়েব সার্ভার ও ক্লায়েন্ট ব্যবহার করে।
-- **SQLite / libpq / mongo-c-driver** — এমবেডেড SQLite এবং PostgreSQL, MongoDB এর জন্য প্রথম-শ্রেণির ক্লায়েন্ট।
 - **zlib** — HTTP কম্প্রেশন ও সাধারণ ডেটা প্রসেসিং এর জন্য gzip/deflate।
 </I18nBangla>
 

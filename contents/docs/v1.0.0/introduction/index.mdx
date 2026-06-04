@@ -19,7 +19,7 @@ Bnlang is **native**: a tree-walking interpreter written in modern C++ with a li
 ## Design principles
 - **Predictable semantics.** Small, regular syntax. Fixed-arity functions. No surprising overloads, no implicit type coercions worth memorizing.
 - **One way to do it.** No `let`/`const`/`var` trio — just `var`. No `===` and `==` debate — just `==`. No `null` and `undefined` split — just `null`.
-- **Batteries included.** File I/O, HTTP/WebSocket server and client, templating, SQLite/PostgreSQL/MongoDB, crypto, timers, JSON, regex — all in the standard library.
+- **Batteries included.** File I/O, HTTP/WebSocket server and client, templating, crypto, timers, JSON, regex — all in the standard library. Databases (SQLite, PostgreSQL, MongoDB, MySQL) ship as separate bpm packages.
 - **Extensible.** Drop a `.dll` / `.so` / `.dylib` next to a `bnl.json` and `import` it like any other module. Plugins use a single drop-in C header — they can be written in C, C++, Rust, Go, Zig, or anything with a C ABI.
 
 ## Runtime stack (under the hood)
@@ -27,7 +27,6 @@ Bnlang is **native**: a tree-walking interpreter written in modern C++ with a li
 - **libuv** — cross-platform event loop and async I/O primitives.
 - **OpenSSL** — TLS for HTTPS / WebSocket-over-TLS, plus hashing, HMAC, base64/hex codecs.
 - **llhttp** — fast HTTP/1.1 parser used by the built-in web server and client.
-- **SQLite / libpq / mongo-c-driver** — embedded SQLite and first-class clients for PostgreSQL and MongoDB.
 - **zlib** — gzip/deflate.
 
 ## Hello, Bnlang (two ways)
@@ -75,7 +74,7 @@ Bnlang একটি **নেটিভ ভাষা**: আধুনিক C++ এ
 ## ডিজাইন নীতি
 - **পূর্বানুমানযোগ্য সেম্যান্টিক্স।** ছোট, নিয়মিত সিনট্যাক্স। ফিক্সড-অ্যারিটি ফাংশন। কোনো বিভ্রান্তিকর ওভারলোড নেই।
 - **একটাই পথ।** `let`/`const`/`var` ত্রিভুজ নেই — শুধু `var`। `===` বনাম `==` বিতর্ক নেই — শুধু `==`। `null` ও `undefined` ভাগ নেই — শুধু `null`।
-- **ব্যাটারি ইনক্লুডেড।** ফাইল I/O, HTTP/WebSocket সার্ভার ও ক্লায়েন্ট, টেমপ্লেটিং, SQLite/PostgreSQL/MongoDB, ক্রিপ্টো, টাইমার, JSON, regex — সবই স্ট্যান্ডার্ড লাইব্রেরিতে।
+- **ব্যাটারি ইনক্লুডেড।** ফাইল I/O, HTTP/WebSocket সার্ভার ও ক্লায়েন্ট, টেমপ্লেটিং, ক্রিপ্টো, টাইমার, JSON, regex — সবই স্ট্যান্ডার্ড লাইব্রেরিতে। ডাটাবেস (SQLite, PostgreSQL, MongoDB, MySQL) আলাদা bpm প্যাকেজ হিসেবে আসে।
 - **এক্সটেনসিবল।** একটি `bnl.json`-এর পাশে `.dll` / `.so` / `.dylib` রেখে যেকোনো অন্য মডিউলের মতই `import` করুন। প্লাগইন একটি একক drop-in C হেডার ব্যবহার করে — এগুলো C, C++, Rust, Go, Zig, বা C ABI সমর্থিত যেকোনো ভাষায় লেখা যায়।
 
 ## রানটাইম স্ট্যাক (অভ্যন্তরে)
@@ -83,7 +82,6 @@ Bnlang একটি **নেটিভ ভাষা**: আধুনিক C++ এ
 - **libuv** — ক্রস-প্ল্যাটফর্ম ইভেন্ট লুপ ও অ্যাসিঙ্ক I/O প্রিমিটিভ।
 - **OpenSSL** — HTTPS / WebSocket-over-TLS এর জন্য TLS, এবং হ্যাশিং, HMAC, base64/hex কোডেক।
 - **llhttp** — দ্রুত HTTP/1.1 পার্সার, বিল্ট-ইন ওয়েব সার্ভার ও ক্লায়েন্ট ব্যবহার করে।
-- **SQLite / libpq / mongo-c-driver** — এমবেডেড SQLite এবং PostgreSQL, MongoDB এর জন্য প্রথম-শ্রেণির ক্লায়েন্ট।
 - **zlib** — gzip/deflate।
 
 ## হ্যালো, Bnlang (দু'ভাবে)

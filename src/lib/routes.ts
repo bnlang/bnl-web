@@ -150,10 +150,6 @@ const DOC_TREE: DocItem[] = [
         { slug: "session-module",  title: "session",  titleBn: "session" },
         { slug: "multipart-module",title: "multipart",titleBn: "multipart" },
         { slug: "template-module", title: "template", titleBn: "template" },
-        // Database
-        { slug: "sqlite-module",   title: "sqlite",   titleBn: "sqlite" },
-        { slug: "pg-module",       title: "pg",       titleBn: "pg" },
-        { slug: "mongo-module",    title: "mongo",    titleBn: "mongo" },
         // Process & test
         { slug: "exec-module",     title: "exec",     titleBn: "exec" },
         { slug: "test-module",     title: "test",     titleBn: "test" },

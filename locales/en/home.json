@@ -25,7 +25,7 @@
                 "label": "GitHub Stars"
             },
             {
-                "value": "2+",
+                "value": "10+",
                 "label": "Packages in BPM"
             },
             {
@@ -33,7 +33,7 @@
                 "label": "Contributors"
             },
             {
-                "value": "v2.0.0",
+                "value": "v3.0.0",
                 "label": "Latest Release"
             }
         ],
